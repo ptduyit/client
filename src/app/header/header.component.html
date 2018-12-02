@@ -1,0 +1,56 @@
+
+  <div class="ad">
+    <a href=""> quang cao se chay o day</a>
+  </div>
+  <div id="header"  class="sticky-top">
+  <div class="fixed-right">
+    <!-- cart -->
+    <div class="cart largenav">
+      <a  routerLink="/user/1" *ngIf="logined" (click)="logined=!logined" class="cart-button user-icon user-cart-icon"> <i class="fa fa-user" aria-hidden="true">
+        &nbsp;&nbsp;{{username}}</i></a>
+      <a  routerLink="/login" *ngIf="!logined" (click)="logined=!logined" class="cart-button user-icon user-cart-icon">
+          <i class="fa fa-sign-in" aria-hidden="true"> </i> &nbsp;&nbsp;Login
+      </a>
+      <a  routerLink="/cart"  class="cart-button cart-icon user-cart-icon">
+        <i class="fa fa-shopping-cart" aria-hidden="true"> </i> &nbsp;&nbsp;Cart <span class="item-number badge badge-danger">{{cart}}</span>
+    </a>
+
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <a class="navbar-brand" routerLink="/home"><img class="logo" src="src\assets\logo.png" alt="Logo"></a>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navb">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)" title="Danh mục các loại sản phẩm">Danh Muc San Pham</a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="!isUserLoggedIn" class="nav-link" routerLink="/login">Login</a>
+        <a *ngIf="isUserLoggedIn" class="nav-link" (click)="Logout()">Logout</a>
+      </li>
+      <li class="dropdown nav-item"><a class="nav-link links" href="http://clashhacks.in/">Dropdown</a>
+        <ul class="dropdown-menu">
+          <li class="profile-li"><a class="profile-links" href="http://yazilife.com/">Link</a></li>
+          <li class="profile-li"><a class="profile-links" href="http://hacksociety.tech/">Link</a></li>
+          <li class="profile-li"><a class="profile-links" href="http://clashhacks.in/">Link</a></li>
+          <li class="profile-li"><a class="profile-links" href="http://clashhacks.in/">Link</a></li>
+          <li class="profile-li"><a class="profile-links" href="http://clashhacks.in/">Link</a></li>
+          <li class="profile-li"><a class="profile-links" href="http://clashhacks.in/">Link</a></li>
+          <li class="profile-li"><a class="profile-links" href="http://clashhacks.in/">Link</a></li>
+        </ul>
+      </li>
+    </ul>
+
+
+    <form class="form-inline my-2 my-lg-0 ">
+
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
+    </form>
+  </div>
+</nav>
+</div>

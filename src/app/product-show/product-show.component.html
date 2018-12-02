@@ -1,0 +1,67 @@
+
+    <div class="product-grid6">
+        <div class="product-image6">
+            <a routerLink="/view/{{id}}">
+                <img class="pic-1" src="{{link_img}}">
+            </a>
+        </div>
+        <div class="product-content">
+            <h3 class="title"><a href="#">Women's Red Top</a></h3>
+            <div class="price">$8.00
+                <span>$12.00</span>
+            </div>
+        </div>
+        <ul class="social">
+            <!-- cái chỗ quick view sẽ sử dung modal để show ra -->
+            <li><a (click)="open(content)" data-tip="Xem nhanh"><i class="fa fa-search"></i></a></li>
+            <li><a routerLink="cart" data-tip="Mua"><i class="fa fa-shopping-bag"></i></a></li>
+            <li><a routerLink="routeName" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
+        </ul>
+    </div>
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Xem nhanh</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Hình nảnh -->
+          <ngb-carousel *ngIf="images">
+            <ng-template ngbSlide>
+              <img [src]="images[0]" alt="Random first slide">
+              <div class="carousel-caption">
+                <h3>10 seconds between slides...</h3>
+                <p>This carousel uses customized default values.</p>
+              </div>
+            </ng-template>
+            <ng-template ngbSlide>
+              <img [src]="images[1]" alt="Random second slide">
+              <div class="carousel-caption">
+                <h3>No mouse events...</h3>
+                <p>This carousel doesn't pause or resume on mouse events</p>
+              </div>
+            </ng-template>
+            <ng-template ngbSlide>
+              <img [src]="images[2]"  alt="Random third slide">
+              <div class="carousel-caption">
+                <h3>No keyboard...</h3>
+                <p>This carousel uses customized default values.</p>
+              </div>
+            </ng-template>
+            <ng-template ngbSlide>
+              <img [src]="images[3]" alt="Random fourth slide">
+              <div class="carousel-caption">
+                <h3>And no wrap after last slide.</h3>
+                <p>This carousel uses customized default values.</p>
+              </div>
+            </ng-template>
+          </ngb-carousel>
+          <!-- het hinh ảnh -->
+        </div>
+      
+      </ng-template>
+      
+      
+    
+

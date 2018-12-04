@@ -1,20 +1,19 @@
 <div class="row">
   <div class="navi col-3 col-sm-2">
     <ul class="narvar-das">
-      <li class="active"><a href="#"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Đơn đặt hàng</span></a></li>
-      <li><a (click)="show=!show "><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Sản
-            phẩm</span></a></li>
-      <li><a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Thống kê</span></a></li>
-      <li><a href="#"><i class="fa fa-truck" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Đã giao</span></a></li>
-      <li><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Users</span></a></li>
+      <li class="active"><a routerLink="/admin/orders"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Đơn Đặt Hàng</span></a></li>
+      <li><a routerLink="/admin/products"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Sản Phẩm</span></a></li>
+      <li><a routerLink="/admin/statistics"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Thống Kê</span></a></li>
+      <li><a routerLink="/admin/orders"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Nhập Hàng</span></a></li>
+      <!-- <li><a routerLink="/admin/abc"><i class="fa fa-truck" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Đã giao</span></a></li> -->
+      <li><a routerLink="/admin/users"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Quản Lý Người Dùng</span></a></li>
       
     </ul>
   </div>
   <div class="col-9 col-sm-10">
-
-
+    <router-outlet></router-outlet>
     <!--Sản pham  -->
-    <div *ngIf="show">
+    <!-- <div *ngIf="show">
       <div class="product ">
           <select class="select-product">
               <option value="0">Tất cả sản phẩm</option>
@@ -76,7 +75,7 @@
         </table>
       </div>
 
-    </div>
+    </div> -->
     <!-- het san pham -->
   </div>
 </div>

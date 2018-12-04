@@ -21,14 +21,14 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
   onSubmit(username, password) {
-    this.userService.userAuthentication(username, password)
+    this.userService.login(username, password)
       .subscribe((data: any) => {
         localStorage.setItem('userToken', data.access_token);
         this.dataService.isUserLoggedIn.next(true);
         this.router.navigate(['/home']);
       },
-        (err: HttpErrorResponse) => {
-          console.log(err);
+        err => {
+          console.log('looix ' + err);
           this.isLoginError = true;
         });
   }

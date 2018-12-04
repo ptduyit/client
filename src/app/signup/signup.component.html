@@ -15,38 +15,38 @@
           </div>
         </div>
         <div class="card-body">
-          <form>
+          <form (ngSubmit)="onSubmit(signup)" #signup="ngForm">
             
             <div class="input-group form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-user-edit"></i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Your name">
+              <input type="text" class="form-control" placeholder="Your name" ngModel name="fullname">
             </div>
             <div class="input-group form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Email">
+              <input type="text" class="form-control" placeholder="Email" ngModel name="email">
             </div>
             <div class="input-group form-group">
               <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                <span class="input-group-text"><i class="fas fa-phone"></i></span>
               </div>
-              <input type="text" class="form-control" placeholder="username">
+              <input type="text" class="form-control" placeholder="Phone Number" ngModel name="phonenumber">
             </div>
             <div class="input-group form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
               </div>
-              <input type="password" class="form-control" placeholder="password">
+              <input type="password" class="form-control" placeholder="password" ngModel name="password">
             </div>
 
             <div class="input-group form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
               </div>
-              <input type="password" class="form-control" placeholder="verify password">
+              <input type="password" class="form-control" placeholder="comfirm password" ngModel name="comfirmpassword">
             </div>
             <div class="form-group">
               <input type="submit" value="Sign Up" class="btn float-right login_btn">

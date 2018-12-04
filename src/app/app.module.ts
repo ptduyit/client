@@ -22,6 +22,13 @@ import { SearchComponent } from './search/search.component';
 import { BoughtComponent } from './bought/bought.component';
 import { ViewMoreComponent } from './view-more/view-more.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { OrdersComponent } from './admin-page/orders/orders.component';
+import { ProductsComponent } from './admin-page/products/products.component';
+import { UsersComponent } from './admin-page/users/users.component';
+import { OrdersImportComponent } from './admin-page/orders-import/orders-import.component';
+import { StatisticsComponent } from './admin-page/statistics/statistics.component';
+import { NewProductComponent } from './admin-page/products/new-product/new-product.component';
+import { ListProductComponent } from './admin-page/products/list-product/list-product.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +51,21 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     
     BoughtComponent,
     
-    ViewMoreComponent
+    ViewMoreComponent,
+    
+    OrdersComponent,
+    
+    ProductsComponent,
+    
+    UsersComponent,
+    
+    OrdersImportComponent,
+    
+    StatisticsComponent,
+    
+    NewProductComponent,
+    
+    ListProductComponent
   ],
   imports: [
     BrowserModule,

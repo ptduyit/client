@@ -4,7 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { ProductViewComponent } from './product-view/product-view.component';
 import { HomepageComponent } from './homepage/homepage.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -75,7 +75,8 @@ import { ListProductComponent } from './admin-page/products/list-product/list-pr
     AppRoutingModule,
     InfiniteScrollModule,
     FormsModule,
-    HttpClientModule  
+    HttpClientModule,
+    ReactiveFormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent],

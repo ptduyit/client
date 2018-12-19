@@ -39,7 +39,8 @@ const routes: Routes = [
         children: [
           { path: '', pathMatch: 'full', redirectTo: 'list-product' },
           { path: 'list-product', component: ListProductComponent },
-          { path: 'new-product', component: NewProductComponent }
+          { path: 'new-product', component: NewProductComponent },
+          { path: 'edit/:id', component: NewProductComponent }
         ]
       },
       { path: 'statistics', component: StatisticsComponent },

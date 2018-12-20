@@ -6,15 +6,15 @@
             </a>
         </div>
         <div class="product-content">
-            <h3 class="title"><a href="#">Women's Red Top</a></h3>
-            <div class="price">$8.00
+            <h3 class="title"><a href="#">{{productIndex.productName}}</a></h3>
+            <div class="price">{{productIndex.unitPrice}}
                 <span>$12.00</span>
             </div>
         </div>
         <ul class="social">
             <!-- cái chỗ quick view sẽ sử dung modal để show ra -->
             <li><a (click)="open(content)" data-tip="Xem nhanh"><i class="fa fa-search"></i></a></li>
-            <li><a routerLink="cart" data-tip="Mua"><i class="fa fa-shopping-bag"></i></a></li>
+            <li><a (click)="addcart()" data-tip="Mua"><i class="fa fa-shopping-bag"></i></a></li>
             <li><a routerLink="routeName" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
         </ul>
     </div>

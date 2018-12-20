@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";  
 import { ProductService } from '../../../shared/product.service';
+import { CategoryProductService } from '../../../shared/category-product.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../../../model/product';
 
@@ -14,9 +15,9 @@ export class NewProductComponent implements OnInit {
   productForm: FormGroup;
   title: string = "Create";
   id: number;
-
+  categorys: CategoryProduct[];
   constructor(private router: Router, private proService: ProductService,
-    private fb: FormBuilder,private avRouter: ActivatedRoute) { 
+    private fb: FormBuilder,private avRouter: ActivatedRoute, private categoryPro: CategoryProductService) { 
       
     }
 
@@ -26,8 +27,8 @@ export class NewProductComponent implements OnInit {
     } 
     this.productForm = this.fb.group({
       productId: 0,
-      productName: '',
-      categoryId: '',
+      productName: ['',[Validators.required]],
+      categoryId: ['',[Validators.required]],
       unitPrice: '',
       importPrice: '',
       discontinued: '',
@@ -35,13 +36,16 @@ export class NewProductComponent implements OnInit {
       stock: '',
       description: '',
       image: '',
-      guarantee: ''
+      guarantee: '',
+      rate:''
     });
     if(this.id>0){
       this.title="Edit";
       this.proService.getProductById(this.id)
       .subscribe( data => this.productForm.patchValue(data))
     }
+    this.categoryPro.getCategory().subscribe((data: CategoryProduct[]) => this.categorys = data);
+
   }
   save(){
     if(this.title=="Create"){
@@ -56,4 +60,8 @@ export class NewProductComponent implements OnInit {
   cancel(){
     this.router.navigate(['admin/products/list-product']);
   }
+}
+interface CategoryProduct {
+  categoryId: number;
+  categoryName: string;
 }

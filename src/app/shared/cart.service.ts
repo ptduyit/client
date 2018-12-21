@@ -8,13 +8,14 @@ import { CartDetail } from '../model/cart-detail';
 })
 export class CartService {
   readonly rootUrl = 'https://localhost:44354/api/CartDetails';
+  readonly checkoutUrl = 'https://localhost:44354/api/Orders/PostOrders';
   constructor(private http: HttpClient) { }
   getCart(userId: string){
     return this.http.get<Cart[]>(this.rootUrl+'/GetCartDetails/'+userId);
   }
   deleteCartDetail(userId: string, productId: number)
   {
-    return this.http.delete<CartDetail[]>(this.rootUrl+'/DeleteCartDetails/'+userId+'/'+productId);
+    return this.http.delete<CartDetail>(this.rootUrl+'/DeleteCartDetails/'+userId+'/'+productId);
   }
   deleteCart(userId: string)
   {
@@ -27,5 +28,8 @@ export class CartService {
   updateCartDetail(cartDetail: CartDetail)
   {
     return this.http.put(this.rootUrl+'/PutCartDetails/'+cartDetail.userId+'/'+cartDetail.productId,cartDetail);
+  }
+  checkOut(order: any){
+    return this.http.post(this.checkoutUrl, order);
   }
 }

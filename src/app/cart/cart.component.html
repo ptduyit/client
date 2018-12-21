@@ -10,55 +10,35 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr *ngFor="let cart of carts" >
         <td data-th="Product">
           <div class="row">
             <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive" /></div>
             <div class="col-sm-1"></div>
             <div class="col-sm-9">
-              <h4 class="nomargin">Product 1</h4>
+              <h4 class="nomargin">{{cart.productName}}</h4>
               <p>Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem
                 ipsum dolor sit amet.</p>
             </div>
           </div>
         </td>
-        <td data-th="Price">$1.99</td>
+        <td data-th="Price">{{cart.unitPrice | number}}</td>
         <td data-th="Quantity">
-          <input type="number" class="form-control text-center" value="1">
+          <input type="number" (change)="updateQuantity(cart,$event.target.value)" class="form-control text-center" value="{{cart.quantity}}">
         </td>
-        <td data-th="Subtotal" class="text-center">1.99</td>
+        <td data-th="Subtotal" class="text-center">{{cart.unitPrice*cart.quantity | number}}</td>
         <td class="actions" data-th="">
-          <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+          <button (click)="deleteCartDetail(cart.productId)" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
         </td>
       </tr>
-      <tr>
-        <td data-th="Product">
-          <div class="row">
-            <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive" /></div>
-            <div class="col-sm-1"></div>
-            <div class="col-sm-9">
-              <h4 class="nomargin">Product 1</h4>
-              <p>Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem
-                ipsum dolor sit amet.</p>
-            </div>
-          </div>
-        </td>
-        <td data-th="Price">$1.99</td>
-        <td data-th="Quantity">
-          <input type="number" class="form-control text-center" value="1">
-        </td>
-        <td data-th="Subtotal" class="text-center">1.99</td>
-        <td class="actions" data-th="">
-          <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
-        </td>
-      </tr>
+      
     </tbody>
     <tfoot>
 
       <tr>
         <td colspan="3" class="hidden-xs"></td>
-        <td class="hidden-xs text-center"><strong>Total $3.98</strong></td>
-        <td><a href="#" class="btn btn-success btn-block"> Purchase <i class="fa fa-angle-right"></i></a></td>
+        <td class="hidden-xs text-center"><strong>Total {{total | number}}</strong></td>
+        <td><a (click)="checkOut()" class="btn btn-success btn-block"> Purchase <i class="fa fa-angle-right"></i></a></td>
       </tr>
     </tfoot>
   </table>

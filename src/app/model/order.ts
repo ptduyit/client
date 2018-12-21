@@ -11,4 +11,5 @@ export class Order {
     apartmentNumber: string;
     totalPrice: number;
     userId: string;
+    orderDetails: any;
 }

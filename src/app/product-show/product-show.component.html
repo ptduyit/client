@@ -7,8 +7,11 @@
         </div>
         <div class="product-content">
             <h3 class="title"><a href="#">{{productIndex.productName}}</a></h3>
-            <div class="price">{{productIndex.unitPrice}}
-                <span>$12.00</span>
+            <div class="price">đ {{productIndex.unitPrice | number}}
+              <div *ngIf="productIndex.discount">
+                <span>{{productIndex.unitPrice/(1-productIndex.discount/100) | number:'1.0-0'}}</span>
+                <span>    -{{productIndex.discount}}%</span>
+                </div>
             </div>
         </div>
         <ul class="social">

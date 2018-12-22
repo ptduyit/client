@@ -12,8 +12,8 @@ export class OrderService {
   getOrders(){
     return this.http.get<Order[]>(this.rootUrl+'/GetAllOrders');
   }
-  getOrderById(id: number){
-    return this.http.get<Order>(this.rootUrl + '/GetOrderById/' + id);
+  getOrderByIdUser(id: string){
+    return this.http.get<Order[]>(this.rootUrl + '/GetOrderByIdUser/' + id);
   }
   deleteOrder(id : number){
     return this.http.delete<Order[]>(this.rootUrl +'/DeleteOrders/'+ id);

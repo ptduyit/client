@@ -29,6 +29,14 @@ import { OrdersImportComponent } from './admin-page/orders-import/orders-import.
 import { StatisticsComponent } from './admin-page/statistics/statistics.component';
 import { NewProductComponent } from './admin-page/products/new-product/new-product.component';
 import { ListProductComponent } from './admin-page/products/list-product/list-product.component';
+import { UserComponent } from './user/user.component';
+import { ProfileComponent } from './user/profile/profile.component';
+import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './user/change-password/change-password.component';
+import { AddressComponent } from './user/address/address.component';
+import { EditAddressComponent } from './user/edit-address/edit-address.component';
+import { MyOrdersComponent } from './user/my-orders/my-orders.component';
+import { OrderDetailComponent } from './user/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +73,23 @@ import { ListProductComponent } from './admin-page/products/list-product/list-pr
     
     NewProductComponent,
     
-    ListProductComponent
+    ListProductComponent,
+    
+    UserComponent,
+    
+    ProfileComponent,
+    
+    EditProfileComponent,
+    
+    ChangePasswordComponent,
+    
+    AddressComponent,
+    
+    EditAddressComponent,
+    
+    MyOrdersComponent,
+    
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,

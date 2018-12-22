@@ -18,13 +18,33 @@ import { StatisticsComponent } from './admin-page/statistics/statistics.componen
 import { UsersComponent } from './admin-page/users/users.component';
 import { ListProductComponent } from './admin-page/products/list-product/list-product.component';
 import { NewProductComponent } from './admin-page/products/new-product/new-product.component';
-
+import { UserComponent } from './user/user.component';
+import { ProfileComponent } from './user/profile/profile.component';
+import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './user/change-password/change-password.component';
+import { AddressComponent } from './user/address/address.component';
+import { EditAddressComponent } from './user/edit-address/edit-address.component';
+import { MyOrdersComponent } from './user/my-orders/my-orders.component';
+import { OrderDetailComponent } from './user/order-detail/order-detail.component';
 
 const routes: Routes = [
   { path: 'view/:id', component: ProductViewComponent },
   { path: 'home', component: HomepageComponent },
   { path: 'cart', component: CartComponent },
-  { path: 'user/:id', component: UserInfoComponent },
+  { 
+    path: 'user', component: UserComponent ,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'profile'},
+      { path: 'profile', component: ProfileComponent},
+      { path: 'my-orders', component: MyOrdersComponent},
+      { path: 'address', component: AddressComponent},
+      { path: 'change-password', component: ChangePasswordComponent },
+      { path: 'edit-address', component: EditAddressComponent },
+      { path: 'edit-profile', component: EditProfileComponent },
+      { path: 'order-detail', component: OrderDetailComponent },
+      { path: 'user-info', component: UserInfoComponent}
+    ]
+  },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   {

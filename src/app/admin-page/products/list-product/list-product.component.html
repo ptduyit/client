@@ -15,7 +15,7 @@
         <td>{{pro.productId}}</td>
         <td>{{pro.productName}}</td>
         <td>{{pro.stock}}</td>
-        <td>{{pro.unitPrice}}</td>
+        <td>{{pro.unitPrice | number}}</td>
         <td>{{pro.image}}</td>
         <td>
           <button (click)="deletePro(pro.productId)" class="btn btn-info">Delete</button>

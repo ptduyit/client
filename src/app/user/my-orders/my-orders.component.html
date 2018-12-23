@@ -7,8 +7,9 @@
 </div>
   <div *ngFor="let orderdetail of order.orderDetails">
     <img src="" alt=""><br>
-    <span>Tên sản phẩm: {{orderdetail.productId}}</span><br>
+    {{orderdetail.product.productName}}
     <span>Số lượng: {{orderdetail.quantity}}</span><br>
-    <span>Đơn giá: {{orderdetail.unitPrice}}</span>
+    <span>Đơn giá: {{orderdetail.unitPrice}}</span><br>
+    <!-- <span *ngFor="let p of orderdetail.product">Tên sản phẩm: {{p.productName}}</span> -->
   </div>
 </div>

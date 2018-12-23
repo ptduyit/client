@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { OrderService } from '../../shared/order.service';
+import { Order } from '../../model/order';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersComponent implements OnInit {
 
-  constructor() { }
+  constructor(private orderService: OrderService) { }
 
   ngOnInit() {
   }
-
+  
 }

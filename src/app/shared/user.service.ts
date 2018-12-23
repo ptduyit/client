@@ -29,7 +29,16 @@ export class UserService {
     var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
     let body = JSON.stringify({ accessToken });  
     return this.http
-      .post(this.rootUrl + '/api/facebook', body, reqHeader)
+      .post(this.rootUrl + '/api/Facebook', body, reqHeader)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  googleLogin(accessToken:string) {
+    var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
+    let body = JSON.stringify({ accessToken });  
+    return this.http
+      .post(this.rootUrl + '/api/Google', body, reqHeader)
       .pipe(
         catchError(this.handleError)
       );

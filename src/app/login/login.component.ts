@@ -21,29 +21,29 @@ export class LoginComponent implements OnInit {
       this.isUserLoggedIn = value;
     });
   }
-  
+
 
   ngOnInit() {
 
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '1194855687339141',
-    cookie     : true,
-    xfbml      : true,
-    version    : 'v3.2'
-  });
-    
-  FB.AppEvents.logPageView();   
-    
-};
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '1194855687339141',
+        cookie: true,
+        xfbml: true,
+        version: 'v3.2'
+      });
 
-(function(d, s, id){
-   var js, fjs = d.getElementsByTagName(s)[0];
-   if (d.getElementById(id)) {return;}
-   js = d.createElement(s); js.id = id;
-   js.src = "https://connect.facebook.net/en_US/sdk.js";
-   fjs.parentNode.insertBefore(js, fjs);
- }(document, 'script', 'facebook-jssdk'));
+      FB.AppEvents.logPageView();
+
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
   }
   onSubmit(username, password) {
@@ -58,28 +58,26 @@ window.fbAsyncInit = function() {
           this.isLoginError = true;
         });
   }
-  submitLogin(){
-    console.log("submit login to facebook");
+  submitLogin() {
     // FB.login();
-    FB.login((response)=>
-        {
-          console.log('submitLogin',response);
-          if (response.authResponse)
-          {
-            console.log('success');
-            FB.api('/me', {"fields":"birthday,email,hometown"},function(response) {
-              
-              console.log(response);
-            });
-            //login success
-            //login success code here
-            //redirect to home page
-           }
-           else
-           {
-           console.log('User login failed');
-         }
-      }, {scope: 'email,user_birthday,user_hometown '});
+    FB.login((response) => {
+      
+      if (response.status = "connected") {
+        // FB.api('/me', { "fields": "birthday,email" }, function (response) {
+        //   console.log(response);
+        // });
+        //login success
+        //login success code here
+        //redirect to home page
+        this.userService.facebookLogin(response.authResponse.accessToken)
+        .subscribe(data => {
+          console.log(data);
+        })
+      }
+      else {
+        console.log('User login failed');
+      }
+    }, { scope: 'email,user_birthday' });
 
   }
   public auth2: any;
@@ -96,13 +94,15 @@ window.fbAsyncInit = function() {
   public attachSignin(element) {
     this.auth2.attachClickHandler(element, {},
       (googleUser) => {
-
-        let profile = googleUser.getBasicProfile();
-        console.log('Token || ' + googleUser.getAuthResponse().id_token);
-        console.log('ID: ' + profile.getId());
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail());
+        this.userService.googleLogin(googleUser.getAuthResponse().id_token).subscribe(data => {
+          console.log(data);
+        });
+        //let profile = googleUser.getBasicProfile();
+        // console.log('Token || ' + googleUser.getAuthResponse().id_token);
+        // console.log('ID: ' + profile.getId());
+        // console.log('Name: ' + profile.getName());
+        // console.log('Image URL: ' + profile.getImageUrl());
+        // console.log('Email: ' + profile.getEmail());
         //YOUR CODE HERE
 
 
@@ -111,7 +111,7 @@ window.fbAsyncInit = function() {
       });
   }
 
-ngAfterViewInit(){
-      this.googleInit();
-}
+  ngAfterViewInit() {
+    this.googleInit();
+  }
 }

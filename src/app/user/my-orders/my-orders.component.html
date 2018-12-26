@@ -1,15 +1,26 @@
-<div *ngFor="let order of orders">
-  <div>
-  Đơn hàng: {{order.orderId}}<br>
-  Đặt ngày: {{order.orderDate | date:'dd-MM-yyyy HH:mm'}} <br>
-  Trạng thái: {{order.status}} <br>
-  Tổng tiền: {{order.totalPrice}}
-</div>
-  <div *ngFor="let orderdetail of order.orderDetails">
-    <img src="" alt=""><br>
-    {{orderdetail.product.productName}}
-    <span>Số lượng: {{orderdetail.quantity}}</span><br>
-    <span>Đơn giá: {{orderdetail.unitPrice}}</span><br>
-    <!-- <span *ngFor="let p of orderdetail.product">Tên sản phẩm: {{p.productName}}</span> -->
+<br>
+<div *ngFor="let order of orders" class="orderClass">
+  <div class="row orderClassHeader">
+    <div class="col-8">
+      <br>
+      <h6>Đơn hàng &nbsp; &nbsp;&nbsp; : {{order.orderId}}</h6>
+      <h6>Đặt ngày &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{order.orderDate | date:'dd-MM-yyyy HH:mm'}}</h6>
+    </div>
+    <div class="col-4">
+      <h6 >Trạng thái &nbsp;&nbsp;&nbsp; : {{statur}}</h6>
+      <h6>Tổng tiền &nbsp;&nbsp;&nbsp;&nbsp; : {{order.totalPrice}}</h6>
+    </div>
+  </div>
+  <hr>
+  <div class="row orderClassHeader" *ngFor="let orderdetail of order.orderDetails">
+      <div class="imgProduct col-2"> 
+          <img style="max-width: 100%;max-height: 100%;" src="{{orderdetail.product.image}}" alt="">
+      </div>
+      <h6 class="col-4">Tên sản phẩm: {{orderdetail.product.productName}}</h6> 
+      <h6 class="col-3">Số lượng: {{orderdetail.quantity}}</h6>
+      <h6 class="col-3" >Đơn giá: {{orderdetail.unitPrice}}</h6>
+      
+
+
   </div>
 </div>

@@ -1,53 +1,359 @@
-
-  <div id="header"  class="sticky-top">
-  <div class="fixed-right">
-    <!-- cart hungkk -->
-    <div class="cart largenav">
-      <a  routerLink="/user/1" *ngIf="logined" (click)="logined=!logined" class="cart-button user-icon user-cart-icon"> <i class="fa fa-user" aria-hidden="true">
-        &nbsp;&nbsp;{{username}}</i></a>
-      <a  routerLink="/login" *ngIf="!logined" (click)="logined=!logined" class="cart-button user-icon user-cart-icon">
-          <i class="fa fa-sign-in" aria-hidden="true"> </i> &nbsp;&nbsp;Login
-      </a>
-      <a  routerLink="/cart"  class="cart-button cart-icon user-cart-icon">
-        <i class="fa fa-shopping-cart" aria-hidden="true"> </i> &nbsp;&nbsp;Cart <span class="item-number badge badge-danger">{{cart}}</span>
-    </a>
-
+<header class="fs-header">
+    <div class="f-hdtop">
+        <div class="f-wrap">
+            <a class="fs-logo" href="/" title=""><img class="logo" src="src\assets\logo.png" alt="Logo"></a>
+            <ul class="fs-hdmn">
+                <li><a href="/login" class="ab" title="" ><i class="fa fa-user fa-1x" aria-hidden="true"></i> <span>Đăng nhập</span></a></li>
+  
+                <li><a href="/cart" title=""><i class="ficon f-cart"></i> <span>Giỏ hàng</span><b class="fs-cartic countTotalCart" style="display: none;">0</b></a></li>
+            </ul>
+            <div class="fs-search">
+                <form action="/search/1" method="get" autocomplete="off">
+                    <input class="fs-stxt" type="text" name="" placeholder="Nhập tên điện thoại, máy tính, phụ kiện... cần tìm" autocomplete="off" maxlength="50">
+                    <button type="submit" class="search-button"><i class="ficon f-search"></i></button>
+                    <div class="fs-sresult" style="display : block !important">
+                        <div class="fs-sremain">
+                            <ul style="display: none;"></ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <a class="navbar-brand" routerLink="/home"><img class="logo" src="src\assets\logo.png" alt="Logo"></a>
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navb">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="javascript:void(0)" title="Danh mục các loại sản phẩm">Danh Muc San Pham</a>
-      </li>
-      <li class="nav-item">
-        <a *ngIf="!isUserLoggedIn" class="nav-link" routerLink="/login">Login</a>
-        <a *ngIf="isUserLoggedIn" class="nav-link" (click)="Logout()">Logout</a>
-      </li>
-      <li class="dropdown nav-item"><a class="nav-link links" href="http://clashhacks.in/">Dropdown</a>
-        <ul class="dropdown-menu">
-          <li class="profile-li"><a class="profile-links" href="http://yazilife.com/">Link</a></li>
-          <li class="profile-li"><a class="profile-links" href="http://hacksociety.tech/">Link</a></li>
-          <li class="profile-li"><a class="profile-links" href="http://clashhacks.in/">Link</a></li>
-          <li class="profile-li"><a class="profile-links" href="http://clashhacks.in/">Link</a></li>
-          <li class="profile-li"><a class="profile-links" href="http://clashhacks.in/">Link</a></li>
-          <li class="profile-li"><a class="profile-links" href="http://clashhacks.in/">Link</a></li>
-          <li class="profile-li"><a class="profile-links" href="http://clashhacks.in/">Link</a></li>
-        </ul>
-      </li>
-    </ul>
+    <nav class="fs-menu">
+        <div class="f-wrap">
+            <ul class="fs-mnul clearfix">
+                <li>
+                    <a href="/dien-thoai" title="ĐIỆN THOẠI"><i class="ficon f-dthoai"></i>ĐIỆN THOẠI <span class="ficon"></span></a>
+                    <div class="fs-mnsub">
+                        <div class="fs-mnbox">
+                                    <div class="fs-mntd fs-mntd1">
+                                        <p class="fs-mnstit">Hãng sản xuất</p>
+                                        <ul class="fs-mnsul fs-mnsul3 clearfix">
+                                                <li><a href="/dien-thoai/apple-iphone" title="Apple (iPhone)">Apple (iPhone)</a></li>
+                                                <li><a href="/dien-thoai/samsung" title="Samsung">Samsung</a></li>
+                                                <li><a href="/dien-thoai/oppo" title="OPPO">OPPO</a></li>
+                                                <li><a href="/dien-thoai/huawei" title="Huawei">Huawei</a></li>
+                                                <li><a href="/dien-thoai/xiaomi" title="Xiaomi">Xiaomi</a></li>
+                                                <li><a href="/dien-thoai/vivo" title="Vivo">Vivo</a></li>
+                                                <li><a href="/dien-thoai/nokia" title="Nokia">Nokia</a></li>
+                                                <li><a href="/dien-thoai/asus" title="Asus">Asus</a></li>
+                                                <li><a href="/dien-thoai/masstel" title="Masstel">Masstel</a></li>
+                                                <li><a href="/dien-thoai/meizu" title="MEIZU">MEIZU</a></li>
+                                                <li><a href="/dien-thoai/mobiistar" title="Mobiistar">Mobiistar</a></li>
+                                                <li><a href="/dien-thoai/wiko" title="Wiko">Wiko</a></li>
+                                                <li><a href="/dien-thoai/itel" title="Itel">Itel</a></li>
+                                                <li><a href="/dien-thoai/sony" title="Sony">Sony</a></li>
+                                                <li><a href="/dien-thoai/honor" title="HONOR">HONOR</a></li>
+                                                <li><a href="/dien-thoai/realme" title="Realme">Realme</a></li>
+                                                <li><a href="/dien-thoai/vsmart" title="VSmart">VSmart</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="fs-mntd fs-mntd2">
+                                        <p class="fs-mnstit">Mức giá</p>
+                                        <ul class="fs-mnsul fs-mnsul1 clearfix">
+                                                <li><a href="/dien-thoai/duoi-1-trieu" title="Dưới 1 triệu">Dưới 1 triệu</a></li>
+                                                <li><a href="/dien-thoai/tu-1-3-trieu" title="Từ 1 - 3 triệu">Từ 1 - 3 triệu</a></li>
+                                                <li><a href="/dien-thoai/tu-3-6-trieu" title="Từ 3 - 6 triệu">Từ 3 - 6 triệu</a></li>
+                                                <li><a href="/dien-thoai/tu-6-10-trieu" title="Từ 6 - 10 triệu">Từ 6 - 10 triệu</a></li>
+                                                <li><a href="/dien-thoai/tu-10-15-trieu" title="Từ 10 - 15 triệu">Từ 10 - 15 triệu</a></li>
+                                                <li><a href="/dien-thoai/tren-15-trieu" title="Trên 15 triệu">Trên 15 triệu</a></li>
+                                        </ul>
+                                    </div>
+                            <div class="fs-mntd fs-mntd3">
+                                <p class="fs-mnstit">Bán chạy nhất</p>
+                                <ul class="fs-mnsprod">
+                                        <li class="clearfix">
+                                            <a class="fs-mnspimg" href="/dien-thoai/oppo-f9">
+                                                <img src="//cdn.fptshop.com.vn/Uploads/Thumbs/2018/9/7/636719280799870088_oppof9-1o.png" alt="OPPO F9">
+                                            </a>
+                                            <div>
+                                                <span><a href="/dien-thoai/oppo-f9" title="">OPPO F9</a></span>
+                                                <p>7.690.000 ₫</p>
+                                            </div>
+                                        </li>
+                                        <li class="clearfix">
+                                            <a class="fs-mnspimg" href="/dien-thoai/samsung-galaxy-j6-2018">
+                                                <img src="//cdn.fptshop.com.vn/Uploads/Thumbs/2018/5/23/636626649161305672_1o.png" alt="Samsung Galaxy J6 (2018)">
+                                            </a>
+                                            <div>
+                                                <span><a href="/dien-thoai/samsung-galaxy-j6-2018" title="">Samsung Galaxy J6 (2018)</a></span>
+                                                <p>4.290.000 ₫</p>
+                                            </div>
+                                        </li>
+                                </ul>
+                                
+                            </div>
+                            <div class="fs-mntd fs-mntd4">
+                                    <a target="_blank" href="https://fptshop.com.vn/ctkm/uu-dai-samsung" title="Samsung trợ giá H4">
+                                        <img src="//cdn.fptshop.com.vn/Uploads/Originals/2018/10/3/636741614288912853_Banner 248x248.jpg" alt="Samsung trợ giá H4">
+                                    </a>
+                            </div>
 
+                        </div>
+                    </div>
+                </li>
 
-    <form class="form-inline my-2 my-lg-0 ">
+                <li>
+                    <a href="/may-tinh-xach-tay" title=""><i class="ficon f-laptop"></i> LAPTOP <span class="ficon"></span></a>
+                    <div class="fs-mnsub">
+                        <div class="fs-mnbox">
+                                    <div class="fs-mntd fs-mntd1">
+                                        <p class="fs-mnstit">Hãng sản xuất</p>
+                                        <ul class="fs-mnsul fs-mnsul3 clearfix">
+                                                <li><a href="/may-tinh-xach-tay/apple-macbook" title="Apple (Macbook)">Apple (Macbook)</a></li>
+                                                <li><a href="/may-tinh-xach-tay/asus" title="Asus">Asus</a></li>
+                                                <li><a href="/may-tinh-xach-tay/acer" title="Acer">Acer</a></li>
+                                                <li><a href="/may-tinh-xach-tay/dell" title="Dell">Dell</a></li>
+                                                <li><a href="/may-tinh-xach-tay/hp" title="HP">HP</a></li>
+                                                <li><a href="/may-tinh-xach-tay/lenovo" title="Lenovo">Lenovo</a></li>
+                                                <li><a href="/may-tinh-xach-tay/msi" title="MSI">MSI</a></li>
+                                                <li><a href="/may-tinh-xach-tay/masstel" title="Masstel">Masstel</a></li>
+                                                <li><a href="/may-tinh-xach-tay/haier" title="Haier">Haier</a></li>
+                                        </ul>
+                                        
+                                            <p class="fs-mnstit"><a href="/phan-mem">PHẦN MỀM</a></p>
+                                            <ul class="fs-mnsul fs-mnsul3 clearfix">
+                                                <li><a href="/phan-mem/diet-virus" title="Phần mềm Diệt Virus">Diệt Virus</a></li>
+                                                <li><a href="/phan-mem/microsoft-office" title="Phần mềm Microsoft Office">Microsoft Office</a></li>
+                                                <li><a href="/phan-mem/windows" title="Phần mềm windows">Windows</a></li>
+                                                <li><a href="/phan-mem/phan-mem-khac" title="Phần mềm Phần mềm khác">Phần mềm khác</a></li>
+                                            </ul>
 
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
-    </form>
-  </div>
-</nav>
-</div>
+                                    </div>
+                                    <div class="fs-mntd fs-mntd2">
+                                        <p class="fs-mnstit">Mức giá</p>
+                                        <ul class="fs-mnsul fs-mnsul1 clearfix">
+                                                <li><a href="/may-tinh-xach-tay/duoi-5-trieu" title="Dưới 5 triệu">Dưới 5 triệu</a></li>
+                                                <li><a href="/may-tinh-xach-tay/tu-5-10-trieu" title="Từ 5 - 10 triệu">Từ 5 - 10 triệu</a></li>
+                                                <li><a href="/may-tinh-xach-tay/tu-10-15-trieu" title="Từ 10 - 15 triệu">Từ 10 - 15 triệu</a></li>
+                                                <li><a href="/may-tinh-xach-tay/tu-15-20-trieu" title="Từ 15 - 20 triệu">Từ 15 - 20 triệu</a></li>
+                                                <li><a href="/may-tinh-xach-tay/tu-20-25-trieu" title="Từ 20 - 25 triệu">Từ 20 - 25 triệu</a></li>
+                                                <li><a href="/may-tinh-xach-tay/tu-25-30-trieu" title="Từ 25 - 30 triệu">Từ 25 - 30 triệu</a></li>
+                                                <li><a href="/may-tinh-xach-tay/tren-30-trieu" title="Trên 30 triệu">Trên 30 triệu</a></li>
+                                        </ul>
+                                        
+
+                                    </div>
+                            <div class="fs-mntd fs-mntd3">
+                                <p class="fs-mnstit">Mục đích sử dụng</p>
+                                <ul class="fs-mnsul fs-mnsul1 clearfix">
+                                        <li><a href="/may-tinh-xach-tay/san-pham-2-trong-1" title="Sản phẩm 2 trong 1">Sản phẩm 2 trong 1</a></li>
+                                        <li><a href="/may-tinh-xach-tay/hien-dai" title="Hiện đại">Hiện đại</a></li>
+                                        <li><a href="/may-tinh-xach-tay/gia-re" title="Giá rẻ">Giá rẻ</a></li>
+                                        <li><a href="/may-tinh-xach-tay/windows" title="Windows">Windows</a></li>
+                                        <li><a href="/may-tinh-xach-tay/gaming-do-hoa" title="Gaming - Đồ họa">Gaming - Đồ họa</a></li>
+                                        <li><a href="/may-tinh-xach-tay/sinh-vien-van-phong" title="Sinh viên - Văn phòng">Sinh viên - Văn phòng</a></li>
+                                        <li><a href="/may-tinh-xach-tay/mong-nhe" title="Mỏng nhẹ">Mỏng nhẹ</a></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="fs-mntd fs-mntd4">
+                                    <a target="_blank" href="https://fptshop.com.vn/mua-laptop-den-fptshop" title="Laptop giá rẻ H4">
+                                        <img src="//cdn.fptshop.com.vn/Uploads/Originals/2018/11/1/636766685872965650_Artboard.png" alt="Laptop giá rẻ H4">
+                                    </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="http://fstudiobyfpt.com.vn/" title=""><i class="ficon f-apple"></i> APPLE <span class="ficon"></span></a>
+                    <div class="fs-mnsub">
+                        <div class="fs-mnbox">
+                            <div class="fs-mntd fs-mntd1">
+                                        <p class="fs-mnstit">Các sản phẩm Apple</p>
+                                        <ul class="fs-mnsul fs-mnsul3 clearfix">
+                                                <li><a href="/dien-thoai/apple-iphone" title="iPhone">iPhone</a></li>
+                                                <li><a href="/may-tinh-bang/apple-ipad" title="iPad">iPad</a></li>
+                                                <li><a href="/may-tinh-xach-tay/apple-macbook" title="Mac">Macbook</a></li>
+												<li><a href="/may-tinh-de-ban/imac" title="imac">iMac</a></li>
+												<li><a href="/may-tinh-de-ban/mac-mini" title="Mac-mini">Mac mini</a></li>
+												<li><a href="/may-tinh-de-ban/mac-pro" title="Mac-pro">Mac Pro</a></li>
+                                                <li><a href="/smartwatch/apple" title="Watch">Watch</a></li>
+                                                <li><a href="/phu-kien/apple-tv" title="Apple TV">Apple TV</a></li>
+                                                <li><a href="/phu-kien/phu-kien-apple" title="Phụ kiện">Phụ kiện</a></li>
+                                                <li><a href="/phu-kien/beats" title="Beats">Beats</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="fs-mntd fs-mntd2">
+                                        <p class="fs-mnstit">Mức giá</p>
+                                        <ul class="fs-mnsul fs-mnsul1 clearfix">
+                                                <li><a href="/dien-thoai/apple-iphone" title="Dưới 10 triệu">Dưới 10 triệu</a></li>
+                                                <li><a href="/dien-thoai/apple-iphone" title="Từ 10 - 15 triệu">Từ 10 - 15 triệu</a></li>
+                                                <li><a href="/dien-thoai/apple-iphone" title="Từ 15 - 20 triệu">Từ 15 - 20 triệu</a></li>
+                                                <li><a href="/dien-thoai/apple-iphone" title="Từ 20 - 25 triệu">Từ 20 - 25 triệu</a></li>
+                                                <li><a href="/dien-thoai/apple-iphone" title="Từ 25 - 30 triệu">Từ 25 - 30 triệu</a></li>
+                                                <li><a href="/dien-thoai/apple-iphone" title="Trên 30 triệu">Trên 30 triệu</a></li>
+                                        </ul>
+                                    </div>
+                            <div class="fs-mntd fs-mntd3">
+                                <p class="fs-mnstit">Bán chạy nhất</p>
+                                <ul class="fs-mnsprod">
+                                        <li class="clearfix">
+                                            <a class="fs-mnspimg" href="/dien-thoai/iphone-6-32gb">
+                                                <img src="//cdn.fptshop.com.vn/Uploads/Thumbs/2018/5/18/636622605489276625_6-32.png" alt="iPhone 6 32GB (2017)">
+                                            </a>
+                                            <div>
+                                                <span><a href="/dien-thoai/iphone-6-32gb" title="">iPhone 6 32GB (2017)</a></span>
+                                                <p>6.990.000 ₫</p>
+                                            </div>
+                                        </li>
+                                        <li class="clearfix">
+                                            <a class="fs-mnspimg" href="/may-tinh-bang/iPad-2018-WiFi-32gb">
+                                                <img src="//cdn.fptshop.com.vn/Uploads/Thumbs/2018/10/24/636759749550391496_ipad-2018.png" alt="iPad 2018 WiFi 32GB">
+                                            </a>
+                                            <div>
+                                                <span><a href="/may-tinh-bang/iPad-2018-WiFi-32gb" title="">iPad 2018 WiFi 32GB</a></span>
+                                                <p>8.990.000 ₫</p>
+                                            </div>
+                                        </li>
+                                </ul>
+                            </div>
+                            <div class="fs-mntd fs-mntd4">
+                                    <a target="_blank" href="https://fptshop.com.vn/apple/iphone/iphone-x" title="KM Apple tháng">
+                                        <img src="//cdn.fptshop.com.vn/Uploads/Originals/2018/1/1/636504001230136182_636482946260323426_636459941853997270_Banner-Apple-T12.png" alt="KM Apple tháng">
+                                    </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                
+                <li>
+                    <a href="/may-tinh-bang" title=""><i class="ficon f-tablet"></i> TABLET <span class="ficon"></span></a>
+                    <div class="fs-mnsub">
+                        <div class="fs-mnbox">
+                                    <div class="fs-mntd fs-mntd1">
+                                        <p class="fs-mnstit">Hãng sản xuất</p>
+                                        <ul class="fs-mnsul fs-mnsul3 clearfix">
+                                                <li><a href="/may-tinh-bang/apple-ipad" title="Apple (iPad)">Apple (iPad)</a></li>
+                                                <li><a href="/may-tinh-bang/samsung" title="Samsung">Samsung</a></li>
+                                                <li><a href="/may-tinh-bang/lenovo" title="Lenovo">Lenovo</a></li>
+                                                <li><a href="/may-tinh-bang/masstel" title="Masstel">Masstel</a></li>
+                                                <li><a href="/may-tinh-bang/huawei" title="Huawei">Huawei</a></li>
+                                                <li><a href="/may-tinh-bang/itel" title="Itel">Itel</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="fs-mntd fs-mntd2">
+                                        <p class="fs-mnstit">Mức giá</p>
+                                        <ul class="fs-mnsul fs-mnsul1 clearfix">
+                                                <li><a href="/may-tinh-bang/duoi-2-trieu" title="Dưới 2 triệu">Dưới 2 triệu</a></li>
+                                                <li><a href="/may-tinh-bang/tu-2-trieu-den-5-trieu" title="Từ 2 triệu đến 5 triệu">Từ 2 triệu đến 5 triệu</a></li>
+                                                <li><a href="/may-tinh-bang/tu-5-trieu-den-8-trieu" title="Từ 5 triệu đến 8 triệu">Từ 5 triệu đến 8 triệu</a></li>
+                                                <li><a href="/may-tinh-bang/tren-8-trieu" title="Trên 8 triệu">Trên 8 triệu</a></li>
+                                        </ul>
+                                    </div>
+                            <div class="fs-mntd fs-mntd3">
+                                <p class="fs-mnstit">Bán chạy nhất</p>
+                                <ul class="fs-mnsprod">
+                                        <li class="clearfix">
+                                            <a class="fs-mnspimg" href="/may-tinh-bang/samsung-galaxy-tab-A105">
+                                                <img src="//cdn.fptshop.com.vn/Uploads/Thumbs/2018/9/2/636714822093598058_taba105-1o.png" alt="Samsung Galaxy Tab A 10.5">
+                                            </a>
+                                            <div>
+                                                <span><a href="/may-tinh-bang/samsung-galaxy-tab-A105" title="">Samsung Galaxy Tab A 10.5</a></span>
+                                                <p>9.490.000 ₫</p>
+                                            </div>
+                                        </li>
+                                        <li class="clearfix">
+                                            <a class="fs-mnspimg" href="/may-tinh-bang/huawei-mediapad-t3-70-prestige">
+                                                <img src="//cdn.fptshop.com.vn/Uploads/Thumbs/2017/10/24/636444518526948294_Huawei-MediaPad-T3-7.0-Prestige.png" alt="Huawei MediaPad T3 7.0 Prestige">
+                                            </a>
+                                            <div>
+                                                <span><a href="/may-tinh-bang/huawei-mediapad-t3-70-prestige" title="">Huawei MediaPad T3 7.0 Prestige</a></span>
+                                                <p>2.090.000 ₫</p>
+                                            </div>
+                                        </li>
+                                </ul>
+                                
+                            </div>
+                            <div class="fs-mntd fs-mntd4">
+                                    <a target="_blank" href="https://fptshop.com.vn/may-tinh-bang" title="Tablet">
+                                        <img src="//cdn.fptshop.com.vn/Uploads/Originals/2018/12/10/636800382970194963_H4.png" alt="Tablet">
+                                    </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="/phu-kien" title=""><i class="ficon f-pkien"></i> PHỤ KIỆN <span class="ficon"></span></a>
+                    <div class="fs-mnsub">
+                        <div class="fs-mnbox">
+                                    <div class="fs-mntd fs-mntd1">
+                                        <p class="fs-mnstit">Các sản phẩm Phụ Kiện</p>
+                                        <ul class="fs-mnsul fs-mnsul3 clearfix">
+                                                <li><a href="/phu-kien/bao-da-op-lung" title="Bao da ốp lưng">Bao da ốp lưng</a></li>
+                                                <li><a href="/phu-kien/sac-du-phong" title="Sạc dự phòng">Sạc dự phòng</a></li>
+                                                <li><a href="/phu-kien/the-nho" title="Thẻ nhớ">Thẻ nhớ</a></li>
+                                                <li><a href="/phu-kien/phu-kien-apple" title="Phụ kiện Apple">Phụ kiện Apple</a></li>
+                                                <li><a href="/phu-kien/mieng-dan-man-hinh" title="Miếng dán màn hình">Miếng dán màn hình</a></li>
+                                                <li><a href="/phu-kien/tai-nghe" title="Tai nghe">Tai nghe</a></li>
+                                                <li><a href="/phu-kien/loa" title="Loa">Loa</a></li>
+                                                <li><a href="/phu-kien/usb-o-cung" title="USB - Ổ cứng">USB - Ổ cứng</a></li>
+                                                <li><a href="/phu-kien/sac-cap" title="Sạc cáp">Sạc cáp</a></li>
+                                                <li><a href="/phu-kien/chuot" title="Chuột">Chuột</a></li>
+                                                <li><a href="/phu-kien/balo-tui-xach" title="Balo - Túi xách">Balo - Túi xách</a></li>
+                                                <li><a href="/phu-kien/tv-box" title="TV BOX">TV BOX</a></li>
+                                                <li><a href="/phu-kien/phu-kien-khac" title="Phụ kiện khác">Phụ kiện khác</a></li>
+                                                <li><a href="/phu-kien/may-choi-game" title="Máy chơi game">Máy chơi game</a></li>
+                                        </ul>
+                                    </div>
+                            <div class="fs-mntd fs-mntd3">
+                                <p class="fs-mnstit">Bán chạy nhất</p>
+                                <ul class="fs-mnsprod">
+                                        <li class="clearfix">
+                                            <a class="fs-mnspimg" href="/phu-kien/MDMH-iPhone-X-Kinh-cuong-luc-Clear">
+                                                <img src="//cdn.fptshop.com.vn/Uploads/Thumbs/2018/1/25/636524432304682928_636482583480745126_P1510979240_mieng-dan-kinh-cuong-luc-iphone-x-nillkin-amazing-h-pro-1-(1).jpg" alt="MDMH iPhone X Kính cường lực Clear">
+                                            </a>
+                                            <div>
+                                                <span><a href="/phu-kien/MDMH-iPhone-X-Kinh-cuong-luc-Clear" title="">MDMH iPhone X Kính cường lực Clear</a></span>
+                                                <p>190.000 ₫</p>
+                                            </div>
+                                        </li>
+                                        <li class="clearfix">
+                                            <a class="fs-mnspimg" href="/phu-kien/mic-karaoke-kem-loa-bluetooth-va-sdp-icore-m9">
+                                                <img src="//cdn.fptshop.com.vn/Uploads/Thumbs/2018/11/12/636776407035280282_mic-icore.png" alt="Mic Karaoke kèm loa Bluetooth và SDP iCore M9">
+                                            </a>
+                                            <div>
+                                                <span><a href="/phu-kien/mic-karaoke-kem-loa-bluetooth-va-sdp-icore-m9" title="">Mic Karaoke kèm loa Bluetooth và SDP iCore M9</a></span>
+                                                <p>750.000 ₫</p>
+                                            </div>
+                                        </li>
+                                </ul>
+                            </div>
+                            <div class="fs-mntd fs-mntd4">
+                                    <a target="_blank" href="https://fptshop.com.vn/phu-kien" title="Khuyến mãi hot nhất">
+                                        <img src="//cdn.fptshop.com.vn/Uploads/Originals/2018/9/1/636713668479090000_KM-Phu-Kien-248x248.png" alt="Khuyến mãi hot nhất">
+                                    </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <li><a href="/may-doi-tra" title=""><i class="ficon f-mdt"></i> MÁY ĐỔI TRẢ</a></li>
+                <li class="fs-mnulsb">
+                    <a href="/sim-so-dep" title=""><i class="ficon f-simthe"></i> SIM &amp; THẺ <span class="ficon"></span></a>
+                    <!--<ul class="fs-hdmsub fs-hdmsubsmall">
+                        <li><a href="/sim-so-dep" title="">SIM</a></li>
+						<li><a href="/sim-the/mua-the-cao" title="">Thẻ cào</a></li>
+                        
+                        
+                    </ul>-->
+                </li>
+                
+                <li class="fs-mnulsb">
+				<a href="/khuyen-mai" title=""><i class="ficon f-kmai"></i> KHUYẾN MÃI </a>
+					<ul class="fs-hdmsub fs-hdmsubsmall">
+                        <li><a href="/khuyen-mai/thong-tin-trao-thuong" title="">Thông tin trao thưởng</a></li>
+						<li><a href="/khuyen-mai" title="">Tất cả khuyến mại</a></li>
+                    </ul>
+				</li>
+				
+				
+            </ul>
+        </div>
+    </nav>
+</header>

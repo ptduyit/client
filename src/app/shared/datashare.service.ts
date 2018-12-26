@@ -5,6 +5,10 @@ import { BehaviorSubject } from 'rxjs';
     providedIn: 'root'
 })
 export class DataShareService{
-    public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
+    private isUserLoggedIn = new BehaviorSubject<any>('');
+    cast = this.isUserLoggedIn.asObservable();
+    constructor(){}
+    updateStatus(newLoggedIn){
+        this.isUserLoggedIn.next(newLoggedIn);
+    }
 }

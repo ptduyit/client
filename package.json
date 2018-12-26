@@ -21,9 +21,15 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
+    "@tinymce/tinymce-angular": "^2.3.3",
+    "ag-grid": "^18.1.2",
+    "ag-grid-angular": "^19.1.2",
+    "ag-grid-community": "^19.1.4",
+    "angular-6-social-login": "^1.1.1",
     "core-js": "^2.5.4",
     "ngx-infinite-scroll": "^6.0.1",
     "rxjs": "~6.2.0",
+    "tinymce": "^4.9.2",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

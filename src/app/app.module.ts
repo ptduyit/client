@@ -37,7 +37,31 @@ import { AddressComponent } from './user/address/address.component';
 import { EditAddressComponent } from './user/edit-address/edit-address.component';
 import { MyOrdersComponent } from './user/my-orders/my-orders.component';
 import { OrderDetailComponent } from './user/order-detail/order-detail.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { AgGridModule } from 'ag-grid-angular';
+import { ButtonRendererComponent } from './renderer/button-renderer.component';
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from "angular-6-social-login";
 
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+      [
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider("1194855687339141")
+        },
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider("349227848582-8qk4dfv1hsqvql2mg9nf21r1dhed26vh.apps.googleusercontent.com")
+        },
+      ]
+  );
+  return config;
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +113,8 @@ import { OrderDetailComponent } from './user/order-detail/order-detail.component
     
     MyOrdersComponent,
     
-    OrderDetailComponent
+    OrderDetailComponent,
+    ButtonRendererComponent
   ],
   imports: [
     BrowserModule,
@@ -100,9 +125,17 @@ import { OrderDetailComponent } from './user/order-detail/order-detail.component
     InfiniteScrollModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    SocialLoginModule,
+    EditorModule,
+    AgGridModule.withComponents([ButtonRendererComponent])
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -25,7 +25,15 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/tinymce/tinymce.min.js",
+              "node_modules/tinymce/themes/modern/theme.js",
+              "node_modules/tinymce/plugins/link/plugin.js",
+              "node_modules/tinymce/plugins/image/plugin.js",
+              "node_modules/tinymce/plugins/fullpage/plugin.js",
+              "node_modules/tinymce/plugins/preview/plugin.js",
+              "node_modules/tinymce/plugins/code/plugin.js"
+            ]
           },
           "configurations": {
             "production": {

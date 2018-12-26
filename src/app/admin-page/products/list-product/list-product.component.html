@@ -1,5 +1,24 @@
+
+
 <a routerLink="/admin/products/new-product">Thêm sản phẩm</a>
-<div>
+
+<ag-grid-angular 
+    style="width: 100%; height: 90%;" 
+    class="ag-theme-balham"
+    [rowData]="rowData" 
+    [enableSorting]="true"
+    [enableFilter]="true"
+    [enableColResize]="true"
+    [columnDefs]="columnDefs"
+    [pagination]="true"
+    [paginationAutoPageSize]="true"
+    [frameworkComponents]="frameworkComponents"
+    >
+</ag-grid-angular>
+
+<pre>{{rowDataClicked1 | json}}</pre>
+
+<!-- <div>
   <table class="table table-dark table-hover">
     <thead>
       <tr>
@@ -25,4 +44,4 @@
       
     </tbody>
   </table>
-</div>
+</div> -->

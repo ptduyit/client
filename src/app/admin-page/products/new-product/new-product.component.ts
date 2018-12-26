@@ -47,6 +47,7 @@ export class NewProductComponent implements OnInit {
     this.categoryPro.getCategory().subscribe((data: CategoryProduct[]) => this.categorys = data);
 
   }
+
   save(){
     if(this.title=="Create"){
       this.proService.createProduct(this.productForm.value)
@@ -60,6 +61,15 @@ export class NewProductComponent implements OnInit {
   cancel(){
     this.router.navigate(['admin/products/list-product']);
   }
+
+  public tinyMceSettings = {
+    skin_url: '/assets/tinymce/skins/lightgray',
+    inline: false,
+    statusbar: true,
+    browser_spellcheck: true,
+    height: 320,
+    plugins: 'link image preview code',
+  };
 }
 interface CategoryProduct {
   categoryId: number;

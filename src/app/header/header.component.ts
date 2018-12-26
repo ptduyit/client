@@ -9,19 +9,21 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  isUserLoggedIn: boolean;
+  isUserLoggedIn: any;
   constructor(private router: Router, private dataShareService: DataShareService) {
-    this.dataShareService.isUserLoggedIn.subscribe(value => {
-      this.isUserLoggedIn = value;
-    });
+    
   }
 
   ngOnInit() {
+    this.dataShareService.cast.subscribe(value => {
+      this.isUserLoggedIn = value;
+    });
   }
-  id = localStorage.getItem('userToken');
+   
+  id = localStorage.getItem('authToken');
   Logout() {
-    localStorage.removeItem('userToken');
-    this.isUserLoggedIn = false;
+    localStorage.removeItem('authToken');
+    console.log(this.isUserLoggedIn);
     this.router.navigate(['/login']);
   }
   logined: boolean = true;

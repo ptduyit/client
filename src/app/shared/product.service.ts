@@ -17,6 +17,9 @@ export class ProductService {
   getProductById(id: number){
     return this.http.get<Product>(this.rootUrl + '/GetProductById/' + id);
   }
+  getProductInformation(id: number){
+    return this.http.get<Product>(this.rootUrl + '/GetProductInformation/' + id);
+  }
   getProductIndex(){
     return this.http.get<Product[]>(this.rootUrl+'/GetIndexProducts');
   }

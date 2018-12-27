@@ -12,4 +12,5 @@ export class Product {
     guarantee: number;
     dateUpdated: Date;
     rate: number;
+    productImage: any;
 }

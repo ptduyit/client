@@ -15,3 +15,12 @@ body{
 a{
     color: #777;
 }
+.carousel-control-next-icon, .carousel-control-prev-icon {
+    background-color: #e21313!important;
+}
+.carousel-indicators .active {
+    background-color: #f00;
+}
+.carousel-indicators li {
+    background-color: rgba(165, 66, 66, 0.5);
+}

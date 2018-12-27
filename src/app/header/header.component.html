@@ -1,11 +1,16 @@
 <header class="fs-header">
     <div class="f-hdtop">
         <div class="f-wrap">
-            <a class="fs-logo" href="/" title=""><img class="logo" src="src\assets\logo.png" alt="Logo"></a>
+            <a class="fs-logo" routerLink="/home" title=""><img class="logo" src="src\assets\logo.png" alt="Logo"></a>
             <ul class="fs-hdmn">
-                <li><a href="/login" class="ab" title="" ><i class="fa fa-user fa-1x" aria-hidden="true"></i> <span>Đăng nhập</span></a></li>
-  
-                <li><a href="/cart" title=""><i class="ficon f-cart"></i> <span>Giỏ hàng</span><b class="fs-cartic countTotalCart" style="display: none;">0</b></a></li>
+                <li *ngIf="!isUserLoggedIn && !token"><a routerLink="/login" class="ab" title="" ><i class="fa fa-user fa-1x" aria-hidden="true"></i> <span>Đăng nhập</span></a></li>
+                <li *ngIf="isUserLoggedIn || token" id="dropdown"><a routerLink="/user"  class="ab" title="" ><i class="fa fa-user fa-1x" aria-hidden="true"></i> <span>Duy Phạm</span></a>
+                <div class="dropdown-content">
+                    <a routerLink="/user/my-orders">Quản lý đơn hàng</a>
+                    <a (click)="Logout()">Đăng xuất</a>
+                </div>
+                </li>
+                <li><a routerLink="/cart" title=""><i class="ficon f-cart"></i> <span>Giỏ hàng</span><b class="fs-cartic countTotalCart" style="display: none;">0</b></a></li>
             </ul>
             <div class="fs-search">
                 <form action="/search/1" method="get" autocomplete="off">

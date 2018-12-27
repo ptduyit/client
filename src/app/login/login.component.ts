@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
       .subscribe((data: any) => {
         localStorage.setItem('authToken', data.auth_token);
         this.dataService.updateStatus(data);
+        localStorage.setItem('userId', data.id);
         this.router.navigate(['/home']);
       },
         err => {
@@ -44,20 +45,24 @@ export class LoginComponent implements OnInit {
 
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
-        console.log(socialPlatform+" sign in data : " , userData);
+        //console.log(socialPlatform+" sign in data : " , userData);
         // Now sign-in with userData
         if(socialPlatform == "facebook"){
           this.userService.facebookLogin(userData.token)
-          .subscribe(data =>  {
+          .subscribe((data: any) =>  {
             this.dataService.updateStatus(data);
-            console.log(data);
+            localStorage.setItem('authToken', data.auth_token);
+            localStorage.setItem('userId', data.id);
+            this.router.navigate(['/home']);
           })
         }
         else if(socialPlatform == "google"){
           this.userService.googleLogin(userData.idToken)
-          .subscribe(data =>  {
+          .subscribe((data: any) =>  {
             this.dataService.updateStatus(data);
-            console.log(data);
+            localStorage.setItem('authToken', data.auth_token);
+            localStorage.setItem('userId', data.id);
+            this.router.navigate(['/home']);
           })
         }
             

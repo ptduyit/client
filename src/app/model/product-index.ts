@@ -5,4 +5,5 @@ export class ProductIndex{
     discount: number;
     image: string;
     rate: number;
+    productImage: any;
 }

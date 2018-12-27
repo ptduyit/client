@@ -1,8 +1,8 @@
 
     <div class="product-grid6">
         <div class="product-image6">
-            <a routerLink="/view/{{id}}">
-                <img class="pic-1" src="{{link_img}}">
+            <a routerLink="/view/{{productIndex.productId}}">
+                <img class="pic-1" src="{{productIndex.image}}">
             </a>
         </div>
         <div class="product-content">
@@ -17,46 +17,24 @@
         <ul class="social">
             <!-- cái chỗ quick view sẽ sử dung modal để show ra -->
             <li><a (click)="open(content)" data-tip="Xem nhanh"><i class="fa fa-search"></i></a></li>
-            <li><a (click)="addcart()" data-tip="Mua"><i class="fa fa-shopping-bag"></i></a></li>
-            <li><a routerLink="routeName" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
+            <li><a (click)="buynow()" data-tip="Mua"><i class="fa fa-shopping-bag"></i></a></li>
+            <li><a (click)="addcart()" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
         </ul>
     </div>
-    <ng-template #content let-c="close" let-d="dismiss">
+    <ngb-alert class="status-addcart" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+    <ng-template #content let-c="close" let-d="dismiss" >
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title">Xem nhanh</h4>
           <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" *ngIf="images">
           <!-- Hình nảnh -->
-          <ngb-carousel *ngIf="images">
-            <ng-template ngbSlide>
-              <img [src]="images[0]" alt="Random first slide">
+          <ngb-carousel>
+            <ng-template ngbSlide *ngFor="let image of images">
+              <img [src]="image.url" width="100%" alt="Random first slide">
               <div class="carousel-caption">
-                <h3>10 seconds between slides...</h3>
-                <p>This carousel uses customized default values.</p>
-              </div>
-            </ng-template>
-            <ng-template ngbSlide>
-              <img [src]="images[1]" alt="Random second slide">
-              <div class="carousel-caption">
-                <h3>No mouse events...</h3>
-                <p>This carousel doesn't pause or resume on mouse events</p>
-              </div>
-            </ng-template>
-            <ng-template ngbSlide>
-              <img [src]="images[2]"  alt="Random third slide">
-              <div class="carousel-caption">
-                <h3>No keyboard...</h3>
-                <p>This carousel uses customized default values.</p>
-              </div>
-            </ng-template>
-            <ng-template ngbSlide>
-              <img [src]="images[3]" alt="Random fourth slide">
-              <div class="carousel-caption">
-                <h3>And no wrap after last slide.</h3>
-                <p>This carousel uses customized default values.</p>
               </div>
             </ng-template>
           </ngb-carousel>

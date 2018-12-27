@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  userId = '67F6955A-606B-419E-D9DF-08D65316240F';
+  userId = '';
   carts: Cart[];
   total: number;
   order: Order ={} as any;
@@ -19,6 +19,7 @@ export class CartComponent implements OnInit {
   constructor(private cartService : CartService, private router: Router) { }
 
   ngOnInit() {
+    this.userId = localStorage.getItem('userId');
     this.getCart();
     
   }

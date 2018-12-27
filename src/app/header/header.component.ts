@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   isUserLoggedIn: any;
+  token = localStorage.getItem('authToken');
+  userId = localStorage.getItem('userId');
   constructor(private router: Router, private dataShareService: DataShareService) {
     
   }
@@ -20,10 +22,13 @@ export class HeaderComponent implements OnInit {
     });
   }
    
-  id = localStorage.getItem('authToken');
+  
   Logout() {
     localStorage.removeItem('authToken');
-    console.log(this.isUserLoggedIn);
+    localStorage.removeItem('userId');
+    this.dataShareService.updateStatus('');
+    this.token = '';
+    this.userId = '';
     this.router.navigate(['/login']);
   }
   logined: boolean = true;

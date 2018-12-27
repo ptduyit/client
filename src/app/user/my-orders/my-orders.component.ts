@@ -9,12 +9,13 @@ import { from } from 'rxjs';
   styleUrls: ['./my-orders.component.css']
 })
 export class MyOrdersComponent implements OnInit {
-  userId = '67f6955a-606b-419e-d9df-08d65316240f';
+  userId = '';
   orders: Order[];
   orderDetail: OrderDetail[];
   constructor(private orderService: OrderService) { }
 
   ngOnInit() {
+    this.userId = localStorage.getItem('userId');
     this.getOrderUser();
   }
   getOrderUser(){

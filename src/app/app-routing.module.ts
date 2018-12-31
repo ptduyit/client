@@ -39,7 +39,8 @@ const routes: Routes = [
       { path: 'my-orders', component: MyOrdersComponent},
       { path: 'address', component: AddressComponent},
       { path: 'change-password', component: ChangePasswordComponent },
-      { path: 'edit-address', component: EditAddressComponent },
+      { path: 'add-address', component: EditAddressComponent },
+      { path: 'edit-address/:id', component: EditAddressComponent },
       { path: 'edit-profile', component: EditProfileComponent },
       { path: 'order-detail', component: OrderDetailComponent },
       { path: 'user-info', component: UserInfoComponent}

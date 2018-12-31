@@ -40,6 +40,8 @@ import { OrderDetailComponent } from './user/order-detail/order-detail.component
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AgGridModule } from 'ag-grid-angular';
 import { ButtonRendererComponent } from './renderer/button-renderer.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   SocialLoginModule,
   AuthServiceConfig,
@@ -128,7 +130,10 @@ export function getAuthServiceConfigs() {
     ReactiveFormsModule,
     SocialLoginModule,
     EditorModule,
-    AgGridModule.withComponents([ButtonRendererComponent])
+    AgGridModule.withComponents([ButtonRendererComponent]),
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

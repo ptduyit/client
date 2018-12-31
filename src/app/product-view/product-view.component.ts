@@ -14,7 +14,7 @@ import { CartDetail } from '../model/cart-detail';
 })
 export class ProductViewComponent implements OnInit {
   id: number;
-  product = {} as any;
+  product: Product;
   images = {} as any;
   userId = '';
   cartDetail: CartDetail = {} as any;
@@ -27,7 +27,7 @@ export class ProductViewComponent implements OnInit {
     this.userId = localStorage.getItem('userId');
     if(this.avRouter.snapshot.params["id"]) {
       this.id = this.avRouter.snapshot.params["id"];
-      this.proService.getProductInformation(this.id).subscribe(data => this.product = data[0]);
+      this.proService.getProductInformation(this.id).subscribe(data => this.product = data);
     } 
     this._success.subscribe((message) => this.successMessage = message);
     this._success.pipe(

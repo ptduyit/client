@@ -16,7 +16,8 @@ export class SignupComponent implements OnInit {
   onSubmit(signup){
     this.userService.signup(signup.value.fullname, signup.value.email, signup.value.password, signup.value.phonenumber)
     .subscribe(data => {
-      this.router.navigate(['/login']);
+      console.log(data);
+      //this.router.navigate(['/login']);
     }),
     err => console.log(err);    
   }

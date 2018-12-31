@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { UserInfo } from '../model/user-info';
 
 @Injectable({
   providedIn: 'root'
@@ -25,24 +26,22 @@ export class UserService {
       catchError(this.handleError)
     );
   }
-  facebookLogin(accessToken:string) {
+  getUserInfo(userId: string){
+    return this.http.get<UserInfo>(this.rootUrl +'/api/UserInfoes/'+userId);
+  }
+  updateUserInfo(userInfo: UserInfo){
+    return this.http.put(this.rootUrl + '/api/UserInfoes/'+userInfo.userId,userInfo);
+  }
+  externalLogin(accessToken:string, platform: string) {
     var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
     let body = JSON.stringify({ accessToken });  
     return this.http
-      .post(this.rootUrl + '/api/Facebook', body, reqHeader)
+      .post(this.rootUrl + '/api/ExternalLogin/'+platform, body, reqHeader)
       .pipe(
         catchError(this.handleError)
       );
   }
-  googleLogin(accessToken:string) {
-    var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
-    let body = JSON.stringify({ accessToken });  
-    return this.http
-      .post(this.rootUrl + '/api/Google', body, reqHeader)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+  
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

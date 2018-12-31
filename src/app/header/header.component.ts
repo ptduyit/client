@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   isUserLoggedIn: any;
-  token = localStorage.getItem('authToken');
+  token = localStorage.getItem('token');
   userId = localStorage.getItem('userId');
   constructor(private router: Router, private dataShareService: DataShareService) {
     

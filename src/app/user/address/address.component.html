@@ -1,3 +1,29 @@
-<p>
-  address works!
-</p>
+<div>
+  <h4>Địa Chỉ Của Tôi</h4>
+  <div>
+    <table class="table table-striped" *ngIf="addresses">
+      <thead>
+        <tr>
+          <th>Tên</th>
+          <th>Địa chỉ</th>
+          <th>Mã vùng</th>
+          <th>Số điện thoại</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let address of addresses">
+          <th>{{address.fullName}}</th>
+          <th>{{address.street}}</th>
+          <th>{{address.province}} - {{address.district}} - {{address.ward}}</th>
+          <th>{{address.phoneNumber}}</th>
+          <th><span *ngIf="address.isDefault">Nhận hàng mặc định</span> </th>
+          <th><div style="cursor: pointer;" (click)="update(address.addressId)">Sửa</div></th>
+          <th><div style="cursor: pointer;" *ngIf="!address.isDefault" (click)="delete(address.addressId)">Xóa</div></th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

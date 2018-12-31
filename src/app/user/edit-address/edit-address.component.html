@@ -1,3 +1,57 @@
-<p>
-  edit-address works!
-</p>
+<form [formGroup]="addressForm" (ngSubmit)="save()">
+  <div class="input-group form-group">
+      <input type="hidden" class="form-control" formControlName="addressId">
+  </div>
+  <div class="input-group form-group">
+      <label for="fullName" class="control-label col-sm-2">Tên</label>
+      <div class="col-sm-10">
+          <input type="text" class="form-control" formControlName="fullName">
+      </div>
+  </div>
+  <div class="input-group form-group">
+    <label for="phoneNumber" class="control-label col-sm-2">Số điện thoại</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" formControlName="phoneNumber">
+    </div>
+</div>
+<div class="input-group form-group">
+  <label for="street" class="control-label col-sm-2">Địa chỉ nhận hàng</label>
+  <div class="col-sm-10">
+      <input type="text" class="form-control" formControlName="street">
+  </div>
+</div>
+<div class="input-group form-group">
+  <label for="province" class="control-label col-sm-2">Tỉnh/ Thành phố</label>
+  <div class="col-sm-10">
+      <input type="text" class="form-control" formControlName="province">
+  </div>
+</div>
+<div class="input-group form-group">
+  <label for="district" class="control-label col-sm-2">Quận/ Huyện</label>
+  <div class="col-sm-10">
+      <input type="text" class="form-control" formControlName="district">
+  </div>
+</div>
+<div class="input-group form-group">
+  <label for="ward" class="control-label col-sm-2">Phường/ Xã</label>
+  <div class="col-sm-10">
+      <input type="text" class="form-control" formControlName="ward">
+  </div>
+</div>
+<div class="input-group form-group">
+  <label class="control-label col-sm-2"></label>
+  <div class="col-sm-10">
+      <input type="checkbox" class="" formControlName="isDefault"> Đặt làm địa chỉ mặc định
+  </div>
+</div>
+<div class="input-group form-group">
+    <input type="hidden" class="form-control" formControlName="userId">
+</div>
+<div class="input-group form-group">
+  <label class=" col-sm-2"></label>
+  <div class="col-sm-10">
+    <button type="submit" class="btn btn-warning">Lưu</button>
+  </div>
+</div>
+
+</form>

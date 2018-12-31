@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   onSubmit(username, password) {
     this.userService.login(username, password)
       .subscribe((data: any) => {
+        console.log(data);
         localStorage.setItem('authToken', data.auth_token);
         this.dataService.updateStatus(data);
         localStorage.setItem('userId', data.id);
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
   }
   public socialSignIn(socialPlatform : string) {
     let socialPlatformProvider;
+    let token;
     if(socialPlatform == "facebook"){
       socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
     }else if(socialPlatform == "google"){
@@ -48,24 +50,20 @@ export class LoginComponent implements OnInit {
         //console.log(socialPlatform+" sign in data : " , userData);
         // Now sign-in with userData
         if(socialPlatform == "facebook"){
-          this.userService.facebookLogin(userData.token)
-          .subscribe((data: any) =>  {
-            this.dataService.updateStatus(data);
-            localStorage.setItem('authToken', data.auth_token);
-            localStorage.setItem('userId', data.id);
-            this.router.navigate(['/home']);
-          })
+          token = userData.token;
         }
         else if(socialPlatform == "google"){
-          this.userService.googleLogin(userData.idToken)
-          .subscribe((data: any) =>  {
-            this.dataService.updateStatus(data);
-            localStorage.setItem('authToken', data.auth_token);
-            localStorage.setItem('userId', data.id);
-            this.router.navigate(['/home']);
-          })
+          token = userData.idToken;
         }
-            
+
+        this.userService.externalLogin(token,socialPlatform)
+        .subscribe((data: any) =>  {
+          console.log(data);
+          this.dataService.updateStatus(data);
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userId', data.id);
+          this.router.navigate(['/home']);
+        });
       }
     );
   }

@@ -8,34 +8,46 @@
     <div class="d-flex justify-content-center h-100 ">
       <div class="card">
         <div class="card-header">
-          <h3>Sign Up</h3>
+          <h3>Đăng ký</h3>
         </div>
         <div class="card-body">
-          <form (ngSubmit)="onSubmit(signup)" #signup="ngForm">
+          <form name="form" (ngSubmit)="signupForm.form.valid && onSubmit(signupForm)" #signupForm="ngForm" novalidate>
             
             <div class="input-group form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-user-edit"></i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Your name" ngModel name="fullname">
+              <input type="text" class="form-control" placeholder="Your name" ngModel #fullname="ngModel" name="fullname" [ngClass]="{ 'is-invalid': signupForm.submitted && fullname.invalid }" required>
+              <div *ngIf="signupForm.submitted && fullname.invalid" class="invalid-feedback">
+                  <div *ngIf="fullname.errors.required">Không được để trống</div>
+                  <div *ngIf="fullname.errors.email">Phải nhập đúng định dạng email</div>
+              </div>
             </div>
             <div class="input-group form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Email" ngModel name="email">
+              <input type="text" class="form-control" placeholder="Email" ngModel name="email" #email="ngModel" [ngClass]="{ 'is-invalid': signupForm.submitted && email.invalid }" required email>
+              <div *ngIf="signupForm.submitted && email.invalid" class="invalid-feedback">
+                  <div *ngIf="email.errors.required">Không được để trống</div>
+                  <div *ngIf="email.errors.email">Phải nhập đúng định dạng email</div>
+              </div>
             </div>
             <div class="input-group form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Phone Number" ngModel name="phonenumber">
+              <input type="text" class="form-control" placeholder="Phone Number" ngModel name="phonenumber" #phonenumber="ngModel" [ngClass]="{ 'is-invalid': signupForm.submitted && phonenumber.invalid }" required minlength="10">
+              <div *ngIf="signupForm.submitted && phonenumber.invalid" class="invalid-feedback">
+                  <div *ngIf="phonenumber.errors.required">Không được để trống</div>
+                  <div *ngIf="email.errors.email">Phải nhập đúng định dạng email</div>
+              </div>
             </div>
             <div class="input-group form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
               </div>
-              <input type="password" class="form-control" placeholder="password" ngModel name="password">
+              <input type="password" class="form-control" placeholder="password" ngModel name="password" #password="ngModel">
             </div>
 
             <div class="input-group form-group">

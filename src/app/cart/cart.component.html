@@ -1,11 +1,41 @@
-<div class="container">
+<div *ngIf="!carts">
+  <div class="d-flex justify-content-center">
+    <img style="height:80%" src="https://cdngarenanow-a.akamaihd.net/shopee/shopee-pcmall-live-vn/assets/f3540f6657bbdc1120e3f8cc90bdba97.png" alt="">
+  </div>
+  <div class="d-flex justify-content-center">
+    
+    <h4>Giỏ hàng trống</h4>
+  </div>
+</div>
+<div class="container" *ngIf="carts">
+  <h3>Đặt Hàng</h3>
+  <br>
+  <div>
+    <h5>Địa Chỉ Nhận Hàng</h5>
+    <div *ngIf="addresses">
+      <div *ngFor="let address of addresses" class="row">
+        <div class="col-sm-1"> 
+          <input type="radio" id="addressId" name="addressId" [value]="address.addressId" [(ngModel)]="addId">  
+          
+        </div>
+        <div class="col-sm-11 row" >
+          <div class="col-sm-3">{{address.fullName}}</div> 
+          <div class="col-sm-3">{{address.phoneNumber}} </div>
+          <div class="col-sm-6">{{address.street}} {{address.ward}} {{address.district}} {{address.province}} <span *ngIf="address.isDefault" style="margin-left: 20px; color:rgb(252, 185, 0)">Mặc định</span>    </div> 
+        </div>
+      </div>
+    </div>
+    <div>
+        <button (click)="addAddress()" class="btn btn-success">Thêm địa chỉ</button>
+    </div>
+  </div>
   <table id="cart" class="table table-hover table-condensed">
     <thead>
       <tr>
-        <th style="width:50%">Product</th>
-        <th style="width:10%">Price</th>
-        <th style="width:8%">Quantity</th>
-        <th style="width:22%" class="text-center">Subtotal</th>
+        <th style="width:50%">Tên sản phẩm</th>
+        <th style="width:10%">Đơn giá</th>
+        <th style="width:8%">Số lượng</th>
+        <th style="width:22%" class="text-center">Thành tiền</th>
         <th style="width:10%"></th>
       </tr>
     </thead>
@@ -17,8 +47,7 @@
             <div class="col-sm-1"></div>
             <div class="col-sm-9">
               <h4 class="nomargin">{{cart.productName}}</h4>
-              <p>Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem
-                ipsum dolor sit amet.</p>
+              <p>{{cart.summary}}</p>
             </div>
           </div>
         </td>
@@ -37,8 +66,8 @@
 
       <tr>
         <td colspan="3" class="hidden-xs"></td>
-        <td class="hidden-xs text-center"><strong>Total {{total | number}}</strong></td>
-        <td><a (click)="checkOut()" class="btn btn-success btn-block"> Purchase <i class="fa fa-angle-right"></i></a></td>
+        <td class="text-center">Tổng tiền <span style="font-size: 24px; color: rgb(255, 9, 9); font-weight: bold;"> {{total | number}}</span></td>
+        <td><button (click)="checkOut()" class="btn btn-success btn-block"> Đặt hàng <i class="fa fa-angle-right"></i></button></td>
       </tr>
     </tfoot>
   </table>

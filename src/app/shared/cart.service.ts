@@ -29,7 +29,7 @@ export class CartService {
   {
     return this.http.put(this.rootUrl+'/PutCartDetails/'+cartDetail.userId+'/'+cartDetail.productId,cartDetail);
   }
-  checkOut(order: any){
-    return this.http.post(this.checkoutUrl, order);
+  checkOut(order: any, addressId: number){
+    return this.http.post(this.checkoutUrl+'/'+ addressId, order);
   }
 }

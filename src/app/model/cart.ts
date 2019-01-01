@@ -7,4 +7,5 @@ export class Cart{
     image: string;
     stock: number;
     discount: number;
+    summary: string;
 }

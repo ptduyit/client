@@ -6,7 +6,6 @@ import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import { CartService } from '../shared/cart.service';
 import { CartDetail } from '../model/cart-detail';
-
 @Component({
   selector: 'app-product-view',
   templateUrl: './product-view.component.html',
@@ -14,7 +13,7 @@ import { CartDetail } from '../model/cart-detail';
 })
 export class ProductViewComponent implements OnInit {
   id: number;
-  product: Product;
+  product: Product = {} as any;
   images = {} as any;
   userId = '';
   cartDetail: CartDetail = {} as any;

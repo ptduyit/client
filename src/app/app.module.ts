@@ -42,12 +42,14 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ButtonRendererComponent } from './renderer/button-renderer.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SafeHtmlPipe } from './safe-html-pipe';
 import {
   SocialLoginModule,
   AuthServiceConfig,
   GoogleLoginProvider,
   FacebookLoginProvider,
 } from "angular-6-social-login";
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -116,7 +118,8 @@ export function getAuthServiceConfigs() {
     MyOrdersComponent,
     
     OrderDetailComponent,
-    ButtonRendererComponent
+    ButtonRendererComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
@@ -133,7 +136,8 @@ export function getAuthServiceConfigs() {
     AgGridModule.withComponents([ButtonRendererComponent]),
     OwlDateTimeModule, 
     OwlNativeDateTimeModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [
     {

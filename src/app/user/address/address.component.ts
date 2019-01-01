@@ -27,6 +27,9 @@ export class AddressComponent implements OnInit {
   update(addressId: number){
     this.router.navigate(['user/edit-address/'+addressId]);
   }
+  addAddress(){
+    this.router.navigate(['user/add-address/']);
+  }
   delete(addressId: number){
     var ans = confirm("Bạn thật sự muốn xóa?");
     if (ans) {

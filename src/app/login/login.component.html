@@ -6,41 +6,48 @@
 	<div class="d-flex justify-content-center h-100 ">
 		<div class="card">
 			<div class="card-header">
-				<h3>Sign In</h3>
+				<h3>Đăng nhập</h3>
 				<div class="d-flex justify-content-end social_icon">
 					<span><i class="fab fa-facebook-square" (click)="socialSignIn('facebook')"></i></span>
 					<span><i class="fab fa-google-plus" (click)="socialSignIn('google')"></i></span>
 				</div>
 			</div>
 			<div class="card-body">
-				<form (ngSubmit)="onSubmit(username.value,password.value)" #loginForm="ngForm">
+				<form name="form" (ngSubmit)="loginForm.form.valid && onSubmit(username.value,password.value)" #loginForm="ngForm" novalidate>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="username" ngModel #username name="username">
-						
+						<input type="text" class="form-control" placeholder="Tài khoản" ngModel #username="ngModel" name="username" [ngClass]="{ 'is-invalid': loginForm.submitted && username.invalid }" required email>
+						<div *ngIf="loginForm.submitted && username.invalid" class="invalid-feedback">
+								<div *ngIf="username.errors.required">Không được để trống</div>
+								<div *ngIf="username.errors.email">Phải nhập đúng định dạng email</div>
+						</div>
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="password" ngModel #password name="password">
+						<input type="password" class="form-control" placeholder="Mật khẩu" ngModel #password="ngModel" name="password" [ngClass]="{ 'is-invalid': loginForm.submitted && password.invalid }" required minlength="6">
+						<div *ngIf="loginForm.submitted && password.invalid" class="invalid-feedback">
+								<div *ngIf="password.errors.required">Không được để trống</div>
+								<div *ngIf="password.errors.minlength">Mật khẩu tối thiểu 6 kí tự</div>
+						</div>
 					</div>
 					<div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
+						<input type="checkbox">Ghi nhớ
 					</div>
 					<div class="form-group">
-						<input type="submit" value="Login" class="btn float-right login_btn">
+						<input type="submit" value="Đăng nhập" class="btn float-right login_btn">
 					</div>
 				</form>
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					Don't have an account?<a routerLink="/signup">Sign Up</a>
+					Bạn đã có tài khoản?<a routerLink="/signup">Đăng Ký</a>
 				</div>
 				<div class="d-flex justify-content-center">
-					<a href="#">Forgot your password?</a>
+					<a href="#">Quên mật khẩu?</a>
 				</div>
 			</div>
 		</div>

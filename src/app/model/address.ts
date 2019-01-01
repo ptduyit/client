@@ -1,5 +1,5 @@
 export class Address{
-    addressId: string;
+    addressId: number;
     fullName: string;
     phoneNumber: string;
     province: string;

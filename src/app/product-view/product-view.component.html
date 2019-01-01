@@ -6,7 +6,7 @@
 				<div class="col-sm-12 row">
 					<div class="product col-md-5 col-12 service-image-left img-thumbnail">
 						<img class="col-8" id="item-display" src="{{product.image}}" alt="">
-						<div class="container service1-items col-4 pull-right">						
+						<div *ngIf="product.productImage" class="container service1-items col-4 pull-right">						
 							<a *ngFor="let img of product.productImage" class="img-thumbnail service1-item " >
 								<img src="{{img.url}}" alt="">
 							</a>						
@@ -15,7 +15,7 @@
 			
 				<div class="col-md-4 col-12 pull-right">
 					<div class="product-title">{{product.productName}}</div>
-					<div class="product-desc">The Corsair Gaming Series GS600 is the ideal price/performance choice for mid-spec gaming PC</div>
+					<div class="product-desc">{{product.summary}}</div>
 					<div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
 					<hr>
 					<div class="product-price"> {{product.unitPrice | number}}</div>
@@ -23,13 +23,13 @@
 							<span style="text-decoration-line: line-through;">{{product.unitPrice/(1-product.discount/100) | number:'1.0-0'}}</span>
 							<span>    -{{product.discount}}%</span>
 					</div>
-					<div class="product-stock"> {{product.stock}} sản phẩm</div>
+					<div class="product-stock">  còn {{product.stock}} sản phẩm</div>
 					<hr>
 					<div class="btn-group cart">
-						<button type="button" class="btn btn-success" (click)="addcart()">Add to cart </button>
+						<button type="button" class="btn btn-success" (click)="addcart()">Thêm vào giỏ </button>
 					</div>
-					<div class="btn-group wishlist">
-						<button type="button" class="btn btn-danger" (click)="buynow()">Buy now </button>
+					<div style="margin-left: 25px" class="btn-group wishlist">
+						<button type="button" class="btn btn-danger" (click)="buynow()">Mua ngay </button>
 					</div>
 				</div>
 			</div>
@@ -38,8 +38,8 @@
 		<br>
 		<hr>
 		<br>
-		<div class="container-fluid">	
-			{{product.description}}
+		<div class="container-fluid" [innerHTML]="product.description | safehtml">	
+			
 		</div>
 		
 	</div>

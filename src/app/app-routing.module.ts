@@ -34,7 +34,7 @@ const routes: Routes = [
   { 
     path: 'user', component: UserComponent ,
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'profile'},
+      { path: '', pathMatch: 'full', redirectTo: 'edit-profile'},
       { path: 'profile', component: ProfileComponent},
       { path: 'my-orders', component: MyOrdersComponent},
       { path: 'address', component: AddressComponent},

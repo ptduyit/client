@@ -8,6 +8,7 @@ import {
   FacebookLoginProvider,
   GoogleLoginProvider
 } from 'angular-6-social-login';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,9 @@ import {
 export class LoginComponent implements OnInit {
   isLoginError: boolean = false;
   isUserLoggedIn: boolean;
-  constructor(private userService: UserService, private router: Router, private dataService: DataShareService, private socialAuthService: AuthService) { }
+  constructor(private userService: UserService, private router: Router
+    ,private dataService: DataShareService, private socialAuthService: AuthService,
+    private _service: NotificationsService) { }
 
 
   ngOnInit() {
@@ -25,14 +28,38 @@ export class LoginComponent implements OnInit {
   onSubmit(username, password) {
     this.userService.login(username, password)
       .subscribe((data: any) => {
-        console.log(data);
-        localStorage.setItem('token', data.token);
-        this.dataService.updateStatus(data);
-        localStorage.setItem('userId', data.id);
-        this.router.navigate(['/home']);
+          localStorage.setItem('token', data.token);
+          this.dataService.updateStatus(data);
+          localStorage.setItem('userId', data.id);
+          
+          this._service.success(
+            'Đăng nhập thành công',
+            'Vui lòng chờ',
+            {
+              position: ["bottom", "right"],
+              timeOut: 3000,
+              showProgressBar: true,
+              pauseOnHover: false,
+              clickToClose: true,
+              maxLength: 10
+            }
+          );
+          this.router.navigate(['/home']);
+        
       },
         err => {
-          console.log('looix ' + err);
+          this._service.error(
+            'Đăng nhập thất bại',
+            'Vui lòng thử lại',
+            {
+              position: ["bottom", "right"],
+              timeOut: 5000,
+              showProgressBar: true,
+              pauseOnHover: false,
+              clickToClose: true,
+              maxLength: 10
+            }
+        );
           this.isLoginError = true;
         });
   }

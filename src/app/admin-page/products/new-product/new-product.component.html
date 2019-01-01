@@ -3,13 +3,13 @@
         <input type="hidden" class="form-control" formControlName="productId">
     </div>
     <div class="input-group form-group">
-        <label for="productName" class="control-label col-sm-2">Product Name</label>
+        <label for="productName" class="control-label col-sm-2">Tên Sản Phẩm</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" formControlName="productName">
         </div>
     </div>
     <div class="input-group form-group">
-        <label for="categoryId" class="control-label col-sm-2">categoryId</label>
+        <label for="categoryId" class="control-label col-sm-2">Loại Sản Phẩm</label>
         <div class="col-sm-10">
             <select class="form-control" data-val="true" formControlName="categoryId">
                 <option value="">-- Select Category --</option>
@@ -18,19 +18,19 @@
         </div>
     </div>
     <div class="input-group form-group">
-        <label for="unitPrice" class="control-label col-sm-2">unitPrice</label>
+        <label for="unitPrice" class="control-label col-sm-2">Giá Bán</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" formControlName="unitPrice">
         </div>
     </div>
     <div class="input-group form-group">
-        <label for="importPrice" class="control-label col-sm-2">importPrice</label>
+        <label for="importPrice" class="control-label col-sm-2">Giá Nhập</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" formControlName="importPrice">
         </div>
     </div>
     <div class="input-group form-group">
-        <label for="discontinued" class="control-label col-sm-2">discontinued</label>
+        <label for="discontinued" class="control-label col-sm-2">Trạng thái</label>
         <div class="col-sm-10">
             <select class="form-control" formControlName="discontinued">
                 <option value="true">Ngưng bán</option>
@@ -39,13 +39,13 @@
         </div>
     </div>
     <div class="input-group form-group">
-        <label for="discount" class="control-label col-sm-2">discount</label>
+        <label for="discount" class="control-label col-sm-2">Giảm Giá (%)</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" formControlName="discount">
         </div>
     </div>
     <div class="input-group form-group">
-        <label for="stock" class="control-label col-sm-2">stock</label>
+        <label for="stock" class="control-label col-sm-2">Số Lượng</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" formControlName="stock">
         </div>
@@ -57,23 +57,59 @@
         </div>
     </div> -->
     <div class="input-group form-group">
-        <label for="image" class="control-label col-sm-2">image</label>
+        <label for="image" class="control-label col-sm-2">Ảnh Đại Diện</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" formControlName="image">
         </div>
     </div>
     <div class="input-group form-group">
-        <label for="guarantee" class="control-label col-sm-2">guarantee</label>
+        <label for="guarantee" class="control-label col-sm-2">Bảo Hành (T)</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" formControlName="guarantee">
         </div>
     </div>
     <div class="input-group form-group">
+        <label for="summary" class="control-label col-sm-2">Tóm tắt</label>
+        <div class="col-sm-10">
+            <textarea type="text" class="form-control" formControlName="summary"></textarea>
+        </div>
+    </div>
+    <div class="input-group form-group">
+        <label for="displayIndex" class="control-label col-sm-2">Hiển thị trang chủ</label>
+        <div class="col-sm-10">
+            <select class="form-control" formControlName="displayIndex">
+                <option value="true">Hiển thị trang chủ</option>
+                <option value="false">Không hiển thị</option>
+            </select>
+        </div>
+    </div>
+    <div class="input-group form-group">
         <input type="hidden" class="form-control" formControlName="rate">
     </div>
+            <button type="button" class="btn btn-success" (click)="addNewCompany()">Thêm chi tiết ảnh</button>
+ <br>
+
+    <div formArrayName="productImage">
+        <div *ngFor="let comp of productForm.get('productImage').controls; let i=index">
+            
+            <div [formGroupName]="i" class="input-group form-group">
+                <label class="control-label col-sm-2">Đường link ảnh</label>
+                <div class="col-sm-10">
+                    <input class="form-control" formControlName="url" />
+                    <input type="hidden" formControlName="imageId">
+                    <input type="hidden" formControlName="productId">
+                    <button type="button" class="btn btn-danger" (click)="deleteCompany(i)">Xóa</button>
+                </div>
+                
+            </div>
+        
+        </div>
+      </div>
+
     <editor formControlName="description" [init]="tinyMceSettings"></editor>
     <button type="submit" class="btn btn-success">Save</button>
-    <button class="btn" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn" (click)="cancel()">Cancel</button>
     
     <p>Form value: {{productForm.value | json}}</p>
+   
 </form>

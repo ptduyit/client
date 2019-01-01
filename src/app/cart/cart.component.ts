@@ -4,6 +4,8 @@ import { Cart } from '../model/cart';
 import { CartDetail } from '../model/cart-detail';
 import { Order } from '../model/order';
 import { Router } from '@angular/router';
+import { AddressService } from '../shared/address.service';
+import { Address } from '../model/address';
 
 @Component({
   selector: 'app-cart',
@@ -15,15 +17,32 @@ export class CartComponent implements OnInit {
   carts: Cart[];
   total: number;
   order: Order ={} as any;
-
-  constructor(private cartService : CartService, private router: Router) { }
+  addresses: Address[];
+  addId: number;
+  constructor(private cartService : CartService, private router: Router, private addressService: AddressService) { }
 
   ngOnInit() {
     this.userId = localStorage.getItem('userId');
     this.getCart();
+    this.getAllAddress();
     
   }
+  addAddress(){
+    this.router.navigate(['user/add-address/']);
+  }
+  getAllAddress(){
+    this.addressService.getAllAddress(this.userId)
+    .subscribe(data => {
+      this.addresses = data;
+      this.addresses.forEach((item,index) =>{
+        if(item.isDefault === true){
+          this.addId = item.addressId;
+        }
+      })
+    })
+  }
   getCart(){
+    this.carts = null;
     this.cartService.getCart(this.userId).subscribe((data : Cart[]) =>{
       this.carts = data;
       this.total = data.reduce( function( runningValue: number, cart: Cart){
@@ -49,7 +68,7 @@ export class CartComponent implements OnInit {
   checkOut(){
      this.order.userId = this.userId;
      this.order.orderDetails = this.carts;
-     this.cartService.checkOut(this.order).subscribe(data => {
+     this.cartService.checkOut(this.order,this.addId).subscribe(data => {
         this.router.navigate(['home']);
       });
   }

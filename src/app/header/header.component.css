@@ -2196,3 +2196,27 @@ a:active {
 .dropdown-content a:hover {background-color: #ddd;}
 
 #dropdown:hover .dropdown-content {display: block;}
+.sticky-top {
+
+  top: 0;
+  width: 100%;
+}
+.mycart{
+  position: relative;
+}
+.mybadge{
+  position: absolute;
+  top: -4px;
+  right: -10px;
+  background-color: #007bff;
+
+  display: inline-block;
+  padding: .25em .4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25rem;
+}

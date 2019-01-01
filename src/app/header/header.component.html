@@ -1,4 +1,4 @@
-<header class="fs-header">
+<header class="fs-header sticky-top">
     <div class="f-hdtop">
         <div class="f-wrap">
             <a class="fs-logo" routerLink="/home" title=""><img class="logo" src="src\assets\logo.png" alt="Logo"></a>
@@ -10,7 +10,7 @@
                     <a style="cursor: pointer;" (click)="Logout()">Đăng xuất</a>
                 </div>
                 </li>
-                <li><a routerLink="/cart" title=""><i class="ficon f-cart"></i> <span>Giỏ hàng</span><b class="fs-cartic countTotalCart" style="display: none;">0</b></a></li>
+                <li><a routerLink="/cart" title=""><i class="mycart ficon f-cart"><span class="mybadge badge badge-pill badge-default">4</span></i> <span>Giỏ hàng</span><b class="fs-cartic countTotalCart" style="display: none;">0</b></a></li>
             </ul>
             <div class="fs-search">
                 <form action="/search/1" method="get" autocomplete="off">

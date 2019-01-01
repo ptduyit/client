@@ -2196,3 +2196,8 @@ a:active {
 .dropdown-content a:hover {background-color: #ddd;}
 
 #dropdown:hover .dropdown-content {display: block;}
+.sticky-top {
+
+  top: 0;
+  width: 100%;
+}

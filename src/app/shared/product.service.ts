@@ -20,6 +20,9 @@ export class ProductService {
   getProductInformation(id: number){
     return this.http.get<Product>(this.rootUrl + '/GetProductInformation/' + id);
   }
+  getStockProduct(id: number){
+    return this.http.get(this.rootUrl+ '/GetStockProduct/'+id);
+  }
   getProductIndex(){
     return this.http.get<Product[]>(this.rootUrl+'/GetIndexProducts');
   }

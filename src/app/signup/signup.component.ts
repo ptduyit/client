@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
 import { Router } from '@angular/router';
 import { DataShareService } from '../shared/datashare.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +11,10 @@ import { DataShareService } from '../shared/datashare.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router, private dataService: DataShareService) { }
+  password: '1';
+  comfirmpassword: '2';
+  constructor(private userService: UserService, private router: Router, private dataService: DataShareService
+    ,private _service: NotificationsService) { }
 
   ngOnInit() {
   }
@@ -21,7 +25,34 @@ export class SignupComponent implements OnInit {
           localStorage.setItem('token', data.token);
           localStorage.setItem('userId', data.id);
           this.router.navigate(['/home']);
-    }),
-    err => console.log(err);    
+          this._service.success(
+            'Đăng ký thành công',
+            'Vui lòng chờ',
+            {
+              position: ["bottom", "right"],
+              timeOut: 3000,
+              showProgressBar: true,
+              pauseOnHover: false,
+              clickToClose: true,
+              maxLength: 10
+            }
+          );
+    },
+    err => {
+      this._service.error(
+        'Đăng Ký thất bại',
+        'Vui lòng thử lại',
+        {
+          position: ["bottom", "right"],
+          timeOut: 5000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 10
+        }
+    );
+      console.log(err);    
+    }
+    )
   }
 }

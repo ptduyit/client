@@ -1,4 +1,4 @@
-<div *ngIf="!carts">
+<div *ngIf="flag">
   <div class="d-flex justify-content-center">
     <img style="height:80%" src="https://cdngarenanow-a.akamaihd.net/shopee/shopee-pcmall-live-vn/assets/f3540f6657bbdc1120e3f8cc90bdba97.png" alt="">
   </div>
@@ -19,8 +19,8 @@
           
         </div>
         <div class="col-sm-11 row" >
-          <div class="col-sm-3">{{address.fullName}}</div> 
-          <div class="col-sm-3">{{address.phoneNumber}} </div>
+          <div class="col-sm-3">{{address.fullName}}</div> <br>
+          <div class="col-sm-3">{{address.phoneNumber}} </div> <br>
           <div class="col-sm-6">{{address.street}} {{address.ward}} {{address.district}} {{address.province}} <span *ngIf="address.isDefault" style="margin-left: 20px; color:rgb(252, 185, 0)">Mặc định</span>    </div> 
         </div>
       </div>

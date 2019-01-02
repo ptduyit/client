@@ -6,6 +6,8 @@ import { Order } from '../model/order';
 import { Router } from '@angular/router';
 import { AddressService } from '../shared/address.service';
 import { Address } from '../model/address';
+import { NotificationsService } from 'angular2-notifications';
+import { ProductService } from '../shared/product.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,18 +15,34 @@ import { Address } from '../model/address';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  userId = '';
+  userId = localStorage.getItem('userId');
   carts: Cart[];
   total: number;
   order: Order ={} as any;
   addresses: Address[];
   addId: number;
-  constructor(private cartService : CartService, private router: Router, private addressService: AddressService) { }
+  flag = false;
+  stock: number;
+  constructor(private cartService : CartService, private router: Router, private addressService: AddressService,
+    private _service: NotificationsService, private productService: ProductService) { }
 
   ngOnInit() {
-    this.userId = localStorage.getItem('userId');
-    this.getCart();
-    this.getAllAddress();
+    if(this.userId){
+      this.getCart();
+      this.getAllAddress();
+    } else{
+      this.flag = true;
+      this.router.navigate(['login']);
+      this._service.info('Vui lòng đăng nhập','',
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 10
+        });
+    }
+    
     
   }
   addAddress(){
@@ -42,34 +60,95 @@ export class CartComponent implements OnInit {
     })
   }
   getCart(){
-    this.carts = null;
-    this.cartService.getCart(this.userId).subscribe((data : Cart[]) =>{
-      this.carts = data;
-      this.total = data.reduce( function( runningValue: number, cart: Cart){
-        return runningValue + (cart.unitPrice * cart.quantity);
-      },0);
-    })
+
+      this.cartService.getCart(this.userId).subscribe((data : Cart[]) =>{
+        this.carts = data;
+        this.total = data.reduce( function( runningValue: number, cart: Cart){
+          return runningValue + (cart.unitPrice * cart.quantity);
+        },0);
+      },
+      err =>{
+        this.carts = null;
+        this.flag = true;
+      })
+    
+    
   }
   deleteCartDetail(productId: number){
     var ans = confirm("Bạn chắc chắn muốn bỏ sản phẩm này?");
     if(ans){
       this.cartService.deleteCartDetail(this.userId,productId)
       .subscribe( data => {
+        this._service.warn(
+          'Đã xóa','',
+          {
+            position: ["bottom", "right"],
+            timeOut: 3000,
+            showProgressBar: true,
+            pauseOnHover: false,
+            clickToClose: true,
+            maxLength: 10
+          }
+        );
         this.getCart();
       });
     }
   }
+  
   updateQuantity(cartDetail: CartDetail = {} as any, value: number){
-    cartDetail.quantity = value;
-    this.cartService.updateCartDetail(cartDetail).subscribe(data =>{
-      this.getCart();
-    })
+    this.productService.getStockProduct(cartDetail.productId).subscribe((data: any) => {
+     if(value > data.stock || value < 1){
+      this._service.warn('Số lượng không đúng','Vui lòng thử lại',
+        {
+          position: ["bottom", "right"],
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 10
+        });
+        this.getCart();
+     } else {
+        cartDetail.quantity = value;
+        this.cartService.updateCartDetail(cartDetail).subscribe(data =>{
+          this.getCart();
+      })
+     }
+    });
+    
   }
   checkOut(){
+    if(!this.addId){
+      this.router.navigate(['user/add-address']);
+      this._service.success(
+        'Vui lòng thêm địa chỉ đặt hàng','',
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 10
+        });
+    }
+    else{
      this.order.userId = this.userId;
      this.order.orderDetails = this.carts;
      this.cartService.checkOut(this.order,this.addId).subscribe(data => {
+      this._service.success(
+        'Đặt hàng thành công',
+        'Chờ cửa hàng duyệt đơn',
+        {
+          position: ["bottom", "right"],
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 10
+        }
+      );
+
         this.router.navigate(['home']);
       });
+    }
   }
 }

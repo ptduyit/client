@@ -4,6 +4,7 @@ import { ProductService } from '../../../shared/product.service';
 import { CategoryProductService } from '../../../shared/category-product.service'
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Product } from '../../../model/product';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-new-product',
@@ -16,8 +17,9 @@ export class NewProductComponent implements OnInit {
   title: string = "Create";
   id: number;
   categorys: CategoryProduct[];
-  constructor(private router: Router, private proService: ProductService,
-    private fb: FormBuilder,private avRouter: ActivatedRoute, private categoryPro: CategoryProductService) { 
+  submitted = false;
+  constructor(private router: Router, private proService: ProductService, private fb: FormBuilder,
+    private avRouter: ActivatedRoute, private categoryPro: CategoryProductService, private _service: NotificationsService) { 
       
     }
 
@@ -29,17 +31,17 @@ export class NewProductComponent implements OnInit {
       productId: 0,
       productName: ['',[Validators.required]],
       categoryId: ['',[Validators.required]],
-      unitPrice: '',
-      importPrice: '',
-      discontinued: '',
-      discount: '',
-      stock: '',
-      description: '',
-      image: '',
-      guarantee: '',
+      unitPrice: ['', Validators.required],
+      importPrice: ['', Validators.required],
+      discontinued: ['', Validators.required],
+      discount: ['', Validators.required],
+      stock: ['', Validators.required],
+      description: ['', Validators.required],
+      image: ['', Validators.required],
+      guarantee: ['', Validators.required],
       rate:'',
-      summary: '',
-      displayIndex:'',
+      summary: ['', Validators.required],
+      displayIndex: ['', Validators.required],
       productImage: this.fb.array([])
 
     });
@@ -51,13 +53,14 @@ export class NewProductComponent implements OnInit {
         this.productForm.patchValue(data);
         this.products = data;
         console.log(data);
-        this.setCompanies();
+        this.setImages();
       })
     }
     this.categoryPro.getCategory().subscribe((data: CategoryProduct[]) => this.categorys = data);
 
   }
-  addNewCompany() {
+  get f() { return this.productForm.controls; }
+  addNewImage() {
     let control = <FormArray>this.productForm.controls.productImage;
     control.push(
       this.fb.group({
@@ -68,13 +71,13 @@ export class NewProductComponent implements OnInit {
     )
   }
 
-  deleteCompany(index) {
+  deleteImage(index) {
     let control = <FormArray>this.productForm.controls.productImage;
     control.removeAt(index);
   }
 
 
-  setCompanies() {
+  setImages() {
     let control = <FormArray>this.productForm.controls.productImage;
     this.products.productImage.forEach(x => {
       control.push(this.fb.group({ 
@@ -85,13 +88,37 @@ export class NewProductComponent implements OnInit {
     })
   }
   save(){
+    this.submitted = true;
+    if (this.productForm.invalid) {
+      return;
+    }
     if(this.title=="Create"){
       this.proService.createProduct(this.productForm.value)
-      .subscribe(data => this.router.navigate(['admin/products/list-product']));
+      .subscribe(data => {
+        this._service.success('Thêm thành công','',
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 10
+        });
+        this.router.navigate(['admin/products/list-product']);
+      });
     }
     else if(this.title == "Edit"){
       this.proService.updateProduct(this.productForm.value)
-      .subscribe(data => this.router.navigate(['admin/products/list-product']));
+      .subscribe(data => {
+        this.router.navigate(['admin/products/list-product']);
+        this._service.success('Đã chỉnh sửa sản phẩm','',
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 10
+        });
+      });
     }
   }
   cancel(){

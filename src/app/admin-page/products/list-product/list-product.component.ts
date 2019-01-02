@@ -32,7 +32,7 @@ export class ListProductComponent implements OnInit {
       });
   }
   deletePro(productId) {
-    var ans = confirm("Do you want to delete product with Id: " + productId);
+    var ans = confirm("bạn có thật sự muốn xóa?");
     if (ans) {
       this.proService.deleteProduct(productId)
         .subscribe(data => {
@@ -48,6 +48,9 @@ export class ListProductComponent implements OnInit {
   onBtnClickUpdate(e){
     this.router.navigate(['/admin/products/edit/'+ e.rowData.productId])
   }
+  onBtnClickView(e){
+    this.router.navigate(['view/'+ e.rowData.productId])
+  }
   currencyFormatter(params) {
     var vndFormate = new Intl.NumberFormat('vi-VN', {
       style: 'currency',
@@ -61,11 +64,11 @@ export class ListProductComponent implements OnInit {
     { headerName: 'Giá bán', field: 'unitPrice', cellRenderer: this.currencyFormatter },
     { headerName: 'Số lượng', field: 'stock' , width: 100},
     { headerName: 'Giá nhập', field: 'importPrice', cellRenderer: this.currencyFormatter},
-    { headerName: 'Khuyến mãi', field: 'discount' , width: 120},
+    { headerName: 'Khuyến mãi (%)', field: 'discount' , width: 120},
     {
       headerName: '',
       cellRenderer: 'buttonRenderer',
-      width: 50,
+      width: 70,
       cellRendererParams: {
         onClick: this.onBtnClickUpdate.bind(this),
         label: 'Sửa'
@@ -74,10 +77,19 @@ export class ListProductComponent implements OnInit {
     {
       headerName: '',
       cellRenderer: 'buttonRenderer',
-      width: 50,
+      width: 70,
       cellRendererParams: {
         onClick: this.onBtnClickDelete.bind(this),
         label: 'Xóa'
+      }
+    },
+    {
+      headerName: '',
+      cellRenderer: 'buttonRenderer',
+      width: 70,
+      cellRendererParams: {
+        onClick: this.onBtnClickView.bind(this),
+        label: 'Xem'
       }
     }
   ];

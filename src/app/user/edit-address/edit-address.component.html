@@ -5,37 +5,56 @@
   <div class="input-group form-group">
       <label for="fullName" class="control-label col-sm-2">Tên</label>
       <div class="col-sm-10">
-          <input type="text" class="form-control" formControlName="fullName">
+          <input type="text" class="form-control" formControlName="fullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }">
+          <div *ngIf="submitted && f.fullName.errors" class="invalid-feedback">
+            <div *ngIf="f.fullName.errors.required">Không được để trống</div>
+        </div>
       </div>
   </div>
   <div class="input-group form-group">
     <label for="phoneNumber" class="control-label col-sm-2">Số điện thoại</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" formControlName="phoneNumber">
+        <input type="text" class="form-control" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
+        <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
+            <div *ngIf="f.phoneNumber.errors.required">Không được để trống</div>
+            <div *ngIf="f.phoneNumber.errors.minlength">Số điện thoại ít nhất 10 số</div>
+        </div>
     </div>
 </div>
 <div class="input-group form-group">
   <label for="street" class="control-label col-sm-2">Địa chỉ nhận hàng</label>
   <div class="col-sm-10">
-      <input type="text" class="form-control" formControlName="street">
+      <input type="text" class="form-control" formControlName="street" [ngClass]="{ 'is-invalid': submitted && f.street.errors }">
+      <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
+        <div *ngIf="f.street.errors.required">Không được để trống</div>
+    </div>
   </div>
 </div>
 <div class="input-group form-group">
   <label for="province" class="control-label col-sm-2">Tỉnh/ Thành phố</label>
   <div class="col-sm-10">
-      <input type="text" class="form-control" formControlName="province">
+      <input type="text" class="form-control" formControlName="province" [ngClass]="{ 'is-invalid': submitted && f.province.errors }">
+      <div *ngIf="submitted && f.province.errors" class="invalid-feedback">
+        <div *ngIf="f.province.errors.required">Không được để trống</div>
+    </div>
   </div>
 </div>
 <div class="input-group form-group">
   <label for="district" class="control-label col-sm-2">Quận/ Huyện</label>
   <div class="col-sm-10">
-      <input type="text" class="form-control" formControlName="district">
+      <input type="text" class="form-control" formControlName="district" [ngClass]="{ 'is-invalid': submitted && f.district.errors }">
+      <div *ngIf="submitted && f.district.errors" class="invalid-feedback">
+        <div *ngIf="f.district.errors.required">Không được để trống</div>
+    </div>
   </div>
 </div>
 <div class="input-group form-group">
   <label for="ward" class="control-label col-sm-2">Phường/ Xã</label>
   <div class="col-sm-10">
-      <input type="text" class="form-control" formControlName="ward">
+      <input type="text" class="form-control" formControlName="ward" [ngClass]="{ 'is-invalid': submitted && f.ward.errors }">
+      <div *ngIf="submitted && f.ward.errors" class="invalid-feedback">
+        <div *ngIf="f.ward.errors.required">Không được để trống</div>
+    </div>
   </div>
 </div>
 <div class="input-group form-group">

@@ -3,6 +3,7 @@ import { DataShareService } from '../shared/datashare.service'
 import { Router } from '@angular/router';
 import { UserInfo } from '../model/user-info';
 import { UserService } from '../shared/user.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,8 @@ export class HeaderComponent implements OnInit {
   userInfo: UserInfo;
   token = localStorage.getItem('token');
   userId = localStorage.getItem('userId');
-  constructor(private router: Router, private dataShareService: DataShareService, private userService: UserService) {
+  constructor(private router: Router, private dataShareService: DataShareService,
+    private userService: UserService, private _service: NotificationsService) {
     
   }
 
@@ -37,7 +39,14 @@ export class HeaderComponent implements OnInit {
     this.dataShareService.updateStatus('');
     this.token = '';
     this.userId = '';
-    this.router.navigate(['/login']);
+    this._service.info('Đã đăng xuất','',
+        {
+          timeOut: 3000,
+          showProgressBar: false,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 10
+        });
   }
 
 

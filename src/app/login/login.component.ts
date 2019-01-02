@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
   }
   public socialSignIn(socialPlatform : string) {
     let socialPlatformProvider;
-    let token;
+    var token;
     if(socialPlatform == "facebook"){
       socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
     }else if(socialPlatform == "google"){
@@ -82,14 +82,42 @@ export class LoginComponent implements OnInit {
         else if(socialPlatform == "google"){
           token = userData.idToken;
         }
-
+        this._service.info('Chờ máy chủ xác thực','',
+          {
+            timeOut: 3000,
+            showProgressBar: true,
+            pauseOnHover: false,
+            clickToClose: true,
+            maxLength: 10
+          });
         this.userService.externalLogin(token,socialPlatform)
         .subscribe((data: any) =>  {
-          console.log(data);
+          this._service.success(
+            'Đăng nhập thành công',
+            '',
+            {
+              position: ["bottom", "right"],
+              timeOut: 3000,
+              showProgressBar: true,
+              pauseOnHover: false,
+              clickToClose: true,
+              maxLength: 10
+            }
+          );
           this.dataService.updateStatus(data);
           localStorage.setItem('token', data.token);
           localStorage.setItem('userId', data.id);
           this.router.navigate(['/home']);
+        },
+        err=>{
+          this._service.error('Đăng nhập thất bại','Vui lòng thử lại',
+          {
+            timeOut: 3000,
+            showProgressBar: true,
+            pauseOnHover: false,
+            clickToClose: true,
+            maxLength: 10
+          });
         });
       }
     );

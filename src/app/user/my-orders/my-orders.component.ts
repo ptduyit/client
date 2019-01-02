@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../shared/order.service';
 import { Order } from '../../model/order';
 import { OrderDetail } from '../../model/order-detail';
-import { from } from 'rxjs';
+
 @Component({
   selector: 'app-my-orders',
   templateUrl: './my-orders.component.html',
@@ -10,6 +10,7 @@ import { from } from 'rxjs';
 })
 export class MyOrdersComponent implements OnInit {
   userId = '';
+  flag = false;
   orders: Order[];
   orderDetail: OrderDetail[];
   constructor(private orderService: OrderService) { }
@@ -22,7 +23,9 @@ export class MyOrdersComponent implements OnInit {
     this.orderService.getOrderByIdUser(this.userId)
     .subscribe((data) => {
       this.orders = data;
-      console.log(this.orders);
+      if(this.orders.length<1){
+        this.flag = true;
+      }
     })
   }
 }

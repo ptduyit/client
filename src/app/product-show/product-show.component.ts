@@ -6,22 +6,22 @@ import { CartDetail } from '../model/cart-detail';
 import { Router } from '@angular/router';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-product-show',
   templateUrl: './product-show.component.html',
   styleUrls: ['./product-show.component.css'],
-  providers: [NgbModalConfig, NgbModal,NgbCarouselConfig, NgbAlert]
+  providers: [NgbModalConfig, NgbModal,NgbCarouselConfig]
 })
 export class ProductShowComponent implements OnInit {
   @Input() productIndex: ProductIndex;
-  userId = '';
+  
   cartDetail: CartDetail = {} as any;
   images = {} as any;
-  private _success = new Subject<string>();
-  successMessage: string;
+  userId = localStorage.getItem('userId');
   constructor(config: NgbModalConfig, private modalService: NgbModal,config1: NgbCarouselConfig,
-    private cartService: CartService, private router: Router, private ngAlert: NgbAlert) {
+    private cartService: CartService, private router: Router, private _service: NotificationsService) {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
@@ -38,30 +38,63 @@ export class ProductShowComponent implements OnInit {
     this.modalService.open(content);
   }
   ngOnInit() {
-    this.userId = localStorage.getItem('userId');
+    
     this.images = this.productIndex.productImage;
-
-    this._success.subscribe((message) => this.successMessage = message);
-    this._success.pipe(
-      debounceTime(5000)
-    ).subscribe(() => this.successMessage = null);
   }
-  id=1; 
+
   buynow(){
-    this.cartDetail.productId = this.productIndex.productId;
-    this.cartDetail.userId = this.userId;
-    this.cartDetail.quantity = 1;
-    this.cartService.createCartDetail(this.cartDetail).subscribe(data => {
-      this.router.navigate(['cart']);
-    })
+    if(this.userId){
+      this.cartDetail.productId = this.productIndex.productId;
+      this.cartDetail.userId = this.userId;
+      this.cartDetail.quantity = 1;
+      this.cartService.createCartDetail(this.cartDetail).subscribe(data => {
+        this.router.navigate(['cart']);
+      })
+    } else{
+      this.router.navigate(['login']);
+      this._service.info('Bạn phải đăng nhập trước khi mua hàng','',
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 10
+        });
+    }
+    
   }
   addcart(){
-    this.cartDetail.productId = this.productIndex.productId;
-    this.cartDetail.userId = this.userId;
-    this.cartDetail.quantity = 1;
-    this.cartService.createCartDetail(this.cartDetail).subscribe(data => {
-      this._success.next(`Đã thêm sản phẩm vào giỏ`)
-    })
+    if(this.userId){
+      this.cartDetail.productId = this.productIndex.productId;
+      this.cartDetail.userId = this.userId;
+      this.cartDetail.quantity = 1;
+      this.cartService.createCartDetail(this.cartDetail).subscribe(data => {
+        
+        this._service.success(
+          'Đã thêm sản phẩm vào giỏ',
+          '',
+          {
+            position: ["bottom", "right"],
+            timeOut: 3000,
+            showProgressBar: true,
+            pauseOnHover: false,
+            clickToClose: true,
+            maxLength: 10
+          }
+        );
+      })
+    } else {
+      this.router.navigate(['login']);
+      this._service.info('Bạn phải đăng nhập trước khi mua hàng','',
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 10
+        });
+    }
+    
   }
 
 }

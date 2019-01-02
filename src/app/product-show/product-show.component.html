@@ -2,7 +2,7 @@
     <div class="product-grid6">
         <div class="product-image6">
             <a routerLink="/view/{{productIndex.productId}}">
-                <img class="pic-1" src="{{productIndex.image}}">
+                <img style="height:200px; width: auto" class="pic-1" src="{{productIndex.image}}">
             </a>
         </div>
         <div class="product-content">
@@ -21,7 +21,7 @@
             <li><a (click)="addcart()" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
         </ul>
     </div>
-    <ngb-alert class="status-addcart" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+    
     <ng-template #content let-c="close" let-d="dismiss" >
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title">Xem nhanh</h4>

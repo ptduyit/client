@@ -50,6 +50,7 @@ import {
   FacebookLoginProvider,
 } from "angular-6-social-login";
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { CheckPasswordDirective } from './signup/check-password.directive';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -119,7 +120,8 @@ export function getAuthServiceConfigs() {
     
     OrderDetailComponent,
     ButtonRendererComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    CheckPasswordDirective
   ],
   imports: [
     BrowserModule,

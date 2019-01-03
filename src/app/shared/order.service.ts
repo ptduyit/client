@@ -19,8 +19,8 @@ export class OrderService {
   createOrder(Order: Order){
     return this.http.post(this.rootUrl+'/PostOrders', Order);
   }
-  updateStatusOrder(Order: Order, id: number, status: number){
-    return this.http.put(this.rootUrl+'/PutConfirmOrders/'+id+'/'+status,Order);
+  updateStatusOrder(id: number, status: number){
+    return this.http.get(this.rootUrl+'/PutConfirmOrders/'+id+'/'+status);
   }
   getOrdersByStatus(status: number){
     return this.http.get<Order[]>(this.rootUrl+'/GetConfirmOrders/'+status)

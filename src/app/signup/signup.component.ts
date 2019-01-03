@@ -11,7 +11,7 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class SignupComponent implements OnInit {
 
-  password: '1';
+  haha= 1;
   comfirmpassword: '2';
   constructor(private userService: UserService, private router: Router, private dataService: DataShareService
     ,private _service: NotificationsService) { }

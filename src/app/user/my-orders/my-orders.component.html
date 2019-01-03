@@ -12,12 +12,13 @@
   <div class="row orderClassHeader">
     <div class="col-8">
       <br>
-      <h6>Đơn hàng &nbsp; &nbsp;&nbsp; : {{order.orderId}}</h6>
-      <h6>Đặt ngày &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{order.orderDate | date:'dd-MM-yyyy HH:mm'}}</h6>
+      <h6>Đơn hàng &nbsp; &nbsp;&nbsp; : &nbsp; &nbsp;{{order.orderId}}</h6>
+      <h6>Đặt ngày &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp; &nbsp;{{order.orderDate | date:'dd-MM-yyyy HH:mm'}}</h6>
     </div>
     <div class="col-4">
-      <h6 >Trạng thái &nbsp;&nbsp;&nbsp; : {{order.orderStatus.statusName}}</h6>
-      <h6>Tổng tiền &nbsp;&nbsp;&nbsp;&nbsp; : {{order.totalPrice | number}}</h6>
+      <br>
+      <h6 >Trạng thái &nbsp;&nbsp;&nbsp; : &nbsp; &nbsp;{{order.orderStatus.statusName}}</h6>
+      <h6>Tổng tiền &nbsp;&nbsp;&nbsp;&nbsp; : &nbsp; &nbsp;{{order.totalPrice | number}}</h6>
     </div>
   </div>
   <hr>

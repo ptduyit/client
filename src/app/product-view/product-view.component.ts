@@ -7,6 +7,8 @@ import { debounceTime } from 'rxjs/operators';
 import { CartService } from '../shared/cart.service';
 import { CartDetail } from '../model/cart-detail';
 import { NotificationsService } from 'angular2-notifications';
+import { Cart } from '../model/cart';
+import { DataShareService } from '../shared/datashare.service';
 @Component({
   selector: 'app-product-view',
   templateUrl: './product-view.component.html',
@@ -18,9 +20,9 @@ export class ProductViewComponent implements OnInit {
   images = {} as any;
   userId = localStorage.getItem('userId');
   cartDetail: CartDetail = {} as any;
-
+  productNumber: number;
   constructor(private proService: ProductService, private avRouter: ActivatedRoute,
-    private cartService: CartService, private router: Router, private _service: NotificationsService) { }
+    private cartService: CartService, private router: Router, private _service: NotificationsService, private dataService: DataShareService) { }
 
   ngOnInit() {
     if (this.avRouter.snapshot.params["id"]) {
@@ -66,6 +68,13 @@ export class ProductViewComponent implements OnInit {
             maxLength: 10
           }
         );
+
+        this.cartService.getCart(this.userId).subscribe((data : Cart[]) =>{
+          this.productNumber = data.reduce( function( runningValue: number, cart: Cart){
+            return runningValue + cart.quantity;
+          },0);
+          this.dataService.updateNumberProduct(this.productNumber);
+        });
       });
     } else {
       this.router.navigate(['login']);

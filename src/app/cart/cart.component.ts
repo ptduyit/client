@@ -8,6 +8,7 @@ import { AddressService } from '../shared/address.service';
 import { Address } from '../model/address';
 import { NotificationsService } from 'angular2-notifications';
 import { ProductService } from '../shared/product.service';
+import { DataShareService } from '../shared/datashare.service';
 
 @Component({
   selector: 'app-cart',
@@ -23,8 +24,9 @@ export class CartComponent implements OnInit {
   addId: number;
   flag = false;
   stock: number;
+  productNumber: number;
   constructor(private cartService : CartService, private router: Router, private addressService: AddressService,
-    private _service: NotificationsService, private productService: ProductService) { }
+    private _service: NotificationsService, private productService: ProductService, private dataService: DataShareService) { }
 
   ngOnInit() {
     if(this.userId){
@@ -63,9 +65,43 @@ export class CartComponent implements OnInit {
 
       this.cartService.getCart(this.userId).subscribe((data : Cart[]) =>{
         this.carts = data;
-        this.total = data.reduce( function( runningValue: number, cart: Cart){
+        data.forEach(e => {
+          this.productService.getStockProduct(e.productId).subscribe((data:any) => {
+            if(data.stock < 1){
+              this.carts = this.carts.filter(f => f.productId !== e.productId);
+              this.cartService.deleteCartDetail(this.userId,e.productId).subscribe(data => {
+                this._service.warn(
+                  'Có sản phẩm đã bị xóa khỏi giỏ hàng','do hết hàng hoặc tạm ngưng bán',
+                  {
+                    position: ["bottom", "right"],
+                    timeOut: 3000,
+                    showProgressBar: true,
+                    pauseOnHover: false,
+                    clickToClose: true,
+                    maxLength: 10
+                  });
+                  
+                  this.total = this.carts.reduce( function( runningValue: number, cart: Cart){
+                    return runningValue + (cart.unitPrice * cart.quantity);
+                  },0);
+                  this.productNumber = this.carts.reduce( function( runningValue: number, cart: Cart){
+                    
+                    return runningValue + cart.quantity;
+                  },0);
+                  this.dataService.updateNumberProduct(this.productNumber);
+
+              });
+            }
+          });
+        });
+        this.total = this.carts.reduce( function( runningValue: number, cart: Cart){
           return runningValue + (cart.unitPrice * cart.quantity);
         },0);
+        this.productNumber = this.carts.reduce( function( runningValue: number, cart: Cart){
+          
+          return runningValue + cart.quantity;
+        },0);
+        this.dataService.updateNumberProduct(this.productNumber);
       },
       err =>{
         this.carts = null;
@@ -129,6 +165,7 @@ export class CartComponent implements OnInit {
           clickToClose: true,
           maxLength: 10
         });
+        
     }
     else{
      this.order.userId = this.userId;
@@ -146,8 +183,20 @@ export class CartComponent implements OnInit {
           maxLength: 10
         }
       );
-
+       this.dataService.updateNumberProduct(0);
         this.router.navigate(['home']);
+      },
+      err =>{
+        this._service.error('Đặt hàng thất bại',
+          'Đã hết hàng hoặc sản phẩm ngưng bán',
+          {
+            position: ["bottom", "right"],
+            timeOut: 3000,
+            showProgressBar: true,
+            pauseOnHover: false,
+            clickToClose: true,
+            maxLength: 10
+          });
       });
     }
   }

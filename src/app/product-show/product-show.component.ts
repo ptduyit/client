@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import { NotificationsService } from 'angular2-notifications';
+import { Cart } from '../model/cart';
+import { DataShareService } from '../shared/datashare.service';
 
 @Component({
   selector: 'app-product-show',
@@ -20,8 +22,9 @@ export class ProductShowComponent implements OnInit {
   cartDetail: CartDetail = {} as any;
   images = {} as any;
   userId = localStorage.getItem('userId');
+  productNumber: number;
   constructor(config: NgbModalConfig, private modalService: NgbModal,config1: NgbCarouselConfig,
-    private cartService: CartService, private router: Router, private _service: NotificationsService) {
+    private cartService: CartService, private router: Router, private _service: NotificationsService, private dataService: DataShareService) {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
@@ -82,6 +85,12 @@ export class ProductShowComponent implements OnInit {
             maxLength: 10
           }
         );
+        this.cartService.getCart(this.userId).subscribe((data : Cart[]) =>{
+          this.productNumber = data.reduce( function( runningValue: number, cart: Cart){
+            return runningValue + cart.quantity;
+          },0);
+          this.dataService.updateNumberProduct(this.productNumber);
+        });
       })
     } else {
       this.router.navigate(['login']);

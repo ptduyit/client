@@ -2220,3 +2220,18 @@ a:active {
   vertical-align: baseline;
   border-radius: .25rem;
 }
+.banner-custom{
+  cursor: pointer;
+  font-family: cursive, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  padding: 3px 16px;
+  margin: 0 10px;
+  font-size: 25px;
+  color: #53f313;
+  font-weight: bold;
+}
+.banner-custom:hover{
+  color: #039e2d !important;
+}
+.banner-custom:active, .banner-custom:focus {
+  color: #53f313 !important;
+}

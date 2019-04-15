@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --ssl true --ssl-key /ssl/server.key --ssl-cert /ssl/certs/server.crt",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -31,12 +31,13 @@
     "core-js": "^2.5.4",
     "ng-pick-datetime": "^6.0.16",
     "ngx-infinite-scroll": "^6.0.1",
+    "ngx-pagination": "^3.2.1",
     "rxjs": "~6.2.0",
     "tinymce": "^4.9.2",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.8.0",
+    "@angular-devkit/build-angular": "^0.13.8",
     "@angular/cli": "~6.2.4",
     "@angular/compiler-cli": "^6.1.0",
     "@angular/language-service": "^6.1.0",

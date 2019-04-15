@@ -9,6 +9,8 @@ import {
   GoogleLoginProvider
 } from 'angular-6-social-login';
 import { NotificationsService } from 'angular2-notifications';
+import { CartService } from '../shared/cart.service';
+import { Cart } from '../model/cart';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +20,10 @@ import { NotificationsService } from 'angular2-notifications';
 export class LoginComponent implements OnInit {
   isLoginError: boolean = false;
   isUserLoggedIn: boolean;
+  productNumber: number;
   constructor(private userService: UserService, private router: Router
     ,private dataService: DataShareService, private socialAuthService: AuthService,
-    private _service: NotificationsService) { }
+    private _service: NotificationsService, private cartService: CartService) { }
 
 
   ngOnInit() {
@@ -107,6 +110,13 @@ export class LoginComponent implements OnInit {
           this.dataService.updateStatus(data);
           localStorage.setItem('token', data.token);
           localStorage.setItem('userId', data.id);
+
+          this.cartService.getCart(data.id).subscribe((data : Cart[]) =>{
+            this.productNumber = data.reduce( function( runningValue: number, cart: Cart){
+              return runningValue + cart.quantity;
+            },0);
+            this.dataService.updateNumberProduct(this.productNumber);
+          });
           this.router.navigate(['/home']);
         },
         err=>{

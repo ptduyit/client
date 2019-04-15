@@ -5,21 +5,20 @@ import { OrderDetail } from '../model/order-detail';
   providedIn: 'root'
 })
 export class OrderDetailService {
-  readonly rootUrl = 'https://localhost:44354/api/OrderDetails';
   constructor(private http: HttpClient) { }
   getOrderDetail(){
-    return this.http.get<OrderDetail[]>(this.rootUrl+'/GetAllOrders');
+    return this.http.get<OrderDetail[]>('/api/OrderDetails/GetAllOrders');
   }
   getOrderDetailById(id: number){
-    return this.http.get<OrderDetail>(this.rootUrl + '/GetOrderById/' + id);
+    return this.http.get<OrderDetail>('/api/OrderDetails/GetOrderById/' + id);
   }
   deleteOrderDetail(orderId : number, productId: number){
-    return this.http.delete<OrderDetail[]>(this.rootUrl +'/DeleteOrders/'+ orderId+'/'+productId);
+    return this.http.delete<OrderDetail[]>('/api/OrderDetails/DeleteOrders/'+ orderId+'/'+productId);
   }
   createOrderDetail(OrderDetail: OrderDetail){
-    return this.http.post(this.rootUrl+'/PostOrders', OrderDetail);
+    return this.http.post('/api/OrderDetails/PostOrders', OrderDetail);
   }
   updateOrderDetail(OrderDetail: OrderDetail){
-    return this.http.put(this.rootUrl+'/PutOrders/'+OrderDetail.orderId,OrderDetail);
+    return this.http.put('/api/OrderDetails/PutOrders/'+OrderDetail.orderId,OrderDetail);
   }
 }

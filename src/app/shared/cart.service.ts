@@ -7,29 +7,27 @@ import { CartDetail } from '../model/cart-detail';
   providedIn: 'root'
 })
 export class CartService {
-  readonly rootUrl = 'https://localhost:44354/api/CartDetails';
-  readonly checkoutUrl = 'https://localhost:44354/api/Orders/PostOrders';
   constructor(private http: HttpClient) { }
   getCart(userId: string){
-    return this.http.get<Cart[]>(this.rootUrl+'/GetCartDetails/'+userId);
+    return this.http.get<Cart[]>('/api/CartDetails/GetCartDetails/'+userId);
   }
   deleteCartDetail(userId: string, productId: number)
   {
-    return this.http.delete<CartDetail>(this.rootUrl+'/DeleteCartDetails/'+userId+'/'+productId);
+    return this.http.delete<CartDetail>('/api/CartDetails/DeleteCartDetails/'+userId+'/'+productId);
   }
   deleteCart(userId: string)
   {
-    return this.http.delete<CartDetail[]>(this.rootUrl+'/DeleteCart/'+userId);
+    return this.http.delete<CartDetail[]>('/api/CartDetails/DeleteCart/'+userId);
   }
   createCartDetail(cartDetail: CartDetail)
   {
-    return this.http.post(this.rootUrl+'/PostCartDetails',cartDetail);
+    return this.http.post('/api/CartDetails/PostCartDetails',cartDetail);
   }
   updateCartDetail(cartDetail: CartDetail)
   {
-    return this.http.put(this.rootUrl+'/PutCartDetails/'+cartDetail.userId+'/'+cartDetail.productId,cartDetail);
+    return this.http.put('/api/CartDetails/PutCartDetails/'+cartDetail.userId+'/'+cartDetail.productId,cartDetail);
   }
   checkOut(order: any, addressId: number){
-    return this.http.post(this.checkoutUrl+'/'+ addressId, order);
+    return this.http.post('/api/Orders/PostOrders/'+ addressId, order);
   }
 }

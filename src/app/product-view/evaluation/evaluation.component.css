@@ -1,0 +1,19 @@
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 1.5rem;
+    color: #6b6868;
+  }
+.filled {
+    color: #e2730bea;
+}
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #e2730bea;
+}
+ngb-progressbar {
+    margin-top: 5rem;
+}
+

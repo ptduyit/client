@@ -9,31 +9,30 @@ import { Product } from '../model/product';
 })
 
 export class ProductService {
-  readonly rootUrl = 'https://localhost:44354/api/Products';
   constructor(private http: HttpClient) { }
   getProducts(){
-    return this.http.get<Product[]>(this.rootUrl+'/GetAllProducts');
+    return this.http.get<Product[]>('/api/Products/GetAllProducts');
   }
   getProductById(id: number){
-    return this.http.get<Product>(this.rootUrl + '/GetProductById/' + id);
+    return this.http.get<Product>('/api/Products/GetProductById/' + id);
   }
   getProductInformation(id: number){
-    return this.http.get<Product>(this.rootUrl + '/GetProductInformation/' + id);
+    return this.http.get<Product>('/api/Products/GetProductInformation/' + id);
   }
   getStockProduct(id: number){
-    return this.http.get(this.rootUrl+ '/GetStockProduct/'+id);
+    return this.http.get('/api/Products/GetStockProduct/'+id);
   }
   getProductIndex(){
-    return this.http.get<Product[]>(this.rootUrl+'/GetIndexProducts');
+    return this.http.get<Product[]>('/api/Products/GetIndexProducts');
   }
   deleteProduct(id : number){
-    return this.http.delete<Product[]>(this.rootUrl +'/DeleteProducts/'+ id);
+    return this.http.delete<Product[]>('/api/Products/DeleteProducts/'+ id);
   }
   createProduct(product: Product){
-    return this.http.post<Product>(this.rootUrl+'/PostProducts', product);
+    return this.http.post<Product>('/api/Products/PostProducts', product);
   }
   updateProduct(product: Product){
-    return this.http.put(this.rootUrl+'/PutProducts/'+product.productId,product);
+    return this.http.put('/api/Products/PutProducts/'+product.productId,product);
   }
 
 

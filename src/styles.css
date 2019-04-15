@@ -5,7 +5,7 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 body{
     background-color: #f4f4f4 !important;
-    background-image: url("https://images.unsplash.com/photo-1533628635777-112b2239b1c7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e8f8a90139ee123a94dcc36bc8f14b69&w=1000&q=80");
+    /* background-image: url("https://images.unsplash.com/photo-1533628635777-112b2239b1c7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e8f8a90139ee123a94dcc36bc8f14b69&w=1000&q=80"); */
     background-attachment: fixed;
     background-size:cover;
     

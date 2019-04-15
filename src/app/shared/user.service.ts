@@ -8,12 +8,11 @@ import { UserInfo } from '../model/user-info';
   providedIn: 'root'
 })
 export class UserService {
-  readonly rootUrl = 'https://localhost:44354';
   constructor(private http: HttpClient) { }
   login(userName, password) {
     var data = {username: userName, password: password };
     var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
-    return this.http.post(this.rootUrl + '/api/Login', data, reqHeader)
+    return this.http.post('/api/Login', data, reqHeader)
     .pipe(
       catchError(this.handleError)
     );
@@ -21,22 +20,22 @@ export class UserService {
   signup(fullname, email, password, phonenumber){
     var data = {fullname: fullname, email: email, password: password, phonenumber: phonenumber};
     var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
-    return this.http.post(this.rootUrl + '/api/Users', data, reqHeader)
+    return this.http.post('/api/Users', data, reqHeader)
     .pipe(
       catchError(this.handleError)
     );
   }
   getUserInfo(userId: string){
-    return this.http.get<UserInfo>(this.rootUrl +'/api/UserInfoes/'+userId);
+    return this.http.get<UserInfo>('/api/UserInfoes/'+userId);
   }
   updateUserInfo(userInfo: UserInfo){
-    return this.http.put(this.rootUrl + '/api/UserInfoes/'+userInfo.userId,userInfo);
+    return this.http.put('/api/UserInfoes/'+userInfo.userId,userInfo);
   }
   externalLogin(accessToken:string, platform: string) {
     var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
     let body = JSON.stringify({ accessToken });  
     return this.http
-      .post(this.rootUrl + '/api/ExternalLogin/'+platform, body, reqHeader)
+      .post('/api/ExternalLogin/'+platform, body, reqHeader)
       .pipe(
         catchError(this.handleError)
       );

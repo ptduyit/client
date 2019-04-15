@@ -51,6 +51,8 @@ import {
 } from "angular-6-social-login";
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { CheckPasswordDirective } from './signup/check-password.directive';
+import { EvaluationComponent } from './product-view/evaluation/evaluation.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -121,7 +123,8 @@ export function getAuthServiceConfigs() {
     OrderDetailComponent,
     ButtonRendererComponent,
     SafeHtmlPipe,
-    CheckPasswordDirective
+    CheckPasswordDirective,
+    EvaluationComponent
   ],
   imports: [
     BrowserModule,
@@ -139,7 +142,8 @@ export function getAuthServiceConfigs() {
     OwlDateTimeModule, 
     OwlNativeDateTimeModule,
     BrowserAnimationsModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [
     {

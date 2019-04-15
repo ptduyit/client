@@ -18,7 +18,7 @@ import { DataShareService } from '../shared/datashare.service';
 export class CartComponent implements OnInit {
   userId = localStorage.getItem('userId');
   carts: Cart[];
-  total: number;
+  totalPrice: number;
   order: Order ={} as any;
   addresses: Address[];
   addId: number;
@@ -81,7 +81,7 @@ export class CartComponent implements OnInit {
                     maxLength: 10
                   });
                   
-                  this.total = this.carts.reduce( function( runningValue: number, cart: Cart){
+                  this.totalPrice = this.carts.reduce( function( runningValue: number, cart: Cart){
                     return runningValue + (cart.unitPrice * cart.quantity);
                   },0);
                   this.productNumber = this.carts.reduce( function( runningValue: number, cart: Cart){
@@ -94,7 +94,7 @@ export class CartComponent implements OnInit {
             }
           });
         });
-        this.total = this.carts.reduce( function( runningValue: number, cart: Cart){
+        this.totalPrice = this.carts.reduce( function( runningValue: number, cart: Cart){
           return runningValue + (cart.unitPrice * cart.quantity);
         },0);
         this.productNumber = this.carts.reduce( function( runningValue: number, cart: Cart){

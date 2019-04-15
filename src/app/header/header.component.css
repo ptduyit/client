@@ -337,7 +337,7 @@ a:active {
 .ficon {
   display: inline-block;
   background-repeat: no-repeat;
-  background-image: url("/src/assets/img/icons.svg?v=032018")
+  background-image: url("/assets/img/icons.svg?v=032018")
 }
 
 .f-hdtop {

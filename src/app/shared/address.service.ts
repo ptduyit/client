@@ -7,21 +7,20 @@ import { Address } from '../model/address';
 })
 export class AddressService {
 
-  readonly rootUrl = 'https://localhost:44354/api/Addresses';
   constructor(private http: HttpClient) { }
   getAllAddress(userId: string){
-    return this.http.get<Address[]>(this.rootUrl+'/GetAddressByUserId/'+userId);
+    return this.http.get<Address[]>('/api/Addresses/GetAddressByUserId/'+userId);
   }
   getOneAddress(id: number){
-    return this.http.get<Address>(this.rootUrl+'/GetAddressById/'+id);
+    return this.http.get<Address>('/api/Addresses/GetAddressById/'+id);
   }
   updateAddress(address: Address){
-    return this.http.put(this.rootUrl+'/PutAddress/'+address.addressId,address);
+    return this.http.put('/api/Addresses/PutAddress/'+address.addressId,address);
   }
   addAddress(address: Address){
-    return this.http.post<Address>(this.rootUrl+'/PostAddress',address);
+    return this.http.post<Address>('/api/Addresses/PostAddress',address);
   }
   deleteAddress(id: number){
-    return this.http.delete(this.rootUrl+'/DeleteAddress/'+id);
+    return this.http.delete('/api/Addresses/DeleteAddress/'+id);
   }
 }

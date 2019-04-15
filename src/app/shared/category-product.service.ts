@@ -6,9 +6,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 })
 export class CategoryProductService {
 
-  readonly rootUrl = 'https://localhost:44354/api/ProductCategories';
   constructor(private http: HttpClient) { }
   getCategory(){
-    return this.http.get(this.rootUrl);
+    return this.http.get('api/ProductCategories');
   }
 }

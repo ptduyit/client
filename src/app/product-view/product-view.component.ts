@@ -15,6 +15,7 @@ import { DataShareService } from '../shared/datashare.service';
   styleUrls: ['./product-view.component.css']
 })
 export class ProductViewComponent implements OnInit {
+  show = false;
   id: number;
   product: Product = {} as any;
   images = {} as any;

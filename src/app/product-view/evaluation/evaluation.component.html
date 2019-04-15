@@ -1,0 +1,43 @@
+
+<div class="row">
+  <div class="col-sm-4">
+    <span>rate: {{averageStar | number:'1.1-1'}}/5</span>
+  <ngb-rating [(rate)]="averageStar" [max]="5" [readonly]="true">
+    <ng-template let-fill="fill">
+      <span class="star" [class.filled]="fill === 100">
+        <span class="half" [style.width.%]="fill">&#9733;</span>
+        &#9733;</span>
+    </ng-template>
+  </ngb-rating>
+  </div>
+  
+  <div class="col-sm-4">
+    <p><ngb-progressbar height="10px" type="warning" [value]="star[4]" [max]="max"></ngb-progressbar></p>
+    <p><ngb-progressbar height="10px" type="warning" [value]="star[3]" [max]="max"></ngb-progressbar></p>
+    <p><ngb-progressbar height="10px" type="warning" [value]="star[2]" [max]="max"></ngb-progressbar></p>
+    <p><ngb-progressbar height="10px" type="warning" [value]="star[1]" [max]="max"></ngb-progressbar></p>
+    <p><ngb-progressbar height="10px" type="warning" [value]="star[0]" [max]="max"></ngb-progressbar></p>
+  </div>
+  <div class="col-sm-4">
+
+  </div>
+</div>
+<br>
+<div class="" *ngIf="evaluations">
+  <div class="media" *ngFor="let evaluation of evaluations | paginate: { id: 'pagingevaluation', itemsPerPage: paging.pageSize, currentPage: p, totalItems: paging.totalItems }">
+    <div class="media-body">
+        <h5 class="mt-0">{{evaluation.fullName}}</h5>
+        <p>{{evaluation.replyDate}}</p>
+        <p>{{evaluation.replyContent}}</p>
+        <div *ngFor="let reply of evaluation.inverseReplyByReplyNavigation">
+          <li>{{evaluation.fullName}}</li>
+          <li>{{evaluation.replyDate}}</li>
+          <li>{{evaluation.replyContent}}</li>
+        </div>
+    </div>
+    
+  </div>
+  
+  <pagination-controls (pageChange)="getEvaluation($event)" id="pagingevaluation" previousLabel=""
+  nextLabel=""></pagination-controls>
+</div>

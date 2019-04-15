@@ -6,24 +6,23 @@ import { Order } from '../model/order';
   providedIn: 'root'
 })
 export class OrderService {
-  readonly rootUrl = 'https://localhost:44354/api/Orders';
 
   constructor(private http: HttpClient) { }
   getOrders(){
-    return this.http.get<Order[]>(this.rootUrl+'/GetAllOrders');
+    return this.http.get<Order[]>('/api/Orders/GetAllOrders');
   }
   getOrderByIdUser(id: string){
-    return this.http.get<Order[]>(this.rootUrl + '/GetOrderByIdUser/' + id);
+    return this.http.get<Order[]>('/api/Orders/GetOrderByIdUser/' + id);
   }
 
   createOrder(Order: Order){
-    return this.http.post(this.rootUrl+'/PostOrders', Order);
+    return this.http.post('/api/Orders/PostOrders', Order);
   }
   updateStatusOrder(id: number, status: number){
-    return this.http.get(this.rootUrl+'/PutConfirmOrders/'+id+'/'+status);
+    return this.http.get('/api/Orders/PutConfirmOrders/'+id+'/'+status);
   }
   getOrdersByStatus(status: number){
-    return this.http.get<Order[]>(this.rootUrl+'/GetConfirmOrders/'+status)
+    return this.http.get<Order[]>('/api/Orders/GetConfirmOrders/'+status)
   }
 }
 

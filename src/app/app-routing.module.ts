@@ -4,15 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { Err404Component } from './err404/err404.component';
 import { CartComponent } from './cart/cart.component';
-import { AdminPageComponent } from './admin-page/admin-page.component';
 import { SearchComponent } from './search/search.component';
-import { OrdersComponent } from './admin-page/orders/orders.component';
-import { OrdersImportComponent } from './admin-page/orders-import/orders-import.component';
-import { ProductsComponent } from './admin-page/products/products.component';
-import { StatisticsComponent } from './admin-page/statistics/statistics.component';
-import { UsersComponent } from './admin-page/users/users.component';
-import { ListProductComponent } from './admin-page/products/list-product/list-product.component';
-import { NewProductComponent } from './admin-page/products/new-product/new-product.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
@@ -25,23 +17,9 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
-    path: 'admin', component: AdminPageComponent,
-    children: [
-      { path: '', pathMatch: 'full', redirectTo: 'orders' },
-      { path: 'users', component: UsersComponent },
-      { path: 'orders', component: OrdersComponent },
-      { path: 'orders-import', component: OrdersImportComponent },
-      {
-        path: 'products', component: ProductsComponent,
-        children: [
-          { path: '', pathMatch: 'full', redirectTo: 'list-product' },
-          { path: 'list-product', component: ListProductComponent },
-          { path: 'new-product', component: NewProductComponent },
-          { path: 'edit/:id', component: NewProductComponent }
-        ]
-      },
-      { path: 'statistics', component: StatisticsComponent },
-    ]
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule',
+    canLoad: [AuthGuard]
   },
   // { path: 'search', component: SearchComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

@@ -14,21 +14,9 @@ import { ProductShowComponent } from './product-show/product-show.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Err404Component } from './err404/err404.component';
 import { CartComponent } from './cart/cart.component';
-import { AdminPageComponent } from './admin-page/admin-page.component';
 import { SearchComponent } from './search/search.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { OrdersComponent } from './admin-page/orders/orders.component';
-import { ProductsComponent } from './admin-page/products/products.component';
-import { UsersComponent } from './admin-page/users/users.component';
-import { OrdersImportComponent } from './admin-page/orders-import/orders-import.component';
-import { StatisticsComponent } from './admin-page/statistics/statistics.component';
-import { NewProductComponent } from './admin-page/products/new-product/new-product.component';
-import { ListProductComponent } from './admin-page/products/list-product/list-product.component';
 
-import { EditorModule } from '@tinymce/tinymce-angular';
-import { AgGridModule } from 'ag-grid-angular';
-import { ButtonRendererComponent } from './renderer/button-renderer.component';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SafeHtmlPipe } from './safe-html-pipe';
 import {
@@ -40,7 +28,6 @@ import {
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { EvaluationComponent } from './product-view/evaluation/evaluation.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 
 export function getAuthServiceConfigs() {
@@ -68,16 +55,7 @@ export function getAuthServiceConfigs() {
     HomeComponent,
     Err404Component,
     CartComponent,   
-    AdminPageComponent,    
-    SearchComponent,            
-    OrdersComponent,    
-    ProductsComponent,    
-    UsersComponent,    
-    OrdersImportComponent,    
-    StatisticsComponent,    
-    NewProductComponent,    
-    ListProductComponent,    
-    ButtonRendererComponent,
+    SearchComponent,
     SafeHtmlPipe,
     EvaluationComponent
   ],
@@ -93,10 +71,6 @@ export function getAuthServiceConfigs() {
     HttpClientModule,
     ReactiveFormsModule,
     SocialLoginModule,
-    EditorModule,
-    AgGridModule.withComponents([ButtonRendererComponent]),
-    OwlDateTimeModule, 
-    OwlNativeDateTimeModule,
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     NgxPaginationModule

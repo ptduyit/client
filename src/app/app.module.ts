@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { ProductViewComponent } from './product-view/product-view.component';
-import { HomepageComponent } from './homepage/homepage.component';
+import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -14,13 +14,8 @@ import { ProductShowComponent } from './product-show/product-show.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Err404Component } from './err404/err404.component';
 import { CartComponent } from './cart/cart.component';
-import { LoginComponent } from './login/login.component';
-import { UserInfoComponent } from './user-info/user-info.component';
-import { SignupComponent } from './signup/signup.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { SearchComponent } from './search/search.component';
-import { BoughtComponent } from './bought/bought.component';
-import { ViewMoreComponent } from './view-more/view-more.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { OrdersComponent } from './admin-page/orders/orders.component';
 import { ProductsComponent } from './admin-page/products/products.component';
@@ -29,14 +24,7 @@ import { OrdersImportComponent } from './admin-page/orders-import/orders-import.
 import { StatisticsComponent } from './admin-page/statistics/statistics.component';
 import { NewProductComponent } from './admin-page/products/new-product/new-product.component';
 import { ListProductComponent } from './admin-page/products/list-product/list-product.component';
-import { UserComponent } from './user/user.component';
-import { ProfileComponent } from './user/profile/profile.component';
-import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
-import { ChangePasswordComponent } from './user/change-password/change-password.component';
-import { AddressComponent } from './user/address/address.component';
-import { EditAddressComponent } from './user/edit-address/edit-address.component';
-import { MyOrdersComponent } from './user/my-orders/my-orders.component';
-import { OrderDetailComponent } from './user/order-detail/order-detail.component';
+
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AgGridModule } from 'ag-grid-angular';
 import { ButtonRendererComponent } from './renderer/button-renderer.component';
@@ -50,9 +38,10 @@ import {
   FacebookLoginProvider,
 } from "angular-6-social-login";
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import { CheckPasswordDirective } from './signup/check-password.directive';
 import { EvaluationComponent } from './product-view/evaluation/evaluation.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -76,54 +65,20 @@ export function getAuthServiceConfigs() {
     FooterComponent,
     ProductShowComponent,
     ProductViewComponent,
-    HomepageComponent,
+    HomeComponent,
     Err404Component,
-    CartComponent,
-    LoginComponent,
-    UserInfoComponent,
-    
-    SignupComponent,
-    
-    AdminPageComponent,
-    
-    SearchComponent,
-    
-    BoughtComponent,
-    
-    ViewMoreComponent,
-    
-    OrdersComponent,
-    
-    ProductsComponent,
-    
-    UsersComponent,
-    
-    OrdersImportComponent,
-    
-    StatisticsComponent,
-    
-    NewProductComponent,
-    
-    ListProductComponent,
-    
-    UserComponent,
-    
-    ProfileComponent,
-    
-    EditProfileComponent,
-    
-    ChangePasswordComponent,
-    
-    AddressComponent,
-    
-    EditAddressComponent,
-    
-    MyOrdersComponent,
-    
-    OrderDetailComponent,
+    CartComponent,   
+    AdminPageComponent,    
+    SearchComponent,            
+    OrdersComponent,    
+    ProductsComponent,    
+    UsersComponent,    
+    OrdersImportComponent,    
+    StatisticsComponent,    
+    NewProductComponent,    
+    ListProductComponent,    
     ButtonRendererComponent,
     SafeHtmlPipe,
-    CheckPasswordDirective,
     EvaluationComponent
   ],
   imports: [
@@ -131,6 +86,7 @@ export function getAuthServiceConfigs() {
     NgbModule,
     NgbPaginationModule,
     NgbAlertModule,
+    AuthModule,
     AppRoutingModule,
     InfiniteScrollModule,
     FormsModule,

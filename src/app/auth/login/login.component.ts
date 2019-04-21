@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../shared/user.service';
+import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DataShareService } from '../shared/datashare.service'
+import { DataShareService } from 'src/app/shared/datashare.service'
 import {
-  AuthService,
+  AuthService as AuthExtendService,
   FacebookLoginProvider,
   GoogleLoginProvider
 } from 'angular-6-social-login';
 import { NotificationsService } from 'angular2-notifications';
-import { CartService } from '../shared/cart.service';
-import { Cart } from '../model/cart';
+import { CartService } from 'src/app/shared/cart.service';
+import { Cart } from 'src/app/model/cart';
 
 @Component({
   selector: 'app-login',
@@ -19,25 +19,26 @@ import { Cart } from '../model/cart';
 })
 export class LoginComponent implements OnInit {
   isLoginError: boolean = false;
-  isUserLoggedIn: boolean;
+  isLoggedIn: boolean;
   productNumber: number;
-  constructor(private userService: UserService, private router: Router
-    ,private dataService: DataShareService, private socialAuthService: AuthService,
+  constructor(private authService: AuthService, private router: Router
+    ,private dataService: DataShareService, private socialAuthService: AuthExtendService,
     private _service: NotificationsService, private cartService: CartService) { }
 
 
   ngOnInit() {
   }
-  onSubmit(username, password) {
-    this.userService.login(username, password)
+  onSubmit(username: string, password: string) {
+    this.authService.login(username, password)
       .subscribe((data: any) => {
           localStorage.setItem('token', data.token);
-          this.dataService.updateStatus(data);
           localStorage.setItem('userId', data.id);
-          
+          this.dataService.updateStatus(data);
+
+          let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/home';
+
           this._service.success(
-            'Đăng nhập thành công',
-            'Vui lòng chờ',
+            'Đăng nhập thành công','Vui lòng chờ',
             {
               position: ["bottom", "right"],
               timeOut: 3000,
@@ -47,13 +48,12 @@ export class LoginComponent implements OnInit {
               maxLength: 10
             }
           );
-          this.router.navigate(['/home']);
+          this.router.navigateByUrl(redirect);
         
       },
         err => {
           this._service.error(
-            'Đăng nhập thất bại',
-            'Vui lòng thử lại',
+            'Đăng nhập thất bại','Vui lòng thử lại',
             {
               position: ["bottom", "right"],
               timeOut: 5000,
@@ -93,11 +93,9 @@ export class LoginComponent implements OnInit {
             clickToClose: true,
             maxLength: 10
           });
-        this.userService.externalLogin(token,socialPlatform)
+        this.authService.externalLogin(token,socialPlatform)
         .subscribe((data: any) =>  {
-          this._service.success(
-            'Đăng nhập thành công',
-            '',
+          this._service.success('Đăng nhập thành công','',
             {
               position: ["bottom", "right"],
               timeOut: 3000,

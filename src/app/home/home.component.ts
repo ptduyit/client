@@ -4,10 +4,10 @@ import { ProductIndex } from '../model/product-index';
 
 @Component({
   selector: 'app-homepage',
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class HomepageComponent implements OnInit {
+export class HomeComponent implements OnInit {
   productIndex: ProductIndex[];
 
   constructor(private productService: ProductService) { }

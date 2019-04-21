@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../shared/user.service';
+import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { DataShareService } from '../shared/datashare.service';
+import { DataShareService } from 'src/app/shared/datashare.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
@@ -13,13 +13,13 @@ export class SignupComponent implements OnInit {
 
   haha= 1;
   comfirmpassword: '2';
-  constructor(private userService: UserService, private router: Router, private dataService: DataShareService
+  constructor(private authService: AuthService, private router: Router, private dataService: DataShareService
     ,private _service: NotificationsService) { }
 
   ngOnInit() {
   }
   onSubmit(signup){
-    this.userService.signup(signup.value.fullname, signup.value.email, signup.value.password, signup.value.phonenumber)
+    this.authService.signup(signup.value.fullname, signup.value.email, signup.value.password, signup.value.phonenumber)
     .subscribe((data: any) => {
       this.dataService.updateStatus(data);
           localStorage.setItem('token', data.token);

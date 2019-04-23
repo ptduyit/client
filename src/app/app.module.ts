@@ -1,8 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
-import { ProductViewComponent } from './product-view/product-view.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,15 +7,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { ProductShowComponent } from './product-show/product-show.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Err404Component } from './err404/err404.component';
 import { CartComponent } from './cart/cart.component';
 import { SearchComponent } from './search/search.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SafeHtmlPipe } from './safe-html-pipe';
+
 import {
   SocialLoginModule,
   AuthServiceConfig,
@@ -26,9 +21,10 @@ import {
   FacebookLoginProvider,
 } from "angular-6-social-login";
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import { EvaluationComponent } from './product-view/evaluation/evaluation.component';
-import { NgxPaginationModule } from 'ngx-pagination';
+
 import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './products/products.module';
+import { Router } from '@angular/router';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -50,21 +46,15 @@ export function getAuthServiceConfigs() {
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ProductShowComponent,
-    ProductViewComponent,
     HomeComponent,
     Err404Component,
     CartComponent,   
-    SearchComponent,
-    SafeHtmlPipe,
-    EvaluationComponent
+    SearchComponent
   ],
   imports: [
     BrowserModule,
-    NgbModule,
-    NgbPaginationModule,
-    NgbAlertModule,
     AuthModule,
+    ProductsModule,
     AppRoutingModule,
     InfiniteScrollModule,
     FormsModule,
@@ -72,8 +62,7 @@ export function getAuthServiceConfigs() {
     ReactiveFormsModule,
     SocialLoginModule,
     BrowserAnimationsModule,
-    SimpleNotificationsModule.forRoot(),
-    NgxPaginationModule
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [
     {
@@ -83,4 +72,9 @@ export function getAuthServiceConfigs() {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(router: Router){
+    const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
+    console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
+  }
+}

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { ProductViewComponent } from './product-view/product-view.component';
 import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { Err404Component } from './err404/err404.component';
@@ -8,9 +7,12 @@ import { SearchComponent } from './search/search.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  { path: 'view/:id', component: ProductViewComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'cart', component: CartComponent },
+  { 
+    path: 'cart',
+    component: CartComponent,
+    canActivate: [AuthGuard]
+  },
   { 
     path: 'user',
     loadChildren: './user/user.module#UserModule',
@@ -21,7 +23,7 @@ const routes: Routes = [
     loadChildren: './admin/admin.module#AdminModule',
     canLoad: [AuthGuard]
   },
-  // { path: 'search', component: SearchComponent },
+  
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: Err404Component },
 

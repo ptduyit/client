@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
-import { Product } from '../model/product';
-import { ProductService } from '../shared/product.service';
+import { Product } from 'src/app/model/product';
+import { ProductService } from 'src/app/shared/product.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { CartService } from '../shared/cart.service';
-import { CartDetail } from '../model/cart-detail';
+import { CartService } from 'src/app/shared/cart.service';
+import { CartDetail } from 'src/app/model/cart-detail';
 import { NotificationsService } from 'angular2-notifications';
-import { Cart } from '../model/cart';
-import { DataShareService } from '../shared/datashare.service';
+import { Cart } from 'src/app/model/cart';
+import { DataShareService } from 'src/app/shared/datashare.service';
 @Component({
-  selector: 'app-product-view',
-  templateUrl: './product-view.component.html',
-  styleUrls: ['./product-view.component.css']
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.css']
 })
-export class ProductViewComponent implements OnInit {
+export class ProductsComponent implements OnInit {
   show = false;
   id: number;
   product: Product = {} as any;

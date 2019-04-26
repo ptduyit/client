@@ -20,29 +20,15 @@ export class ProductShowcaseComponent implements OnInit {
   @Input() productIndex: ProductIndex;
   
   cartDetail: CartDetail = {} as any;
-  images = {} as any;
   userId = localStorage.getItem('userId');
   productNumber: number;
-  constructor(config: NgbModalConfig, private modalService: NgbModal,config1: NgbCarouselConfig,
-    private cartService: CartService, private router: Router, private _service: NotificationsService, private dataService: DataShareService) {
-    // customize default values of modals used by this component tree
-    config.backdrop = 'static';
-    config.keyboard = false;
-    //ảnh
-    config1.interval = 5000;
-    config1.wrap = true;
-    config1.keyboard = false;
-    config1.pauseOnHover = true;
-    config1.showNavigationArrows = true;
-    config1.showNavigationIndicators = true;
+  constructor(private cartService: CartService, private router: Router,
+     private _service: NotificationsService, private dataService: DataShareService) {
+
   }
 
-  open(content) {
-    this.modalService.open(content);
-  }
   ngOnInit() {
-    
-    this.images = this.productIndex.productImage;
+
   }
 
   buynow(){

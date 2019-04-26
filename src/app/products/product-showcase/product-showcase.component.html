@@ -16,32 +16,11 @@
         </div>
         <ul class="social">
             <!-- cái chỗ quick view sẽ sử dung modal để show ra -->
-            <li><a (click)="open(content)" data-tip="Xem nhanh"><i class="fa fa-search"></i></a></li>
+            <li><a data-tip="Xem nhanh"><i class="fa fa-search"></i></a></li>
             <li><a (click)="buynow()" data-tip="Mua"><i class="fa fa-shopping-bag"></i></a></li>
             <li><a (click)="addcart()" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
         </ul>
     </div>
-    
-    <ng-template #content let-c="close" let-d="dismiss" >
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Xem nhanh</h4>
-          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" *ngIf="images">
-          <!-- Hình nảnh -->
-          <ngb-carousel>
-            <ng-template ngbSlide *ngFor="let image of images">
-              <img [src]="image.url" width="100%" alt="Random first slide">
-              <div class="carousel-caption">
-              </div>
-            </ng-template>
-          </ngb-carousel>
-          <!-- het hinh ảnh -->
-        </div>
-      
-      </ng-template>
       
       
     

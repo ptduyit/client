@@ -1,3 +1,14 @@
-<p>
-  category works!
-</p>
+<div>
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/home">Trang chủ</a></li>
+    <ng-container *ngFor="let breadcrumb of category.breadcrumbs; last as isLast">
+      <li *ngIf="!isLast" class="breadcrumb-item" ><a (click)="getCategory();" routerLink="/category/{{breadcrumb.url}}">{{breadcrumb.label}}</a></li>
+      <li *ngIf="isLast" class="breadcrumb-item active" aria-current="page">{{breadcrumb.label}}</li>
+    </ng-container>
+    
+    
+  </ol>
+  </nav>
+</div>
+

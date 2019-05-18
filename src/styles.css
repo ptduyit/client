@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~ag-grid/dist/styles/ag-grid.css";
 @import "~ag-grid/dist/styles/ag-theme-balham.css";
-
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 body{
     background-color: #f4f4f4 !important;
@@ -14,9 +14,7 @@ body{
    
     margin: 0;
 }
-a{
-    /* color: #777; */
-}
+
 .carousel-control-next-icon, .carousel-control-prev-icon {
     background-color: #e21313!important;
 }
@@ -26,3 +24,5 @@ a{
 .carousel-indicators li {
     background-color: rgba(165, 66, 66, 0.5);
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

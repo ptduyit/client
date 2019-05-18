@@ -10,6 +10,7 @@ import { NewProductComponent } from './products/new-product/new-product.componen
 import { ListProductComponent } from './products/list-product/list-product.component';
 import { AuthGuard } from '../auth/auth.guard';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -24,7 +25,10 @@ const routes: Routes = [
           { path: 'users', component: UsersComponent },
           { path: 'orders', component: OrdersComponent },
           { path: 'orders-import', component: OrdersImportComponent },
-          { path: 'statistics', component: StatisticsComponent },
+          { path: 'statistics', component: StatisticsComponent,
+        
+     
+        },
           {
             path: 'products', component: ProductsComponent,
             children: [
@@ -33,7 +37,8 @@ const routes: Routes = [
               { path: 'new-product', component: NewProductComponent },
               { path: 'edit/:id', component: NewProductComponent }
             ]
-          }
+          },
+          
         ]
       }
     ]

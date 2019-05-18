@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -13,6 +14,7 @@ import { CartComponent } from './cart/cart.component';
 import { SearchComponent } from './search/search.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 
 import {
   SocialLoginModule,
@@ -62,6 +64,7 @@ export function getAuthServiceConfigs() {
     ReactiveFormsModule,
     SocialLoginModule,
     BrowserAnimationsModule,
+    MatButtonModule, MatCheckboxModule,
     SimpleNotificationsModule.forRoot()
   ],
   providers: [

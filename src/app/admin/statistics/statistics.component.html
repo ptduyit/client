@@ -1,3 +1,85 @@
-<p>
-  statistics works!
-</p>
+<br>
+<div class="container">
+  <div style="position: relative;">
+    <br>
+      <h3>Chọn năm thống kê</h3>
+      <br>
+    <div class="tuy-chon-thong-ke row">
+      
+      <mat-form-field>
+        <mat-label>Năm</mat-label>
+        <mat-select [(ngModel)]="selectedYear" (selectionChange)="changeTheYear()">
+          <mat-option *ngFor="let year of years" [value]='year'>{{year}}</mat-option>          
+        </mat-select>
+      </mat-form-field>
+      
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-4 col-sm-12">
+      <mat-card>
+     
+          <h3>Tổng số đơn hàng trong năm</h3>
+          <h1>55</h1>
+        
+      </mat-card>
+    </div>
+    <div class="col-lg-4 col-sm-12">
+      
+      <mat-card>
+     
+        <h3>cc gì v</h3>
+        <h1>55</h1>
+      
+    </mat-card>
+    </div>
+    <div class="col-lg-4 col-sm-12">
+      <mat-card>
+     
+        <h3>Tổng số đơn hàng</h3>
+        <h1>55</h1>
+      
+    </mat-card> 
+    </div>
+
+  </div>
+  <div class="">
+
+    <h1>Biểu đồ doanh thu</h1>
+    <google-chart [data]="columnChart"></google-chart>
+   
+    <h1>Số lương đơn hàng bán đucợ theo tháng</h1>
+
+
+    <google-chart [data]="lineChart" (chartSelect)="select($event)"></google-chart>
+
+    <!-- <google-chart #chartLine
+   [title]="titleLine"
+   [type]="typeLine"
+   [data]="dataLine"
+   [columnNames]="columnNamesLine"
+   [options]="optionsLine"
+   [width]="widthLine"
+   [height]="heightLine">
+</google-chart> -->
+
+  </div>
+  <div class="">
+    <h3>
+        Chi tiết doanh thu theo tháng 
+    </h3>
+   
+    <br>
+    <mat-form-field>
+        <mat-label>Tháng</mat-label>
+        <mat-select [(value)]="selectedMonth" >
+          <mat-option *ngFor="let M of months" [value]="M.value">{{M.name}}</mat-option>
+          
+        </mat-select>
+      </mat-form-field>
+      <google-chart [data]="pieChart"></google-chart>
+  </div>
+</div>
+
+

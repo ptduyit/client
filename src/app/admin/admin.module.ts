@@ -42,7 +42,8 @@ import {MatButtonModule, MatCheckboxModule,MatSelectModule,MatDatepickerModule,M
     MatFormFieldModule,
   MatMenuModule,MatIconModule,
    MatNativeDateModule,
-   MatCardModule
+   MatCardModule,
+   
   
   ],
   declarations: [
@@ -59,7 +60,8 @@ import {MatButtonModule, MatCheckboxModule,MatSelectModule,MatDatepickerModule,M
   ],
    exports: [MatButtonModule, MatCheckboxModule],
    providers: [  
-    MatDatepickerModule,  
+    MatDatepickerModule, 
+    
   ],  
 })
 export class AdminModule { }

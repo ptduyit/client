@@ -4,6 +4,7 @@ import { ChartReadyEvent, ChartErrorEvent, ChartSelectEvent,
 import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
 import { StatisticService } from 'src/app/shared/statistic.service';
 import { StatisticOfMonth } from 'src/app/model/statisticmonth';
+import { CategoryOfMonth } from 'src/app/model/categoryofmonth';
 
 @Component({
   selector: 'app-statistics',
@@ -12,20 +13,7 @@ import { StatisticOfMonth } from 'src/app/model/statisticmonth';
 })
 export class StatisticsComponent implements OnInit {
 
-  months: any[] = [
-    {value: '1', name: 'Tháng 1'},
-    {value: '2', name: 'Tháng 2'},
-    {value: '3', name: 'Tháng 3'},
-    {value: '4', name: 'Tháng 4'},
-    {value: '5', name: 'Tháng 5'},
-    {value: '6', name: 'Tháng 6'},
-    {value: '7', name: 'Tháng 7'},
-    {value: '8', name: 'Tháng 8'},
-    {value: '9', name: 'Tháng 9'},
-    {value: '10', name: 'Tháng 10'},
-    {value: '11', name: 'Tháng 11'},
-    {value: '12', name: 'Tháng 12'}, 
-  ];
+  months:number[]= [1,2,3,4,5,6,7,8,9,10];
 
 
   loaiTK='month';
@@ -37,17 +25,11 @@ export class StatisticsComponent implements OnInit {
     dataTable: [ ],
     options: {title: 'Doanh thu các tháng trong năm (VND)'}
   };
-  public pieChart = {
+  public pieChart: GoogleChartInterface = {
     chartType: 'PieChart',
-    dataTable: [
-      ['SanPham', 'TongDoanhThu'],
-      ['Laptop', 1100],
-      ['Phụ kiện', 2000],
-      ['Máy ảnh',  2202],
-      ['Điện thoại',  3022],
-    ],
+    dataTable: [ ],
     options: {
-      title: 'Doanh thu tháng',
+      title: 'Loại Sản Phẩm ',
       slices: {
         0: {offset: 0.3},
         1: {offset: 0.2}
@@ -61,10 +43,17 @@ export class StatisticsComponent implements OnInit {
     options: {title: 'Tổng số đơn hàng bán ra theo tháng'}
   };
   statisticOfYear:StatisticOfMonth[];
+  categoryOfMonth:CategoryOfMonth[];
   years:number[];
   selectedYear=2019;
+  selectedMonth=1;
   line:number[];
-
+  totalImport:number;
+  totalExport:number;
+  statistic:number;
+  monthImport:number;
+  monthExport:number;
+  monthStatistic:number;
 
   constructor(private statisticSV:StatisticService){
     this.getYears();
@@ -73,6 +62,9 @@ export class StatisticsComponent implements OnInit {
   
     this.getStatisticOfYearColumn(2019);
     this.getExportsOfYear(2019);
+    this.getDataForPipe();
+    this.getStatisticOfyear();
+    this.getStatisticOnMonthOfYear();
   
   }
 
@@ -121,18 +113,33 @@ export class StatisticsComponent implements OnInit {
     
     ];
   }
+  fillPipe(){ 
+    this.pieChart.dataTable=[];
+    this.pieChart.dataTable[0]=  ['Loại Sản Phẩm', 'Tổng Doanh Thu'];
+    for(let i=0;i<this.categoryOfMonth.length;i++){
+      console.log([this.categoryOfMonth[i].categoryName,this.categoryOfMonth[i].cost]);
+      this.pieChart.dataTable[i+1]=[this.categoryOfMonth[i].categoryName,this.categoryOfMonth[i].cost]; 
+    }
+      console.log(this.pieChart.dataTable);
+  }
 
   getYears(){
     this.statisticSV.getYears().subscribe(data=>{console.log(data);this.years=data});
   }
   changeTheYear(){
-    // this.selectedYear=selectedYear;
     console.log(this.selectedYear);
     this.getStatisticOfYearColumn(this.selectedYear);
     this.getExportsOfYear(this.selectedYear);
     this.columnChart.component.draw();
     this.lineChart.component.draw();
-    console.log(this.selectedYear);
+    this.getStatisticOfyear();
+    this.getDataForPipe();
+    this.getStatisticOnMonthOfYear();
+  }
+  changeTheMonth(){
+    this.getDataForPipe();
+    this.pieChart.component.draw();
+    this.getStatisticOnMonthOfYear();
   }
 
   //
@@ -144,5 +151,37 @@ export class StatisticsComponent implements OnInit {
     }
 
     );
+  }
+  getDataForPipe(){
+    console.log(this.selectedMonth+"/"+this.selectedYear)
+    this.statisticSV.getCateogyByMonth(this.selectedMonth,this.selectedYear).subscribe(
+      data=>{
+        console.log(data);
+        this.categoryOfMonth=data;
+        this.fillPipe();
+        this.pieChart.component.draw();
+
+      }
+    )
+  }
+  getStatisticOfyear(){
+    this.statisticSV.getStatisticOfYear(this.selectedYear).subscribe(
+      data=>{
+        this.totalImport=data[0];
+        this.totalExport=data[1];
+        this.statistic=this.totalExport-this.totalImport
+      }
+    )
+  }
+  getStatisticOnMonthOfYear(){
+    this.statisticSV.getStatisticOnMonthOfYear(this.selectedYear,this.selectedMonth).subscribe(
+      data=>{
+        console.log(this.selectedYear,this.selectedMonth);
+        console.log(data);
+        this.monthImport=data[0];
+        this.monthExport=data[1];
+        this.monthStatistic=this.monthExport-this.monthImport;
+      }
+    )
   }
 }

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../shared/cart.service';
+import { CartService } from '../service/cart.service';
 import { Cart } from '../model/cart';
 import { CartDetail } from '../model/cart-detail';
 import { Order } from '../model/order';
 import { Router } from '@angular/router';
-import { AddressService } from '../shared/address.service';
-import { Address } from '../model/address';
+import { AddressService } from '../service/address.service';
+import { ShowAddressUser } from '../model/address';
 import { NotificationsService } from 'angular2-notifications';
-import { ProductService } from '../shared/product.service';
-import { DataShareService } from '../shared/datashare.service';
+import { ProductService } from '../service/product.service';
+import { DataShareService } from '../service/datashare.service';
 
 @Component({
   selector: 'app-cart',
@@ -20,7 +20,7 @@ export class CartComponent implements OnInit {
   carts: Cart[];
   totalPrice: number;
   order: Order ={} as any;
-  addresses: Address[];
+  addresses: ShowAddressUser[];
   addId: number;
   flag = false;
   stock: number;

@@ -16,3 +16,7 @@ export class Product {
     displayIndex: boolean;
     productImage: any;
 }
+export interface ProductSearch{
+    id: number;
+    name: string;
+  }

@@ -1,30 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { AppRoutingModule } from './app-routing.module';
-import { Err404Component } from './err404/err404.component';
-import { CartComponent } from './cart/cart.component';
-import { SearchComponent } from './search/search.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import {
-  SocialLoginModule,
-  AuthServiceConfig,
-  GoogleLoginProvider,
-  FacebookLoginProvider,
-} from "angular-6-social-login";
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider,} from "angular-6-social-login";
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
-import { AuthModule } from './auth/auth.module';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
+import { CartComponent } from './cart/cart.component';
+import { SearchComponent } from './search/search.component';
+
 import { ProductsModule } from './products/products.module';
-import { Router } from '@angular/router';
+import { LayoutModule } from './layout/layout.module';
+import { SharedModule } from './shared/shared.module';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -44,25 +36,23 @@ export function getAuthServiceConfigs() {
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
     HomeComponent,
-    Err404Component,
     CartComponent,   
     SearchComponent
   ],
   imports: [
     BrowserModule,
-    AuthModule,
     ProductsModule,
     AppRoutingModule,
-    InfiniteScrollModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
     SocialLoginModule,
     BrowserAnimationsModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    LayoutModule,
+    SharedModule,
+    
   ],
   providers: [
     {
@@ -76,5 +66,7 @@ export class AppModule {
   constructor(router: Router){
     const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
     console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
+    
   }
+  
 }

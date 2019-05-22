@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EvaluationService } from 'src/app/shared/evaluation.service';
+import { EvaluationService } from 'src/app/service/evaluation.service';
 import { Evaluation } from 'src/app/model/evaluation';
 import { Paging } from 'src/app/model/paging';
 

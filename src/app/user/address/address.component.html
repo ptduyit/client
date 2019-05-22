@@ -21,7 +21,7 @@
         <tr *ngFor="let address of addresses">
           <th>{{address.fullName}}</th>
           <th>{{address.street}}</th>
-          <th>{{address.province}} - {{address.district}} - {{address.ward}}</th>
+          <th>{{address.location.province}} - {{address.location.district}} - {{address.location.ward}}</th>
           <th>{{address.phoneNumber}}</th>
           <th><span *ngIf="address.isDefault">Nhận hàng mặc định</span> </th>
           <th><div style="cursor: pointer;" (click)="update(address.addressId)">Sửa</div></th>

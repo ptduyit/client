@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";  
-import { ProductService } from '../../../shared/product.service';
-import { CategoryProductService } from '../../../shared/category-product.service'
+import { ProductService } from '../../../service/product.service';
+import { CategoryProductService } from '../../../service/category-product.service'
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Product } from '../../../model/product';
 import { NotificationsService } from 'angular2-notifications';

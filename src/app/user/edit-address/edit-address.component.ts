@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddressService } from 'src/app/shared/address.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Address } from 'src/app/model/address';
+import { AddressService } from 'src/app/service/address.service';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { AddressUser } from 'src/app/model/address';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
@@ -12,7 +12,10 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class EditAddressComponent implements OnInit {
   id: number;
-  address: Address;
+  address: AddressUser;
+  provinces: any = [];
+  districts: any = [];
+  wards: any = [];
   title: string = "Create";
   addressForm: FormGroup;
   submitted = false;
@@ -26,21 +29,65 @@ export class EditAddressComponent implements OnInit {
     }
     this.addressForm = this.fb.group({
       addressId: 0,
-      fullName: ['', Validators.required],
-      phoneNumber: ['', [Validators.required, Validators.minLength(10)]],
-      province: ['', Validators.required],
-      district: ['', Validators.required],
-      ward: ['', Validators.required],
-      street: ['', Validators.required],
+      fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*')]],
+      province: ['', [Validators.required, AddressValidator]],
+      district: ['', [Validators.required, AddressValidator]],
+      ward: ['', [Validators.required, AddressValidator]],
+      street: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
       isDefault: false,
       userId: this.userId,
+      wardId: null
     });
     if (this.id > 0) {
       this.title="Edit";
       this.addressService.getOneAddress(this.id)
-        .subscribe(data => this.addressForm.patchValue(data))
+        .subscribe(data => 
+          {
+            this.addressForm.patchValue(data);
+            this.addressForm.controls['province'].setValue(data.wards.districts.provinces.provinceId);
+            this.provinces.push(data.wards.districts.provinces);
+            this.addressForm.controls['district'].setValue(data.wards.districts.districtId);
+            this.districts.push(data.wards.districts);
+            this.addressForm.controls['ward'].setValue(data.wards.wardId);
+            this.wards.push(data.wards);
+            this.addressForm.controls['wardId'].setValue(data.wardId);
+            this.addressService.getProvinces().subscribe(pr=> this.provinces = pr);
+            this.addressService.getDistricts(data.wards.districts.provinces.provinceId).subscribe(dis => this.districts = dis);
+            this.addressService.getWards(data.wards.districts.districtId).subscribe(wa => this.wards = wa);
+          });
+    } else {
+      this.addressService.getProvinces().subscribe(ob => this.provinces = ob);
+      this.addressForm.get('district').disable();
+      this.addressForm.get('ward').disable();
+      this.addressForm.controls['province'].setValue(0);
+      this.addressForm.controls['district'].setValue(0);
+      this.addressForm.controls['ward'].setValue(0);
     }
 
+  }
+  changeSelected(event,type){
+    const id = event.target.value;
+    if(type=="province"){
+      this.addressService.getDistricts(id).subscribe(dis => {
+        this.districts = dis;
+        this.wards = [];
+        this.addressForm.get('district').enable();
+        this.addressForm.get('ward').disable();
+        this.addressForm.controls['district'].setValue(0);
+        this.addressForm.controls['ward'].setValue(0);
+      });
+    }
+    else if(type=="district"){
+      this.addressService.getWards(id).subscribe(wa => {
+        this.wards = wa;
+        this.addressForm.get('ward').enable();
+        this.addressForm.controls['ward'].setValue(0);
+      });
+    }
+    else {
+      this.addressForm.controls['wardId'].setValue(id);
+    }
   }
   get f() { return this.addressForm.controls; }
   save(){
@@ -80,4 +127,10 @@ export class EditAddressComponent implements OnInit {
   cancel(){
     this.router.navigate(['user/address']);
   }
+}
+export function AddressValidator(control: AbstractControl): {[key: string]: boolean } | null {
+  if(control.value === 0) {
+    return {"address": true}
+  }
+  return null;
 }

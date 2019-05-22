@@ -1,0 +1,21 @@
+
+    <div class="product-grid6">
+        <div class="product-image6">
+            <a routerLink="/products/{{productIndex.productId}}">
+                <img style="height:200px; width: auto" class="pic-1" src="{{productIndex.image}}">
+            </a>
+        </div>
+        <div class="product-content">
+            <h3 class="title"><a routerLink="#">{{productIndex.productName}}</a></h3>
+            <div class="price">đ {{productIndex.unitPrice | number}}
+              <div *ngIf="productIndex.discount">
+                <span>{{productIndex.unitPrice/(1-productIndex.discount/100) | number:'1.0-0'}}</span>
+                <span>    -{{productIndex.discount}}%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+      
+    
+

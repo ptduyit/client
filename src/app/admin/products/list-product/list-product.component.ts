@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { Product } from '../../../model/product';
-import { ProductService } from '../../../shared/product.service';
+import { ProductService } from '../../../service/product.service';
 import { ButtonRendererComponent } from './../../../renderer/button-renderer.component';
 import { AutoWidthCalculator } from 'ag-grid-community';
 

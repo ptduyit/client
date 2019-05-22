@@ -8,7 +8,10 @@ import { OrdersImportComponent } from './orders-import/orders-import.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { NewProductComponent } from './products/new-product/new-product.component';
 import { ListProductComponent } from './products/list-product/list-product.component';
+import { NewOrderComponent } from './orders-import/new-order/new-order.component';
+import { ListOrdersImportComponent } from './orders-import/list-orders-import/list-orders-import.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { PageNotFoundComponent } from '../shared/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -23,8 +26,16 @@ const routes: Routes = [
           { path: '', pathMatch: 'full', redirectTo: 'orders' },
           { path: 'users', component: UsersComponent },
           { path: 'orders', component: OrdersComponent },
-          { path: 'orders-import', component: OrdersImportComponent },
           { path: 'statistics', component: StatisticsComponent },
+          { 
+            path: 'orders-import', component: OrdersImportComponent ,
+            children: [
+              { path: 'new-order', component: NewOrderComponent},
+              { path: 'edit/:id', component: NewOrderComponent},
+              { path: '', pathMatch: 'full', component: ListOrdersImportComponent}
+            ]
+          },
+          
           {
             path: 'products', component: ProductsComponent,
             children: [
@@ -33,6 +44,9 @@ const routes: Routes = [
               { path: 'new-product', component: NewProductComponent },
               { path: 'edit/:id', component: NewProductComponent }
             ]
+          },
+          {
+            path: '**', component: PageNotFoundComponent
           }
         ]
       }

@@ -3,7 +3,7 @@ import { ProductIndex } from "./product-index";
 
 export class ProductCategory{
     paging: Paging;
-    category: Category;
+    categories: Categories;
     products: ProductIndex;
     breadcrumbs: Breadcrumb;
 }
@@ -11,8 +11,8 @@ export class Breadcrumb{
     label: string;
     url: string;
 }
-export class Category{
+export class Categories{
     categoryName: string;
     url: string;
-    categoryChildrens: Category[];
+    categoryChildrens: Categories[];
 }

@@ -1,0 +1,53 @@
+<form [formGroup]="productForm" (ngSubmit)="save()">
+  <div class="modal-header">
+    <h5 class="modal-title">Thêm sản phẩm</h5>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group align-items-center row">
+      <span for="productName" class="control-label col-sm-4">Tên sản phẩm</span>
+      <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="productName" [ngClass]="{ 'is-invalid': submitted && f.productName.errors }">
+          <div *ngIf="submitted && f.productName.errors" class="invalid-feedback">
+              <div *ngIf="f.productName.errors.required">Không được để trống</div>
+          </div>
+      </div>
+    </div>
+    <div class="form-group align-items-center row">
+      <span for="categoryId" class="control-label col-sm-4">Loại sản phẩm</span>
+      <div class="input-group col-sm-8">
+          <select class="form-control" data-val="true" formControlName="categoryId" [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
+              <option value="">-- Select Category --</option>
+          </select>
+          <button type="button" (click)="open()" class="btn btn-outline-success input-group-prepend"><i class="align-middle pi pi-plus"></i></button>
+          <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
+              <div *ngIf="f.categoryId.errors.required">Không được để trống</div>
+          </div>
+      </div>
+  </div>
+  <div class="form-group align-items-center row">
+      <span for="unitPrice" class="control-label col-sm-4">Đơn giá nhập</span>
+      <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="unitPrice" [ngClass]="{ 'is-invalid': submitted && f.unitPrice.errors }">
+          <div *ngIf="submitted && f.unitPrice.errors" class="invalid-feedback">
+              <div *ngIf="f.unitPrice.errors.required">Không được để trống</div>
+          </div>
+      </div>
+  </div>
+  <div class="form-group align-items-center row">
+    <span for="stock" class="control-label col-sm-4">Số lượng</span>
+    <div class="col-sm-8">
+        <input type="text" class="form-control" formControlName="stock" [ngClass]="{ 'is-invalid': submitted && f.stock.errors }">
+        <div *ngIf="submitted && f.stock.errors" class="invalid-feedback">
+            <div *ngIf="f.stock.errors.required">Không được để trống</div>
+        </div>
+    </div>
+</div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success align-items-center d-flex"><i style="font-size: 1.5rem" class="pi pi-save"></i>Lưu</button>
+    <button type="button" class="btn btn-outline-dark align-items-center d-flex" (click)="activeModal.close('Close click')"><i style="font-size: 1.5rem" class="pi pi-ban"></i>Bỏ qua</button>
+  </div>
+</form>

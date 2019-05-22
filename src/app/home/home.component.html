@@ -1,41 +1,8 @@
-<img class="img-homepage"src="assets\img\a.png" alt="ABCShop">
-  <br>
-  <!-- 2 style hot -->
-  <div  class="row container-fluid">
-    <div class="col-sm-6 ">
-      <a routerLink="/view/{{idproduct}}">
-        <img class="img-homepage2" src="assets\img\b.png" alt="">
-      </a>
-      <h5 style="margin-bottom:0;" class="text-center">
-        <a routerLink="/view/{{idproduct}}">
-          SAMSUNG GALAXY S8
-        </a>
-      </h5>
-      <p style="padding-top:5px;" class="text-center ">
-        khả năng chụp ảnh xóa phông nghệ thuật nhờ camera kép chất lượng, đồng thời bạn sẽ được giải trí trên màn hình vô cực ấn tượng..
-      </p>
-     
-    </div>
-    <div class="col-sm-6 ">
-      <a routerLink="/view/{{idproduct}}">
-        <img class=" img-homepage2" src="assets\img\c.png" alt="">
-      </a>
-      <h5 style="margin-bottom:0;" class="text-center">
-        <a routerLink="/view/{{idproduct}}">
-          OPPO F9 Xanh Phỉ Thúy
-         
-        </a>
-      </h5>
-      <p style="padding-top:5px;" class="text-center">
-        Sắc màu may mắn – Số lượng giới hạn
-      </p>
-    </div>
-  </div>
-  
+ 
   <div class="container">
     <br>
     <h3 class="text-center ">Top sản phẩm Hot!</h3>
-    <h5 class="text-center ">Nhũng sản phẩm mới nhất/ Hot nhất</h5>
+    <h5 class="text-center ">Những sản phẩm mới nhất/ Hot nhất</h5>
     <div class="row">
       <app-product-showcase *ngFor="let product of productIndex" [productIndex]="product" class="col-md-3 col-sm-6 py-3"></app-product-showcase>
     </div>

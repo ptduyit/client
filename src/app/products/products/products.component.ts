@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Product } from 'src/app/model/product';
-import { ProductService } from 'src/app/shared/product.service';
+import { ProductService } from 'src/app/service/product.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { CartService } from 'src/app/shared/cart.service';
+import { CartService } from 'src/app/service/cart.service';
 import { CartDetail } from 'src/app/model/cart-detail';
 import { NotificationsService } from 'angular2-notifications';
 import { Cart } from 'src/app/model/cart';
-import { DataShareService } from 'src/app/shared/datashare.service';
+import { DataShareService } from 'src/app/service/datashare.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',

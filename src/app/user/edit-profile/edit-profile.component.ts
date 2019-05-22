@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { UserService } from 'src/app/shared/user.service';
+import { UserService } from 'src/app/service/user.service';
 import { UserInfo } from 'src/app/model/user-info';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
@@ -24,8 +24,8 @@ export class EditProfileComponent implements OnInit {
     this.userId = localStorage.getItem('userId');
     this.profileForm = this.fb.group({
       userId: [this.userId, Validators.required],
-      fullName: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.minLength(10)]],
+      fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*')]],
       birthDate: ['', Validators.required],
       gender: '',
     });

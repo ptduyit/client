@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DataShareService } from 'src/app/shared/datashare.service'
+import { DataShareService } from 'src/app/service/datashare.service'
 import {
   AuthService as AuthExtendService,
   FacebookLoginProvider,
   GoogleLoginProvider
 } from 'angular-6-social-login';
 import { NotificationsService } from 'angular2-notifications';
-import { CartService } from 'src/app/shared/cart.service';
+import { CartService } from 'src/app/service/cart.service';
 import { Cart } from 'src/app/model/cart';
 
 @Component({

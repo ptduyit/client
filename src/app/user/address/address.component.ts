@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Address } from 'src/app/model/address';
-import { AddressService } from 'src/app/shared/address.service';
+import { ShowAddressUser } from 'src/app/model/address';
+import { AddressService } from 'src/app/service/address.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,8 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AddressComponent implements OnInit {
 
-  addresses: Address[];
-  add: Address;
+  addresses: ShowAddressUser[];
   userId = localStorage.getItem('userId');
   constructor(private addressService: AddressService, private router: Router) { }
 

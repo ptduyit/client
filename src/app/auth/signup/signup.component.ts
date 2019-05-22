@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { DataShareService } from 'src/app/shared/datashare.service';
+import { DataShareService } from 'src/app/service/datashare.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
   }
-  onSubmit(signup){
+  onSubmit(signup:any){
     this.authService.signup(signup.value.fullname, signup.value.email, signup.value.password, signup.value.phonenumber)
     .subscribe((data: any) => {
       this.dataService.updateStatus(data);

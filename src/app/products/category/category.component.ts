@@ -1,8 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CategoryResolverService } from '../category-resolver.service';
-import { from } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductCategory } from 'src/app/model/product-category';
+import { CategoryService } from 'src/app/service/category.service';
 
 @Component({
   selector: 'app-category',
@@ -10,9 +9,9 @@ import { ProductCategory } from 'src/app/model/product-category';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  category: ProductCategory = {} as ProductCategory;
+  productCategory: ProductCategory = {} as ProductCategory;
   errorMessage: string;
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private categoryService: CategoryService) { }
 
   ngOnInit() {
     this.getCategory();
@@ -21,7 +20,13 @@ export class CategoryComponent implements OnInit {
     // const resolvedData = this.route.snapshot.data['dataResolve'];
     this.route.data.subscribe( data => {
       this.errorMessage = data.dataResolve.error;
-      this.category = data.dataResolve;
+      this.productCategory = data.dataResolve;
+    })
+  }
+  setPage(page: number){
+    this.categoryService.getProductCategoryByUrl(this.productCategory.categories[0].url,page)
+    .subscribe( data => {
+      this.productCategory = data;
     })
   }
 }

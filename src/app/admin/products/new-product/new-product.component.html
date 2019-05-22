@@ -123,7 +123,7 @@
  <br>
 
     <div formArrayName="productImage">
-        <div *ngFor="let comp of productForm.get('productImage').controls; let i=index">
+        <div *ngFor="let comp of productForm.get('productImage')['controls']; let i=index">
             
             <div [formGroupName]="i" class="input-group form-group">
                 <label class="control-label col-sm-2">Đường link ảnh</label>

@@ -1,0 +1,102 @@
+.number{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid black;
+    text-align: right;
+    background: transparent;
+    padding-right: 5px;
+}
+.number:focus{
+    outline: 0;
+    border-bottom: 1px solid rgb(4, 42, 255);
+}
+.table-responsive{
+    height:500px;
+    overflow-y: auto;
+}
+thead tr:nth-child(1) th{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border: 0;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+  /* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+  /* Handle */
+ ::-webkit-scrollbar-thumb {
+    background: #888; 
+} 
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.search-box{
+    position: relative;
+}
+.wrap-suggestion{
+    display: block;
+    border: 1px solid #e2e2e2;
+    background: #fff;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 45px;
+    z-index: 11;
+    padding-left: 0;
+}
+.wrap-suggestion li {
+    display: block;
+    background: #fff;
+    overflow: hidden;
+    list-style: none;
+}
+.wrap-suggestion li a {
+    display: block;
+    overflow: hidden;
+    padding: 6px 12px;
+    color: #333;
+    font-size: 12px;
+    cursor: pointer;
+}
+.wrap-suggestion li a:hover{
+    background-color: rgb(233, 233, 233);
+}
+.wrap-suggestion li a span{
+    display: block;
+    width: auto;
+    color: #333;
+    font-size: 14px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.wrap-suggestion:after, .wrap-suggestion:before {
+    bottom: 100%;
+    left: 80px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+}
+.wrap-suggestion:before {
+    border-color: rgba(218,218,218,0);
+    border-bottom-color: #dadada;
+    border-width: 9px;
+    margin-left: -9px;
+}
+.wrap-suggestion:after {
+    border-color: rgba(255,255,255,0);
+    border-bottom-color: #fff;
+    border-width: 8px;
+    margin-left: -8px;
+}
+.side-bar{
+    background-color: white;
+}

@@ -15,7 +15,7 @@ export class AuthService {
   login(userName: string, password: string) {
     var data = {username: userName, password: password };
     var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
-    return this.http.post('/api/Login', data, reqHeader)
+    return this.http.post('https://localhost:44354/api/Login', data, reqHeader)
     .pipe(
       catchError(this.handleError)
     );
@@ -23,7 +23,7 @@ export class AuthService {
   signup(fullname: string, email: string, password: string, phonenumber: string){
     var data = {fullname: fullname, email: email, password: password, phonenumber: phonenumber};
     var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
-    return this.http.post('/api/Users', data, reqHeader)
+    return this.http.post('https://localhost:44354/api/Users', data, reqHeader)
     .pipe(
       catchError(this.handleError)
     );
@@ -32,7 +32,7 @@ export class AuthService {
     var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
     let body = JSON.stringify({ accessToken });  
     return this.http
-      .post('/api/ExternalLogin/'+platform, body, reqHeader)
+      .post('https://localhost:44354/api/ExternalLogin/'+platform, body, reqHeader)
       .pipe(
         catchError(this.handleError)
       );

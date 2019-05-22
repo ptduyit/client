@@ -1,14 +1,35 @@
-<div>
+<section class="container">
   <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/home">Trang chủ</a></li>
-    <ng-container *ngFor="let breadcrumb of category.breadcrumbs; last as isLast">
+    <ng-container *ngFor="let breadcrumb of productCategory.breadcrumbs; last as isLast">
       <li *ngIf="!isLast" class="breadcrumb-item" ><a (click)="getCategory();" routerLink="/category/{{breadcrumb.url}}">{{breadcrumb.label}}</a></li>
       <li *ngIf="isLast" class="breadcrumb-item active" aria-current="page">{{breadcrumb.label}}</li>
     </ng-container>
-    
-    
   </ol>
   </nav>
-</div>
+
+  <div class="row">
+    <div class="col-3 px-2">
+      <h3>Danh mục sản phẩm</h3>
+      <ng-container *ngFor="let category of productCategory.categories">
+        <div>
+          <a class="" routerLink="/category/{{category.url}}">{{category.categoryName}}</a>          
+        </div>
+        <ng-container *ngFor="let categoryChildren of category.categoryChildrens">
+          <div>
+            <a class="pl-3" routerLink="/category/{{categoryChildren.url}}">{{categoryChildren.categoryName}}</a>            
+          </div>
+        </ng-container>
+      </ng-container>
+      
+    </div>
+    <div class="col-9">
+        <div class="row">
+            <app-product-showcase *ngFor="let product of productCategory.products | paginate: { id: 'pagingproduct', itemsPerPage: productCategory.paging.pageSize, currentPage: productCategory.paging.pageNumber, totalItems: productCategory.paging.totalItems }" [productIndex]="product" class="col-md-3 col-sm-6 py-3"></app-product-showcase>
+          </div>
+          <pagination-controls *ngIf="productCategory.products['length'] > 0" (pageChange)="setPage($event)" id="pagingproduct" previousLabel="" nextLabel=""></pagination-controls>
+    </div>
+  </div>
+</section>
 

@@ -1,147 +1,127 @@
 <form [formGroup]="productForm" (ngSubmit)="save()">
-    <div class="input-group form-group">
-        <input type="hidden" class="form-control" formControlName="productId">
-    </div>
-    <div class="input-group form-group">
-        <label for="productName" class="control-label col-sm-2">Tên Sản Phẩm</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" formControlName="productName" [ngClass]="{ 'is-invalid': submitted && f.productName.errors }">
-            <div *ngIf="submitted && f.productName.errors" class="invalid-feedback">
-                <div *ngIf="f.productName.errors.required">Không được để trống</div>
-            </div>
-        </div>
-    </div>
-    <div class="input-group form-group">
-        <label for="categoryId" class="control-label col-sm-2">Loại Sản Phẩm</label>
-        <div class="col-sm-10">
-            <select class="form-control" data-val="true" formControlName="categoryId" [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
-                <option value="">-- Select Category --</option>
-                <option *ngFor="let category of categorys" value="{{category.categoryId}}">{{category.categoryName}}</option>
-            </select>
-            <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
-                <div *ngIf="f.categoryId.errors.required">Không được để trống</div>
-            </div>
-        </div>
-    </div>
-    <div class="input-group form-group">
-        <label for="unitPrice" class="control-label col-sm-2">Giá Bán</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" formControlName="unitPrice" [ngClass]="{ 'is-invalid': submitted && f.unitPrice.errors }">
-            <div *ngIf="submitted && f.unitPrice.errors" class="invalid-feedback">
-                <div *ngIf="f.unitPrice.errors.required">Không được để trống</div>
-            </div>
-        </div>
-    </div>
-    <div class="input-group form-group">
-        <label for="importPrice" class="control-label col-sm-2">Giá Nhập</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" formControlName="importPrice" [ngClass]="{ 'is-invalid': submitted && f.importPrice.errors }">
-            <div *ngIf="submitted && f.importPrice.errors" class="invalid-feedback">
-                <div *ngIf="f.importPrice.errors.required">Không được để trống</div>
-            </div>
-        </div>
-    </div>
-    <div class="input-group form-group">
-        <label for="discontinued" class="control-label col-sm-2">Trạng thái</label>
-        <div class="col-sm-10">
-            <select class="form-control" formControlName="discontinued" [ngClass]="{ 'is-invalid': submitted && f.discontinued.errors }">
-                <option value="true">Ngưng bán</option>
-                <option value="false">Đang bán</option>
-            </select>
-            <div *ngIf="submitted && f.discontinued.errors" class="invalid-feedback">
-                <div *ngIf="f.discontinued.errors.required">Không được để trống</div>
-            </div>
-        </div>
-    </div>
-    <div class="input-group form-group">
-        <label for="discount" class="control-label col-sm-2">Giảm Giá (%)</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" formControlName="discount" [ngClass]="{ 'is-invalid': submitted && f.discount.errors }">
-            <div *ngIf="submitted && f.discount.errors" class="invalid-feedback">
-                <div *ngIf="f.discount.errors.required">Không được để trống</div>
-            </div>
-        </div>
-    </div>
-    <div class="input-group form-group">
-        <label for="stock" class="control-label col-sm-2">Số Lượng</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" formControlName="stock" [ngClass]="{ 'is-invalid': submitted && f.stock.errors }">
-            <div *ngIf="submitted && f.stock.errors" class="invalid-feedback">
-                <div *ngIf="f.stock.errors.required">Không được để trống</div>
-            </div>
-        </div>
-    </div>
-    <!-- <div class="input-group form-group">
-        <label for="description" class="control-label col-sm-2">description</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" formControlName="description">
-        </div>
-    </div> -->
-    <div class="input-group form-group">
-        <label for="image" class="control-label col-sm-2">Ảnh Đại Diện</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" formControlName="image" [ngClass]="{ 'is-invalid': submitted && f.image.errors }">
-            <div *ngIf="submitted && f.image.errors" class="invalid-feedback">
-                <div *ngIf="f.image.errors.required">Không được để trống</div>
-            </div>
-        </div>
-    </div>
-    <div class="input-group form-group">
-        <label for="guarantee" class="control-label col-sm-2">Bảo Hành (T)</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" formControlName="guarantee" [ngClass]="{ 'is-invalid': submitted && f.guarantee.errors }">
-            <div *ngIf="submitted && f.guarantee.errors" class="invalid-feedback">
-                <div *ngIf="f.guarantee.errors.required">Không được để trống</div>
-            </div>
-        </div>
-    </div>
-    <div class="input-group form-group">
-        <label for="summary" class="control-label col-sm-2">Tóm tắt</label>
-        <div class="col-sm-10">
-            <textarea type="text" class="form-control" formControlName="summary" [ngClass]="{ 'is-invalid': submitted && f.summary.errors }"></textarea>
-            <div *ngIf="submitted && f.summary.errors" class="invalid-feedback">
-                <div *ngIf="f.summary.errors.required">Không được để trống</div>
-            </div>
-        </div>
-    </div>
-    <div class="input-group form-group">
-        <label for="displayIndex" class="control-label col-sm-2">Hiển thị trang chủ</label>
-        <div class="col-sm-10">
-            <select class="form-control" formControlName="displayIndex" [ngClass]="{ 'is-invalid': submitted && f.displayIndex.errors }">
-                <option value="true">Hiển thị trang chủ</option>
-                <option value="false">Không hiển thị</option>
-            </select>
-            <div *ngIf="submitted && f.displayIndex.errors" class="invalid-feedback">
-                <div *ngIf="f.displayIndex.errors.required">Không được để trống</div>
-            </div>
-        </div>
-    </div>
-    <div class="input-group form-group">
-        <input type="hidden" class="form-control" formControlName="rate">
-    </div>
-            <button type="button" class="btn btn-success" (click)="addNewImage()">Thêm chi tiết ảnh</button>
- <br>
-
-    <div formArrayName="productImage">
-        <div *ngFor="let comp of productForm.get('productImage')['controls']; let i=index">
-            
-            <div [formGroupName]="i" class="input-group form-group">
-                <label class="control-label col-sm-2">Đường link ảnh</label>
-                <div class="col-sm-10">
-                    <input class="form-control" formControlName="url" />
-                    <input type="hidden" formControlName="imageId">
-                    <input type="hidden" formControlName="productId">
-                    <button type="button" class="btn btn-danger" (click)="deleteImage(i)">Xóa</button>
+    <div class="row">
+        <div class="col-lg-8 px-sm-0">
+            <div class="mt-3 px-sm-3 pt-sm-3 pb-lg-3 mr-lg-3 bg-sm-white">
+                <div class="form-group">
+                    <label for="productName" class="control-label">Tên Sản Phẩm</label>
+                    <div class="">
+                        <input type="text" class="form-control" formControlName="productName"
+                            [ngClass]="{ 'is-invalid': submitted && f.productName.errors }">
+                        <div *ngIf="submitted && f.productName.errors" class="invalid-feedback">
+                            <div *ngIf="f.productName.errors.required">Không được để trống</div>
+                        </div>
+                    </div>
                 </div>
-                
+                <div class="form-group">
+                    <label for="summary" class="control-label">Tóm tắt</label>
+                    <div class="">
+                        <textarea type="text" class="form-control" formControlName="summary"
+                            [ngClass]="{ 'is-invalid': submitted && f.summary.errors }"></textarea>
+                        <div *ngIf="submitted && f.summary.errors" class="invalid-feedback">
+                            <div *ngIf="f.summary.errors.required">Không được để trống</div>
+                        </div>
+                    </div>
+                </div>
+                <p-fileUpload multiple="multiple" accept="image/*" maxFileSize="3000000" [showUploadButton]="false"
+                    chooseLabel="Chọn ảnh" cancelLabel="Hủy bỏ" (onClear)="onClear()" (onSelect)="onSelect($event)"
+                    (onRemove)="onRemove($event)">
+                </p-fileUpload>
+                <button type="button" class="btn btn-outline-primary my-2" (click)="preDelete()"><i class="pi pi-replay"></i> Hoàn tác</button>
+                <div formArrayName="productImages">
+                    <ng-container *ngFor="let image of productForm.get('productImages')['controls']; let i=index">
+                        <div [formGroupName]="i" class="d-inline-block position-relative">
+                            <img style="width: 100px" src="{{image.value.url}}" alt="">
+                            <span class="del-image" (click)="deleteImage(i,image)"><i class="pi pi-times"></i></span>
+                        </div>
+                    </ng-container>
+                </div>
             </div>
-        
         </div>
-      </div>
+        <div class="col-lg-4 px-sm-0">
+            <div class="mt-lg-3 p-sm-3 pt-3 ml-lg-3 bg-sm-white">
+                <div class="form-group">
+                    <label for="categoryId" class="control-label">Loại Sản Phẩm</label>
+                    <div class="">
+                        <p-dropdown [options]="categorySelect" formControlName="categoryId"
+                            placeholder="Chọn loại sản phẩm"></p-dropdown>
 
-    <editor formControlName="description" [init]="tinyMceSettings"></editor>
-    <button type="submit" class="btn btn-success">Lưu</button>
-    <button type="button" class="btn" (click)="cancel()">Hủy</button>
-    
-   <br><br>
+                        <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
+                            <div *ngIf="f.categoryId.errors.required">Không được để trống</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="unitPrice" class="control-label">Giá Bán</label>
+                    <div class="">
+                        <input type="text" class="form-control" formControlName="unitPrice" mask="comma_separator.0"
+                            [ngClass]="{ 'is-invalid': submitted && f.unitPrice.errors }">
+                        <div *ngIf="submitted && f.unitPrice.errors" class="invalid-feedback">
+                            <div *ngIf="f.unitPrice.errors.required">Không được để trống</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    Giá nhập: {{products.importPrice | number}}
+                </div>
+                <div class="form-group">
+                    <label for="discontinued" class="control-label">Trạng thái</label>
+                    <div class="">
+                        <select class="form-control" formControlName="discontinued"
+                            [ngClass]="{ 'is-invalid': submitted && f.discontinued.errors }">
+                            <option value="true">Ngưng bán</option>
+                            <option value="false">Đang bán</option>
+                        </select>
+                        <div *ngIf="submitted && f.discontinued.errors" class="invalid-feedback">
+                            <div *ngIf="f.discontinued.errors.required">Không được để trống</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="discount" class="control-label">Giảm Giá (%)</label>
+                    <div class="">
+                        <input type="text" class="form-control" formControlName="discount" mask="percent" sufix="%"
+                            [ngClass]="{ 'is-invalid': submitted && f.discount.errors }">
+                        <div *ngIf="submitted && f.discount.errors" class="invalid-feedback">
+                            <div *ngIf="f.discount.errors.required">Không được để trống</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="guarantee" class="control-label">Bảo Hành (T)</label>
+                    <div class="">
+                        <input type="text" class="form-control" formControlName="guarantee" mask="99"
+                            [ngClass]="{ 'is-invalid': submitted && f.guarantee.errors }">
+                        <div *ngIf="submitted && f.guarantee.errors" class="invalid-feedback">
+                            <div *ngIf="f.guarantee.errors.required">Không được để trống</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <label for="displayIndex" class="control-label">Hiển thị trang chủ</label>
+                    <div class="">
+                        <select class="form-control" formControlName="displayIndex"
+                            [ngClass]="{ 'is-invalid': submitted && f.displayIndex.errors }">
+                            <option value="true">Hiển thị trang chủ</option>
+                            <option value="false">Không hiển thị</option>
+                        </select>
+                        <div *ngIf="submitted && f.displayIndex.errors" class="invalid-feedback">
+                            <div *ngIf="f.displayIndex.errors.required">Không được để trống</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-lg-flex justify-content-around mt-3 pb-3 d-none">
+                    <button class="btn btn-success" (click)="save()">Hoàn thành</button>
+                    <button class="btn btn-secondary" (click)="cancel()">Hủy bỏ</button>
+                </div>
+            </div>
+        </div>
+        <div class="my-3 w-100 px-2 px-sm-0">
+            <editor formControlName="description" [init]="tinyMceSettings"></editor>
+        </div>
+        <div class="w-100 d-flex justify-content-around mb-3 d-lg-none">
+            <button class="btn btn-success" (click)="save()">Hoàn thành</button>
+            <button class="btn btn-secondary" (click)="cancel()">Hủy bỏ</button>
+        </div>
+    </div>
+
 </form>

@@ -8,6 +8,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ButtonRendererComponent } from 'src/app/renderer/button-renderer.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FileUploadModule } from 'primeng/fileupload';
+import { DropdownModule } from 'primeng/dropdown';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule } from 'ngx-mask'
 
@@ -37,7 +38,8 @@ import { NgbModalNewSupplierComponent } from './orders-import/ngb-modal-new-supp
     OwlNativeDateTimeModule,
     FileUploadModule,
     NgbModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    DropdownModule
   ],
   declarations: [
     AdminComponent,

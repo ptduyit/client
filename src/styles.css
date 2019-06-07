@@ -8,21 +8,6 @@ body{
     /* background-image: url("https://images.unsplash.com/photo-1533628635777-112b2239b1c7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e8f8a90139ee123a94dcc36bc8f14b69&w=1000&q=80"); */
     background-attachment: fixed;
     background-size:cover;
-    
-    font-family: "Roboto";
-    font-weight: 300;
-   
+    font-family: Roboto,Helvetica,Arial,sans-serif;
     margin: 0;
-}
-a{
-    /* color: #777; */
-}
-.carousel-control-next-icon, .carousel-control-prev-icon {
-    background-color: #e21313!important;
-}
-.carousel-indicators .active {
-    background-color: #f00;
-}
-.carousel-indicators li {
-    background-color: rgba(165, 66, 66, 0.5);
 }

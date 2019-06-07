@@ -16,13 +16,25 @@
       </div>
     </div>
     <div class="form-group align-items-center row">
-      <span for="categoryId" class="control-label col-sm-4">Thuộc danh mục</span>
+      <span for="url" class="control-label col-sm-4">Tên đường dẫn</span>
       <div class="col-sm-8">
-          <select class="form-control" data-val="true" formControlName="categoryId" [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
-              <option value="">-- Select Category --</option>
+          <input type="text" class="form-control" formControlName="url" [ngClass]="{ 'is-invalid': submitted && f.url.errors }">
+          <div *ngIf="submitted && f.url.errors" class="invalid-feedback">
+              <div *ngIf="f.url.errors.required">Không được để trống</div>
+          </div>
+      </div>
+    </div>
+    <div class="form-group align-items-center row">
+      <span for="category" class="control-label col-sm-4">Thuộc danh mục</span>
+      <div class="col-sm-8">
+          <select class="form-control" formControlName="category" (change)="changeSelected($event)" [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+              <option value="0">Không thuộc danh mục nào</option>
+              <option *ngFor="let ctg of categorySelect" [value]="ctg.categoryId">
+                {{ctg.categoryName}}
+              </option>
           </select>
-          <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
-              <div *ngIf="f.categoryId.errors.required">Không được để trống</div>
+          <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+              <div *ngIf="f.category.errors.required">Không được để trống</div>
           </div>
       </div>
   </div>

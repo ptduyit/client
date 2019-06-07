@@ -8,15 +8,28 @@ export class Product {
     discount: number;
     stock: number;
     description: string;
-    image: string;
     guarantee: number;
-    dateUpdated: Date;
-    rate: number;
+    createAt: Date;
     summary: string;
     displayIndex: boolean;
-    productImage: any;
+    productImages: any;
 }
 export interface ProductSearch{
     id: number;
     name: string;
-  }
+}
+export interface QuickAddProduct{
+    orderId: number;
+    userId: string;
+    supplierId: number;
+    productName: string;
+    categoryId: number;
+    quantity: number;
+    unitPrice: number;
+}
+export interface QuickAddProductForm{
+    productName: string;
+    categoryId: number;
+    quantity: number;
+    unitPrice: number;
+} 

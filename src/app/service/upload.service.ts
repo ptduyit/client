@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http';
 export class UploadService {
 
   constructor(private http: HttpClient) { }
-  upload(){
-    
+  upload(formData: FormData){
+    return this.http.post('https://localhost:44354/api/upload', formData);
   }
 
 }

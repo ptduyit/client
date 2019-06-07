@@ -1,25 +1,33 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { NgbModalNewCategoryComponent } from '../ngb-modal-new-category/ngb-modal-new-category.component';
+import { CategoryService } from 'src/app/service/category.service';
 @Component({
   selector: 'app-ngb-modal-new-product',
   templateUrl: './ngb-modal-new-product.component.html',
   styleUrls: ['./ngb-modal-new-product.component.css']
 })
 export class NgbModalNewProductComponent implements OnInit {
-  @Input() name;
+  @Output() returnProduct: EventEmitter<any> = new EventEmitter();
   productForm: FormGroup;
   submitted = false;
-  constructor(public activeModal: NgbActiveModal, private fb: FormBuilder, private modalService: NgbModal) { }
+  categorySelect: any = [];
+  constructor(public activeModal: NgbActiveModal, private fb: FormBuilder, private modalService: NgbModal,
+    private categoryService: CategoryService) { }
 
   ngOnInit() {
     this.productForm = this.fb.group({
       productName: ['',[Validators.required]],
-      categoryId: ['',[Validators.required]],
-      stock: ['', Validators.required],
-      unitPrice: ['', Validators.required],
+      categoryId: null,
+      quantity: ['', [Validators.required]],
+      unitPrice: ['',[Validators.required]],
+      category: ['', [Validators.required, AddressValidator]]
     });
+    this.categoryService.getCategorySelectProduct().subscribe(rs => {
+      this.categorySelect = rs;
+    })
+    this.productForm.get('category').setValue(0);
   }
   get f() { return this.productForm.controls; }
   save(){
@@ -27,9 +35,26 @@ export class NgbModalNewProductComponent implements OnInit {
     if (this.productForm.invalid) {
       return;
     }
+    this.returnProduct.emit(this.productForm.value);
+  }
+  changeSelected(event){
+    const id = event.target.value;
+    this.productForm.get('categoryId').setValue(id);
   }
   open() {
     const modalRef = this.modalService.open(NgbModalNewCategoryComponent);
-    modalRef.componentInstance.name = 'World';
+    modalRef.componentInstance.returnCategory.subscribe(rs => {
+      this.categoryService.getCategorySelectProduct().subscribe(data => {
+        this.categorySelect = data;
+        this.productForm.get('categoryId').setValue(rs.id);
+        this.productForm.get('category').setValue(rs.id);
+      });
+    });
   }
+}
+export function AddressValidator(control: AbstractControl): {[key: string]: boolean } | null {
+  if(control.value === 0) {
+    return {"address": true}
+  }
+  return null;
 }

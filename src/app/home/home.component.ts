@@ -13,10 +13,10 @@ export class HomeComponent implements OnInit {
   constructor(private productService: ProductService) { }
   idproduct= 1;
   ngOnInit() {
-    this.getProductIndex();
+    //this.getProductIndex();
   }
   getProductIndex(){
-    this.productService.getProductIndex().subscribe((data: ProductIndex[]) =>
+    this.productService.getProductIndex().subscribe((data: any) =>
     {
       this.productIndex = data;
     })

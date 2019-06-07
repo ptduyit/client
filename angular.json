@@ -46,7 +46,11 @@
             ],
             "styles": [
               "src/styles.css",
-              "./node_modules/primeicons/primeicons.css"
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/bootstrap/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/slick-carousel/slick/slick.css",
+              "node_modules/slick-carousel/slick/slick-theme.css"
             ],
             "scripts": [
               "node_modules/tinymce/tinymce.min.js",
@@ -55,7 +59,14 @@
               "node_modules/tinymce/plugins/image/plugin.js",
               "node_modules/tinymce/plugins/fullpage/plugin.js",
               "node_modules/tinymce/plugins/preview/plugin.js",
-              "node_modules/tinymce/plugins/code/plugin.js"
+              "node_modules/tinymce/plugins/code/plugin.js",
+              "node_modules/tinymce/plugins/textcolor/plugin.js",
+              "node_modules/tinymce/plugins/colorpicker/plugin.js",
+              "node_modules/tinymce/plugins/table/plugin.js",
+              "node_modules/tinymce/plugins/insertdatetime/plugin.js",
+              "node_modules/tinymce/plugins/fullscreen/plugin.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/slick-carousel/slick/slick.min.js"
             ]
           },
           "configurations": {

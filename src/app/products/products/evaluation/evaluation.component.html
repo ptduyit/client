@@ -1,43 +1,81 @@
-
-<div class="row">
+<div class="d-flex py-3">
   <div class="col-sm-4">
-    <span>rate: {{averageStar | number:'1.1-1'}}/5</span>
-  <ngb-rating [(rate)]="averageStar" [max]="5" [readonly]="true">
-    <ng-template let-fill="fill">
-      <span class="star" [class.filled]="fill === 100">
-        <span class="half" [style.width.%]="fill">&#9733;</span>
-        &#9733;</span>
-    </ng-template>
-  </ngb-rating>
-  </div>
-  
-  <div class="col-sm-4">
-    <p><ngb-progressbar height="10px" type="warning" [value]="star[4]" [max]="max"></ngb-progressbar></p>
-    <p><ngb-progressbar height="10px" type="warning" [value]="star[3]" [max]="max"></ngb-progressbar></p>
-    <p><ngb-progressbar height="10px" type="warning" [value]="star[2]" [max]="max"></ngb-progressbar></p>
-    <p><ngb-progressbar height="10px" type="warning" [value]="star[1]" [max]="max"></ngb-progressbar></p>
-    <p><ngb-progressbar height="10px" type="warning" [value]="star[0]" [max]="max"></ngb-progressbar></p>
-  </div>
-  <div class="col-sm-4">
-
-  </div>
-</div>
-<br>
-<div class="" *ngIf="evaluations">
-  <div class="media" *ngFor="let evaluation of evaluations | paginate: { id: 'pagingevaluation', itemsPerPage: paging.pageSize, currentPage: p, totalItems: paging.totalItems }">
-    <div class="media-body">
-        <h5 class="mt-0">{{evaluation.fullName}}</h5>
-        <p>{{evaluation.replyDate}}</p>
-        <p>{{evaluation.replyContent}}</p>
-        <div *ngFor="let reply of evaluation.inverseReplyByReplyNavigation">
-          <li>{{evaluation.fullName}}</li>
-          <li>{{evaluation.replyDate}}</li>
-          <li>{{evaluation.replyContent}}</li>
-        </div>
+    <div class="text-center">
+      <h3 class="rate">{{data?.rating?.star}}/5</h3>
+      <div class="">
+        <ngb-rating [rate]="data?.rating?.star" [max]="5" [readonly]="true">
+          <ng-template let-fill="fill">
+            <span class="star" [class.filled]="fill === 100">
+              <span class="half" [style.width.%]="fill">&#9733;</span>
+              &#9733;</span>
+          </ng-template>
+        </ngb-rating>
+      </div>
+      <div>{{data?.rating?.total}} đánh giá</div>
     </div>
-    
   </div>
-  
-  <pagination-controls (pageChange)="getEvaluation($event)" id="pagingevaluation" previousLabel=""
-  nextLabel=""></pagination-controls>
+  <div class="col-sm-6">
+    <div class="d-flex flex-column-reverse">
+      <ng-container *ngFor="let rate of data?.rating?.starList; let i = index">
+        <div class="d-flex align-items-center">
+          {{i+1}} <span class="progress-star">&#9733;</span>
+          <div class="flex-grow-1 mx-3">
+            <ngb-progressbar height="10px" type="warning" [value]="rate" [max]="data?.rating?.total"></ngb-progressbar>
+          </div>
+          <span>{{rate}} đánh giá</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
 </div>
+<div class="py-3 border-bottom">Nhận xét về sản phẩm</div>
+<form [formGroup]="evaluationForm" class="" *ngIf="data?.evaluations">
+  <div class="p-3 border-bottom"
+    *ngFor="let evaluation of data.evaluations | paginate: { id: 'pagingevaluation', itemsPerPage: data.paging.pageSize, currentPage: p, totalItems: data.paging.totalItems }">
+
+    <div class="d-flex justify-content-between">
+      <ngb-rating [rate]="evaluation.rate" [max]="5" [readonly]="true">
+        <ng-template let-fill="fill">
+          <span class="star-eval" [class.filled]="fill === 100">
+            <span class="half" [style.width.%]="fill">&#9733;</span>
+            &#9733;</span>
+        </ng-template>
+      </ngb-rating>
+      <span>{{evaluation.date | date:'HH:mm dd/MM/yyyy'}}</span>
+    </div>
+    <strong class="">{{evaluation.fullName}}</strong>
+    <p class="mb-1">{{evaluation.content}}</p>
+    <button class="btn btn-link p-0" (click)="(evaluation.show = !evaluation.show) && empty(evaluation)">Trả
+      lời</button>
+    <div *ngIf="evaluation.show">
+      <textarea class="w-100 form-control" [formControlName]="evaluation.evaluationId"></textarea>
+      <div class="text-center py-3">
+        <button class="btn btn-success btn-sm mr-3" (click)="send(evaluation)">Gửi trả lời</button>
+        <button class="btn btn-light btn-sm" (click)="(evaluation.show = !evaluation.show) && empty(evaluation)">Hủy
+          bỏ</button>
+      </div>
+    </div>
+    <div class="" *ngIf="evaluation.comments.length > 0">
+      <button class="btn btn-link btn-sm p-0" (click)="evaluation.showcomment = !evaluation.showcomment">
+        {{evaluation.showcomment? 'Ẩn câu trả lời':'Xem '+evaluation.comments.length+' câu trả lời'}}
+      </button>
+    </div>
+    <ng-container *ngIf="evaluation.showcomment">
+      <div *ngFor="let comment of evaluation.comments" class="mt-2">
+        <strong class="mr-2 d-block">{{comment.fullName}}</strong>
+        <span class="text-break">{{comment.content}}</span>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="evaluation.newcomments.length > 0">
+      <div class="mt-2" *ngFor="let newcomment of evaluation.newcomments">
+        <strong class="mr-2 d-block">{{newcomment.fullName}}</strong>
+        <span class="text-break">{{newcomment.content}}</span>
+      </div>
+    </ng-container>
+
+  </div>
+  <div class="p-3 text-right">
+    <pagination-controls (pageChange)="getEvaluation($event)" id="pagingevaluation" previousLabel="" nextLabel="">
+    </pagination-controls>
+  </div>
+</form>

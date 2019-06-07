@@ -1,13 +1,13 @@
 <form [formGroup]="supplierForm" (ngSubmit)="save()">
     <div class="modal-header">
-      <h5 class="modal-title">Thêm danh mục sản phẩm</h5>
+      <h5 class="modal-title">Thêm nhà cung cấp</h5>
       <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
       <div class="form-group align-items-center row">
-        <span for="companyName" class="control-label col-sm-4">Tên danh mục</span>
+        <span for="companyName" class="control-label col-sm-4">Tên nhà cung cấp</span>
         <div class="col-sm-8">
             <input type="text" class="form-control" formControlName="companyName" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }">
             <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
@@ -16,16 +16,65 @@
         </div>
       </div>
       <div class="form-group align-items-center row">
-        <span for="categoryId" class="control-label col-sm-4">Thuộc danh mục</span>
-        <div class="col-sm-8">
-            <select class="form-control" data-val="true" formControlName="categoryId" [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
-                <option value="">-- Select Category --</option>
-            </select>
-            <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
-                <div *ngIf="f.categoryId.errors.required">Không được để trống</div>
+          <span for="phone" class="control-label col-sm-4">Số điện thoại</span>
+          <div class="col-sm-8">
+              <input type="text" class="form-control" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+              <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                  <div *ngIf="f.phone.errors.required">Không được để trống</div>
+              </div>
+          </div>
+      </div>
+        <div class="form-group align-items-center row">
+            <span for="address" class="control-label col-sm-4">Địa chỉ</span>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }">
+                <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                    <div *ngIf="f.address.errors.required">Không được để trống</div>
+                </div>
             </div>
-        </div>
-    </div>
+          </div>
+          <div class="form-group align-items-center row">
+              <label for="province" class="control-label col-sm-4">Tỉnh/ Thành phố</label>
+              <div class="col-sm-8">
+                  <select type="text" class="form-control" (change)="changeSelected($event,'province')" formControlName="province" [ngClass]="{ 'is-invalid': submitted && f.province.errors }">
+                    <option value="0" hidden disabled>Vui lòng chọn tỉnh/thành phố</option>
+                    <option *ngFor="let province of provinces" [value]="province.provinceId">
+                      {{province.name}}
+                    </option>
+                  </select>
+                  <div *ngIf="submitted && f.province.errors" class="invalid-feedback">
+                    <div *ngIf="f.province.errors.address || f.province.errors.required">Vui lòng chọn tỉnh/thành phố</div>
+                </div>
+              </div>
+          </div>
+          <div class="form-group align-items-center row">
+              <label for="district" class="control-label col-sm-4">Quận/ Huyện</label>
+              <div class="col-sm-8">
+                  <select type="text" class="form-control" (change)="changeSelected($event,'district')" formControlName="district" [ngClass]="{ 'is-invalid': submitted && f.district.errors }">
+                    <option value="0" hidden disabled>Vui lòng chọn quận/huyện</option>
+                    <option *ngFor="let district of districts" [value]="district.districtId">
+                      {{district.name}}
+                    </option>
+                  </select>
+                  <div *ngIf="submitted && f.district.errors" class="invalid-feedback">
+                    <div *ngIf="f.district.errors.address || f.district.errors.required">Vui lòng chọn quận/huyện</div>
+                </div>
+              </div>
+          </div>
+          <div class="form-group align-items-center row">
+              <label for="ward" class="control-label col-sm-4">Phường/ Xã</label>
+              <div class="col-sm-8">
+                  <select type="text" class="form-control" (change)="changeSelected($event,'ward')" formControlName="ward" [ngClass]="{ 'is-invalid': submitted && f.ward.errors }">
+                    <option value="0" hidden disabled>Vui lòng chọn xã/phường</option>
+                    <option *ngFor="let ward of wards" [value]="ward.wardId">
+                      {{ward.name}}
+                    </option>
+                  </select>
+                  <div *ngIf="submitted && f.ward.errors" class="invalid-feedback">
+                    <div *ngIf="f.ward.errors.address || f.ward.errors.required">Vui lòng chọn xã/phường</div>
+                </div>
+              </div>
+          </div>
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-success align-items-center d-flex"><i style="font-size: 1.5rem" class="pi pi-save"></i>Lưu</button>

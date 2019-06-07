@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ProductShowcaseComponent } from './product-showcase/product-showcase.component';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { RoundPipe } from './pipe/round.pipe';
 
 @NgModule({
   declarations: [
     ProductShowcaseComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RoundPipe
   ],
   imports: [
     CommonModule,
@@ -15,7 +17,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   ],
   exports: [
     ProductShowcaseComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RoundPipe
   ]
 })
 export class SharedModule { }

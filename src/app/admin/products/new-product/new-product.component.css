@@ -1,3 +1,50 @@
-.form-control{
-    width: 70% !important;
+.ng-star-inserted > button.ui-button{
+    margin-right: 0;
+}
+.ui-fileupload > .ui-fileupload-buttonbar >.ng-star-inserted{
+    -webkit-appearance: none;
+   -moz-appearance:    none;
+   appearance:         none;
+}
+.ui-fileupload-content{
+    min-height: 10rem;
+}
+@media (max-width: 40em){
+    .ui-fileupload-content{
+        min-height: 2rem;
+    }
+    .ui-fileupload-buttonbar > .ng-star-inserted{
+        width: 100%;
+    }
+    .ui-fileupload-row > div:nth-child(3){
+        display: none;
+    }
+    .ui-fileupload-row {
+        position: relative;
+        display: block;
+    }
+    .ui-fileupload-files{
+        display: block;
+    }
+    .ui-fileupload-row > div:last-child{
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+@media (min-width: 576px) {
+    .bg-sm-white{
+        background-color: #fff;
+    }
+}
+.del-image{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-left: 0.4rem;
+    color: #fff;
+}
+.del-image:hover{
+    color: rgb(60, 60, 61);
+    cursor: pointer;
 }

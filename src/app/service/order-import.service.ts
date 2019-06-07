@@ -21,4 +21,10 @@ export class OrderImportService {
   deleteOrderDetail(oid: number, pid: number){
     return this.http.delete('https://localhost:44354/api/admin/order-import-detail/oid/'+oid+'/pid/'+pid);
   }
+  tempOrder(id: number, order: any){
+    return this.http.put('https://localhost:44354/api/admin/order-import/'+id+'/temp',order);
+  }
+  saveOrder(id: number, order: any){
+    return this.http.put('https://localhost:44354/api/admin/order-import/'+id+'/save',order);
+  }
 }

@@ -16,32 +16,35 @@
       </div>
     </div>
     <div class="form-group align-items-center row">
-      <span for="categoryId" class="control-label col-sm-4">Loại sản phẩm</span>
+      <span for="category" class="control-label col-sm-4">Loại sản phẩm</span>
       <div class="input-group col-sm-8">
-          <select class="form-control" data-val="true" formControlName="categoryId" [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
-              <option value="">-- Select Category --</option>
+          <select class="form-control" (change)="changeSelected($event)" formControlName="category" [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+              <option value="0" hidden disabled>Vui lòng chọn loại</option>
+              <option *ngFor="let ctg of categorySelect" [value]="ctg.categoryId">
+                {{ctg.categoryName}}
+              </option>
           </select>
           <button type="button" (click)="open()" class="btn btn-outline-success input-group-prepend"><i class="align-middle pi pi-plus"></i></button>
-          <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
-              <div *ngIf="f.categoryId.errors.required">Không được để trống</div>
+          <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+              <div *ngIf="f.category.errors.required || f.category.errors.address">Không được để trống</div>
           </div>
       </div>
   </div>
   <div class="form-group align-items-center row">
       <span for="unitPrice" class="control-label col-sm-4">Đơn giá nhập</span>
       <div class="col-sm-8">
-          <input type="text" class="form-control" formControlName="unitPrice" [ngClass]="{ 'is-invalid': submitted && f.unitPrice.errors }">
+          <input type="text" class="form-control" formControlName="unitPrice" mask="comma_separator.0" [ngClass]="{ 'is-invalid': submitted && f.unitPrice.errors }">
           <div *ngIf="submitted && f.unitPrice.errors" class="invalid-feedback">
               <div *ngIf="f.unitPrice.errors.required">Không được để trống</div>
           </div>
       </div>
   </div>
   <div class="form-group align-items-center row">
-    <span for="stock" class="control-label col-sm-4">Số lượng</span>
+    <span for="quantity" class="control-label col-sm-4">Số lượng</span>
     <div class="col-sm-8">
-        <input type="text" class="form-control" formControlName="stock" [ngClass]="{ 'is-invalid': submitted && f.stock.errors }">
-        <div *ngIf="submitted && f.stock.errors" class="invalid-feedback">
-            <div *ngIf="f.stock.errors.required">Không được để trống</div>
+        <input type="text" class="form-control" formControlName="quantity" mask="comma_separator.0" [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }">
+        <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+            <div *ngIf="f.quantity.errors.required">Không được để trống</div>
         </div>
     </div>
 </div>

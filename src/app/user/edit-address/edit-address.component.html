@@ -36,7 +36,7 @@
   <label for="province" class="control-label col-sm-2">Tỉnh/ Thành phố</label>
   <div class="col-sm-10">
       <select type="text" class="form-control" (change)="changeSelected($event,'province')" formControlName="province" [ngClass]="{ 'is-invalid': submitted && f.province.errors }">
-        <option value="0" disabled>Vui lòng chọn tỉnh/thành phố</option>
+        <option value="0" hidden disabled>Vui lòng chọn tỉnh/thành phố</option>
         <option *ngFor="let province of provinces" [value]="province.provinceId">
           {{province.name}}
         </option>
@@ -50,7 +50,7 @@
   <label for="district" class="control-label col-sm-2">Quận/ Huyện</label>
   <div class="col-sm-10">
       <select type="text" class="form-control" (change)="changeSelected($event,'district')" formControlName="district" [ngClass]="{ 'is-invalid': submitted && f.district.errors }">
-        <option value="0" disabled>Vui lòng chọn quận/huyện</option>
+        <option value="0" hidden disabled>Vui lòng chọn quận/huyện</option>
         <option *ngFor="let district of districts" [value]="district.districtId">
           {{district.name}}
         </option>
@@ -64,7 +64,7 @@
   <label for="ward" class="control-label col-sm-2">Phường/ Xã</label>
   <div class="col-sm-10">
       <select type="text" class="form-control" (change)="changeSelected($event,'ward')" formControlName="ward" [ngClass]="{ 'is-invalid': submitted && f.ward.errors }">
-        <option value="0" disabled>Vui lòng chọn xã/phường</option>
+        <option value="0" hidden disabled>Vui lòng chọn xã/phường</option>
         <option *ngFor="let ward of wards" [value]="ward.wardId">
           {{ward.name}}
         </option>

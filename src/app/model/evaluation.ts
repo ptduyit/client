@@ -1,12 +1,29 @@
-export class Evaluation{
+import { Paging } from "./paging";
+
+export interface Evaluations{
+    paging: Paging;
+    rating: Rating;
+    evaluations: Evaluation[];
+}
+export interface Rating{
+    star: number;
+    total: number;
+    starList: number[];
+}
+export interface Evaluation{
+    evaluationId: number;
+    date: Date;
+    content: string;
+    rate: number;
     userId: string;
     fullName: string;
-    isRate: boolean;
-    rate: number;
-    likes: number;
-    productId: number;
-    replyContent: string;
-    replyDate: Date;
-    replyByReply: number;
-    inverseReplyByReplyNavigation: Evaluation;
+    comments: Comments[];
+    [key: string]: any;
+}
+export interface Comments{
+    commentId: number;
+    content: string;
+    date: Date;
+    userId: string;
+    fullName: string;
 }

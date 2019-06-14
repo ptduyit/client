@@ -14,5 +14,10 @@ export class ShowAddressUser{
     phoneNumber: string;
     street: string;
     isDefault: boolean;
-    location: any;
+    location: Location;
+}
+export interface Location{
+    ward: string; 
+    district : string;
+    province: string;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ShowAddressUser } from 'src/app/model/address';
 import { AddressService } from 'src/app/service/address.service';
 import { Router } from '@angular/router';
+import { response } from 'src/app/model/response';
 
 @Component({
   selector: 'app-address',
@@ -19,8 +20,8 @@ export class AddressComponent implements OnInit {
   }
   getAllAddress(){
     this.addressService.getAllAddress(this.userId)
-    .subscribe(data => {
-      this.addresses = data;
+    .subscribe((data: response) => {
+      this.addresses = data.module;
     })
   }
   update(addressId: number){

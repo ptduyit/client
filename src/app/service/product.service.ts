@@ -44,6 +44,6 @@ export class ProductService {
     return this.http.put('https://localhost:44354/api/admin/products/'+id,formData);
   }
   getProductInformation(id: number){
-    return this.http.get<Product>('https://localhost:44354/api/products/' + id);
+    return this.http.get('https://localhost:44354/api/products/' + id);
   }
 }

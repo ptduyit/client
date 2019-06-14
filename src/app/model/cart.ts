@@ -5,7 +5,7 @@ export class Cart{
     productName: string;
     unitPrice: number;
     image: string;
-    stock: number;
     discount: number;
-    summary: string;
+    stock: number;
+    discontinued: boolean;
 }

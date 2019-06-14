@@ -17,6 +17,8 @@ import { SearchComponent } from './search/search.component';
 import { ProductsModule } from './products/products.module';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
+import { NgbModalSelectAddressComponent } from './cart/ngb-modal-select-address/ngb-modal-select-address.component';
+import { NgbModalNewAddressComponent } from './cart/ngb-modal-new-address/ngb-modal-new-address.component';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -38,7 +40,9 @@ export function getAuthServiceConfigs() {
     AppComponent,
     HomeComponent,
     CartComponent,   
-    SearchComponent
+    SearchComponent,
+    NgbModalSelectAddressComponent,
+    NgbModalNewAddressComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +57,10 @@ export function getAuthServiceConfigs() {
     LayoutModule,
     SharedModule,
     
+  ],
+  entryComponents:[
+    NgbModalSelectAddressComponent,
+    NgbModalNewAddressComponent
   ],
   providers: [
     {

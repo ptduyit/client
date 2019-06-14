@@ -4,6 +4,7 @@ import { AddressService } from 'src/app/service/address.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { AddressUser } from 'src/app/model/address';
 import { NotificationsService } from 'angular2-notifications';
+import { response } from 'src/app/model/response';
 
 @Component({
   selector: 'app-edit-address',
@@ -42,19 +43,19 @@ export class EditAddressComponent implements OnInit {
     if (this.id > 0) {
       this.title="Edit";
       this.addressService.getOneAddress(this.id)
-        .subscribe(data => 
+        .subscribe((data: response) => 
           {
             this.addressForm.patchValue(data);
-            this.addressForm.controls['province'].setValue(data.wards.districts.provinces.provinceId);
-            this.provinces.push(data.wards.districts.provinces);
-            this.addressForm.controls['district'].setValue(data.wards.districts.districtId);
-            this.districts.push(data.wards.districts);
-            this.addressForm.controls['ward'].setValue(data.wards.wardId);
-            this.wards.push(data.wards);
-            this.addressForm.controls['wardId'].setValue(data.wardId);
+            this.addressForm.controls['province'].setValue(data.module.wards.districts.provinces.provinceId);
+            this.provinces.push(data.module.wards.districts.provinces);
+            this.addressForm.controls['district'].setValue(data.module.wards.districts.districtId);
+            this.districts.push(data.module.wards.districts);
+            this.addressForm.controls['ward'].setValue(data.module.wards.wardId);
+            this.wards.push(data.module.wards);
+            this.addressForm.controls['wardId'].setValue(data.module.wardId);
             this.addressService.getProvinces().subscribe(pr=> this.provinces = pr);
-            this.addressService.getDistricts(data.wards.districts.provinces.provinceId).subscribe(dis => this.districts = dis);
-            this.addressService.getWards(data.wards.districts.districtId).subscribe(wa => this.wards = wa);
+            this.addressService.getDistricts(data.module.wards.districts.provinces.provinceId).subscribe(dis => this.districts = dis);
+            this.addressService.getWards(data.module.wards.districts.districtId).subscribe(wa => this.wards = wa);
           });
     } else {
       this.addressService.getProvinces().subscribe(ob => this.provinces = ob);

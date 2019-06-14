@@ -9,25 +9,25 @@ import { CartDetail } from '../model/cart-detail';
 export class CartService {
   constructor(private http: HttpClient) { }
   getCart(userId: string){
-    return this.http.get<Cart[]>('https://localhost:44354/api/CartDetails/GetCartDetails/'+userId);
+    return this.http.get('https://localhost:44354/api/cart/'+userId);
   }
-  deleteCartDetail(userId: string, productId: number)
+  deleteItem(userId: string, productId: number)
   {
-    return this.http.delete<CartDetail>('https://localhost:44354/api/CartDetails/DeleteCartDetails/'+userId+'/'+productId);
+    return this.http.delete('https://localhost:44354/api/cart/'+userId+'/'+productId);
   }
-  deleteCart(userId: string)
+  addItem(cartDetail: CartDetail)
   {
-    return this.http.delete<CartDetail[]>('https://localhost:44354/api/CartDetails/DeleteCart/'+userId);
+    return this.http.post('https://localhost:44354/api/cart',cartDetail);
   }
-  createCartDetail(cartDetail: CartDetail)
+  updateQuantity(userId: string, productId: number, quantity: number)
   {
-    return this.http.post('https://localhost:44354/api/CartDetails/PostCartDetails',cartDetail);
+    var body = [{op:'replace',path:'/quantity',value:quantity}]
+    return this.http.patch('https://localhost:44354/api/cart/'+userId+'/'+productId,body);
   }
-  updateCartDetail(cartDetail: CartDetail)
-  {
-    return this.http.put('https://localhost:44354/api/CartDetails/PutCartDetails/'+cartDetail.userId+'/'+cartDetail.productId,cartDetail);
+  getTotalQuantity(userId: string){
+    return this.http.get('https://localhost:44354/api/cart/'+userId+'/quantity');
   }
-  checkOut(order: any, addressId: number){
-    return this.http.post('https://localhost:44354/api/Orders/PostOrders/'+ addressId, order);
+  checkOut(cart: Cart[], addressId: number){
+    return this.http.post('https://localhost:44354/api/orders/'+addressId, cart);
   }
 }

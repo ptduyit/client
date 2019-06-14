@@ -9,19 +9,22 @@ export class AddressService {
 
   constructor(private http: HttpClient) { }
   getAllAddress(userId: string){
-    return this.http.get<ShowAddressUser[]>('https://localhost:44354/api/Addresses/GetAddressByUserId/'+userId);
+    return this.http.get('https://localhost:44354/api/address/user/'+userId);
+  }
+  getAddressDefault(userId: string){
+    return this.http.get('https://localhost:44354/api/address/default/'+userId);
   }
   getOneAddress(id: number){
-    return this.http.get<AddressUser>('https://localhost:44354/api/Addresses/GetAddressById/'+id);
+    return this.http.get('https://localhost:44354/api/address/'+id);
   }
   updateAddress(address: AddressUser){
-    return this.http.put('https://localhost:44354/api/Addresses/PutAddress/'+address.addressId,address);
+    return this.http.put('https://localhost:44354/api/address/'+address.addressId,address);
   }
   addAddress(address: AddressUser){
-    return this.http.post<AddressUser>('https://localhost:44354/api/Addresses/PostAddress',address);
+    return this.http.post('https://localhost:44354/api/address',address);
   }
   deleteAddress(id: number){
-    return this.http.delete('https://localhost:44354/api/Addresses/DeleteAddress/'+id);
+    return this.http.delete('https://localhost:44354/api/address/'+id);
   }
   getProvinces(){
     return this.http.get('https://localhost:44354/api/LocationTree');

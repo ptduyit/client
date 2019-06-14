@@ -1,34 +1,91 @@
-.table>tbody>tr>td, .table>tfoot>tr>td{
-    vertical-align: middle;
+.quantity{
+    flex: 0 0 auto !important;
+    width: 4rem !important;
+    text-align: center;
+    border-left: 0;
 }
-@media screen and (max-width: 600px) {
-    table#cart tbody td .form-control{
+.minus-plus{
+    color: rgba(90, 90, 90, 0.932);
+    background: transparent;
+    border: 1px solid #ced4da;
+    border-radius: 0;
+}
+.delete-item{
+	position: absolute;
+	top: 50%;
+  	transform: translateY(-50%);
+	right: 3px;
+}
+.product-name{
+	text-overflow: ellipsis;
+  	overflow: hidden; 
+  	white-space: nowrap;
+}
+.info-product{
+	position: relative;
+	flex-grow: 1;
+	overflow: hidden;
+	padding-left: 3px;
+}
+.cart-item{
+	margin-bottom: 1rem;
+}
+.checkout{
+	display: flex;
+	justify-content:space-around;
+	align-items: center;
+}
+.cart-footer{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: white;
+	z-index: 1;
+	padding: 1rem;
+}
+.image-product{
+	cursor: pointer;
+	width: 100px;
+	height: 100px;
+	position: relative;
+	
+}
+.image-product > img{
+	position: absolute;
+	top: 0; bottom:0; left: 0; right:0;
+	margin: auto;
+	max-width: 100px;
+	max-height: 100px;
+}
+@media (min-width: 992px) { 
+	.info-product{
+		position: relative;
+		flex-grow: 1;
+		overflow: visible;
+		padding-left: 3px;
+	}
+	.delete-item{
+		position: absolute;
+		top: 0;
+		transform: initial;
+		right: 3px;
+	}
+	.item-quantity{
 		
-		display: inline !important;
 	}
-	.actions .btn{
-		width:36%;
-		margin:1.5em 0;
+	.product-name{
+		text-overflow: initial;
+		overflow: inherit; 
+		white-space: inherit;
 	}
-	
-	.actions .btn-info{
-		float:left;
+	.product-name span{
+		/* autoprefixer: off */
+		-webkit-box-orient: vertical;
+		/* autoprefixer: on */
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
-	.actions .btn-danger{
-		float:right;
-	}
-	
-	table#cart thead { display: none; }
-	table#cart tbody td { display: block; padding: .6rem; min-width:320px;}
-	table#cart tbody tr td:first-child { background: #333; color: #fff; }
-	table#cart tbody td:before {
-		content: attr(data-th); font-weight: bold;
-		display: inline-block; width: 8rem;
-	}
-	
-	
-	
-	table#cart tfoot td{display:block; }
-	table#cart tfoot td .btn{display:block;}
-	
 }

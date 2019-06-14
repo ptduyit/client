@@ -16,7 +16,7 @@ export class EvaluationComponent implements OnInit {
   p:number=1;
   size: number = 3;
   evaluationForm: FormGroup;
-  comments = {} as Comments[];
+  comments : Comments[] = [];
   constructor(private evaluationService: EvaluationService, private fb: FormBuilder) { }
 
   ngOnInit() {

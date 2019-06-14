@@ -11,6 +11,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule } from 'ngx-mask'
+import { SharedModule } from '../shared/shared.module'; 
 
 import { AdminComponent } from './admin/admin.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -39,7 +40,8 @@ import { NgbModalNewSupplierComponent } from './orders-import/ngb-modal-new-supp
     FileUploadModule,
     NgbModule,
     NgxMaskModule.forRoot(),
-    DropdownModule
+    DropdownModule,
+    SharedModule
   ],
   declarations: [
     AdminComponent,

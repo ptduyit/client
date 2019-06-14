@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { ProductService } from '../../../service/product.service';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Product } from '../../../model/product';
-import { ViewEncapsulation } from '@angular/compiler/src/core';
+import { ViewEncapsulation } from '@angular/core';
 import { CategoryService } from 'src/app/service/category.service';
 
 @Component({

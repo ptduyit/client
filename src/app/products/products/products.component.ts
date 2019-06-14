@@ -9,9 +9,11 @@ import { CartDetail } from 'src/app/model/cart-detail';
 import { NotificationsService } from 'angular2-notifications';
 import { Cart } from 'src/app/model/cart';
 import { DataShareService } from 'src/app/service/datashare.service';
-import { ViewEncapsulation } from '@angular/compiler/src/core';
+import { ViewEncapsulation } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
+import * as signalR from "@aspnet/signalr";
+import { response } from 'src/app/model/response';
 
 @Component({
   selector: 'app-products',
@@ -21,14 +23,17 @@ import es from '@angular/common/locales/es';
 })
 export class ProductsComponent implements OnInit {
   show = false;
-  mainImage = '';
+  mainImage = 'assets/images/placeholder.png';
   id: number;
   product = {} as any;
   userId = localStorage.getItem('userId');
-  cartDetail: CartDetail = {} as any;
+  cartDetail = {} as CartDetail;
   productNumber: number;
+  quantity = 1;
+  hubConnection: signalR.HubConnection;
   constructor(private productService: ProductService, private avRouter: ActivatedRoute,
-    private cartService: CartService, private router: Router, private _service: NotificationsService, private dataService: DataShareService) { }
+    private cartService: CartService, private router: Router, private _service: NotificationsService,
+    private dataService: DataShareService) { }
 
     // ngx-image-zoom
     // this.thumbWidth = this.imageThumbnail.nativeElement.width;
@@ -38,11 +43,28 @@ export class ProductsComponent implements OnInit {
     registerLocaleData( es );
     if (this.avRouter.snapshot.params["id"]) {
       this.id = this.avRouter.snapshot.params["id"];
-      this.productService.getProductInformation(this.id).subscribe((data: any) => {
-        this.product = data;
-        this.mainImage = 'https://localhost:44354/'+data.productImages[0].url;
+      this.productService.getProductInformation(this.id).subscribe((data: response) => {
+        if(!data.isError){
+          this.product = data.module;
+          if(data.module.productImages.length > 0){
+            this.mainImage = 'https://localhost:44354/'+data.module.productImages[0].url;
+          }
+        }
+        
       });
     }
+    this.hubConnection = new signalR.HubConnectionBuilder().withUrl('https://localhost:44354/echo').build();
+    this.hubConnection
+      .start()
+      .then(() => console.log('Connection started'))
+      .catch(err => console.log('Error while starting connection: ' + err));
+    this.hubConnection.on("stockproduct"+String(this.id), (msg) => {
+      this.product.stock = msg;
+      if(this.quantity > msg){
+        this.quantity = msg;
+      }
+      console.log(msg);
+    });
 
   }
   slideConfig = {"slidesToShow": 5, "slidesToScroll": 5,
@@ -57,51 +79,118 @@ export class ProductsComponent implements OnInit {
 
     }
   }
-  
-  buynow() {
-    if (this.userId) {
-      this.cartDetail.productId = this.product.productId;
-      this.cartDetail.userId = this.userId;
-      this.cartDetail.quantity = 1;
-      this.cartService.createCartDetail(this.cartDetail).subscribe(data => {
-        this.router.navigate(['cart']);
-      })
-    } else {
-      this.router.navigate(['login']);
-      this._service.info('Bạn phải đăng nhập trước khi mua hàng', '',
-        {
-          timeOut: 3000,
-          showProgressBar: true,
-          pauseOnHover: false,
-          clickToClose: true,
-          maxLength: 10
-        });
+  minus(){
+    if(this.quantity > 1)
+      this.quantity--;
+  }
+  plus(){
+    let max = 100 > this.product.stock? this.product.stock : 100;
+    if(this.quantity < max)
+      this.quantity++;
+  }
+  selectText(e){
+    if(e.target.value == 1){
+      e.target.select();
     }
   }
+  keyupselectText(e){
+    var charCode = (e.which) ? e.which : e.keyCode;
+    if((charCode == 8 || charCode == 46) && e.target.value == 1){
+      e.target.select();
+    }
+  }
+  isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    var start = evt.target.selectionStart;
+    var end = evt.target.selectionEnd;
+    var old = String(evt.target.value);
+    //delete, backspace
+    if(charCode == 8 || charCode == 46){
+      var rs ='';
+      if(start !== end)
+        rs = old.slice(0,start)+old.slice(end,old.length);
+      else{
+        if(charCode == 8)
+          rs = old.slice(0,start-1)+old.slice(end,old.length);
+        else
+          rs = old.slice(0,start)+old.slice(end+1,old.length);
+      }
+      if(Number(rs) === 0){
+        this.quantity = 1;
+        return false; 
+      }
+    }
+    if(charCode == 48 && start===0){
+      return false;
+    }
+    //max quantity
+    if(charCode > 47 && charCode < 58){
+      let max = 100 > this.product.stock? this.product.stock : 100;
+      var rs = old.slice(0,start) + String(evt.key) + old.slice(end,old.length);
+      // if(Number(rs)===Number(old))
+      //   return false;
+      if(Number(rs)===0){
+        this.quantity = 1;
+        return false;
+      }
+      if(Number(rs) < max)
+        return true;
+      this.quantity = max;
+      return false;
+    }
+
+    if(charCode == 40)
+      this.minus();
+
+    if(charCode == 38){
+      this.plus();
+      return false;
+    }
+
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57) 
+    && (charCode < 37 || charCode > 40) && charCode != 231)
+      return false;
+    return true;
+  }
+  // buynow() {
+  //   if (this.userId) {
+  //     this.cartDetail.productId = this.product.productId;
+  //     this.cartDetail.userId = this.userId;
+  //     this.cartDetail.quantity = 1;
+  //     this.cartService.createCartDetail(this.cartDetail).subscribe(data => {
+  //       this.router.navigate(['cart']);
+  //     })
+  //   } else {
+  //     this.router.navigate(['login']);
+  //     this._service.info('Bạn phải đăng nhập trước khi mua hàng', '',
+  //       {
+  //         timeOut: 3000,
+  //         showProgressBar: true,
+  //         pauseOnHover: false,
+  //         clickToClose: true,
+  //         maxLength: 10
+  //       });
+  //   }
+  // }
   addcart() {
     if (this.userId) {
-      this.cartDetail.productId = this.product.productId;
+      this.cartDetail.productId = this.id;
       this.cartDetail.userId = this.userId;
-      this.cartDetail.quantity = 1;
-      this.cartService.createCartDetail(this.cartDetail).subscribe(data => {
-        this._service.success(
-          'Đã thêm sản phẩm vào giỏ', '',
-          {
-            position: ["bottom", "right"],
-            timeOut: 3000,
-            showProgressBar: true,
-            pauseOnHover: false,
-            clickToClose: true,
-            maxLength: 10
-          }
-        );
-
-        this.cartService.getCart(this.userId).subscribe((data : Cart[]) =>{
-          this.productNumber = data.reduce( function( runningValue: number, cart: Cart){
-            return runningValue + cart.quantity;
-          },0);
-          this.dataService.updateNumberProduct(this.productNumber);
-        });
+      this.cartDetail.quantity = this.quantity;
+      this.cartService.addItem(this.cartDetail).subscribe((data:response) => {
+        if(!data.isError){
+          this.cartService.getTotalQuantity(this.userId).subscribe((rs:response) => {
+            if(!rs.isError){
+              this.dataService.updateNumberProduct(rs.module);
+            }
+          });
+          console.log('success');
+          //thong bao thanh cong
+        }
+        else{
+          console.log('error');
+          //thong bao loi
+        }
       });
     } else {
       this.router.navigate(['login']);

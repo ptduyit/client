@@ -5,7 +5,7 @@
   </button>
 </div>
 <div class="modal-body p-0">
-  <div *ngFor="let address of addresses" class="p-3 border-bottom" (click)="Select(address)">
+  <div *ngFor="let address of addresses" class="p-3 border-bottom address" (click)="Select(address)">
       <span class="d-block"><i class="pi pi-user" style="font-size: 1.3rem"></i> {{address.fullName}}</span>
       <span class="d-block"><i class="pi pi-mobile" style="font-size: 1.3rem"></i> {{address.phoneNumber}}</span>
       <div><i class="pi pi-map-marker" style="font-size: 1.3rem"></i>

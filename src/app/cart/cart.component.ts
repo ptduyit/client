@@ -15,6 +15,8 @@ import { NgbModalSelectAddressComponent } from './ngb-modal-select-address/ngb-m
 import { NgbModalNewAddressComponent } from './ngb-modal-new-address/ngb-modal-new-address.component';
 import { from } from 'rxjs';
 import { OrderService } from '../service/order.service';
+import es from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
@@ -24,7 +26,7 @@ import { OrderService } from '../service/order.service';
 export class CartComponent implements OnInit {
   userId = localStorage.getItem('userId');
   carts: Cart[] = [];
-  tempcarts: Cart[];
+  tempcarts: Cart[] =[];
   totalPrice = 0;
   order: Order = {} as any;
   address: ShowAddressUser;
@@ -37,6 +39,7 @@ export class CartComponent implements OnInit {
     private modalService: NgbModal, private orderService: OrderService) { }
 
   ngOnInit() {
+    registerLocaleData( es );
     if (this.userId) {
       this.getCart();
       this.getAddressDefault();
@@ -90,9 +93,15 @@ export class CartComponent implements OnInit {
             //     console.log('Lỗi '+rs.message);
             //   }
             // });
+            this.tempcarts = this.tempcarts.filter(f => f.productId !== product.productId);
             this.cartService.deleteItem(this.userId, product.productId).subscribe((rs: response) => {
               if (rs.isError) {
                 console.log('Lỗi ' + rs.message);
+              }
+              else{
+                // this.tempcarts = this.tempcarts.filter(f => f.productId !== product.productId);
+                // this.carts = this.tempcarts;
+                // this.calculatePrice();
               }
             });
           }
@@ -106,15 +115,15 @@ export class CartComponent implements OnInit {
             }
           }
         });
+        
         this.carts = this.tempcarts; //success
+        
         // this.cartService.getTotalQuantity(this.userId).subscribe((data: response) => {
         //   if (!data.isError) {
         //     this.totalPrice = data.module;
         //   }
         // });
         this.calculatePrice();
-      } else {
-        this.carts = null;
       }
 
 

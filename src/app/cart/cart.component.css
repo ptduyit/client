@@ -58,6 +58,10 @@
 	max-width: 100px;
 	max-height: 100px;
 }
+.text-price{
+	color: rgb(247, 93, 4);
+	font-size: 1.3rem;
+}
 @media (min-width: 992px) { 
 	.info-product{
 		position: relative;
@@ -87,5 +91,26 @@
 		-webkit-line-clamp: 2;
 		overflow: hidden;
 		text-overflow: ellipsis;
+	}
+	.cart-footer{
+		position: sticky;
+		bottom: 0;
+		z-index: 2;
+		box-shadow: 0 -7px 4px -3px #f4f4f4;
+	}
+	.cart-item{
+		padding: 1.6rem;
+		margin-bottom: 1rem;
+		background-color: #fff;
+	}
+	.btn-checkout{
+		width: 30%;
+	}
+	.btn-checkout > button{
+		width: 100%;
+	}
+	.text-price{
+		color: rgb(247, 93, 4);
+		font-size: 2rem;
 	}
 }

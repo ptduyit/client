@@ -31,19 +31,19 @@
   <div class="">
     <div class="address-lg d-lg-none mb-3">
       <div class="d-flex justify-content-between">
-        <span class="">Địa chỉ nhận hàng</span> 
-        <span *ngIf="address" (click)="openSelectAddress()">Thay đổi</span>
+        <span class="">Địa chỉ nhận hàng</span>
+        <span *ngIf="address" (click)="openSelectAddress()" style="color: blue;">Thay đổi</span>
         <span *ngIf="!address" routerLink="/user/add-address">Thêm địa chỉ</span>
       </div>
       <div *ngIf="address">
         <span class="d-block"><i class="pi pi-user" style="font-size: 1.3rem"></i> {{address.fullName}}</span>
-        <span class="d-block"><i class="pi pi-mobile" style="font-size: 1.3rem"></i>  {{address.phoneNumber}}</span>
+        <span class="d-block"><i class="pi pi-mobile" style="font-size: 1.3rem"></i> {{address.phoneNumber}}</span>
         <div><i class="pi pi-map-marker" style="font-size: 1.3rem"></i>
           {{address.street}}, {{address.location.ward}}, {{address.location.district}}, {{address.location.province}}
         </div>
       </div>
     </div>
-    <div class="" *ngIf="carts">
+    <div class="" *ngIf="carts.length > 0">
       <div *ngFor="let product of carts" class="d-flex cart-item">
         <div>
           <div class="image-product mr-3" routerLink="/products/{{product.productId}}">
@@ -57,7 +57,7 @@
               <span class="">{{product.productName}}</span>
             </a>
           </div>
-          <div class="col-lg-3">{{product.unitPrice | number}} đ</div>
+          <div class="col-lg-3">{{product.unitPrice | number:'':'es'}} đ</div>
           <div class="item-quantity col-lg-4">
             <div class="input-group">
               <button (click)="minus(product)" class="d-flex btn input-group-append minus-plus"><i
@@ -74,26 +74,38 @@
             </button>
           </div>
         </div>
-
       </div>
     </div>
-    <div *ngIf="!carts">
+    <div *ngIf="carts.length ===0">
       giỏ hàng rỗng
     </div>
     <div class="cart-footer">
-      <div class="address">
+      <div class="address d-none d-lg-block text-center">
+        <div class="d-inline-block mb-4" *ngIf="!address">
+          <span class="mr-3">Bạn chưa có địa chỉ nhận hàng. Vui lòng</span>
+          <button routerLink="/user/add-address" class="btn btn-outline-info mr-3">Thêm địa chỉ</button>
+          <span>trước khi đặt hàng</span>
+        </div>
+        <div class="d-inline-block" *ngIf="address">
+          <span class="d-block text-left" style="font-size: 0.8rem;"><i class="pi pi-map-marker"
+              style="font-size: 1.3rem"></i>Địa chỉ nhận hàng</span>
+          <div class="py-3">
+            <span style="font-weight: bold" class="mr-3">{{address.fullName}} {{address.phoneNumber}}</span>
+            <span class="mr-3">{{address.street}}, {{address.location.ward}}, {{address.location.district}},
+              {{address.location.province}}</span>
+            <span class="mr-4 text-muted" *ngIf="address.isDefault">Mặc Định</span>
+            <span (click)="openSelectAddress();" class="text-uppercase" style="cursor: pointer; color: blue;">Thay đổi</span>
+          </div>
+        </div>
       </div>
       <div class="checkout">
         <div>
-        <span>Tổng tiền <span>{{totalPrice | number}} đ</span></span>
+          <span class="mr-2">Tổng tiền:</span>
+          <span class="text-price">{{totalPrice | number:'':'es'}} đ</span>
+        </div>
+        <div class="btn-checkout">
+          <button (click)="checkOut()" class="btn btn-success">Đặt hàng</button>
+        </div>
       </div>
-      <div>
-        <button (click)="checkOut()" class="btn btn-success">Đặt hàng</button>
-      </div>
-      </div>
-      
     </div>
   </div>
-
-
-</div>

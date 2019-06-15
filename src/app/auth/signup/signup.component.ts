@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { DataShareService } from 'src/app/service/datashare.service';
 import { NotificationsService } from 'angular2-notifications';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +15,9 @@ export class SignupComponent implements OnInit {
   haha= 1;
   comfirmpassword: '2';
   constructor(private authService: AuthService, private router: Router, private dataService: DataShareService
-    ,private _service: NotificationsService) { }
+    ,private _service: NotificationsService, private title: Title) {
+      this.title.setTitle('Đăng ký');
+     }
 
   ngOnInit() {
   }

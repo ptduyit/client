@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductCategory } from 'src/app/model/product-category';
 import { CategoryService } from 'src/app/service/category.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-category',
@@ -11,7 +12,7 @@ import { CategoryService } from 'src/app/service/category.service';
 export class CategoryComponent implements OnInit {
   productCategory: ProductCategory = {} as ProductCategory;
   errorMessage: string;
-  constructor(private route: ActivatedRoute, private categoryService: CategoryService) { }
+  constructor(private route: ActivatedRoute, private categoryService: CategoryService, private title: Title) {}
 
   ngOnInit() {
     this.getCategory();

@@ -69,9 +69,12 @@
             </div>
           </div>
           <div class="delete-item">
-            <button (click)="deleteCartDetail(product.productId)" class="btn btn-danger btn-sm">
+            <button [swal]="deleteProduct" class="btn btn-danger btn-sm">
               <i style="font-size: 1.5rem" class="pi pi-trash"></i>
             </button>
+            <swal #deleteProduct title="Bạn muốn bỏ sản phẩm này?" text="{{product.productName}}" type="question"
+              [showCancelButton]="true" [focusCancel]="true" [options]="{confirmButtonText: 'Có',cancelButtonText:'Không'}" (confirm)="deleteCartDetail(product.productId)">
+            </swal>
           </div>
         </div>
       </div>
@@ -94,7 +97,8 @@
             <span class="mr-3">{{address.street}}, {{address.location.ward}}, {{address.location.district}},
               {{address.location.province}}</span>
             <span class="mr-4 text-muted" *ngIf="address.isDefault">Mặc Định</span>
-            <span (click)="openSelectAddress();" class="text-uppercase" style="cursor: pointer; color: blue;">Thay đổi</span>
+            <span (click)="openSelectAddress();" class="text-uppercase" style="cursor: pointer; color: blue;">Thay
+              đổi</span>
           </div>
         </div>
       </div>

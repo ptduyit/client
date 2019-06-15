@@ -14,7 +14,6 @@ import { SafeHtmlPipe } from './safe-html-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
-import { NgxMaskModule } from 'ngx-mask'
 
 @NgModule({
   imports: [
@@ -28,7 +27,6 @@ import { NgxMaskModule } from 'ngx-mask'
     SharedModule,
     SlickCarouselModule,
     NgxImageZoomModule.forRoot(),
-    NgxMaskModule.forRoot(),
     FormsModule,
     ReactiveFormsModule
   ],

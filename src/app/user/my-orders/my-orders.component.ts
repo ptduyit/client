@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../service/order.service';
 import { Order } from '../../model/order';
 import { OrderDetail } from '../../model/order-detail';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-my-orders',
@@ -13,7 +14,9 @@ export class MyOrdersComponent implements OnInit {
   flag = false;
   orders: Order[];
   orderDetail: OrderDetail[];
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private title: Title) {
+    this.title.setTitle('Đơn hàng của tôi');
+   }
 
   ngOnInit() {
     this.userId = localStorage.getItem('userId');

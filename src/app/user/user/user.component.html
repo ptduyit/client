@@ -1,19 +1,19 @@
 
 
-<div class="container-fluid">
-  <div class="row" style="min-height: 632px;">
-    <div class="navi col-3 col-sm-2">
-      <ul class="narvar-das">
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <ul class="nav flex-column">
         
-        <li><a routerLink="/user/edit-profile"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Thông tin cá nhân</span></a></li>
-        <li><a routerLink="/user/address"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Sổ địa chỉ</span></a></li>
-        <li><a routerLink="/user/my-orders"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Quản lý đơn hàng</span></a></li>
-        <!-- <li><a routerLink="/admin/abc"><i class="fa fa-truck" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Đã giao</span></a></li> -->
+        <li><a routerLink="/user/edit-profile"><span class="">Thông tin cá nhân</span></a></li>
+        <li><a routerLink="/user/address"><span class="">Sổ địa chỉ</span></a></li>
+        <li><a routerLink="/user/abc"><span class="">Đổi mật khẩu</span></a></li>
+        <li><a routerLink="/user/my-orders"><span class="">Đơn hàng của tôi</span></a></li>
         <!-- <li><a routerLink="/admin/users"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Quản Lý Người Dùng</span></a></li> -->
         
       </ul>
     </div>
-    <div class="col-9 col-sm-10">
+    <div class="col-9">
       <router-outlet></router-outlet>
      
     </div>

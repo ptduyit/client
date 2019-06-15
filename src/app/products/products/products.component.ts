@@ -14,6 +14,8 @@ import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 import * as signalR from "@aspnet/signalr";
 import { response } from 'src/app/model/response';
+import * as globals from 'src/globals';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-products',
@@ -22,6 +24,7 @@ import { response } from 'src/app/model/response';
   encapsulation: ViewEncapsulation.None
 })
 export class ProductsComponent implements OnInit {
+  server = globals.server;
   show = false;
   mainImage = 'assets/images/placeholder.png';
   id: number;
@@ -33,7 +36,7 @@ export class ProductsComponent implements OnInit {
   hubConnection: signalR.HubConnection;
   constructor(private productService: ProductService, private avRouter: ActivatedRoute,
     private cartService: CartService, private router: Router, private _service: NotificationsService,
-    private dataService: DataShareService) { }
+    private dataService: DataShareService, private title: Title) {}
 
     // ngx-image-zoom
     // this.thumbWidth = this.imageThumbnail.nativeElement.width;
@@ -45,15 +48,16 @@ export class ProductsComponent implements OnInit {
       this.id = this.avRouter.snapshot.params["id"];
       this.productService.getProductInformation(this.id).subscribe((data: response) => {
         if(!data.isError){
+          this.title.setTitle(data.module.productName);
           this.product = data.module;
           if(data.module.productImages.length > 0){
-            this.mainImage = 'https://localhost:44354/'+data.module.productImages[0].url;
+            this.mainImage = globals.server+data.module.productImages[0].url;
           }
         }
         
       });
     }
-    this.hubConnection = new signalR.HubConnectionBuilder().withUrl('https://localhost:44354/echo').build();
+    this.hubConnection = new signalR.HubConnectionBuilder().withUrl(globals.server+'echo').build();
     this.hubConnection
       .start()
       .then(() => console.log('Connection started'))

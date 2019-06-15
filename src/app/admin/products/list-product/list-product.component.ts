@@ -4,6 +4,7 @@ import { Product } from '../../../model/product';
 import { ProductService } from '../../../service/product.service';
 import { ButtonRendererComponent } from './../../../renderer/button-renderer.component';
 import { AutoWidthCalculator } from 'ag-grid-community';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-list-product',
@@ -16,7 +17,8 @@ export class ListProductComponent implements OnInit {
   rowDataClicked1 = {};
   rowData: any;
  
-  constructor(private proService: ProductService, private router: Router) {
+  constructor(private proService: ProductService, private router: Router, private title: Title) {
+    this.title.setTitle('Quản lý sản phẩm')
     this.frameworkComponents = {
       buttonRenderer: ButtonRendererComponent,
     }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SearchSupplier, Supplier } from '../model/supplier';
+import * as globals from 'src/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,9 @@ export class SupplierService {
     if(!keyword.trim()){
       return of([]);
     }
-    return this.http.get<SearchSupplier[]>("https://localhost:44354/api/admin/suppliers/search/"+keyword);
+    return this.http.get<SearchSupplier[]>(globals.server+'api/admin/suppliers/search/'+keyword);
   }
   createSupplier(supplier: Supplier){
-    return this.http.post<SearchSupplier>("https://localhost:44354/api/admin/suppliers",supplier);
+    return this.http.post<SearchSupplier>(globals.server+'api/admin/suppliers',supplier);
   }
 }

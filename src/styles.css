@@ -11,3 +11,12 @@ body{
     font-family: Roboto,Helvetica,Arial,sans-serif;
     margin: 0;
 }
+.modal-holder{
+    animation-name: modal;
+    animation-duration: 0.3s;
+}
+  
+@keyframes modal {
+    0%   {transform: scale(0.5)}
+    100% {transform: scale(1)}
+}

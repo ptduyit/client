@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { catchError, map, tap } from 'rxjs/operators';
 import { throwError, from, Observable, of } from 'rxjs';
 import { Product, ProductSearch, QuickAddProduct } from '../model/product';
+import * as globals from 'src/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +12,20 @@ import { Product, ProductSearch, QuickAddProduct } from '../model/product';
 export class ProductService {
   constructor(private http: HttpClient) { }
   getProducts(){
-    return this.http.get<Product[]>('https://localhost:44354/api/Products/GetAllProducts');
+    return this.http.get<Product[]>(globals.server+'api/Products/GetAllProducts');
   }
   
   getStockProduct(id: number){
-    return this.http.get('https://localhost:44354/api/Products/GetStockProduct/'+id);
+    return this.http.get(globals.server+'api/Products/GetStockProduct/'+id);
   }
   getProductIndex(){
-    return this.http.get<Product[]>('https://localhost:44354/api/Products/GetIndexProducts');
+    return this.http.get<Product[]>(globals.server+'api/Products/GetIndexProducts');
   }
   deleteProduct(id : number){
-    return this.http.delete<Product[]>('https://localhost:44354/api/Products/DeleteProducts/'+ id);
+    return this.http.delete<Product[]>(globals.server+'api/Products/DeleteProducts/'+ id);
   }
   createProduct(product: Product){
-    return this.http.post<Product>('https://localhost:44354/api/Products/PostProducts', product);
+    return this.http.post<Product>(globals.server+'api/Products/PostProducts', product);
   }
   
   quicksearchProduct(keyword: string): Observable<ProductSearch[]>
@@ -32,18 +33,18 @@ export class ProductService {
     if(!keyword.trim()){
       return of([]);
     }
-    return this.http.get<ProductSearch[]>('https://localhost:44354/api/admin/products/search/'+keyword);
+    return this.http.get<ProductSearch[]>(globals.server+'api/admin/products/search/'+keyword);
   }
   addQuickProductOrderImport(data: QuickAddProduct){
-    return this.http.post('https://localhost:44354/api/admin/products/quick-add',data);
+    return this.http.post(globals.server+'api/admin/products/quick-add',data);
   }
   getProductById(id: number){
-    return this.http.get('https://localhost:44354/api/admin/products/'+ id);
+    return this.http.get(globals.server+'api/admin/products/'+ id);
   }
   updateProduct(id: number,formData: FormData){
-    return this.http.put('https://localhost:44354/api/admin/products/'+id,formData);
+    return this.http.put(globals.server+'api/admin/products/'+id,formData);
   }
   getProductInformation(id: number){
-    return this.http.get('https://localhost:44354/api/products/' + id);
+    return this.http.get(globals.server+'api/products/' + id);
   }
 }

@@ -3,6 +3,7 @@ import { UserService } from 'src/app/service/user.service';
 import { UserInfo } from 'src/app/model/user-info';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-profile',
@@ -18,7 +19,10 @@ export class EditProfileComponent implements OnInit {
   public min = new Date(1900,1,1);
   public max = new Date();
   public startMoment = new Date();
-  constructor(private userService: UserService, private fb: FormBuilder, private _service: NotificationsService) { }
+  constructor(private userService: UserService, private fb: FormBuilder, private _service: NotificationsService,
+    private title: Title) {
+      this.title.setTitle('Thông tin cá nhân');
+     }
 
   ngOnInit() {
     this.userId = localStorage.getItem('userId');

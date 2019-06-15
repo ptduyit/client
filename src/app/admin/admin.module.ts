@@ -39,7 +39,7 @@ import { NgbModalNewSupplierComponent } from './orders-import/ngb-modal-new-supp
     OwlNativeDateTimeModule,
     FileUploadModule,
     NgbModule,
-    NgxMaskModule.forRoot(),
+    NgxMaskModule,
     DropdownModule,
     SharedModule
   ],

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../service/order.service';
 import { Order } from '../../model/order';
 import { OrderDetail } from 'src/app/model/order-detail';
+import { Title } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -12,7 +14,9 @@ export class OrdersComponent implements OnInit {
   orderDetail: OrderDetail[];
   status=1;
   flag = false;
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private title: Title) {
+    this.title.setTitle('Quản lý đơn đặt hàng');
+   }
 
   ngOnInit() {
     this.getOrderPending();

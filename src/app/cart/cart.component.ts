@@ -17,6 +17,9 @@ import { from } from 'rxjs';
 import { OrderService } from '../service/order.service';
 import es from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import * as globals from 'src/globals';
+import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cart',
@@ -36,9 +39,13 @@ export class CartComponent implements OnInit {
   productNumber: number;
   constructor(private cartService: CartService, private router: Router, private addressService: AddressService,
     private _service: NotificationsService, private productService: ProductService, private dataService: DataShareService,
-    private modalService: NgbModal, private orderService: OrderService) { }
+    private modalService: NgbModal, private orderService: OrderService, private toastr: ToastrService,
+    private title: Title) {
+      this.title.setTitle("Giỏ hàng")
+     }
 
   ngOnInit() {
+
     registerLocaleData( es );
     if (this.userId) {
       this.getCart();
@@ -85,8 +92,9 @@ export class CartComponent implements OnInit {
       if (!data.isError) {
         this.tempcarts = data.module;
         this.tempcarts.forEach(product => {
-          this.tempcarts.find(item => item.productId === product.productId).image = product.image == null ? 'assets/images/placeholder.png' : 'https://localhost:44354/' + product.image;
+          this.tempcarts.find(item => item.productId === product.productId).image = product.image == null ? 'assets/images/placeholder.png' : globals.server + product.image;
           if (product.discontinued || product.stock < 1) {
+            this.toastr.warning(product.productName,'Ngưng bán hoặc hết hàng');
             console.log('sản phẩm ' + product.productName + ' đã ngưng bán hoặc hết hàng');
             // this.cartService.updateQuantity(this.userId,product.productId,1).subscribe((rs: response) =>{
             //   if(rs.isError){
@@ -106,11 +114,13 @@ export class CartComponent implements OnInit {
             });
           }
           else if (product.quantity > product.stock) {
+            this.toastr.info(product.productName,'Số Lượng Đã Thay Đổi');
             console.log('số lượng đã thay đổi ' + product.productName);
             this.tempcarts.find(item => item.productId === product.productId).quantity = product.stock;
           }
           if (this.carts.length > 0) {
             if (this.carts.find(e => e.productId === product.productId).unitPrice !== product.unitPrice) {
+              this.toastr.info(product.productName,'Giá Đã Thay Đổi');
               console.log('giá ' + product.productName + ' đã thay đổi');
             }
           }
@@ -167,19 +177,16 @@ export class CartComponent implements OnInit {
       // this.dataService.updateNumberProduct(this.productNumber);
     },
       err => {
-        this.carts = null;
-        this.flag = true;
+        
       })
   }
   deleteCartDetail(productId: number) {
-    var ans = confirm("Bạn chắc chắn muốn bỏ sản phẩm này?");
-    if (ans) {
       this.cartService.deleteItem(this.userId, productId)
         .subscribe((data: response) => {
           if (!data.isError)
             this.getCart();
         });
-    }
+    
   }
 
   calculatePrice() {
@@ -325,7 +332,7 @@ export class CartComponent implements OnInit {
     }
   }
   openSelectAddress() {
-    const modalRef = this.modalService.open(NgbModalSelectAddressComponent);
+    const modalRef = this.modalService.open(NgbModalSelectAddressComponent, { windowClass: 'modal-holder',size: "lg"});
     modalRef.componentInstance.returnAddress.subscribe((data: ShowAddressUser) => {
       this.address = data;
       modalRef.close();

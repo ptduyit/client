@@ -11,6 +11,7 @@ import {
 import { NotificationsService } from 'angular2-notifications';
 import { CartService } from 'src/app/service/cart.service';
 import { Cart } from 'src/app/model/cart';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,9 @@ export class LoginComponent implements OnInit {
   productNumber: number;
   constructor(private authService: AuthService, private router: Router
     ,private dataService: DataShareService, private socialAuthService: AuthExtendService,
-    private _service: NotificationsService, private cartService: CartService) { }
+    private _service: NotificationsService, private cartService: CartService, private title: Title) {
+      this.title.setTitle('Đăng nhập');
+     }
 
 
   ngOnInit() {

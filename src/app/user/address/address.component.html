@@ -1,33 +1,21 @@
 <div>
-  <br>
   <h4>Địa Chỉ Của Tôi</h4>
   <div>
     <button (click)="addAddress()" class="btn btn-success">Thêm địa chỉ</button>
   </div>
   <div>
-    <table class="table table-striped" *ngIf="addresses">
-      <thead>
-        <tr>
-          <th>Tên</th>
-          <th>Địa chỉ</th>
-          <th>Mã vùng</th>
-          <th>Số điện thoại</th>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let address of addresses">
-          <th>{{address.fullName}}</th>
-          <th>{{address.street}}</th>
-          <th>{{address.location.province}} - {{address.location.district}} - {{address.location.ward}}</th>
-          <th>{{address.phoneNumber}}</th>
-          <th><span *ngIf="address.isDefault">Nhận hàng mặc định</span> </th>
-          <th><div style="cursor: pointer;" (click)="update(address.addressId)">Sửa</div></th>
-          <th><div style="cursor: pointer;" *ngIf="!address.isDefault" (click)="delete(address.addressId)">Xóa</div></th>
-        </tr>
-      </tbody>
-    </table>
+      <div *ngFor="let address of addresses" class="p-3 border-bottom">
+        <div class="d-flex justify-content-between">
+            <span class="d-block"><i class="pi pi-user" style="font-size: 1.3rem"></i> {{address.fullName}} <span *ngIf="address.isDefault" class="text-default">Mặc Định</span> </span>
+          <div class="modify">
+            <span class="mr-3">Sửa</span>
+            <span>Xóa</span>
+          </div>
+        </div>
+          <span class="d-block"><i class="pi pi-mobile" style="font-size: 1.3rem"></i> {{address.phoneNumber}}</span>
+          <div><i class="pi pi-map-marker" style="font-size: 1.3rem"></i>
+            {{address.street}}, {{address.location.ward}}, {{address.location.district}}, {{address.location.province}}
+          </div>
+      </div>
   </div>
 </div>

@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Product } from '../../../model/product';
 import { ViewEncapsulation } from '@angular/core';
 import { CategoryService } from 'src/app/service/category.service';
+import * as globals from 'src/globals';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-new-product',
@@ -21,7 +23,9 @@ export class NewProductComponent implements OnInit {
   uploadedFiles: File[] = [];
   imageDelete = [];
   constructor(private router: Router, private proService: ProductService, private fb: FormBuilder,
-    private avRouter: ActivatedRoute, private categoryService: CategoryService) {}
+    private avRouter: ActivatedRoute, private categoryService: CategoryService, private title: Title) {
+      this.title.setTitle('Thêm sản phẩm mới');
+    }
 
   ngOnInit() {
     if (this.avRouter.snapshot.params["id"]) {
@@ -91,7 +95,7 @@ export class NewProductComponent implements OnInit {
     this.products.productImages.forEach(x => {
       control.push(this.fb.group({ 
         imageId: x.imageId, 
-        url: 'https://localhost:44354/'+x.url,
+        url: globals.server+x.url,
         path: x.url
       }));
     });
@@ -128,7 +132,7 @@ export class NewProductComponent implements OnInit {
         formData.append('files',blobInfo.blob());
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = false;
-        xhr.open('POST', 'https://localhost:44354/api/upload');
+        xhr.open('POST', globals.server+'api/upload');
         xhr.onload = function() {
           if (xhr.status != 200) {
             failure('HTTP Error: ' + xhr.status);
@@ -139,7 +143,7 @@ export class NewProductComponent implements OnInit {
             failure('Invalid JSON: ' + xhr.responseText);
             return;
           }
-          success('https://localhost:44354/'+json.url);
+          success(globals.server+json.url);
         };
         xhr.send(formData);
     },
@@ -153,7 +157,7 @@ export class NewProductComponent implements OnInit {
     //     formData.append('files',file);
     //     var xhr = new XMLHttpRequest();
     //     xhr.withCredentials = false;
-    //     xhr.open('POST', 'https://localhost:44354/api/upload');
+    //     xhr.open('POST', globals.server+'api/upload');
     //     xhr.onload = function() {
     //       if (xhr.status != 200) {
     //         return;
@@ -162,7 +166,7 @@ export class NewProductComponent implements OnInit {
     //       if (!json || typeof json.url != 'string') {
     //         return;
     //       }
-    //       cb('https://localhost:44354/'+json.url,{title: file.name});
+    //       cb(globals.server+''+json.url,{title: file.name});
     //     };
     //     xhr.send(formData);
     //   }

@@ -3,10 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider,} from "angular-6-social-login";
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { NgxMaskModule } from 'ngx-mask';
+import { ToastrModule } from 'ngx-toastr';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -56,7 +59,9 @@ export function getAuthServiceConfigs() {
     SimpleNotificationsModule.forRoot(),
     LayoutModule,
     SharedModule,
-    
+    NgxMaskModule.forRoot(),
+    ToastrModule.forRoot({positionClass: 'toast-bottom-right', closeButton: true}),
+    SweetAlert2Module.forRoot()
   ],
   entryComponents:[
     NgbModalSelectAddressComponent,

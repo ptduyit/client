@@ -1,0 +1,13 @@
+.text-default{
+    margin-left: 1rem;
+    padding: 0.5rem;
+    background-color: rgb(0, 190, 149);
+    color: #fff;
+    border-radius: 8px;
+}
+.modify > span{
+    cursor: pointer;
+}
+.modify > span:hover{
+    text-decoration: underline;
+}

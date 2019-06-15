@@ -12,6 +12,7 @@ import { NgbModalNewSupplierComponent } from '../ngb-modal-new-supplier/ngb-moda
 import { SearchSupplier } from 'src/app/model/supplier';
 import { SupplierService } from 'src/app/service/supplier.service';
 import { OrderImport } from 'src/app/model/order-import';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-new-order',
@@ -32,7 +33,10 @@ export class NewOrderComponent implements OnInit {
   orderId = 0;
   constructor(private modalService: NgbModal, private fb: FormBuilder, private ref: ChangeDetectorRef,
      private productService: ProductService, private avRouter: ActivatedRoute, private router: Router,
-     private orderimportService: OrderImportService, private supplierService: SupplierService) { }
+     private orderimportService: OrderImportService, private supplierService: SupplierService,
+     private title: Title) {
+       this.title.setTitle('Thêm đơn hàng nhập');
+      }
 
   ngOnInit() {
     if(this.avRouter.snapshot.params["id"]) {

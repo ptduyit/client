@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { AddressUser } from 'src/app/model/address';
 import { NotificationsService } from 'angular2-notifications';
 import { response } from 'src/app/model/response';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-address',
@@ -17,12 +18,14 @@ export class EditAddressComponent implements OnInit {
   provinces: any = [];
   districts: any = [];
   wards: any = [];
-  title: string = "Create";
+  flag: string = "Create";
   addressForm: FormGroup;
   submitted = false;
   userId = localStorage.getItem('userId');
   constructor(private router: Router, private addressService: AddressService, private fb: FormBuilder,
-    private avRouter: ActivatedRoute, private _service: NotificationsService) { }
+    private avRouter: ActivatedRoute, private _service: NotificationsService, private title: Title) {
+      this.title.setTitle('Thêm mới địa chỉ');
+     }
 
   ngOnInit() {
     if (this.avRouter.snapshot.params["id"]) {
@@ -41,7 +44,8 @@ export class EditAddressComponent implements OnInit {
       wardId: null
     });
     if (this.id > 0) {
-      this.title="Edit";
+      this.flag="Edit";
+      this.title.setTitle('Chỉnh sửa địa chỉ');
       this.addressService.getOneAddress(this.id)
         .subscribe((data: response) => 
           {
@@ -96,7 +100,7 @@ export class EditAddressComponent implements OnInit {
     if (this.addressForm.invalid) {
       return;
     }
-    if(this.title=="Create"){
+    if(this.flag=="Create"){
       this.addressService.addAddress(this.addressForm.value)
       .subscribe(data => {
         this.router.navigate(['user/address'])
@@ -110,7 +114,7 @@ export class EditAddressComponent implements OnInit {
         });
       });
     }
-    else if(this.title == "Edit"){
+    else if(this.flag == "Edit"){
       this.addressService.updateAddress(this.addressForm.value)
       .subscribe(data => {
         this.router.navigate(['user/address'])

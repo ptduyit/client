@@ -34,14 +34,14 @@ export class HeaderComponent implements OnInit {
   }
    
   check(){
-    if(this.userId != null){
-      this.userService.getUserInfo(this.userId).subscribe(data => this.userInfo = data);
-      this.cartService.getCart(this.userId).subscribe((data : Cart[]) =>{
-        this.productNumber = data.reduce( function( runningValue: number, cart: Cart){
-          return runningValue + cart.quantity;
-        },0);
-      });
-    }
+    // if(this.userId != null){
+    //   this.userService.getUserInfo(this.userId).subscribe(data => this.userInfo = data);
+    //   this.cartService.getCart(this.userId).subscribe((data : Cart[]) =>{
+    //     this.productNumber = data.reduce( function( runningValue: number, cart: Cart){
+    //       return runningValue + cart.quantity;
+    //     },0);
+    //   });
+    // }
   }
   Logout() {
     localStorage.removeItem('token');

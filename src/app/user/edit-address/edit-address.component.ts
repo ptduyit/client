@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 import { AddressService } from 'src/app/service/address.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { AddressUser } from 'src/app/model/address';
@@ -22,6 +22,7 @@ export class EditAddressComponent implements OnInit {
   addressForm: FormGroup;
   submitted = false;
   userId = localStorage.getItem('userId');
+  prevRoute = localStorage.getItem('preRoute');
   constructor(private router: Router, private addressService: AddressService, private fb: FormBuilder,
     private avRouter: ActivatedRoute, private _service: NotificationsService, private title: Title) {
       this.title.setTitle('Thêm mới địa chỉ');
@@ -49,7 +50,7 @@ export class EditAddressComponent implements OnInit {
       this.addressService.getOneAddress(this.id)
         .subscribe((data: response) => 
           {
-            this.addressForm.patchValue(data);
+            this.addressForm.patchValue(data.module);
             this.addressForm.controls['province'].setValue(data.module.wards.districts.provinces.provinceId);
             this.provinces.push(data.module.wards.districts.provinces);
             this.addressForm.controls['district'].setValue(data.module.wards.districts.districtId);
@@ -103,7 +104,8 @@ export class EditAddressComponent implements OnInit {
     if(this.flag=="Create"){
       this.addressService.addAddress(this.addressForm.value)
       .subscribe(data => {
-        this.router.navigate(['user/address'])
+        //this.router.navigate(['user/address'])
+        this.router.navigate([this.prevRoute]);
         this._service.info('Thêm thành công','',
         {
           timeOut: 3000,

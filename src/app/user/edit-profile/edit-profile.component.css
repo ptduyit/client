@@ -1,6 +1,12 @@
-.control-label{
+/* .control-label{
     height: calc(2.25rem + 2px);
     padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
+} */
+body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon{
+    top: 50% !important;
+}
+.ui-radiobutton-label{
+    margin-bottom: 0 !important;
 }

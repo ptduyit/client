@@ -19,7 +19,7 @@
     </div>
     <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
       <div ngxSlickItem *ngFor="let slide of product.productImages" class="slide">
-        <img (mouseover)="changeimage($event)" (click)="changeimage($event)" src="{{server}}{{slide.url}}" alt="" width="100%">
+        <img (mouseenter)="changeimage($event)" (click)="changeimage($event)" src="{{server}}{{slide.url}}" alt="" width="100%">
       </div>
     </ngx-slick-carousel>
     

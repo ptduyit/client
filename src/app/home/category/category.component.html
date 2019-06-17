@@ -1,0 +1,22 @@
+<div class="parent" >
+  <div>
+    <div class="hover-menu" *ngFor="let item of menu; let i = index" (mouseenter)="toggle[i] = !toggle[i]" (mouseleave)="toggle[i] = !toggle[i]">
+      <div routerLink="/category/{{item.url}}">{{item.categoryName }}</div>
+      <ng-container *ngIf="item.categoryChildrens.length > 0 && toggle[i]">
+        <ng-container *ngTemplateOutlet="tree; context: { $implicit: item.categoryChildrens, idx: i }"></ng-container>
+      </ng-container>
+    </div>
+    </div>
+  </div>
+  
+  <ng-template #tree let-allItems let-idx="idx">
+    <div class="children">
+      <div class="hover-menu" *ngFor="let item of allItems; let n = index" (mouseenter)="toggle[idx + '.' + n] = !toggle[idx + '.' + n]" (mouseleave)="toggle[idx + '.' + n] = !toggle[idx + '.' + n]">
+        <!-- <button (click)="toggle[idx] = !toggle[idx]">X - {{idx}}</button> -->
+        <div routerLink="/category/{{item.url}}">{{item.categoryName}}</div>
+        <ng-container *ngIf="item.categoryChildrens.length >0 && toggle[idx + '.' + n]">
+          <ng-container *ngTemplateOutlet="tree; context: { $implicit: item.categoryChildrens, idx: idx + '.' + n }"></ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>

@@ -27,18 +27,13 @@ const routes: Routes = [
         canLoad: [AuthGuard]
       },
       { path: 'login', loadChildren: '../auth/auth.module#AuthModule'},
-      { path: 'signup', loadChildren: '../auth/auth.module#AuthModule'}
-    ]
-  },
-  { 
-    path: '**', component: MainLayoutComponent,
-    children: [
+      { path: 'signup', loadChildren: '../auth/auth.module#AuthModule'},
       {
-        path: '',
+        path: '**',
         component: PageNotFoundComponent
       }
     ]
-  },
+  }
 ];
 
 @NgModule({

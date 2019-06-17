@@ -22,6 +22,7 @@ import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { NgbModalSelectAddressComponent } from './cart/ngb-modal-select-address/ngb-modal-select-address.component';
 import { NgbModalNewAddressComponent } from './cart/ngb-modal-new-address/ngb-modal-new-address.component';
+import { CategoryComponent } from './home/category/category.component';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -45,12 +46,13 @@ export function getAuthServiceConfigs() {
     CartComponent,   
     SearchComponent,
     NgbModalSelectAddressComponent,
-    NgbModalNewAddressComponent
+    NgbModalNewAddressComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
-    ProductsModule,
     AppRoutingModule,
+    ProductsModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -76,9 +78,10 @@ export function getAuthServiceConfigs() {
   bootstrap: [AppComponent],
 })
 export class AppModule { 
-  constructor(router: Router){
-    const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
-    console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
+  constructor(){
+    // const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
+    // console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
+
     
   }
   

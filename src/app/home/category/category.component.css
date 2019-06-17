@@ -1,0 +1,28 @@
+.parent{
+    width: 250px;
+    background-color: #fff;
+    position: relative;
+}
+.parent > div{
+    padding: 8px 0;
+}
+.children{
+    padding: 8px 0;
+    position: absolute;
+    top: 0;
+    left: 250px;
+    width: 250px;
+    background-color: #fff;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.25);
+    height: 100%;
+}
+.hover-menu:hover{
+    cursor: pointer;
+    background-color: rgb(122, 167, 224);
+}
+.hover-menu:hover > div:first-child{
+    color: #fff;
+}
+.hover-menu > div:first-child{
+    padding-left: 0.5rem;
+}

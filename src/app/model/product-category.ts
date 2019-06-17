@@ -16,3 +16,9 @@ export class Categories{
     url: string;
     categoryChildrens: Categories[];
 }
+export interface Menu{
+    categoryId: number;
+    categoryName: string;
+    url: string;
+    categoryChildrens: Menu[];
+}

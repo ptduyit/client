@@ -9,8 +9,8 @@ import * as globals from 'src/globals';
 export class CategoryService {
 
   constructor(private http: HttpClient) { }
-  getProductCategoryByUrl(url: string, page): Observable<any>{
-    return this.http.get(globals.server+'api/category/'+url+'/'+page);
+  getProductCategoryByUrl(url: string, page:number,order:string): Observable<any>{
+    return this.http.get(globals.server+'api/category/'+url+'?page='+page+'&order='+order);
   }
   getCategorySelectAll(){
     return this.http.get(globals.server+'api/admin/category/select-full');
@@ -25,6 +25,6 @@ export class CategoryService {
     return this.http.get(globals.server+'api/admin/category/select-product');
   }
   getMenuCategory(){
-    return this.http.get(globals.server+'api/category/menu');
+    return this.http.get(globals.server+'api/menu/category');
   }
 }

@@ -1,0 +1,20 @@
+.category-name{
+    cursor: pointer;
+    padding: 0.3rem 1rem;
+}
+.category-name:hover{
+    background-color: rgb(136, 196, 211);
+}
+.link-active{
+    font-weight: 500;
+}
+.breadcrumb-item > span{
+    cursor: pointer;
+    color: #1a9cb7;
+}
+.breadcrumb-item+.breadcrumb-item::before{
+    content: "›";
+    vertical-align:top;
+    font-size: 1.5rem;
+    line-height: 18px;
+}

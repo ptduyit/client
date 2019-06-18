@@ -22,7 +22,7 @@ export class AuthService {
     );
   }
   signup(fullname: string, email: string, password: string, phonenumber: string){
-    var data = {fullname: fullname, email: email, password: password, phonenumber: phonenumber};
+    var data = {fullName: fullname, email: email, password: password, phoneNumber: phonenumber};
     var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
     return this.http.post(globals.server+'api/Users', data, reqHeader)
     .pipe(

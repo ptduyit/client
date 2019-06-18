@@ -1,35 +1,38 @@
 <section class="container">
   <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Trang chủ</a></li>
-    <ng-container *ngFor="let breadcrumb of productCategory.breadcrumbs; last as isLast">
-      <li *ngIf="!isLast" class="breadcrumb-item" ><a (click)="getCategory();" routerLink="/category/{{breadcrumb.url}}">{{breadcrumb.label}}</a></li>
-      <li *ngIf="isLast" class="breadcrumb-item active" aria-current="page">{{breadcrumb.label}}</li>
-    </ng-container>
-  </ol>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><span routerLink="/">Trang chủ</span></li>
+      <ng-container *ngFor="let breadcrumb of productCategory.breadcrumbs; last as isLast">
+        <li *ngIf="!isLast" class="breadcrumb-item"><span (click)="getCategory();"
+            routerLink="/category/{{breadcrumb.url}}">{{breadcrumb.label}}</span></li>
+        <li *ngIf="isLast" class="breadcrumb-item active" aria-current="page">{{breadcrumb.label}}</li>
+      </ng-container>
+    </ol>
   </nav>
 
   <div class="row">
     <div class="col-3 px-2">
       <h3>Danh mục sản phẩm</h3>
-      <ng-container *ngFor="let category of productCategory.categories">
-        <div>
-          <a class="" routerLink="/category/{{category.url}}">{{category.categoryName}}</a>          
-        </div>
-        <ng-container *ngFor="let categoryChildren of category.categoryChildrens">
-          <div>
-            <a class="pl-3" routerLink="/category/{{categoryChildren.url}}">{{categoryChildren.categoryName}}</a>            
+      <div class="category-menu">
+        <div class="category-name link-active" routerLink="/category/{{productCategory.categories.url}}">
+         {{productCategory.categories.categoryName}}</div>
+         <div *ngFor="let category of productCategory.categories.categoryChildrens">
+          <div class="category-name" style="padding-left: 2rem;" routerLink="/category/{{category.url}}" routerLinkActive="link-active">{{category.categoryName}}</div>
+          <div *ngFor="let categoryChildren of category.categoryChildrens">
+            <div class="pl-5 category-name" routerLink="/category/{{categoryChildren.url}}" routerLinkActive="link-active">{{categoryChildren.categoryName}}</div>
           </div>
-        </ng-container>
-      </ng-container>
+        </div>
+      </div>
       
     </div>
     <div class="col-9">
-        <div class="row">
-            <app-product-showcase *ngFor="let product of productCategory.products | paginate: { id: 'pagingproduct', itemsPerPage: productCategory.paging.pageSize, currentPage: productCategory.paging.pageNumber, totalItems: productCategory.paging.totalItems }" [productIndex]="product" class="col-md-3 col-sm-6 py-3"></app-product-showcase>
-          </div>
-          <pagination-controls *ngIf="productCategory.products['length'] > 0" (pageChange)="setPage($event)" id="pagingproduct" previousLabel="" nextLabel=""></pagination-controls>
+      <div class="row">
+        <app-product-showcase
+          *ngFor="let product of productCategory.products | paginate: { id: 'pagingproduct', itemsPerPage: productCategory.paging.pageSize, currentPage: productCategory.paging.pageNumber, totalItems: productCategory.paging.totalItems }"
+          [productIndex]="product" class="col-md-3 col-sm-6 py-3"></app-product-showcase>
+      </div>
+      <pagination-controls *ngIf="productCategory.products['length'] > 0" (pageChange)="setPage($event)"
+        id="pagingproduct" previousLabel="" nextLabel=""></pagination-controls>
     </div>
   </div>
 </section>
-

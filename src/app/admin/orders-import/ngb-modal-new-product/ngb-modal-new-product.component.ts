@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { NgbModalNewCategoryComponent } from '../ngb-modal-new-category/ngb-modal-new-category.component';
 import { CategoryService } from 'src/app/service/category.service';
+import { response } from 'src/app/model/response';
 @Component({
   selector: 'app-ngb-modal-new-product',
   templateUrl: './ngb-modal-new-product.component.html',
@@ -24,8 +25,11 @@ export class NgbModalNewProductComponent implements OnInit {
       unitPrice: ['',[Validators.required]],
       category: ['', [Validators.required, AddressValidator]]
     });
-    this.categoryService.getCategorySelectProduct().subscribe(rs => {
-      this.categorySelect = rs;
+    this.categoryService.getCategorySelectProduct().subscribe((rs:response) => {
+      if(!rs.isError)
+      this.categorySelect = rs.module;
+      else
+      console.log(rs.message);
     })
     this.productForm.get('category').setValue(0);
   }
@@ -44,10 +48,13 @@ export class NgbModalNewProductComponent implements OnInit {
   open() {
     const modalRef = this.modalService.open(NgbModalNewCategoryComponent);
     modalRef.componentInstance.returnCategory.subscribe(rs => {
-      this.categoryService.getCategorySelectProduct().subscribe(data => {
-        this.categorySelect = data;
-        this.productForm.get('categoryId').setValue(rs.id);
-        this.productForm.get('category').setValue(rs.id);
+      this.categoryService.getCategorySelectProduct().subscribe((data:response) => {
+        if(!data.isError){
+          this.categorySelect = data;
+          this.productForm.get('categoryId').setValue(rs.id);
+          this.productForm.get('category').setValue(rs.id);
+        }else
+        console.log(data.message);
       });
     });
   }

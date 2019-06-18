@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductCategory } from 'src/app/model/product-category';
 import { CategoryService } from 'src/app/service/category.service';
 import { Title } from '@angular/platform-browser';
+import { response } from 'src/app/model/response';
 
 @Component({
   selector: 'app-category',
@@ -21,13 +22,15 @@ export class CategoryComponent implements OnInit {
     // const resolvedData = this.route.snapshot.data['dataResolve'];
     this.route.data.subscribe( data => {
       this.errorMessage = data.dataResolve.error;
-      this.productCategory = data.dataResolve;
+      this.productCategory = data.dataResolve.module;
     })
   }
   setPage(page: number){
-    this.categoryService.getProductCategoryByUrl(this.productCategory.categories[0].url,page)
-    .subscribe( data => {
-      this.productCategory = data;
+    this.categoryService.getProductCategoryByUrl(this.productCategory.categories[0].url,page,'')
+    .subscribe( (data:response) => {
+      if(!data.isError){
+        this.productCategory = data.module;
+      }
     })
   }
 }

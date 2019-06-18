@@ -12,6 +12,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { CartService } from 'src/app/service/cart.service';
 import { Cart } from 'src/app/model/cart';
 import { Title } from '@angular/platform-browser';
+import { response } from 'src/app/model/response';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ import { Title } from '@angular/platform-browser';
 export class LoginComponent implements OnInit {
   isLoginError: boolean = false;
   isLoggedIn: boolean;
-  productNumber: number;
+
   constructor(private authService: AuthService, private router: Router
     ,private dataService: DataShareService, private socialAuthService: AuthExtendService,
     private _service: NotificationsService, private cartService: CartService, private title: Title) {
@@ -33,12 +34,21 @@ export class LoginComponent implements OnInit {
   }
   onSubmit(username: string, password: string) {
     this.authService.login(username, password)
-      .subscribe((data: any) => {
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('userId', data.id);
-          this.dataService.updateStatus(data);
+      .subscribe((data: response) => {
+        if(!data.isError){
+          localStorage.setItem('token', data.module.token);
+          localStorage.setItem('userId', data.module.id);
+          localStorage.setItem('name',data.module.fullName);
+          this.cartService.getTotalQuantity(data.module.id).subscribe((rs : response) =>{
+            if(!rs.isError){
+              this.dataService.updateNumberProduct(rs.module);
+            }
+            else
+              console.log(rs.message);
+          });
+          this.dataService.updateStatus(data.module.fullName);
 
-          let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/home';
+          let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/';
 
           this._service.success(
             'Đăng nhập thành công','Vui lòng chờ',
@@ -52,7 +62,10 @@ export class LoginComponent implements OnInit {
             }
           );
           this.router.navigateByUrl(redirect);
-        
+        }
+        else{
+          console.log(data.message);
+        }
       },
         err => {
           this._service.error(
@@ -97,7 +110,7 @@ export class LoginComponent implements OnInit {
             maxLength: 10
           });
         this.authService.externalLogin(token,socialPlatform)
-        .subscribe((data: any) =>  {
+        .subscribe((data: response) =>  {
           this._service.success('Đăng nhập thành công','',
             {
               position: ["bottom", "right"],
@@ -108,17 +121,18 @@ export class LoginComponent implements OnInit {
               maxLength: 10
             }
           );
-          this.dataService.updateStatus(data);
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('userId', data.id);
-
-          this.cartService.getCart(data.id).subscribe((data : Cart[]) =>{
-            this.productNumber = data.reduce( function( runningValue: number, cart: Cart){
-              return runningValue + cart.quantity;
-            },0);
-            this.dataService.updateNumberProduct(this.productNumber);
+          this.dataService.updateStatus(data.module.fullName);
+          localStorage.setItem('token', data.module.token);
+          localStorage.setItem('userId', data.module.id);
+          localStorage.setItem('name',data.module.fullName);
+          this.cartService.getTotalQuantity(data.module.id).subscribe((rs : response) =>{
+            if(!rs.isError){
+              this.dataService.updateNumberProduct(rs.module);
+            }
+            else
+              console.log(rs.message);
           });
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
         },
         err=>{
           this._service.error('Đăng nhập thất bại','Vui lòng thử lại',

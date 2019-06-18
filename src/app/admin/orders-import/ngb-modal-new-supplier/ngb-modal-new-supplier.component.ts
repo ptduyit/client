@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { AddressService } from 'src/app/service/address.service';
 import { SupplierService } from 'src/app/service/supplier.service';
 import { SearchSupplier } from 'src/app/model/supplier';
+import { response } from 'src/app/model/response';
 @Component({
   selector: 'app-ngb-modal-new-supplier',
   templateUrl: './ngb-modal-new-supplier.component.html',
@@ -31,7 +32,9 @@ export class NgbModalNewSupplierComponent implements OnInit {
       ward: ['', [Validators.required, AddressValidator]],
     });
 
-    this.addressService.getProvinces().subscribe(ob => this.provinces = ob);
+    this.addressService.getProvinces().subscribe((rs:response) => {
+      this.provinces = rs.module;
+    });
       this.supplierForm.get('district').disable();
       this.supplierForm.get('ward').disable();
       this.supplierForm.controls['province'].setValue(0);
@@ -42,8 +45,8 @@ export class NgbModalNewSupplierComponent implements OnInit {
   changeSelected(event,type){
     const id = event.target.value;
     if(type=="province"){
-      this.addressService.getDistricts(id).subscribe(dis => {
-        this.districts = dis;
+      this.addressService.getDistricts(id).subscribe((data: response) => {
+        this.districts = data.module;
         this.wards = [];
         this.supplierForm.get('district').enable();
         this.supplierForm.get('ward').disable();
@@ -52,8 +55,8 @@ export class NgbModalNewSupplierComponent implements OnInit {
       });
     }
     else if(type=="district"){
-      this.addressService.getWards(id).subscribe(wa => {
-        this.wards = wa;
+      this.addressService.getWards(id).subscribe((wa: response) => {
+        this.wards = wa.module;
         this.supplierForm.get('ward').enable();
         this.supplierForm.controls['ward'].setValue(0);
       });
@@ -67,8 +70,8 @@ export class NgbModalNewSupplierComponent implements OnInit {
     if (this.supplierForm.invalid) {
       return;
     }
-    this.supplierService.createSupplier(this.supplierForm.value).subscribe((rs: SearchSupplier) => {
-      this.returnSupplier.emit(rs);
+    this.supplierService.createSupplier(this.supplierForm.value).subscribe((rs: response) => {
+      this.returnSupplier.emit(rs.module);
       this.activeModal.close();
     })
   }

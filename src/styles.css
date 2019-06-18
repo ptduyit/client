@@ -3,10 +3,22 @@
 @import "~ag-grid/dist/styles/ag-theme-balham.css";
 
 @import "~ng-pick-datetime/assets/style/picker.min.css";
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 400;
+    src: url('assets/fonts/Roboto-Regular.ttf') format("opentype");
+}
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 500;
+    src: url('assets/fonts/Roboto-Medium.ttf') format("opentype");
+}
 body{
     background-color: #f4f4f4 !important;
     font-family: Roboto,Helvetica,Arial,sans-serif;
     margin: 0;
+    font-size: 14px;
 }
 .modal-holder{
     animation-name: modal;

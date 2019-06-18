@@ -17,12 +17,14 @@
     height: 100%;
 }
 .hover-menu:hover{
-    cursor: pointer;
     background-color: rgb(122, 167, 224);
 }
 .hover-menu:hover > div:first-child{
     color: #fff;
 }
 .hover-menu > div:first-child{
-    padding-left: 0.5rem;
+    padding: 0.5rem 1rem; 
+}
+.hover-menu > div:first-child:hover{
+    cursor: pointer;
 }

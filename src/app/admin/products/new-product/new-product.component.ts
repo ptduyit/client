@@ -7,6 +7,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { CategoryService } from 'src/app/service/category.service';
 import * as globals from 'src/globals';
 import { Title } from '@angular/platform-browser';
+import { response } from 'src/app/model/response';
 
 @Component({
   selector: 'app-new-product',
@@ -47,19 +48,30 @@ export class NewProductComponent implements OnInit {
       productImages: this.fb.array([])
     });
 
-    this.categoryService.getCategorySelectProduct().subscribe((rs: any) => {
-      rs.forEach(element => {
+    this.categoryService.getCategorySelectProduct().subscribe((rs: response) => {
+      if(!rs.isError){
+        rs.module.forEach(element => {
         this.categorySelect.push({ label: element.categoryName, value: element.categoryId })
       });
       this.productForm.get('categoryId').setValue(this.products.categoryId); // set default select primeng
+      }else{
+        console.log(rs.message);
+      }
+      
     });
 
-    this.proService.getProductById(this.id).subscribe((data: any) => {
-      this.productForm.patchValue(data.products);
-      this.products = data.products;
-      this.products.importPrice = data.priceImport;
+    this.proService.getProductById(this.id).subscribe((data: response) => {
+      if(!data.isError){
+        this.productForm.patchValue(data.module.products);
+      this.products = data.module.products;
+      this.products.importPrice = data.module.priceImport;
       this.setImages();
-      console.log(data);
+      }
+      else
+      {
+        console.log(data.message);
+      }
+      
     })
   }
   get f() { return this.productForm.controls; }
@@ -112,8 +124,10 @@ export class NewProductComponent implements OnInit {
     formData.append('product',JSON.stringify(this.productForm.value));
     formData.append('imageDelete',JSON.stringify(this.imageDelete));
     console.log(formData.getAll('files'));
-    this.proService.updateProduct(this.id,formData).subscribe(data => {
+    this.proService.updateProduct(this.id,formData).subscribe((data:response) => {
+      if(!data.isError)
         console.log('OK');
+        else console.log(data.message);
       });
   }
   cancel() {

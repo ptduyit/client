@@ -6,6 +6,7 @@ import { UserService } from '../../service/user.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Cart } from '../../model/cart';
 import { CartService } from '../../service/cart.service';
+import { response } from 'src/app/model/response';
 
 @Component({
   selector: 'app-header',
@@ -14,12 +15,13 @@ import { CartService } from '../../service/cart.service';
 })
 export class HeaderComponent implements OnInit {
 
-  isUserLoggedIn: any;
+  isUserLoggedIn : string;
   productNumber: number = 0;
   userInfo: UserInfo;
 
   token = localStorage.getItem('token');
   userId = localStorage.getItem('userId');
+  fullName = localStorage.getItem('name');
   constructor(private router: Router, private dataShareService: DataShareService,
     private userService: UserService, private _service: NotificationsService, private cartService: CartService) {
     
@@ -30,10 +32,19 @@ export class HeaderComponent implements OnInit {
       this.isUserLoggedIn = value;
     });
     this.dataShareService.num.subscribe(value => this.productNumber = value);
-    this.check();
+    this.getQuantityCart();
   }
    
-  check(){
+  getQuantityCart(){
+    if(this.userId != null){
+      this.cartService.getTotalQuantity(this.userId).subscribe((rs : response) =>{
+        if(!rs.isError){
+          this.productNumber = rs.module;
+        }
+        else
+          console.log(rs.message);
+      });
+    }
     // if(this.userId != null){
     //   this.userService.getUserInfo(this.userId).subscribe(data => this.userInfo = data);
     //   this.cartService.getCart(this.userId).subscribe((data : Cart[]) =>{
@@ -43,13 +54,15 @@ export class HeaderComponent implements OnInit {
     //   });
     // }
   }
-  Logout() {
+  logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
-    this.dataShareService.updateStatus('');
+    localStorage.removeItem('name');
+    this.dataShareService.updateStatus(null);
     this.dataShareService.updateNumberProduct(0);
-    this.token = '';
-    this.userId = '';
+    this.token = null;
+    this.userId = null;
+    this.fullName = null;
     this._service.info('Đã đăng xuất','',
         {
           timeOut: 3000,

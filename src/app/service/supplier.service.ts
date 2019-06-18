@@ -17,6 +17,6 @@ export class SupplierService {
     return this.http.get<SearchSupplier[]>(globals.server+'api/admin/suppliers/search/'+keyword);
   }
   createSupplier(supplier: Supplier){
-    return this.http.post<SearchSupplier>(globals.server+'api/admin/suppliers',supplier);
+    return this.http.post(globals.server+'api/admin/suppliers',supplier);
   }
 }

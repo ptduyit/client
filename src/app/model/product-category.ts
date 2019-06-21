@@ -5,7 +5,7 @@ export class ProductCategory{
     paging: Paging;
     categories: Categories;
     products: ProductIndex;
-    breadcrumbs: Breadcrumb;
+    breadcrumbs: Breadcrumb[];
 }
 export class Breadcrumb{
     label: string;

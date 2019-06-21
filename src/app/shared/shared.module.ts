@@ -4,6 +4,7 @@ import { ProductShowcaseComponent } from './product-showcase/product-showcase.co
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RoundPipe } from './pipe/round.pipe';
+import { NgbPaginationModule, NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { RoundPipe } from './pipe/round.pipe';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    NgbModule
   ],
   exports: [
     ProductShowcaseComponent,

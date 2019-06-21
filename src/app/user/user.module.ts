@@ -16,6 +16,8 @@ import { NgxMaskModule } from 'ngx-mask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { NgbDatepickerModule, NgbDateAdapter, NgbDateStruct, NgbDateParserFormatter, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { NotifycationComponent } from './notifycation/notifycation.component';
+import { MyReviewComponent } from './my-review/my-review.component';
 
 @Injectable()
 export class NgbStringAdapter extends NgbDateAdapter<Date> {
@@ -126,7 +128,9 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
     AddressComponent,
     EditAddressComponent,
     MyOrdersComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    NotifycationComponent,
+    MyReviewComponent
   ],
   providers: [
     I18n,

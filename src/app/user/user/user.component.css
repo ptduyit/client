@@ -1,0 +1,23 @@
+
+.menu > li{
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+.menu > li:hover{
+    color: rgb(233, 36, 22);
+}
+.active-link{
+    color: rgb(233, 36, 22);
+}
+.pi{
+    font-size: 1.5rem;
+    color: rgb(155, 155, 155);
+    margin-right: 0.5rem;
+}
+.name{
+    margin-left: 1rem;
+    margin-bottom: 0.7rem;
+}

@@ -4,14 +4,12 @@ import { UserInfo } from 'src/app/model/user-info';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { Title } from '@angular/platform-browser';
-import { ViewEncapsulation } from '@angular/core';
 import { response } from 'src/app/model/response';
 
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.css'],
-  encapsulation:  ViewEncapsulation.None
+  styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
   userId: string;

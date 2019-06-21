@@ -15,9 +15,7 @@
     right: 0;
     bottom: 0;
 }
-.slick-prev:before, .slick-next:before{
-  color: #5a5f5f;
-}
+
 .star {
     position: relative;
     display: inline-block;
@@ -100,6 +98,8 @@
     right: 0;
     bottom: 0;
     margin: auto;
+    max-height: 100%;
+    max-width: 100%;
 }
 .product-summary{
     padding: 1.5rem 0;

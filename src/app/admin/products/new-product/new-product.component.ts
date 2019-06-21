@@ -12,8 +12,7 @@ import { response } from 'src/app/model/response';
 @Component({
   selector: 'app-new-product',
   templateUrl: './new-product.component.html',
-  styleUrls: ['./new-product.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./new-product.component.css']
 })
 export class NewProductComponent implements OnInit {
   products: Product = {} as any;

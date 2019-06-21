@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Product } from 'src/app/model/product';
 import { ProductService } from 'src/app/service/product.service';
@@ -16,12 +16,12 @@ import * as signalR from "@aspnet/signalr";
 import { response } from 'src/app/model/response';
 import * as globals from 'src/globals';
 import { Title } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
   server = globals.server;
@@ -36,13 +36,13 @@ export class ProductsComponent implements OnInit {
   hubConnection: signalR.HubConnection;
   constructor(private productService: ProductService, private avRouter: ActivatedRoute,
     private cartService: CartService, private router: Router, private _service: NotificationsService,
-    private dataService: DataShareService, private title: Title) {}
+    private dataService: DataShareService, private title: Title,private spinner: NgxSpinnerService) {}
 
     // ngx-image-zoom
     // this.thumbWidth = this.imageThumbnail.nativeElement.width;
     //     let ratio = (this.imageThumbnail.nativeElement.naturalWidth / this.imageThumbnail.nativeElement.naturalHeight);
     //     this.thumbHeight = this.thumbWidth / ratio;
-  ngOnInit() {
+    ngOnInit() {
     registerLocaleData( es );
     if (this.avRouter.snapshot.params["id"]) {
       this.id = this.avRouter.snapshot.params["id"];

@@ -53,7 +53,7 @@
 }
 .image-product > img{
 	position: absolute;
-	top: 0; bottom:0; left: 0; right:0;
+	top: 0; left: 0; right:0;
 	margin: auto;
 	max-width: 100px;
 	max-height: 100px;
@@ -61,6 +61,18 @@
 .text-price{
 	color: rgb(247, 93, 4);
 	font-size: 1.3rem;
+}
+.cart-null{
+	height: 50vh;
+	background-color: #fff;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+}
+.cart-null > div{
+	text-align: center;
+	
+	
 }
 @media (min-width: 992px) { 
 	.info-product{

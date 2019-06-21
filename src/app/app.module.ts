@@ -10,6 +10,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -63,7 +64,8 @@ export function getAuthServiceConfigs() {
     SharedModule,
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot({positionClass: 'toast-bottom-right', closeButton: true}),
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    NgxSpinnerModule
   ],
   entryComponents:[
     NgbModalSelectAddressComponent,

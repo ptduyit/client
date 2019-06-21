@@ -10,8 +10,8 @@ import * as globals from 'src/globals';
 export class OrderService {
 
   constructor(private http: HttpClient) { }
-  getOrders(){
-    return this.http.get<Order[]>(globals.server+'api/Orders/GetAllOrders');
+  getOrders(status:number,page:number,id:number,size:number,sort:string){
+    return this.http.get(globals.server+'api/admin/orders?status='+status+'&page='+page+'&id='+id+'&size='+size+'&sort='+sort);
   }
   getOrderByIdUser(id: string){
     return this.http.get<Order[]>(globals.server+'api/Orders/GetOrderByIdUser/' + id);
@@ -21,10 +21,13 @@ export class OrderService {
     return this.http.post(globals.server+'api/orders/'+addressId, cart);
   }
   updateStatusOrder(id: number, status: number){
-    return this.http.get(globals.server+'api/Orders/PutConfirmOrders/'+id+'/'+status);
+    return this.http.get(globals.server+'api/orders/update/'+id+'/'+status);
+  }
+  checkHistoryBuy(id:string){
+    return this.http.get(globals.server+'api/admin/orders/check-history/'+id);
   }
   getOrdersByStatus(status: number){
-    return this.http.get<Order[]>(globals.server+'api/Orders/GetConfirmOrders/'+status)
+    return this.http.get<Order[]>(globals.server+'api/orders/GetConfirmOrders/'+status)
   }
 }
 

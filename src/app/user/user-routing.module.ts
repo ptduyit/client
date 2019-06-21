@@ -9,6 +9,8 @@ import { EditAddressComponent } from './edit-address/edit-address.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { NotifycationComponent } from './notifycation/notifycation.component';
+import { MyReviewComponent } from './my-review/my-review.component';
 const routes: Routes = [
   {
     path: '',
@@ -27,7 +29,9 @@ const routes: Routes = [
           { path: 'add-address', component: EditAddressComponent },
           { path: 'edit-address/:id', component: EditAddressComponent },
           { path: 'edit-profile', component: EditProfileComponent },
-          { path: 'order-detail', component: OrderDetailComponent }
+          { path: 'order-detail', component: OrderDetailComponent },
+          { path: 'notifycation', component: NotifycationComponent},
+          { path: 'my-review', component: MyReviewComponent}
         ]
       }
     ]

@@ -1,7 +1,8 @@
+<h4>{{flag}}</h4>
 <form [formGroup]="addressForm" (ngSubmit)="save()">
-  <div class="input-group form-group flex-column">
-      <label for="fullName" class="">Họ & Tên</label>
-      <div class="">
+  <div class="input-group form-group align-items-center">
+      <label for="fullName" class="col-md-3">Họ & Tên</label>
+      <div class="col-md-9">
           <input type="text" class="form-control" placeholder="Họ Tên" formControlName="fullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }">
           <div *ngIf="submitted && f.fullName.errors" class="invalid-feedback">
             <div *ngIf="f.fullName.errors.required">Không được để trống</div>
@@ -9,9 +10,9 @@
         </div>
       </div>
   </div>
-  <div class="input-group form-group flex-column">
-    <label for="phoneNumber" class="">Số điện thoại</label>
-    <div class="">
+  <div class="input-group form-group align-items-center ">
+    <label for="phoneNumber" class="col-md-3">Số điện thoại</label>
+    <div class="col-md-9">
         <input type="text" class="form-control" mask="0000 000 000" placeholder="Vui lòng nhập số điện thoại người nhận" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
         <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
             <div *ngIf="f.phoneNumber.errors.required">Không được để trống</div>
@@ -19,9 +20,9 @@
         </div>
     </div>
 </div>
-<div class="input-group form-group flex-column">
-  <label for="street" class="">Địa chỉ nhận hàng</label>
-  <div class="">
+<div class="input-group form-group align-items-center ">
+  <label for="street" class="col-md-3">Địa chỉ nhận hàng</label>
+  <div class="col-md-9">
       <input type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ nhận hàng" formControlName="street" [ngClass]="{ 'is-invalid': submitted && f.street.errors }">
       <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
         <div *ngIf="f.street.errors.required">Không được để trống</div>
@@ -29,9 +30,9 @@
     </div>
   </div>
 </div>
-<div class="input-group form-group flex-column">
-  <label for="province" class="">Tỉnh/ Thành phố</label>
-  <div class="">
+<div class="input-group form-group align-items-center ">
+  <label for="province" class="col-md-3">Tỉnh/ Thành phố</label>
+  <div class="col-md-9">
       <select type="text" class="form-control custom-select" (change)="changeSelected($event,'province')" formControlName="province" [ngClass]="{ 'is-invalid': submitted && f.province.errors }">
         <option value="0" hidden disabled>Vui lòng chọn tỉnh/thành phố</option>
         <option *ngFor="let province of provinces" [value]="province.provinceId">
@@ -43,9 +44,9 @@
     </div>
   </div>
 </div>
-<div class="input-group form-group flex-column">
-  <label for="district" class="">Quận/ Huyện</label>
-  <div class="">
+<div class="input-group form-group align-items-center ">
+  <label for="district" class="col-md-3">Quận/ Huyện</label>
+  <div class="col-md-9">
       <select type="text" class="form-control custom-select" (change)="changeSelected($event,'district')" formControlName="district" [ngClass]="{ 'is-invalid': submitted && f.district.errors }">
         <option value="0" hidden disabled>Vui lòng chọn quận/huyện</option>
         <option *ngFor="let district of districts" [value]="district.districtId">
@@ -57,9 +58,9 @@
     </div>
   </div>
 </div>
-<div class="input-group form-group flex-column">
-  <label for="ward" class="">Phường/ Xã</label>
-  <div class="">
+<div class="input-group form-group align-items-center ">
+  <label for="ward" class="col-md-3">Phường/ Xã</label>
+  <div class="col-md-9">
       <select type="text" class="form-control custom-select" (change)="changeSelected($event,'ward')" formControlName="ward" [ngClass]="{ 'is-invalid': submitted && f.ward.errors }">
         <option value="0" hidden disabled>Vui lòng chọn xã/phường</option>
         <option *ngFor="let ward of wards" [value]="ward.wardId">
@@ -71,17 +72,20 @@
     </div>
   </div>
 </div>
-<div class="input-group form-group">
-  <div class="">
+<div class="input-group form-group align-items-center">
+  <span class="col-md-3"></span>
+  <div class="col-md-9">
       <p-checkbox class="" binary="true" [formControl]="addressForm.controls['isDefault']" label=""></p-checkbox>
       <span>Đặt làm địa chỉ mặc định</span>
   </div>
 </div>
-<div class="input-group form-group">
-  <label class=" col-sm-2"></label>
-  <div class="col-sm-10">
-    <button type="submit" class="btn btn-warning">Lưu</button>
+<div class="form-group input-group">
+  <span class="col-md-3"></span>
+  <div class="col-md-9">
+    <button type="submit" class="btn btn-warning">Lưu Thay Đổi</button>
   </div>
+    
+ 
 </div>
 
 </form>

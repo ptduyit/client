@@ -123,8 +123,8 @@ export class NewOrderComponent implements OnInit {
     }
     else {
       let supplierId = this.orderForm.get('supplierId').value;
-      this.orderimportService.createOrder(this.userId,supplierId,id).subscribe((rs:any) => {
-        this.router.navigate(['admin/orders-import/edit/'+ rs.id])
+      this.orderimportService.createOrder(this.userId,supplierId,id).subscribe((rs:response) => {
+        this.router.navigate(['admin/orders-import/edit/'+ rs.module])
       })
     }
   }

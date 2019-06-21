@@ -17,5 +17,9 @@ export class UserService {
   updateUserInfo(userInfo: UserInfo){
     return this.http.put(globals.server+'api/userinfo/'+userInfo.userId,userInfo);
   }
+  changePassword(userId:string,passOld:string,passNew:string){
+    let data = {passOld:passOld,passNew:passNew}
+    return this.http.put(globals.server+'api/users/changepassword/'+userId,data);
+  }
   
 }

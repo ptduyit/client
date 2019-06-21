@@ -18,11 +18,12 @@ export class EditAddressComponent implements OnInit {
   provinces: any = [];
   districts: any = [];
   wards: any = [];
-  flag: string = "Create";
+  edit = false;
+  flag: string = "Thêm Địa Chỉ Mới";
   addressForm: FormGroup;
   submitted = false;
   userId = localStorage.getItem('userId');
-  prevRoute = localStorage.getItem('preRoute');
+  prevRoute = localStorage.getItem('prevRoute');
   constructor(private router: Router, private addressService: AddressService, private fb: FormBuilder,
     private avRouter: ActivatedRoute, private _service: NotificationsService, private title: Title) {
       this.title.setTitle('Thêm mới địa chỉ');
@@ -45,7 +46,8 @@ export class EditAddressComponent implements OnInit {
       wardId: null
     });
     if (this.id > 0) {
-      this.flag="Edit";
+      this.edit = true;
+      this.flag="Chỉnh Sửa Địa Chỉ";
       this.title.setTitle('Chỉnh sửa địa chỉ');
       this.addressService.getOneAddress(this.id)
         .subscribe((data: response) => 
@@ -58,12 +60,12 @@ export class EditAddressComponent implements OnInit {
             this.addressForm.controls['ward'].setValue(data.module.wards.wardId);
             this.wards.push(data.module.wards);
             this.addressForm.controls['wardId'].setValue(data.module.wardId);
-            this.addressService.getProvinces().subscribe(pr=> this.provinces = pr);
-            this.addressService.getDistricts(data.module.wards.districts.provinces.provinceId).subscribe(dis => this.districts = dis);
-            this.addressService.getWards(data.module.wards.districts.districtId).subscribe(wa => this.wards = wa);
+            this.addressService.getProvinces().subscribe((pr:response)=> this.provinces = pr.module);
+            this.addressService.getDistricts(data.module.wards.districts.provinces.provinceId).subscribe((dis:response) => this.districts = dis.module);
+            this.addressService.getWards(data.module.wards.districts.districtId).subscribe((wa:response) => this.wards = wa.module);
           });
     } else {
-      this.addressService.getProvinces().subscribe(ob => this.provinces = ob);
+      this.addressService.getProvinces().subscribe((ob:response) => this.provinces = ob.module);
       this.addressForm.get('district').disable();
       this.addressForm.get('ward').disable();
       this.addressForm.controls['province'].setValue(0);
@@ -75,8 +77,8 @@ export class EditAddressComponent implements OnInit {
   changeSelected(event,type){
     const id = event.target.value;
     if(type=="province"){
-      this.addressService.getDistricts(id).subscribe(dis => {
-        this.districts = dis;
+      this.addressService.getDistricts(id).subscribe((dis:response) => {
+        this.districts = dis.module;
         this.wards = [];
         this.addressForm.get('district').enable();
         this.addressForm.get('ward').disable();
@@ -85,8 +87,8 @@ export class EditAddressComponent implements OnInit {
       });
     }
     else if(type=="district"){
-      this.addressService.getWards(id).subscribe(wa => {
-        this.wards = wa;
+      this.addressService.getWards(id).subscribe((wa:response) => {
+        this.wards = wa.module;
         this.addressForm.get('ward').enable();
         this.addressForm.controls['ward'].setValue(0);
       });
@@ -101,7 +103,7 @@ export class EditAddressComponent implements OnInit {
     if (this.addressForm.invalid) {
       return;
     }
-    if(this.flag=="Create"){
+    if(!this.edit){
       this.addressService.addAddress(this.addressForm.value)
       .subscribe(data => {
         //this.router.navigate(['user/address'])
@@ -116,7 +118,7 @@ export class EditAddressComponent implements OnInit {
         });
       });
     }
-    else if(this.flag == "Edit"){
+    else if(this.edit){
       this.addressService.updateAddress(this.addressForm.value)
       .subscribe(data => {
         this.router.navigate(['user/address'])

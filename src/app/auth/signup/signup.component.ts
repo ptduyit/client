@@ -12,9 +12,6 @@ import { response } from 'src/app/model/response';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
-  haha = 1;
-  comfirmpassword: '2';
   constructor(private authService: AuthService, private router: Router, private dataService: DataShareService
     , private _service: NotificationsService, private title: Title) {
     this.title.setTitle('Đăng ký');

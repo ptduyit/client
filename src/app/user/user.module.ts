@@ -11,6 +11,8 @@ import { AddressComponent } from './address/address.component';
 import { EditAddressComponent } from './edit-address/edit-address.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { MaterialModule } from '../material-module';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxMaskModule } from 'ngx-mask';
@@ -115,6 +117,10 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
     UserRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule,
+    MaterialModule,
+    
     SweetAlert2Module,
     NgxMaskModule,
     RadioButtonModule,

@@ -28,6 +28,8 @@ import { ListOrdersImportComponent } from './orders-import/list-orders-import/li
 import { NgbModalNewProductComponent } from './orders-import/ngb-modal-new-product/ngb-modal-new-product.component';
 import { NgbModalNewCategoryComponent } from './orders-import/ngb-modal-new-category/ngb-modal-new-category.component';
 import { NgbModalNewSupplierComponent } from './orders-import/ngb-modal-new-supplier/ngb-modal-new-supplier.component';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { MaterialModule } from '../material-module';
 import { NgbModalDetailOrderComponent } from './orders/ngb-modal-detail-order/ngb-modal-detail-order.component';
 
 @NgModule({
@@ -45,6 +47,9 @@ import { NgbModalDetailOrderComponent } from './orders/ngb-modal-detail-order/ng
     NgxMaskModule,
     DropdownModule,
     SharedModule,
+    Ng2GoogleChartsModule,
+    MaterialModule,
+    
     NgxPaginationModule,
     SweetAlert2Module
   ],

@@ -3,13 +3,22 @@ export class Order {
     orderDate: Date;
     shippedDate: Date;
     status: number;
-    phone: string;
+    statusName:string;
+    totalPrice:number;
+    phoneNumber: string;
     fullName: string;
+    street:string;
     province: string;
     district: string;
     ward: string;
-    apartmentNumber: string;
-    totalPrice: number;
     userId: string;
-    orderDetails: any;
+    orderDetails: OrderDetails[];
+}
+export interface OrderDetails{
+    quantity:number;
+    unitPrice:number;
+    productid:number;
+    productName:string;
+    productImages:string;
+    discontinued:boolean;
 }

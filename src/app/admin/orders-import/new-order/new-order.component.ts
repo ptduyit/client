@@ -13,6 +13,7 @@ import { SearchSupplier } from 'src/app/model/supplier';
 import { SupplierService } from 'src/app/service/supplier.service';
 import { OrderImport } from 'src/app/model/order-import';
 import { Title } from '@angular/platform-browser';
+import { response } from 'src/app/model/response';
 
 @Component({
   selector: 'app-new-order',
@@ -52,10 +53,10 @@ export class NewOrderComponent implements OnInit {
     });
 
     if(this.orderId > 0){
-      this.orderimportService.getOrderById(this.orderId).subscribe( (data:OrderImport) => {
-        this.orderForm.patchValue(data);
-        this.orders = data;
-        this.setProduct(data.orderDetails);
+      this.orderimportService.getOrderById(this.orderId).subscribe( (data:response) => {
+        this.orderForm.patchValue(data.module);
+        this.orders = data.module;
+        this.setProduct(data.module.orderDetails);
       });
     }
 
@@ -92,7 +93,7 @@ export class NewOrderComponent implements OnInit {
   }
   temp(){
     if(this.orderId > 0){
-      this.orderimportService.tempOrder(this.orderId,this.orderForm.value).subscribe(rs => {
+      this.orderimportService.tempOrder(this.orderId,this.orderForm.value).subscribe((rs:response) => {
         console.log("đã lưu");
       })
     }
@@ -102,7 +103,7 @@ export class NewOrderComponent implements OnInit {
   }
   save(){
     if(this.orderId > 0){
-      this.orderimportService.saveOrder(this.orderId,this.orderForm.value).subscribe(rs => {
+      this.orderimportService.saveOrder(this.orderId,this.orderForm.value).subscribe((rs:response) => {
         console.log("đã lưu");
       })
     }
@@ -114,7 +115,7 @@ export class NewOrderComponent implements OnInit {
     if(this.orderId > 0){
       if(!this.isDuplicate(id)){
         this.searchProductControl.setValue('');
-        this.orderimportService.addOrderDetail(id,this.orderId).subscribe(rs => {
+        this.orderimportService.addOrderDetail(id,this.orderId).subscribe((rs:response) => {
           this.addRow(id,name);
         });
       }
@@ -122,8 +123,8 @@ export class NewOrderComponent implements OnInit {
     }
     else {
       let supplierId = this.orderForm.get('supplierId').value;
-      this.orderimportService.createOrder(this.userId,supplierId,id).subscribe((rs:any) => {
-        this.router.navigate(['admin/orders-import/edit/'+ rs.id])
+      this.orderimportService.createOrder(this.userId,supplierId,id).subscribe((rs:response) => {
+        this.router.navigate(['admin/orders-import/edit/'+ rs.module])
       })
     }
   }
@@ -145,7 +146,7 @@ export class NewOrderComponent implements OnInit {
     }));
   }
   deleteProduct(index,id) {
-    this.orderimportService.deleteOrderDetail(this.orderId,id).subscribe(rs => {
+    this.orderimportService.deleteOrderDetail(this.orderId,id).subscribe((rs:response) => {
       let control = <FormArray>this.orderForm.controls.product;
       control.removeAt(index);
     });
@@ -195,10 +196,10 @@ export class NewOrderComponent implements OnInit {
         userId: this.userId
       }
       if(this.orderId > 0){
-        this.productService.addQuickProductOrderImport(data).subscribe((e:any) => {//orderId,productId
+        this.productService.addQuickProductOrderImport(data).subscribe((e:response) => {//orderId,productId
           const ctrl = <FormArray>this.orderForm.controls.product;
           ctrl.push(this.fb.group({ 
-            productId: e.productId,
+            productId: e.module.productId,
             unitPrice: rs.unitPrice,
             productName: rs.productName,
             quantity: rs.quantity
@@ -207,8 +208,8 @@ export class NewOrderComponent implements OnInit {
         })
       }
       else{
-        this.productService.addQuickProductOrderImport(data).subscribe((e:any) => {
-          this.router.navigate(['admin/orders-import/edit/'+ e.orderId]);
+        this.productService.addQuickProductOrderImport(data).subscribe((e:response) => {
+          this.router.navigate(['admin/orders-import/edit/'+ e.module.orderId]);
           modalRef.close();
         });
       }

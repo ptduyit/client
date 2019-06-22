@@ -13,7 +13,7 @@ export class CategoryResolverService implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
   Observable<any>{
     let url = route.paramMap.get('url');
-    return this.categoryService.getProductCategoryByUrl(url,1)
+    return this.categoryService.getProductCategoryByUrl(url,1,'')
     .pipe(
       catchError(error => {
         const message = `Error error: ${error}`;

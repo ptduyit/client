@@ -1,12 +1,9 @@
-<div>
-  <h3>Hồ sơ của tôi</h3>
-  <h5>Quản lý thông tin hồ sơ để bảo mật tài khoản</h5>
-  <hr>
+  <h4>Hồ sơ của tôi</h4>
   <form [formGroup]="profileForm" (ngSubmit)="save()">
     <div class="input-group form-group">
-      <label for="phoneNumber" class="control-label col-sm-2">Số Điện Thoại</label>
-      <div class="col-sm-10">
-          <input type="text" class="form-control" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
+      <span for="phoneNumber" class="col-sm-3">Số Điện Thoại</span>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" mask="0000 000 000" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
           <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
             <div *ngIf="f.phoneNumber.errors.required">Không được để trống</div>
             <div *ngIf="f.phoneNumber.errors.pattern || f.phoneNumber.errors.minlength || f.phoneNumber.errors.maxlength">Nhập số điện thoại hợp lệ</div>
@@ -14,8 +11,8 @@
       </div>
     </div>
     <div class="input-group form-group">
-      <label for="fullName" class="control-label col-sm-2">Tên Người Dùng</label>
-      <div class="col-sm-10">
+      <span for="fullName" class="col-sm-3">Tên Người Dùng</span>
+      <div class="col-sm-9">
           <input type="text" class="form-control" formControlName="fullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }">
           <div *ngIf="submitted && f.fullName.errors" class="invalid-feedback">
             <div *ngIf="f.fullName.errors.required">Không được để trống</div>
@@ -24,29 +21,30 @@
       </div>
     </div>
     <div class="input-group form-group">
-      <label for="gender" class="control-label col-sm-2">Giới Tính</label>
-      <div class="col-sm-10 control-label">
-          <input type="radio" [value]="true" formControlName="gender"> Name
-          <input type="radio" [value]="false" formControlName="gender"> Nữ
+      <span for="gender" class="col-sm-3">Giới Tính</span>
+      <div class="col-sm-9 d-flex">
+          <p-radioButton class="mr-3 d-inline-flex align-items-center" name="gender" [value]="true" label="Nam" formControlName="gender"></p-radioButton>
+          <p-radioButton class="d-inline-flex align-items-center" name="gender" [value]="false" label="Nữ" formControlName="gender"></p-radioButton>
       </div>
     </div>
     <div class="input-group form-group">
-      <label for="birthDate" class="control-label col-sm-2">Ngày Sinh</label>
-      <div class="col-sm-10">
-          <input type="text" class="form-control" formControlName="birthDate" 
-          [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" [min]="min" [max]="max" [ngClass]="{ 'is-invalid': submitted && f.birthDate.errors }">
+      <span for="birthDate" class="col-sm-3">Ngày Sinh</span>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" formControlName="birthDate" ngbDatepicker 
+          #d2="ngbDatepicker" (click)="d2.toggle()" [minDate]="minDate" readonly
+          [maxDate]="maxDate" outsideDays="hidden"       
+          [ngClass]="{ 'is-invalid': submitted && f.birthDate.errors }">
           <div *ngIf="submitted && f.birthDate.errors" class="invalid-feedback">
             <div *ngIf="f.birthDate.errors.required">Không được để trống</div>
+            <div *ngIf="f.birthDate.errors">Ngày không hợp lệ</div>
         </div>
-          <owl-date-time [pickerType]="'calendar'" [startView]="'multi-years'" #dt1></owl-date-time>
       </div>
     </div>
     <div class="input-group form-group">
-      <div class="control-label col-sm-2"></div>
-      <div class="col-sm-10">
-        <button type="submit" class="btn btn-warning">Lưu</button>
+      <div class="col-sm-3"></div>
+      <div class="col-sm-9">
+        <button type="submit" class="btn btn-warning">Lưu Thay Đổi</button>
       </div>
     </div>
     
   </form>
-</div>

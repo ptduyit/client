@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 import { Cart } from 'src/app/model/cart';
 import { DataShareService } from 'src/app/service/datashare.service';
+import * as globals from 'src/globals';
+import es from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-product-showcase',
@@ -24,5 +27,12 @@ export class ProductShowcaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    registerLocaleData( es );
+    if(this.productIndex.image === null){
+      this.productIndex.image = 'assets/images/placeholder.png';
+    }
+    else{
+      this.productIndex.image = globals.server+this.productIndex.image;
+    }
   }
 }

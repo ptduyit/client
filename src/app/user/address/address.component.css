@@ -11,3 +11,10 @@
 .modify > span:hover{
     text-decoration: underline;
 }
+.main{
+    background-color: #fff;
+    border-radius: 4px;
+}
+.pi{
+    color: rgb(240, 226, 105)
+}

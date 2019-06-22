@@ -45,7 +45,6 @@ export class CartComponent implements OnInit {
      }
 
   ngOnInit() {
-
     registerLocaleData( es );
     if (this.userId) {
       this.getCart();
@@ -88,6 +87,7 @@ export class CartComponent implements OnInit {
     })
   }
   getCart() {
+
     this.cartService.getCart(this.userId).subscribe((data: response) => {
       if (!data.isError) {
         this.tempcarts = data.module;
@@ -134,6 +134,7 @@ export class CartComponent implements OnInit {
         //   }
         // });
         this.calculatePrice();
+        //this.spinner.hide();
       }
 
 

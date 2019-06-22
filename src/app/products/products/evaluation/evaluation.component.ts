@@ -3,6 +3,7 @@ import { EvaluationService } from 'src/app/service/evaluation.service';
 import { Evaluations, Comments, Evaluation } from 'src/app/model/evaluation';
 import { Paging } from 'src/app/model/paging';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { response } from 'src/app/model/response';
 
 @Component({
   selector: 'app-evaluation',
@@ -25,8 +26,8 @@ export class EvaluationComponent implements OnInit {
   }
 
   getEvaluation(page: number){
-    this.evaluationService.getEvaluation(this.productId,page,this.size).subscribe((data:Evaluations) => {
-      this.data = data;
+    this.evaluationService.getEvaluation(this.productId,page,this.size).subscribe((data:response) => {
+      this.data = data.module;
       this.p = page;
       this.data.evaluations.forEach(element => {
         this.evaluationForm.addControl(String(element.evaluationId), new FormControl('',[Validators.required, Validators.maxLength(1500)]));
@@ -41,9 +42,9 @@ export class EvaluationComponent implements OnInit {
       return;
     }
     let content = this.evaluationForm.get(String(evaluation.evaluationId)).value;
-    this.evaluationService.postComment(this.userId,evaluation.evaluationId,content).subscribe((data:Comments) => {
+    this.evaluationService.postComment(this.userId,evaluation.evaluationId,content).subscribe((data:response) => {
       let index = this.data.evaluations.findIndex(x => x.evaluationId === evaluation.evaluationId);
-      this.data.evaluations[index].newcomments.push(data);
+      this.data.evaluations[index].newcomments.push(data.module);
       this.evaluationForm.get(String(evaluation.evaluationId)).setValue('');
     })
   }

@@ -9,26 +9,32 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 
 const routes: Routes = [
   { 
-    path: 'cart',
-    component: MainLayoutComponent,
-    children: [
-      {
-        path: '',
-        component: CartComponent,
-        canActivate: [AuthGuard]
-      }
-    ]
-  },
-  { 
-    path: '', pathMatch: 'full',
+    path: '', 
     component: MainLayoutComponent,
     children: [
       {
         path: '',
         component: HomeComponent
+      },
+      {
+        path: 'cart',
+        component: CartComponent,
+        canActivate: [AuthGuard]
       }
     ]
-  }
+  },
+  // { 
+  //   path: 'cart',
+  //   component: MainLayoutComponent,
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: CartComponent,
+  //       canActivate: [AuthGuard]
+  //     }
+  //   ]
+  // },
+  
 ]
 
 

@@ -12,6 +12,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule } from 'ngx-mask'
 import { SharedModule } from '../shared/shared.module'; 
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { AdminComponent } from './admin/admin.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -28,6 +30,7 @@ import { NgbModalNewCategoryComponent } from './orders-import/ngb-modal-new-cate
 import { NgbModalNewSupplierComponent } from './orders-import/ngb-modal-new-supplier/ngb-modal-new-supplier.component';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { MaterialModule } from '../material-module';
+import { NgbModalDetailOrderComponent } from './orders/ngb-modal-detail-order/ngb-modal-detail-order.component';
 
 @NgModule({
   imports: [
@@ -47,6 +50,8 @@ import { MaterialModule } from '../material-module';
     Ng2GoogleChartsModule,
     MaterialModule,
     
+    NgxPaginationModule,
+    SweetAlert2Module
   ],
   declarations: [
     AdminComponent,
@@ -63,11 +68,13 @@ import { MaterialModule } from '../material-module';
     NgbModalNewProductComponent,
     NgbModalNewCategoryComponent,
     NgbModalNewSupplierComponent,
+    NgbModalDetailOrderComponent,
   ],
   entryComponents: [
     NgbModalNewProductComponent,
     NgbModalNewCategoryComponent,
     NgbModalNewSupplierComponent,
+    NgbModalDetailOrderComponent
   ]
 })
 export class AdminModule { }

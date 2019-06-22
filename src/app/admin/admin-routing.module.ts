@@ -32,7 +32,7 @@ const routes: Routes = [
             children: [
               { path: 'new-order', component: NewOrderComponent},
               { path: 'edit/:id', component: NewOrderComponent},
-              { path: '', pathMatch: 'full', component: ListOrdersImportComponent}
+              { path: '', component: ListOrdersImportComponent}
             ]
           },
           

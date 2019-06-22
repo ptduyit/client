@@ -1,41 +1,39 @@
+<h4>{{flag}}</h4>
 <form [formGroup]="addressForm" (ngSubmit)="save()">
-  <div class="input-group form-group">
-      <input type="hidden" class="form-control" formControlName="addressId">
-  </div>
-  <div class="input-group form-group">
-      <label for="fullName" class="control-label col-sm-2">Tên</label>
-      <div class="col-sm-10">
-          <input type="text" class="form-control" formControlName="fullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }">
+  <div class="input-group form-group align-items-center">
+      <label for="fullName" class="col-md-3">Họ & Tên</label>
+      <div class="col-md-9">
+          <input type="text" class="form-control" placeholder="Họ Tên" formControlName="fullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }">
           <div *ngIf="submitted && f.fullName.errors" class="invalid-feedback">
             <div *ngIf="f.fullName.errors.required">Không được để trống</div>
             <div *ngIf="f.fullName.errors.minlength || f.fullName.errors.minlength">Chứa 2-50 ký tự</div>
         </div>
       </div>
   </div>
-  <div class="input-group form-group">
-    <label for="phoneNumber" class="control-label col-sm-2">Số điện thoại</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
+  <div class="input-group form-group align-items-center ">
+    <label for="phoneNumber" class="col-md-3">Số điện thoại</label>
+    <div class="col-md-9">
+        <input type="text" class="form-control" mask="0000 000 000" placeholder="Vui lòng nhập số điện thoại người nhận" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
         <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
             <div *ngIf="f.phoneNumber.errors.required">Không được để trống</div>
             <div *ngIf="f.phoneNumber.errors.minlength || f.phoneNumber.errors.maxlength || f.phoneNumber.errors.pattern">Nhập số điện thoại hợp lệ</div>
         </div>
     </div>
 </div>
-<div class="input-group form-group">
-  <label for="street" class="control-label col-sm-2">Địa chỉ nhận hàng</label>
-  <div class="col-sm-10">
-      <input type="text" class="form-control" formControlName="street" [ngClass]="{ 'is-invalid': submitted && f.street.errors }">
+<div class="input-group form-group align-items-center ">
+  <label for="street" class="col-md-3">Địa chỉ nhận hàng</label>
+  <div class="col-md-9">
+      <input type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ nhận hàng" formControlName="street" [ngClass]="{ 'is-invalid': submitted && f.street.errors }">
       <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
         <div *ngIf="f.street.errors.required">Không được để trống</div>
         <div *ngIf="f.street.errors.minlength || f.street.errors.maxlength">Chứa 5-300 ký tự</div>
     </div>
   </div>
 </div>
-<div class="input-group form-group">
-  <label for="province" class="control-label col-sm-2">Tỉnh/ Thành phố</label>
-  <div class="col-sm-10">
-      <select type="text" class="form-control" (change)="changeSelected($event,'province')" formControlName="province" [ngClass]="{ 'is-invalid': submitted && f.province.errors }">
+<div class="input-group form-group align-items-center ">
+  <label for="province" class="col-md-3">Tỉnh/ Thành phố</label>
+  <div class="col-md-9">
+      <select type="text" class="form-control custom-select" (change)="changeSelected($event,'province')" formControlName="province" [ngClass]="{ 'is-invalid': submitted && f.province.errors }">
         <option value="0" hidden disabled>Vui lòng chọn tỉnh/thành phố</option>
         <option *ngFor="let province of provinces" [value]="province.provinceId">
           {{province.name}}
@@ -46,10 +44,10 @@
     </div>
   </div>
 </div>
-<div class="input-group form-group">
-  <label for="district" class="control-label col-sm-2">Quận/ Huyện</label>
-  <div class="col-sm-10">
-      <select type="text" class="form-control" (change)="changeSelected($event,'district')" formControlName="district" [ngClass]="{ 'is-invalid': submitted && f.district.errors }">
+<div class="input-group form-group align-items-center ">
+  <label for="district" class="col-md-3">Quận/ Huyện</label>
+  <div class="col-md-9">
+      <select type="text" class="form-control custom-select" (change)="changeSelected($event,'district')" formControlName="district" [ngClass]="{ 'is-invalid': submitted && f.district.errors }">
         <option value="0" hidden disabled>Vui lòng chọn quận/huyện</option>
         <option *ngFor="let district of districts" [value]="district.districtId">
           {{district.name}}
@@ -60,10 +58,10 @@
     </div>
   </div>
 </div>
-<div class="input-group form-group">
-  <label for="ward" class="control-label col-sm-2">Phường/ Xã</label>
-  <div class="col-sm-10">
-      <select type="text" class="form-control" (change)="changeSelected($event,'ward')" formControlName="ward" [ngClass]="{ 'is-invalid': submitted && f.ward.errors }">
+<div class="input-group form-group align-items-center ">
+  <label for="ward" class="col-md-3">Phường/ Xã</label>
+  <div class="col-md-9">
+      <select type="text" class="form-control custom-select" (change)="changeSelected($event,'ward')" formControlName="ward" [ngClass]="{ 'is-invalid': submitted && f.ward.errors }">
         <option value="0" hidden disabled>Vui lòng chọn xã/phường</option>
         <option *ngFor="let ward of wards" [value]="ward.wardId">
           {{ward.name}}
@@ -74,20 +72,20 @@
     </div>
   </div>
 </div>
-<div class="input-group form-group">
-  <label class="control-label col-sm-2"></label>
-  <div class="col-sm-10">
-      <input type="checkbox" class="" formControlName="isDefault"> Đặt làm địa chỉ mặc định
+<div class="input-group form-group align-items-center">
+  <span class="col-md-3"></span>
+  <div class="col-md-9">
+      <p-checkbox class="" binary="true" [formControl]="addressForm.controls['isDefault']" label=""></p-checkbox>
+      <span>Đặt làm địa chỉ mặc định</span>
   </div>
 </div>
-<div class="input-group form-group">
-    <input type="hidden" class="form-control" formControlName="userId">
-</div>
-<div class="input-group form-group">
-  <label class=" col-sm-2"></label>
-  <div class="col-sm-10">
-    <button type="submit" class="btn btn-warning">Lưu</button>
+<div class="form-group input-group">
+  <span class="col-md-3"></span>
+  <div class="col-md-9">
+    <button type="submit" class="btn btn-warning">Lưu Thay Đổi</button>
   </div>
+    
+ 
 </div>
 
 </form>

@@ -1,19 +1,21 @@
 
 
-<div class="container">
+<div class="container my-4">
   <div class="row">
     <div class="col-3">
-      <ul class="nav flex-column">
-        
-        <li><a routerLink="/user/edit-profile"><span class="">Thông tin cá nhân</span></a></li>
-        <li><a routerLink="/user/address"><span class="">Sổ địa chỉ</span></a></li>
-        <li><a routerLink="/user/abc"><span class="">Đổi mật khẩu</span></a></li>
-        <li><a routerLink="/user/my-orders"><span class="">Đơn hàng của tôi</span></a></li>
+      <ul class="nav flex-column menu">
+        <div class="name">Xin chào <span>{{name}}</span></div>
+        <li routerLink="/user/edit-profile" routerLinkActive="active-link"><i class="pi pi-user"></i> <span class="">Thông tin cá nhân</span></li>
+        <li routerLink="/user/address" routerLinkActive="active-link"><i class="pi pi-map-marker"></i> <span class="">Sổ địa chỉ</span></li>
+        <li routerLink="/user/change-password" routerLinkActive="active-link"><i class="pi pi-key"></i> <span class="">Đổi mật khẩu</span></li>
+        <li routerLink="/user/my-orders" routerLinkActive="active-link"><i class="pi pi-list"></i> <span class="">Đơn hàng của tôi</span></li>
+        <li routerLink="/user/my-review" routerLinkActive="active-link"><i class="pi pi-star-o"></i> <span class="">Nhận xét sản phẩm</span></li>
+        <li routerLink="/user/notifycation" routerLinkActive="active-link"><i class="pi pi-bell"></i> <span class="">Thông báo của tôi</span></li>
         <!-- <li><a routerLink="/admin/users"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Quản Lý Người Dùng</span></a></li> -->
         
       </ul>
     </div>
-    <div class="col-9">
+    <div class="col-9 main">
       <router-outlet></router-outlet>
      
     </div>

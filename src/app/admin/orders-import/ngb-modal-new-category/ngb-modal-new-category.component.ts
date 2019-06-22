@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from 'src/app/service/category.service';
 import { debounce, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { response } from 'src/app/model/response';
 @Component({
   selector: 'app-ngb-modal-new-category',
   templateUrl: './ngb-modal-new-category.component.html',
@@ -23,16 +24,19 @@ export class NgbModalNewCategoryComponent implements OnInit {
       parentId: null,
       category: ''
     });
-    this.categoryService.getCategorySelectAll().subscribe(data => {
-      this.categorySelect = data;
+    this.categoryService.getCategorySelectAll().subscribe((data:response) => {
+      if(!data.isError){
+        this.categorySelect = data.module;
+      }
+      else console.log(data.message);
     });
     this.categoryForm.get('url').valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged()
     ).subscribe(res => {
       if(res !== ''){
-        this.categoryService.checkUrl(res).subscribe((rs:any) => {
-          console.log(rs.success);
+        this.categoryService.checkUrl(res).subscribe((rs:response) => {
+          console.log(rs.status);
         })
       }
     });
@@ -44,9 +48,12 @@ export class NgbModalNewCategoryComponent implements OnInit {
     if (this.categoryForm.invalid) {
       return;
     }
-    this.categoryService.addCategory(this.categoryForm.value).subscribe(rs => {
-      this.returnCategory.emit(rs);
+    this.categoryService.addCategory(this.categoryForm.value).subscribe((rs:response) =>{
+      if(!rs.isError){
+        this.returnCategory.emit(rs.module);
       this.activeModal.close();
+      }else console.log(rs.message);
+      
     })
   }
   changeSelected(event){

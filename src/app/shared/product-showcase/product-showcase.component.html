@@ -1,21 +1,31 @@
-
-    <div class="product-grid6">
-        <div class="product-image6">
-            <a routerLink="/products/{{productIndex.productId}}">
-                <img style="height:200px; width: auto" class="pic-1" src="{{productIndex.image}}">
-            </a>
-        </div>
-        <div class="product-content">
-            <h3 class="title"><a routerLink="#">{{productIndex.productName}}</a></h3>
-            <div class="price">đ {{productIndex.unitPrice | number}}
-              <div *ngIf="productIndex.discount">
-                <span>{{productIndex.unitPrice/(1-productIndex.discount/100) | number:'1.0-0'}}</span>
-                <span>    -{{productIndex.discount}}%</span>
-                </div>
+<div class="product">
+    <div class="image-product">
+        <div id="dummy"></div>
+        <div class="thumbnail">
+            <div>
+                <img src="{{productIndex.image}}">
             </div>
         </div>
     </div>
-      
-      
-    
 
+    <div class="product-content">
+        <span class="name">{{productIndex.productName}}</span>
+        <div class="price-product">{{productIndex.unitPrice | number:'':'es'}} ₫</div>
+        <div *ngIf="productIndex.discount" class="discount">
+            <span>{{productIndex.unitPrice/(1-productIndex.discount/100) | round:3 | number:'':'es'}} ₫</span>
+            <span> -{{productIndex.discount}}%</span>
+        </div>
+        <div *ngIf="productIndex.rate">
+            <ngb-rating [rate]="productIndex.rate" [max]="5" [readonly]="true">
+                <ng-template let-fill="fill">
+                    <span class="star" [class.filled]="fill === 100">
+                        <span class="half" [style.width.%]="fill">&#9733;</span>
+                        &#9733;</span>
+                </ng-template>
+            </ngb-rating> 
+            <span class="num-rate">({{productIndex.totalRate}} nhận xét)</span>
+        </div>
+        
+
+    </div>
+</div>

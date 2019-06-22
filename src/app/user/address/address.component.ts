@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShowAddressUser } from 'src/app/model/address';
 import { AddressService } from 'src/app/service/address.service';
-import { Router } from '@angular/router';
+import { Router, RoutesRecognized } from '@angular/router';
 import { response } from 'src/app/model/response';
 import { Title } from '@angular/platform-browser';
 
@@ -34,11 +34,7 @@ export class AddressComponent implements OnInit {
     this.router.navigate(['user/add-address/']);
   }
   delete(addressId: number){
-    var ans = confirm("Bạn thật sự muốn xóa?");
-    if (ans) {
-      this.addressService.deleteAddress(addressId)
-      .subscribe(data => this.getAllAddress())
-    }
+      this.addressService.deleteAddress(addressId).subscribe(data => this.getAllAddress())
   }
 
 }

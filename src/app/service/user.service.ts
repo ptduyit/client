@@ -12,10 +12,14 @@ export class UserService {
   constructor(private http: HttpClient) { }
   
   getUserInfo(userId: string){
-    return this.http.get<UserInfo>(globals.server+'api/UserInfoes/'+userId);
+    return this.http.get(globals.server+'api/userinfo/'+userId);
   }
   updateUserInfo(userInfo: UserInfo){
-    return this.http.put(globals.server+'api/UserInfoes/'+userInfo.userId,userInfo);
+    return this.http.put(globals.server+'api/userinfo/'+userInfo.userId,userInfo);
+  }
+  changePassword(userId:string,passOld:string,passNew:string){
+    let data = {passOld:passOld,passNew:passNew}
+    return this.http.put(globals.server+'api/users/changepassword/'+userId,data);
   }
   
 }

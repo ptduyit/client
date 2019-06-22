@@ -1,28 +1,45 @@
-<header class="fs-header sticky-top">
-    <div class="f-hdtop">
-        <div class="f-wrap">
-            <div class="fs-logo" title=""><a routerLink="/"  class="banner-custom">ANC SHOP</a></div>
-            <ul class="fs-hdmn">
-                <li *ngIf="!isUserLoggedIn && !token"><a routerLink="/login" class="ab" title="" ><i class="fa fa-user fa-1x" aria-hidden="true"></i> <span>Đăng nhập</span></a></li>
-                <li *ngIf="isUserLoggedIn || token" id="dropdown"><a routerLink="/user"  class="ab" title="" ><i class="fa fa-user fa-1x" aria-hidden="true"></i> <span>{{isUserLoggedIn.fullName}}<span *ngIf="!isUserLoggedIn">{{userInfo?.fullName}}</span></span></a>
-                <div class="dropdown-content">
-                    <a routerLink="/user/my-orders">Quản lý đơn hàng</a>
-                    <a style="cursor: pointer;" (click)="Logout()">Đăng xuất</a>
+<header>
+    <div class="link-bar">
+        <div class="container d-flex justify-content-end">
+            <span>Giới Thiệu</span>
+            <span class="mx-4">Hỗ Trợ</span>
+            <div class="login d-flex" *ngIf="!userId && !isUserLoggedIn">
+                <span routerLink="/login">Đăng Nhập</span>
+                <span routerLink="/signup">Đăng Ký</span>
+            </div>
+            <div class="account" *ngIf="userId || isUserLoggedIn">
+                <span>{{fullName}}</span>
+                <div class="option-user">
+                    <span routerLink="/user/edit-profile">Quản lý tài khoản</span>
+                    <span routerLink="/user/my-orders">Đơn hàng của tôi</span>
+                    <span >Nhận xét của tôi</span>
+                    <span (click)="logout()">Đăng xuất</span>
                 </div>
-                </li>
-                <li><a routerLink="/cart" title=""><i class="mycart ficon f-cart"><span class="mybadge badge badge-pill badge-default">{{productNumber}}</span></i> <span>Giỏ hàng</span><b class="fs-cartic countTotalCart" style="display: none;">0</b></a></li>
-            </ul>
-            <div class="fs-search">
-                <form action="/search/1" method="get" autocomplete="off">
-                    <input class="fs-stxt" type="text" name="" placeholder="Nhập tên điện thoại, máy tính, phụ kiện... cần tìm" autocomplete="off" maxlength="50">
-                    <button type="submit" class="search-button"><i class="ficon f-search"></i></button>
-                    <div class="fs-sresult" style="display : block !important">
-                        <div class="fs-sremain">
-                            <ul style="display: none;"></ul>
-                        </div>
-                    </div>
-                </form>
+            </div>    
+        </div>
+        
+    </div>
+    <div class="logo-bar">
+        <div class="container d-flex py-3">
+            <div class="logo" routerLink="/">
+                <div>
+                    <img src="assets/images/bee.png" width="100%" alt="logo">
+                </div>
+                <span>BeeShop</span>
+            </div>
+            <div class="search flex-grow-1 input-group">
+                <input type="text" class="form-control" placeholder="Tìm sản phẩm">
+                <button class="btn input-group-append align-items-center"><i class="pi pi-search" style="font-size: 1.5rem"></i>Tìm kiếm</button>
+            </div>
+            <div class="cart">
+                <i class="pi pi-shopping-cart" routerLink="/cart">
+                <span *ngIf="productNumber > 0"><span class="badge">{{productNumber}}</span></span>
+                </i>
             </div>
         </div>
+        
+    </div>
+    <div class="extend">
+        
     </div>
 </header>

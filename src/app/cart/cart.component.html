@@ -1,34 +1,5 @@
-<!-- <div *ngIf="flag">
-  <div class="d-flex justify-content-center">
-    <img style="height:80%" src="https://cdngarenanow-a.akamaihd.net/shopee/shopee-pcmall-live-vn/assets/f3540f6657bbdc1120e3f8cc90bdba97.png" alt="">
-  </div>
-  <div class="d-flex justify-content-center">
-    
-    <h4>Giỏ hàng trống</h4>
-  </div>
-</div> -->
 <div class="container">
-  <h3>Đặt Hàng</h3>
-  <!-- <div>
-    <h5>Địa Chỉ Nhận Hàng</h5>
-    <div *ngIf="addresses">
-      <div *ngFor="let address of addresses" class="row">
-        <div class="col-sm-1"> 
-          <input type="radio" id="addressId" name="addressId" [value]="address.addressId" [(ngModel)]="addId">  
-          
-        </div>
-        <div class="col-sm-11 row" >
-          <div class="col-sm-3">{{address.fullName}}</div> <br>
-          <div class="col-sm-3">{{address.phoneNumber}} </div> <br>
-          <div class="col-sm-6">{{address.street}} {{address.ward}} {{address.district}} {{address.province}} <span *ngIf="address.isDefault" style="margin-left: 20px; color:rgb(252, 185, 0)">Mặc định</span>    </div> 
-        </div>
-      </div>
-    </div>
-    <div>
-        <button (click)="addAddress()" class="btn btn-success">Thêm địa chỉ</button>
-    </div>
-  </div> -->
-  <div class="">
+  <div *ngIf="carts.length > 0" class="">
     <div class="address-lg d-lg-none mb-3">
       <div class="d-flex justify-content-between">
         <span class="">Địa chỉ nhận hàng</span>
@@ -43,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="" *ngIf="carts.length > 0">
+    <div class="" >
       <div *ngFor="let product of carts" class="d-flex cart-item">
         <div>
           <div class="image-product mr-3" routerLink="/products/{{product.productId}}">
@@ -79,9 +50,6 @@
         </div>
       </div>
     </div>
-    <div *ngIf="carts.length ===0">
-      giỏ hàng rỗng
-    </div>
     <div class="cart-footer">
       <div class="address d-none d-lg-block text-center">
         <div class="d-inline-block mb-4" *ngIf="!address">
@@ -111,5 +79,14 @@
           <button (click)="checkOut()" class="btn btn-success">Đặt hàng</button>
         </div>
       </div>
+    </div>
+  </div>
+  <div *ngIf="carts.length ===0" class="cart-null">
+    <div>
+        <h6>Không có sản phẩm nào trong giỏ hàng</h6>
+      <button class="btn btn-outline-info">Tiếp Tục Mua Sắm</button>
+      
+    </div>  
+    
     </div>
   </div>

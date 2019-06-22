@@ -10,6 +10,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +23,7 @@ import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { NgbModalSelectAddressComponent } from './cart/ngb-modal-select-address/ngb-modal-select-address.component';
 import { NgbModalNewAddressComponent } from './cart/ngb-modal-new-address/ngb-modal-new-address.component';
+import { CategoryComponent } from './home/category/category.component';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -45,12 +47,13 @@ export function getAuthServiceConfigs() {
     CartComponent,   
     SearchComponent,
     NgbModalSelectAddressComponent,
-    NgbModalNewAddressComponent
+    NgbModalNewAddressComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
-    ProductsModule,
     AppRoutingModule,
+    ProductsModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -61,7 +64,8 @@ export function getAuthServiceConfigs() {
     SharedModule,
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot({positionClass: 'toast-bottom-right', closeButton: true}),
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    NgxSpinnerModule
   ],
   entryComponents:[
     NgbModalSelectAddressComponent,
@@ -76,9 +80,10 @@ export function getAuthServiceConfigs() {
   bootstrap: [AppComponent],
 })
 export class AppModule { 
-  constructor(router: Router){
-    const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
-    console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
+  constructor(){
+    // const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
+    // console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
+
     
   }
   

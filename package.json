@@ -41,6 +41,7 @@
     "ngx-mask": "^7.9.9",
     "ngx-pagination": "^3.2.1",
     "ngx-slick-carousel": "^0.4.4",
+    "ngx-spinner": "^7.1.4",
     "ngx-toastr": "^10.0.4",
     "nodemon": "^1.19.0",
     "primeicons": "^1.0.0",

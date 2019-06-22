@@ -3,13 +3,22 @@
 @import "~ag-grid/dist/styles/ag-theme-balham.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~ng-pick-datetime/assets/style/picker.min.css";
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 400;
+    src: url('assets/fonts/Roboto-Regular.ttf') format("opentype");
+}
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 500;
+    src: url('assets/fonts/Roboto-Medium.ttf') format("opentype");
+}
 body{
     background-color: #f4f4f4 !important;
-    /* background-image: url("https://images.unsplash.com/photo-1533628635777-112b2239b1c7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e8f8a90139ee123a94dcc36bc8f14b69&w=1000&q=80"); */
-    background-attachment: fixed;
-    background-size:cover;
     font-family: Roboto,Helvetica,Arial,sans-serif;
     margin: 0;
+    font-size: 14px;
 }
 .modal-holder{
     animation-name: modal;
@@ -20,5 +29,47 @@ body{
     0%   {transform: scale(0.5)}
     100% {transform: scale(1)}
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon{
+    top: 50% !important;
+}
+.ui-radiobutton-label{
+    margin-bottom: 0 !important;
+}
+
+.ng-star-inserted > button.ui-button{
+    margin-right: 0;
+}
+.ui-fileupload > .ui-fileupload-buttonbar >.ng-star-inserted{
+    -webkit-appearance: none;
+   -moz-appearance:    none;
+   appearance:         none;
+}
+.ui-fileupload-content{
+    min-height: 10rem;
+}
+@media (max-width: 40em){
+    .ui-fileupload-content{
+        min-height: 2rem;
+    }
+    .ui-fileupload-buttonbar > .ng-star-inserted{
+        width: 100%;
+    }
+    .ui-fileupload-row > div:nth-child(3){
+        display: none;
+    }
+    .ui-fileupload-row {
+        position: relative;
+        display: block;
+    }
+    .ui-fileupload-files{
+        display: block;
+    }
+    .ui-fileupload-row > div:last-child{
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+.slick-prev:before, .slick-next:before{
+    color: #5a5f5f !important;
+}

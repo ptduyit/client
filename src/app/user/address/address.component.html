@@ -1,15 +1,19 @@
-<div>
-  <h4>Địa Chỉ Của Tôi</h4>
-  <div>
-    <button (click)="addAddress()" class="btn btn-success">Thêm địa chỉ</button>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Địa chỉ của tôi</h4>
+    <button (click)="addAddress()" class="btn btn-success d-flex align-items-center"><i class="pi pi-plus mr-2"></i>Thêm địa chỉ mới</button>
+
   </div>
-  <div>
+  
+  <div class="main">
       <div *ngFor="let address of addresses" class="p-3 border-bottom">
         <div class="d-flex justify-content-between">
             <span class="d-block"><i class="pi pi-user" style="font-size: 1.3rem"></i> {{address.fullName}} <span *ngIf="address.isDefault" class="text-default">Mặc Định</span> </span>
           <div class="modify">
-            <span class="mr-3">Sửa</span>
-            <span>Xóa</span>
+            <span class="mr-3" (click)="update(address.addressId)">Chỉnh Sửa</span>
+            <span style="color: rgb(247, 59, 59)" *ngIf="!address.isDefault" [swal]="deleteAddress">Xóa</span>
+            <swal #deleteAddress title="Bạn chắc chắn xóa?" text="" type=""
+              [showCancelButton]="true" [focusCancel]="true" [options]="{confirmButtonText: 'Có',cancelButtonText:'Không'}" (confirm)="delete(address.addressId)">
+            </swal>
           </div>
         </div>
           <span class="d-block"><i class="pi pi-mobile" style="font-size: 1.3rem"></i> {{address.phoneNumber}}</span>
@@ -18,4 +22,3 @@
           </div>
       </div>
   </div>
-</div>

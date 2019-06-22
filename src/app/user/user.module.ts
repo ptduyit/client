@@ -12,6 +12,7 @@ import { EditAddressComponent } from './edit-address/edit-address.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { MaterialModule } from '../material-module';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,7 +20,9 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     FormsModule,
     ReactiveFormsModule,
     OwlDateTimeModule, 
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    MaterialModule,
+    
   ],
   declarations: [
     UserComponent,

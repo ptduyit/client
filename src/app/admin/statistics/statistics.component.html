@@ -1,3 +1,88 @@
-<p>
-  statistics works!
-</p>
+<br>
+<div class="container">
+  <div style="position: relative;">
+    <br>
+      <h4>Chọn năm thống kê</h4>
+      <br>
+      
+      <mat-form-field>
+        <mat-label>Năm</mat-label>
+        <mat-select [(ngModel)]="selectedYear" (selectionChange)="changeTheYear()">
+          <mat-option *ngFor="let year of years" [value]='year'>Năm &nbsp; {{year}}</mat-option>          
+        </mat-select>
+      </mat-form-field>     
+    
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-4 col-sm-12">
+      <mat-card>   
+          <h3>Tổng nhập của năm</h3>
+          <h1>{{totalImport | currency}}</h1>   
+      </mat-card>
+    </div>
+    <div class="col-lg-4 col-sm-12">  
+      <mat-card>
+        <h3>Tổng bán ra của năm</h3>
+        <h1>{{totalExport | currency}}</h1>     
+    </mat-card>
+    </div>
+    <div class="col-lg-4 col-sm-12">
+      <mat-card>   
+        <h3>Lợi nhuận</h3>
+        <h1>{{statistic | currency}}</h1> 
+    </mat-card> 
+    </div>
+  </div>
+  <br>
+  <div class="">
+    <h1>Biểu đồ doanh thu</h1>
+    <google-chart [data]="columnChart"></google-chart>
+    <br>
+    <h1>Số lương đơn hàng bán được theo tháng</h1>
+    <google-chart [data]="lineChart" (chartSelect)="select($event)"></google-chart>
+  </div>
+  <br>
+  <div class=""> 
+    <h3>
+        Loại sản phẩm bán ra theo tháng 
+    </h3>  
+    <br>
+    <mat-form-field>
+        <mat-label>Tháng</mat-label>
+        <mat-select [(ngModel)]="selectedMonth"  (selectionChange)="changeTheMonth()">
+          <mat-option *ngFor="let M of months" [value]='M'>Tháng &nbsp; {{M}}</mat-option>   
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <h3>Chi tiết nhập xuất tháng</h3>
+      <br>
+      <div class="row">
+        <div class="col-lg-4 col-sm-12">
+          <mat-card>   
+              <h3>Tổng nhập của tháng</h3>
+              <h1>{{monthImport | currency}}</h1>   
+          </mat-card>
+        </div>
+        <div class="col-lg-4 col-sm-12">  
+          <mat-card>
+            <h3>Tổng bán ra của tháng</h3>
+            <h1>{{monthExport | currency}}</h1>     
+        </mat-card>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+          <mat-card>   
+            <h3>Lợi nhuận</h3>
+            <h1>{{monthStatistic | currency}}</h1> 
+        </mat-card> 
+        </div>
+      </div>
+
+      <br>
+      <h3>Chi tiết loại sản phẩm bán ra</h3>
+      <br>
+      <google-chart [data]="pieChart"></google-chart>
+  </div>
+</div>
+
+

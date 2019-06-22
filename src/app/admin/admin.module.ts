@@ -26,6 +26,8 @@ import { ListOrdersImportComponent } from './orders-import/list-orders-import/li
 import { NgbModalNewProductComponent } from './orders-import/ngb-modal-new-product/ngb-modal-new-product.component';
 import { NgbModalNewCategoryComponent } from './orders-import/ngb-modal-new-category/ngb-modal-new-category.component';
 import { NgbModalNewSupplierComponent } from './orders-import/ngb-modal-new-supplier/ngb-modal-new-supplier.component';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { MaterialModule } from '../material-module';
 
 @NgModule({
   imports: [
@@ -41,7 +43,10 @@ import { NgbModalNewSupplierComponent } from './orders-import/ngb-modal-new-supp
     NgbModule,
     NgxMaskModule,
     DropdownModule,
-    SharedModule
+    SharedModule,
+    Ng2GoogleChartsModule,
+    MaterialModule,
+    
   ],
   declarations: [
     AdminComponent,

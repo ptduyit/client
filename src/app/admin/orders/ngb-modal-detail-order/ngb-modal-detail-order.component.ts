@@ -33,10 +33,10 @@ export class NgbModalDetailOrderComponent implements OnInit {
     this.returnStatus.emit(this.order.status+1);
   }
   cancelUser(){
-    this.returnStatus.emit(7);
+    this.returnStatus.emit(6);
   }
   cancelShop(){
-    this.returnStatus.emit(6);
+    this.returnStatus.emit(5);
   }
 
 }

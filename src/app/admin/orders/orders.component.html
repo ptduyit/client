@@ -1,12 +1,10 @@
 <ul class="nav option-menu">
-  <li routerLink="/admin/orders" [class.activeOptions]="isLinkActive(0)">Tất cả</li>
-  <li routerLink="/admin/orders" [queryParams]="{option: 1}" [class.activeOptions]="isLinkActive(1)">Chờ xác nhận</li>
-  <li routerLink="/admin/orders" [queryParams]="{option: 2}" [class.activeOptions]="isLinkActive(2)">Chờ lấy hàng</li>
-  <li routerLink="/admin/orders" [queryParams]="{option: 3}" [class.activeOptions]="isLinkActive(3)">Giao hàng</li>
-  <li routerLink="/admin/orders" [queryParams]="{option: 4}" [class.activeOptions]="isLinkActive(4)">Hoàn thành</li>
-  <li routerLink="/admin/orders" [queryParams]="{option: 5}" [class.activeOptions]="isLinkActive(5)">Trả hàng/Hoàn tiền
-  </li>
-  <li routerLink="/admin/orders" [queryParams]="{option: 6}" [class.activeOptions]="isLinkActive(6)">Đã hủy</li>
+  <li routerLink="/admin/orders" [class.activeOptions]="isLinkActive(0)">Tất cả({{countOrder[0]}})</li>
+  <li routerLink="/admin/orders" [queryParams]="{option: 1}" [class.activeOptions]="isLinkActive(1)">Chờ xác nhận({{countOrder[1]}})</li>
+  <li routerLink="/admin/orders" [queryParams]="{option: 2}" [class.activeOptions]="isLinkActive(2)">Chờ lấy hàng({{countOrder[2]}})</li>
+  <li routerLink="/admin/orders" [queryParams]="{option: 3}" [class.activeOptions]="isLinkActive(3)">Giao hàng({{countOrder[3]}})</li>
+  <li routerLink="/admin/orders" [queryParams]="{option: 4}" [class.activeOptions]="isLinkActive(4)">Hoàn thành({{countOrder[4]}})</li>
+  <li routerLink="/admin/orders" [queryParams]="{option: 5}" [class.activeOptions]="isLinkActive(5)">Đã hủy({{countOrder[5]}})</li>
 </ul>
 <div class="size-order d-flex justify-content-between">
   <div class="size-display">
@@ -17,6 +15,10 @@
       <option [value]=50>50</option>
       <option [value]=100>100</option>
     </select>
+  </div>
+  <div class="search" *ngIf="option == 0">
+    <span class="mr-2">Tìm đơn hàng</span>
+    <input mask="99999999" [formControl]="searchOrderControl" type="text" placeholder="Nhập mã đơn hàng để tìm kiếm" class="form-control">
   </div>
   <div class="sort-display">
     <span class="mr-2">Sắp xếp</span>
@@ -32,7 +34,7 @@
   *ngFor="let order of orders | paginate: { id: 'pagingorder', itemsPerPage: paging.pageSize, currentPage: currentPage, totalItems: paging.totalItems}">
   <ul class="nav header-order justify-content-between info-order">
     <li>#{{order.orderId}}</li>
-    <li>{{order.orderDate | date:'dd/MM/yyyy HH:mm'}}</li>
+    <li>{{order.orderDate | date:'dd-MM-yyyy HH:mm'}}</li>
     <li>Thanh toán khi nhận hàng</li>
     <li>{{order.nameUser}}</li>
     <li>{{phoneNumber}}</li>
@@ -61,16 +63,21 @@
     </div>
     <div>
       <ul class="nav justify-content-end menu-button">
-        <li (click)="cancelUser(order)" *ngIf="order.status == 3">Không nhận hàng</li>
+        <li [swal]="deny" *ngIf="order.status == 3">Không nhận hàng</li>
         <li (click)="processOrderStatus(order)"
-          *ngIf="order.status == 1 || order.status == 2 || order.status == 3|| order.status == 4">
+          *ngIf="order.status == 1 || order.status == 2 || order.status == 3">
           <span *ngIf="order.status == 1">Xác Nhận Giao Hàng</span>
           <span *ngIf="order.status == 2">Đã Lấy Hàng</span>
           <span *ngIf="order.status == 3">Đã Giao Hàng</span>
-          <span *ngIf="order.status == 4">Trả Hàng</span>
         </li>
         <li (click)="openDetail(order)">Chi tiết</li>
-        <li (click)="cancelShop(order)" *ngIf="order.status != 4 && order.status != 5 && order.status != 6 && order.status != 7">Từ chối</li>
+        <li [swal]="cancel" *ngIf="order.status == 1 || order.status == 2 || order.status == 3">Từ chối</li>
+        <swal #deny title="Xác nhận khách hàng không nhận?" text="" type="question"
+              [showCancelButton]="true" [focusCancel]="true" [options]="{confirmButtonText: 'Xác nhận',cancelButtonText:'Hủy bỏ'}" (confirm)="cancelUser(order)">
+            </swal>
+            <swal #cancel title="Bạn từ chối giao đơn hàng này?" text="" type="question"
+              [showCancelButton]="true" [focusCancel]="true" [options]="{confirmButtonText: 'Xác nhận',cancelButtonText:'Hủy bỏ'}" (confirm)="cancelShop(order)">
+            </swal>
       </ul>
     </div>
   </div>

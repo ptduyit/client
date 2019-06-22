@@ -11,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalDetailOrderComponent } from './ngb-modal-detail-order/ngb-modal-detail-order.component';
 import es from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-orders',
@@ -21,10 +22,12 @@ export class OrdersComponent implements OnInit {
   orders: Order[] = [];
   orderDetail: OrderDetail[];
   paging ={} as Paging;
+  countOrder = {} as any;
   option:number;
   currentPage = 1;
   size = 10;
   sort = "datedesc";
+  searchOrderControl = new FormControl();
   queryParamSubscription: Subscription
   constructor(private orderService: OrderService, private title: Title, private route: ActivatedRoute,
     private router: Router,private modalService: NgbModal) {
@@ -64,6 +67,15 @@ export class OrdersComponent implements OnInit {
       console.log(this.option);
       this.getOrder(1,0);
     });
+    this.searchOrderControl.valueChanges.subscribe(value => {
+      let id = Number(value);
+      if(!isNaN(id)){
+        this.getOrder(1,id);
+      }
+      if(value === ''){
+        this.getOrder(1,0);
+      }
+    })
   }
   isLinkActive(option:number){
     return option === this.option
@@ -73,6 +85,7 @@ export class OrdersComponent implements OnInit {
       if(!data.isError){
         this.orders = data.module.orders;
         this.paging = data.module.paging;
+        this.countOrder = data.module.countOrder;
       }
     })
   }
@@ -97,14 +110,14 @@ export class OrdersComponent implements OnInit {
     })
   }
   cancelShop(order: Order){
-    this.orderService.updateStatusOrder(order.orderId,6).subscribe((data:response)=>{
+    this.orderService.updateStatusOrder(order.orderId,5).subscribe((data:response)=>{
       if(!data.isError){
         this.getOrder(1,0);
       }
     })
   }
   cancelUser(order: Order){
-    this.orderService.updateStatusOrder(order.orderId,7).subscribe((data:response)=>{
+    this.orderService.updateStatusOrder(order.orderId,6).subscribe((data:response)=>{
       if(!data.isError){
         this.getOrder(1,0);
       }

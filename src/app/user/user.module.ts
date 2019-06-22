@@ -12,10 +12,11 @@ import { EditAddressComponent } from './edit-address/edit-address.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxMaskModule } from 'ngx-mask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
-import { NgbDatepickerModule, NgbDateAdapter, NgbDateStruct, NgbDateParserFormatter, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbDateAdapter, NgbDateStruct, NgbDateParserFormatter, NgbDatepickerI18n, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotifycationComponent } from './notifycation/notifycation.component';
 import { MyReviewComponent } from './my-review/my-review.component';
 
@@ -118,7 +119,9 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
     NgxMaskModule,
     RadioButtonModule,
     CheckboxModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    NgxPaginationModule,
+    NgbModule
   ],
   declarations: [
     UserComponent,

@@ -1,37 +1,53 @@
-<br>
-<div *ngIf="flag">
-  <div class="d-flex justify-content-center">
-    <img style="height:300px" src="https://cdn0.iconfinder.com/data/icons/e-commerce-glyph-black-1/2048/1036_-_Cancel_Order-512.png" alt="">
-  </div>
-  <div class="d-flex justify-content-center">
-    <h4>Hóa đơn rỗng</h4>
+<h4>Đơn hàng của tôi</h4>
+<ul class="nav option-menu">
+  <li routerLink="/user/my-orders" [class.activeOptions]="isLinkActive(0)">Tất cả</li>
+  <li routerLink="/user/my-orders" [queryParams]="{option: 1}" [class.activeOptions]="isLinkActive(1)">Chờ xác nhận</li>
+  <li routerLink="/user/my-orders" [queryParams]="{option: 2}" [class.activeOptions]="isLinkActive(2)">Chờ lấy hàng</li>
+  <li routerLink="/user/my-orders" [queryParams]="{option: 3}" [class.activeOptions]="isLinkActive(3)">Giao hàng</li>
+  <li routerLink="/user/my-orders" [queryParams]="{option: 4}" [class.activeOptions]="isLinkActive(4)">Hoàn thành</li>
+  <li routerLink="/user/my-orders" [queryParams]="{option: 5}" [class.activeOptions]="isLinkActive(5)">Đã hủy</li>
+</ul>
+<div class="order-info"
+  *ngFor="let order of orders | paginate: { id: 'pagingorder', itemsPerPage: paging.pageSize, currentPage: currentPage, totalItems: paging.totalItems}">
+  <ul class="nav header-order justify-content-between info-order">
+    <li>#{{order.orderId}}</li>
+    <li>{{order.orderDate | date:'dd-MM-yyyy HH:mm'}}</li>
+    <li>Thanh toán khi nhận hàng</li>
+    <li>{{order.nameUser}}</li>
+    <li>{{phoneNumber}}</li>
+    <li>{{order.statusName}}</li>
+    <li>{{order.totalPrice | number:'':'es'}}đ</li>
+  </ul>
+  <div class="">
+    <div *ngFor="let product of order.orderDetails" 
+      class="d-flex justify-content-between align-items-center info-product">
+      <div class="product-image d-flex align-items-center">
+        <div>
+          <img src="assets/images/placeholder.png" alt="">
+        </div>
+        <div>
+          <span>{{product.productName}}</span>
+        </div>
+      </div>
+      <span>Mã Sp: #{{product.productId}}</span>
+      <span>
+        đơn giá: {{product.unitPrice | number:'':'es'}}đ
+      </span>
+      <span>
+        số lượng: {{product.quantity}} cái
+      </span>
+    </div>
+    <div>
+      <ul class="nav justify-content-end menu-button">
+        <li [swal]="deny" *ngIf="order.status == 1">Hủy đơn hàng</li>
+        <swal #deny title="Xác nhận hủy đơn hàng?" text="" type="question"
+              [showCancelButton]="true" [focusCancel]="true" [options]="{confirmButtonText: 'Xác nhận',cancelButtonText:'Hủy bỏ'}" (confirm)="cancelUser(order)">
+            </swal>
+      </ul>
+    </div>
   </div>
 </div>
-<div *ngIf="!flag">
-<div *ngFor="let order of orders" class="orderClass">
-  <div class="row orderClassHeader">
-    <div class="col-8">
-      <br>
-      <h6>Đơn hàng &nbsp; &nbsp;&nbsp; : &nbsp; &nbsp;{{order.orderId}}</h6>
-      <h6>Đặt ngày &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp; &nbsp;{{order.orderDate | date:'dd-MM-yyyy HH:mm'}}</h6>
-    </div>
-    <div class="col-4">
-      <br>
-      <h6 >Trạng thái &nbsp;&nbsp;&nbsp; : &nbsp; &nbsp;{{order.orderStatus.statusName}}</h6>
-      <h6>Tổng tiền &nbsp;&nbsp;&nbsp;&nbsp; : &nbsp; &nbsp;{{order.totalPrice | number}}</h6>
-    </div>
-  </div>
-  <hr>
-  <div class="row orderClassHeader" *ngFor="let orderdetail of order.orderDetails">
-      <div class="imgProduct col-2"> 
-          <img style="max-width: 100%;max-height: 100%;" src="{{orderdetail.product.image}}" alt="">
-      </div>
-      <h6 class="col-4">Tên sản phẩm: {{orderdetail.product.productName}}</h6> 
-      <h6 class="col-3">Số lượng: {{orderdetail.quantity}}</h6>
-      <h6 class="col-3" >Đơn giá: {{orderdetail.unitPrice | number}}</h6>
-      
-
-    </div>
-    <br>
-  </div>
+<div class="p-3 text-right" *ngIf="paging.totalPages > 1">
+  <pagination-controls (pageChange)="changePage($event)" id="pagingorder" previousLabel="" nextLabel="">
+  </pagination-controls>
 </div>

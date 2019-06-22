@@ -13,8 +13,8 @@ export class OrderService {
   getOrders(status:number,page:number,id:number,size:number,sort:string){
     return this.http.get(globals.server+'api/admin/orders?status='+status+'&page='+page+'&id='+id+'&size='+size+'&sort='+sort);
   }
-  getOrderByIdUser(id: string){
-    return this.http.get<Order[]>(globals.server+'api/Orders/GetOrderByIdUser/' + id);
+  getOrderByIdUser(id: string,page:number,status:number){
+    return this.http.get(globals.server+'api/user/orders/'+id+'/?page='+page+'&status='+status);
   }
 
   createOrder(cart: Cart, addressId: number){
@@ -25,6 +25,9 @@ export class OrderService {
   }
   checkHistoryBuy(id:string){
     return this.http.get(globals.server+'api/admin/orders/check-history/'+id);
+  }
+  cancelOrderUser(userId: string, orderId: number){
+    return this.http.get(globals.server+'api/orders/cancel/'+userId+'/'+orderId);
   }
   getOrdersByStatus(status: number){
     return this.http.get<Order[]>(globals.server+'api/orders/GetConfirmOrders/'+status)

@@ -11,7 +11,7 @@
 <div class="modal-body">
   <div class="process">
     <div class="status-name"><i class="pi pi-clone"></i> {{order.statusName}}</div>
-    <ng-container *ngIf="order.status !== 5 && order.status !== 6 && order.status !== 7">
+    <ng-container *ngIf="order.status !== 5 && order.status !== 6">
       <div *ngIf="order.status !== 4">Vui lòng sắp theo thời gian giao hàng để giao hàng trước ngày
         <span class="date">{{order.shippedDate | date:'dd/MM/yyyy'}}</span></div>
       <div class="d-flex justify-content-between next-select">
@@ -19,14 +19,13 @@
         <ul class="nav justify-content-end menu-button">
           <li [swal]="deny" *ngIf="order.status == 3">Không nhận hàng</li>
           <li (click)="processOrderStatus()"
-            *ngIf="order.status == 1 || order.status == 2 || order.status == 3|| order.status == 4">
+            *ngIf="order.status == 1 || order.status == 2 || order.status == 3">
             <span *ngIf="order.status == 1">Xác Nhận Giao Hàng</span>
             <span *ngIf="order.status == 2">Đã Lấy Hàng</span>
             <span *ngIf="order.status == 3">Đã Giao Hàng</span>
-            <span *ngIf="order.status == 4">Trả Hàng</span>
           </li>
           <li [swal]="cancel"
-            *ngIf="order.status != 4 && order.status != 5 && order.status != 6 && order.status != 7">Từ chối</li>
+            *ngIf="order.status == 1 || order.status == 2 || order.status == 3">Từ chối</li>
             <swal #deny title="Xác nhận khách hàng không nhận?" text="" type="question"
               [showCancelButton]="true" [focusCancel]="true" [options]="{confirmButtonText: 'Xác nhận',cancelButtonText:'Hủy bỏ'}" (confirm)="cancelUser()">
             </swal>

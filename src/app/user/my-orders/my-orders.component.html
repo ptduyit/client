@@ -22,14 +22,14 @@
     <div *ngFor="let product of order.orderDetails" 
       class="d-flex justify-content-between align-items-center info-product">
       <div class="product-image d-flex align-items-center">
-        <div>
+        <div routerLink="/products/{{product.productId}}">
           <img src="assets/images/placeholder.png" alt="">
         </div>
         <div>
-          <span>{{product.productName}}</span>
+          <span routerLink="/products/{{product.productId}}">{{product.productName}}</span>
         </div>
       </div>
-      <span>Mã Sp: #{{product.productId}}</span>
+      <span routerLink="/products/{{product.productId}}">Mã Sp: #{{product.productId}}</span>
       <span>
         đơn giá: {{product.unitPrice | number:'':'es'}}đ
       </span>

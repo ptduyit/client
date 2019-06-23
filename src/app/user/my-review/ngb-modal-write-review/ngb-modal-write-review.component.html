@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <h4 class="modal-title">Hi there!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form name="form" (ngSubmit)="reviewForm.form.valid && onSubmit()" #reviewForm="ngForm" novalidate>
+  <div class="modal-body">
+    
+          <div class="info-product d-flex">
+            <div class="product-image">
+              <div>
+              <img src="assets/images/placeholder.png" alt="">
+            </div>
+            </div>
+            
+            <div class="flex-grow-1">
+              <span class="product-name">{{productName}}</span>
+              <div>
+                <ngb-rating [(ngModel)]="rate" name="rating" #rating="ngModel" [max]="5" [ngClass]="{ 'is-invalid-custom': reviewForm.submitted && rating.invalid }" required>
+                  <ng-template let-fill="fill">
+                    <span class="star" [class.filled]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#9733;</span>
+                      &#9733;</span>
+                  </ng-template>
+                </ngb-rating>
+                <div *ngIf="reviewForm.submitted && rating.invalid" class="invalid-feedback-custom">
+                    <div *ngIf="rating.errors.required">Vui lòng đánh giá sao</div>
+                </div>
+                
+              </div>
+            </div>
+
+    
+        </div>
+        <div>Viết đánh giá</div>
+        <textarea placeholder="giới hạn 200 kí tự" class="form-control" [(ngModel)]="content" name="message" #message="ngModel" [ngClass]="{ 'is-invalid': reviewForm.submitted && message.invalid }" required maxlength="200"></textarea>
+        <div *ngIf="reviewForm.submitted && message.invalid" class="invalid-feedback">
+            <div *ngIf="message.errors.required">Không được để trống</div>
+            <div *ngIf="message.errors.maxlength">Tối đa 200 kí tự</div>
+        </div>
+      
+  </div>
+  <div class="modal-footer">
+    <button type="submit">Nhận xét</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</form>

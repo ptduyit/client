@@ -27,3 +27,19 @@ export interface Comments{
     userId: string;
     fullName: string;
 }
+export interface ProductNotReview{
+    orderDate: Date;
+    productId: number;
+    productName: string;
+    image: string;
+}
+export interface ProductReviewHistory{
+    orderDate: Date;
+    productId: number;
+    productName: string;
+    image: string;
+    rate: number;
+    content: string;
+    date: Date;
+    evaluationId: number;
+}

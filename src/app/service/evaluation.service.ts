@@ -17,4 +17,13 @@ export class EvaluationService {
     var comments = {userId: userId, parentId: parentId, content: content};
     return this.http.post(globals.server+'api/comments',comments);
   }
+  getNoteReview(userId: string, page:number){
+    return this.http.get(globals.server+'api/not-review/'+userId+'?page='+page);
+  }
+  getReviewHistotry(userId:string,page:number){
+    return this.http.get(globals.server+'api/review-history/'+userId+'?page='+page);
+  }
+  postPutReview(evaluation: any){
+    return this.http.post(globals.server+'api/review/add',evaluation);
+  }
 }

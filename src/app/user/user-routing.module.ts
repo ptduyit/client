@@ -11,6 +11,9 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { NotifycationComponent } from './notifycation/notifycation.component';
 import { MyReviewComponent } from './my-review/my-review.component';
+import { NotReviewComponent } from './my-review/not-review/not-review.component';
+import { ReviewHistoryComponent } from './my-review/review-history/review-history.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -31,7 +34,14 @@ const routes: Routes = [
           { path: 'edit-profile', component: EditProfileComponent },
           { path: 'order-detail', component: OrderDetailComponent },
           { path: 'notifycation', component: NotifycationComponent},
-          { path: 'my-review', component: MyReviewComponent}
+          { 
+            path: 'my-review', component: MyReviewComponent,
+            children: [
+              { path: 'not-review', component: NotReviewComponent },
+              { path: 'review-history', component: ReviewHistoryComponent},
+              { path: '', pathMatch: 'full', redirectTo: 'not-review'}
+            ]
+          }
         ]
       }
     ]

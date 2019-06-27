@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AgGridModule } from 'ag-grid-angular';
-import { ButtonRendererComponent } from 'src/app/renderer/button-renderer.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
@@ -14,6 +13,8 @@ import { NgxMaskModule } from 'ngx-mask'
 import { SharedModule } from '../shared/shared.module'; 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 import { AdminComponent } from './admin/admin.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -31,6 +32,8 @@ import { NgbModalNewSupplierComponent } from './orders-import/ngb-modal-new-supp
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { MaterialModule } from '../material-module';
 import { NgbModalDetailOrderComponent } from './orders/ngb-modal-detail-order/ngb-modal-detail-order.component';
+import { SlideshowComponent } from './slideshow/slideshow.component';
+import { NgbModalNewSlideComponent } from './slideshow/ngb-modal-new-slide/ngb-modal-new-slide.component';
 
 @NgModule({
   imports: [
@@ -39,7 +42,6 @@ import { NgbModalDetailOrderComponent } from './orders/ngb-modal-detail-order/ng
     FormsModule,
     ReactiveFormsModule,
     EditorModule,
-    AgGridModule.withComponents([ButtonRendererComponent]),
     OwlDateTimeModule, 
     OwlNativeDateTimeModule,
     FileUploadModule,
@@ -49,9 +51,10 @@ import { NgbModalDetailOrderComponent } from './orders/ngb-modal-detail-order/ng
     SharedModule,
     Ng2GoogleChartsModule,
     MaterialModule,
-    
+    CheckboxModule,
     NgxPaginationModule,
-    SweetAlert2Module
+    SweetAlert2Module,
+    RadioButtonModule
   ],
   declarations: [
     AdminComponent,
@@ -62,19 +65,21 @@ import { NgbModalDetailOrderComponent } from './orders/ngb-modal-detail-order/ng
     StatisticsComponent,
     NewProductComponent,
     ListProductComponent,
-    ButtonRendererComponent,
     NewOrderComponent,
     ListOrdersImportComponent,
     NgbModalNewProductComponent,
     NgbModalNewCategoryComponent,
     NgbModalNewSupplierComponent,
     NgbModalDetailOrderComponent,
+    SlideshowComponent,
+    NgbModalNewSlideComponent,
   ],
   entryComponents: [
     NgbModalNewProductComponent,
     NgbModalNewCategoryComponent,
     NgbModalNewSupplierComponent,
-    NgbModalDetailOrderComponent
+    NgbModalDetailOrderComponent,
+    NgbModalNewSlideComponent
   ]
 })
 export class AdminModule { }

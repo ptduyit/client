@@ -28,4 +28,7 @@ export class OrderImportService {
   saveOrder(id: number, order: any){
     return this.http.put(globals.server+'api/admin/order-import/'+id+'/save',order);
   }
+  searchOrderImport(type:string,keyword:string,temporary:boolean,page:number){
+    return this.http.get(globals.server+'api/admin/order-import?type='+type+'&keyword='+keyword+'&temporary='+temporary+'&page='+page);
+  }
 }

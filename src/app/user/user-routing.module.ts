@@ -8,7 +8,7 @@ import { AddressComponent } from './address/address.component';
 import { EditAddressComponent } from './edit-address/edit-address.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
-import { AuthGuard } from '../auth/auth.guard';
+import { AuthGuard } from '../guard/auth.guard';
 import { NotifycationComponent } from './notifycation/notifycation.component';
 import { MyReviewComponent } from './my-review/my-review.component';
 import { NotReviewComponent } from './my-review/not-review/not-review.component';

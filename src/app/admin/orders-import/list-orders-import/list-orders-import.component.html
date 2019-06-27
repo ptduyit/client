@@ -1,2 +1,46 @@
-<h2>Phiếu nhập hàng</h2>
-<button type="button" class="btn btn-success" routerLink="/admin/orders-import/new-order"><i class="pi pi-plus"></i> Nhập hàng</button>
+<div class="d-flex align-items-center justify-content-between py-3">
+    <h4>Phiếu nhập hàng</h4>
+    <div class="input-group">
+        <input type="text" placeholder="Tìm tên hoặc mã" class="form-control" [(ngModel)]="keyword" (keyup)="term$.next($event.target.value)">
+        <select class="form-control custom-select input-group-prepend" [(ngModel)]="type" (change)="selectOrder()">
+            <option value="order">Mã hóa đơn</option>
+            <option value="user">Người lập phiếu</option>
+            <option value="supplier">Nhà cung cấp</option>
+        </select>
+    </div>
+    <div>
+        <p-checkbox [(ngModel)]="temporary" label="Hóa đơn tạm" binary="true" (onChange)="selectOrder()"></p-checkbox>
+    </div>
+    <button type="button" class="btn btn-success" routerLink="/admin/orders-import/new-order">
+        <i class="pi pi-plus"></i>Nhập hàng</button>
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr class="table-info">
+            <th class="text-center">Mã phiếu</th>
+            <th class="text-center">Thời gian</th>
+            <th>Nhà cung cấp</th>
+            <th>Người lập phiếu</th>
+            <th class="text-center">Trạng thái</th>
+            <th class="text-center">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders | paginate: { id: 'pagingorder', itemsPerPage: paging.pageSize, currentPage: currentPage, totalItems: paging.totalItems}">
+            <td class="text-center">{{order.orderId}}</td>
+            <td class="text-center">{{order.orderDate | date:'dd-MM-yyyy HH:mm'}}</td>
+            <td>{{order.companyName}}</td>
+            <td>{{order.fullName}}</td>
+            <td class="text-center" *ngIf="order.complete">Đã nhập hàng</td>
+            <td class="text-center" *ngIf="!order.complete">Phiếu tạm</td>
+            <td class="control text-center">
+                <i class="pi pi-pencil" routerLink="/admin/orders-import/edit/{{order.orderId}}"></i>
+                <i *ngIf="!order.complete" class="pi pi-trash"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="p-3 text-right" *ngIf="paging.totalPages > 1">
+        <pagination-controls (pageChange)="changePage($event)" id="pagingorder" previousLabel="" nextLabel="">
+        </pagination-controls>
+</div>

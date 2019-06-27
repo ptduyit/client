@@ -50,18 +50,19 @@ export class CartComponent implements OnInit {
       this.getCart();
       this.getAddressDefault();
       //this.getAllAddress();
-    } else {
-      this.flag = true;
-      this.router.navigate(['login']);
-      this._service.info('Vui lòng đăng nhập', '',
-        {
-          timeOut: 3000,
-          showProgressBar: true,
-          pauseOnHover: false,
-          clickToClose: true,
-          maxLength: 10
-        });
-    }
+    } 
+    // else {
+    //   this.flag = true;
+    //   this.router.navigate(['login']);
+    //   this._service.info('Vui lòng đăng nhập', '',
+    //     {
+    //       timeOut: 3000,
+    //       showProgressBar: true,
+    //       pauseOnHover: false,
+    //       clickToClose: true,
+    //       maxLength: 10
+    //     });
+    // }
 
 
   }

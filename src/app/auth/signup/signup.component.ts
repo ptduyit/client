@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { DataShareService } from 'src/app/service/datashare.service';
 import { NotificationsService } from 'angular2-notifications';

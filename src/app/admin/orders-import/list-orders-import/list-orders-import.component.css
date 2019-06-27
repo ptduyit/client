@@ -1,0 +1,17 @@
+th{
+    font-weight: 500;
+}
+.control > i{
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+.control > i:last-child{
+    color: rgb(253, 51, 0);
+}
+.control > i:first-child{
+    color: rgb(0, 59, 253);
+}
+
+.form-control, .input-group{
+    width: auto !important;
+}

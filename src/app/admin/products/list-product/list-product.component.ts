@@ -1,100 +1,98 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from "@angular/router";
-import { Product } from '../../../model/product';
-import { ProductService } from '../../../service/product.service';
-import { ButtonRendererComponent } from './../../../renderer/button-renderer.component';
 import { AutoWidthCalculator } from 'ag-grid-community';
 import { Title } from '@angular/platform-browser';
+import { ProductService } from 'src/app/service/product.service';
+import { Product } from 'src/app/model/product';
+import { response } from 'src/app/model/response';
+import { CategoryService } from 'src/app/service/category.service';
+import { Paging } from 'src/app/model/paging';
+import { Subject, Subscription, EMPTY } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
   styleUrls: ['./list-product.component.css']
 })
-export class ListProductComponent implements OnInit {
+export class ListProductComponent implements OnInit, OnDestroy {
   products: Product[];
-  frameworkComponents: any;
-  rowDataClicked1 = {};
-  rowData: any;
- 
-  constructor(private proService: ProductService, private router: Router, private title: Title) {
+  categorySelect: any = [];
+  categoryId = 0;
+  paging = {} as Paging;
+  status = "abc";
+  currentPage = 1;
+  size = 10;
+  keyword = "";
+  term$ = new Subject<string>();
+  private searchSubscription: Subscription;
+  constructor(private proService: ProductService, private router: Router, private title: Title, private categoryService: CategoryService) {
     this.title.setTitle('Quản lý sản phẩm')
-    this.frameworkComponents = {
-      buttonRenderer: ButtonRendererComponent,
-    }
   }
 
   ngOnInit() {
-    this.getProduct();
-  }
-  getProduct() {
-    this.proService.getProducts()
-      .subscribe((data) => {
-        this.rowData = data;
-      });
-  }
-  deletePro(productId) {
-    var ans = confirm("bạn có thật sự muốn xóa?");
-    if (ans) {
-      this.proService.deleteProduct(productId)
-        .subscribe(data => {
-          this.getProduct();
-        });
-    }
-
-  }
-  onBtnClickDelete(e) {
-    this.rowDataClicked1 = e.rowData;
-    this.deletePro(e.rowData.productId)
-  }
-  onBtnClickUpdate(e){
-    this.router.navigate(['/admin/products/edit/'+ e.rowData.productId])
-  }
-  onBtnClickView(e){
-    this.router.navigate(['view/'+ e.rowData.productId])
-  }
-  currencyFormatter(params) {
-    var vndFormate = new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND'
+    this.categoryService.getCategorySelectAll().subscribe((data:response) => {
+      if(!data.isError){
+        this.categorySelect = data.module;
+      }
+      else console.log(data.message);
     });
-    return vndFormate.format(params.value);
+    this.getProduct(1);
+    this.searchSubscription = this.term$.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(term => {
+        this.getProduct(1);
+        return EMPTY;
+      })).subscribe();
   }
+  getProduct(page:number){
+    this.proService.getProductManage(page,this.size,this.status,this.keyword,this.categoryId)
+    .subscribe((data:response) => {
+      if(!data.isError){
+        this.products = data.module.products;
+        this.paging = data.module.paging;
+      }
+    })
+  }
+  gotoLink(url:string){
+    let fullurl = window.location.origin +'/products/'+ url
+    window.open(fullurl,"_blank")
 
-  columnDefs = [
-    { headerName: 'Sản phẩm', field: 'productName' },
-    { headerName: 'Giá bán', field: 'unitPrice', cellRenderer: this.currencyFormatter },
-    { headerName: 'Số lượng', field: 'stock' , width: 100},
-    { headerName: 'Giá nhập', field: 'importPrice', cellRenderer: this.currencyFormatter},
-    { headerName: 'Khuyến mãi (%)', field: 'discount' , width: 120},
-    {
-      headerName: '',
-      cellRenderer: 'buttonRenderer',
-      width: 70,
-      cellRendererParams: {
-        onClick: this.onBtnClickUpdate.bind(this),
-        label: 'Sửa'
+  }
+  searchDelay(){
+    this.term$.next(this.keyword)
+  }
+  changePage(page:number){
+    this.currentPage = page;
+    this.getProduct(page);
+  }
+  selectRadio(){
+    this.currentPage = 1;
+    this.getProduct(1);
+  }
+  selectCategory(){
+    this.currentPage = 1;
+    this.getProduct(1);
+  }
+  changeStatus(id:number, status: string){
+    this.proService.updateStatus(id,status).subscribe((data:response)=>{
+      if(!data.isError){
+        let index = this.products.findIndex(x => x.productId === id);
+        if(status === "discontinued"){
+          this.products[index].discontinued = !this.products[index].discontinued;
+        }
+        if(status === "index"){
+          this.products[index].displayIndex = !this.products[index].displayIndex;
+        }
       }
-    },
-    {
-      headerName: '',
-      cellRenderer: 'buttonRenderer',
-      width: 70,
-      cellRendererParams: {
-        onClick: this.onBtnClickDelete.bind(this),
-        label: 'Xóa'
-      }
-    },
-    {
-      headerName: '',
-      cellRenderer: 'buttonRenderer',
-      width: 70,
-      cellRendererParams: {
-        onClick: this.onBtnClickView.bind(this),
-        label: 'Xem'
-      }
+    })
+  }
+  ngOnDestroy() {
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+      this.searchSubscription = null;
     }
-  ];
-
+  }
 
 }

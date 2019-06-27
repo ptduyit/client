@@ -1,0 +1,19 @@
+<button class="btn" (click)="openNewSlide()">Thêm mới</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th>STT</th>
+      <th>Ảnh</th>
+      <th>Đường dẫn</th>
+      <th>Thao tác</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let slide of slides; let i=index">
+      <td>{{i+1}}</td>
+      <td><img src="https://localhost:44354/{{slide.image}}" alt=""></td>
+      <td>{{slide.link}}</td>
+      <td (click)="delete(slide.slideId)">Xóa</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DataShareService } from 'src/app/service/datashare.service'
-import {
-  AuthService as AuthExtendService,
-  FacebookLoginProvider,
-  GoogleLoginProvider
-} from 'angular-6-social-login';
 import { NotificationsService } from 'angular2-notifications';
 import { CartService } from 'src/app/service/cart.service';
 import { Cart } from 'src/app/model/cart';
 import { Title } from '@angular/platform-browser';
 import { response } from 'src/app/model/response';
+import { AuthService as  AuthExtendService} from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-login',
@@ -82,7 +79,7 @@ export class LoginComponent implements OnInit {
           this.isLoginError = true;
         });
   }
-  public socialSignIn(socialPlatform : string) {
+  socialSignIn(socialPlatform : string) {
     let socialPlatformProvider;
     var token;
     if(socialPlatform == "facebook"){
@@ -93,10 +90,10 @@ export class LoginComponent implements OnInit {
 
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
-        //console.log(socialPlatform+" sign in data : " , userData);
+        // console.log(socialPlatform+" sign in data : " , userData);
         // Now sign-in with userData
         if(socialPlatform == "facebook"){
-          token = userData.token;
+          token = userData.authToken;
         }
         else if(socialPlatform == "google"){
           token = userData.idToken;

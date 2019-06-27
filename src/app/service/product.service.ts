@@ -47,4 +47,10 @@ export class ProductService {
   getProductInformation(id: number){
     return this.http.get(globals.server+'api/products/' + id);
   }
+  getProductManage(page:number,size:number,status:string,keyword:string,categoryid:number){
+    return this.http.get(globals.server+'api/admin/products?page='+page+'&size='+size+'&status='+status+'&keyword='+keyword+'&categoryid='+categoryid);
+  }
+  updateStatus(id:number,status:string){
+    return this.http.get(globals.server+'api/admin/change-status/'+id+'/'+status);
+  }
 }

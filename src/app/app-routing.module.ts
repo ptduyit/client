@@ -3,9 +3,9 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { CartComponent } from './cart/cart.component';
 import { SearchComponent } from './search/search.component';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './guard/auth.guard';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
-import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { CustomPreloadingStrategy } from './service/custom-preloading-strategy.service';
 
 const routes: Routes = [
   { 
@@ -22,25 +22,14 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       }
     ]
-  },
-  // { 
-  //   path: 'cart',
-  //   component: MainLayoutComponent,
-  //   children: [
-  //     {
-  //       path: '',
-  //       component: CartComponent,
-  //       canActivate: [AuthGuard]
-  //     }
-  //   ]
-  // },
+  }
   
 ]
 
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes,{preloadingStrategy : CustomPreloadingStrategy }),
   ],
   exports: [RouterModule]
 })

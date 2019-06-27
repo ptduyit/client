@@ -14,3 +14,13 @@ export interface OrderDetails{
     productId: number;
     productName: string;
 }
+export interface OrderImportManage{
+    orderId: number;
+    supplierId: number;
+    companyName : string;
+    totalPrice : number;
+    orderDate : Date;
+    userId : string;
+    fullName : string;
+    complete: boolean;
+}

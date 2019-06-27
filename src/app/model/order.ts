@@ -8,9 +8,9 @@ export class Order {
     phoneNumber: string;
     fullName: string;
     street:string;
-    province: string;
-    district: string;
-    ward: string;
+    provinces: string;
+    districts: string;
+    wards: string;
     userId: string;
     orderDetails: OrderDetails[];
 }

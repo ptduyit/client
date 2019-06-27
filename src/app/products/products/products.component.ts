@@ -1,22 +1,17 @@
-import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
-import { Product } from 'src/app/model/product';
 import { ProductService } from 'src/app/service/product.service';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 import { CartService } from 'src/app/service/cart.service';
 import { CartDetail } from 'src/app/model/cart-detail';
 import { NotificationsService } from 'angular2-notifications';
-import { Cart } from 'src/app/model/cart';
 import { DataShareService } from 'src/app/service/datashare.service';
-import { ViewEncapsulation } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 import * as signalR from "@aspnet/signalr";
 import { response } from 'src/app/model/response';
 import * as globals from 'src/globals';
 import { Title } from '@angular/platform-browser';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-products',
@@ -36,123 +31,126 @@ export class ProductsComponent implements OnInit {
   hubConnection: signalR.HubConnection;
   constructor(private productService: ProductService, private avRouter: ActivatedRoute,
     private cartService: CartService, private router: Router, private _service: NotificationsService,
-    private dataService: DataShareService, private title: Title,private spinner: NgxSpinnerService) {}
+    private dataService: DataShareService, private title: Title, private ngxService: NgxUiLoaderService) { }
 
-    // ngx-image-zoom
-    // this.thumbWidth = this.imageThumbnail.nativeElement.width;
-    //     let ratio = (this.imageThumbnail.nativeElement.naturalWidth / this.imageThumbnail.nativeElement.naturalHeight);
-    //     this.thumbHeight = this.thumbWidth / ratio;
-    ngOnInit() {
-    registerLocaleData( es );
+  // ngx-image-zoom
+  // this.thumbWidth = this.imageThumbnail.nativeElement.width;
+  //     let ratio = (this.imageThumbnail.nativeElement.naturalWidth / this.imageThumbnail.nativeElement.naturalHeight);
+  //     this.thumbHeight = this.thumbWidth / ratio;
+  ngOnInit() {
+    this.ngxService.start();
+    registerLocaleData(es);
     if (this.avRouter.snapshot.params["id"]) {
       this.id = this.avRouter.snapshot.params["id"];
       this.productService.getProductInformation(this.id).subscribe((data: response) => {
-        if(!data.isError){
+        if (!data.isError) {
+          this.ngxService.stop();
           this.title.setTitle(data.module.productName);
           this.product = data.module;
-          if(data.module.productImages.length > 0){
-            this.mainImage = globals.server+data.module.productImages[0].url;
+          if (data.module.productImages.length > 0) {
+            this.mainImage = globals.server + data.module.productImages[0].url;
           }
         }
-        
+
       });
     }
-    this.hubConnection = new signalR.HubConnectionBuilder().withUrl(globals.server+'echo').build();
+    this.hubConnection = new signalR.HubConnectionBuilder().withUrl(globals.server + 'echo').build();
     this.hubConnection
       .start()
       .then(() => console.log('Connection started'))
       .catch(err => console.log('Error while starting connection: ' + err));
-    this.hubConnection.on("stockproduct"+String(this.id), (msg) => {
+    this.hubConnection.on("stockproduct" + String(this.id), (msg) => {
       this.product.stock = msg;
-      if(this.quantity > msg){
+      if (this.quantity > msg) {
         this.quantity = msg;
       }
       console.log(msg);
     });
 
   }
-  slideConfig = {"slidesToShow": 5, "slidesToScroll": 5,
+  slideConfig = {
+    "slidesToShow": 5, "slidesToScroll": 5,
 
     "infinite": false
   };
 
-  changeimage(e){
-    if(this.mainImage !== e.target.currentSrc){
+  changeimage(e) {
+    if (this.mainImage !== e.target.currentSrc) {
       this.mainImage = e.target.currentSrc;
-    console.log(e.target.currentSrc);
+      console.log(e.target.currentSrc);
 
     }
   }
-  minus(){
-    if(this.quantity > 1)
+  minus() {
+    if (this.quantity > 1)
       this.quantity--;
   }
-  plus(){
-    let max = 100 > this.product.stock? this.product.stock : 100;
-    if(this.quantity < max)
+  plus() {
+    let max = 100 > this.product.stock ? this.product.stock : 100;
+    if (this.quantity < max)
       this.quantity++;
   }
-  selectText(e){
-    if(e.target.value == 1){
+  selectText(e) {
+    if (e.target.value == 1) {
       e.target.select();
     }
   }
-  keyupselectText(e){
+  keyupselectText(e) {
     var charCode = (e.which) ? e.which : e.keyCode;
-    if((charCode == 8 || charCode == 46) && e.target.value == 1){
+    if ((charCode == 8 || charCode == 46) && e.target.value == 1) {
       e.target.select();
     }
   }
-  isNumberKey(evt){
+  isNumberKey(evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     var start = evt.target.selectionStart;
     var end = evt.target.selectionEnd;
     var old = String(evt.target.value);
     //delete, backspace
-    if(charCode == 8 || charCode == 46){
-      var rs ='';
-      if(start !== end)
-        rs = old.slice(0,start)+old.slice(end,old.length);
-      else{
-        if(charCode == 8)
-          rs = old.slice(0,start-1)+old.slice(end,old.length);
+    if (charCode == 8 || charCode == 46) {
+      var rs = '';
+      if (start !== end)
+        rs = old.slice(0, start) + old.slice(end, old.length);
+      else {
+        if (charCode == 8)
+          rs = old.slice(0, start - 1) + old.slice(end, old.length);
         else
-          rs = old.slice(0,start)+old.slice(end+1,old.length);
+          rs = old.slice(0, start) + old.slice(end + 1, old.length);
       }
-      if(Number(rs) === 0){
-        this.quantity = 1;
-        return false; 
-      }
-    }
-    if(charCode == 48 && start===0){
-      return false;
-    }
-    //max quantity
-    if(charCode > 47 && charCode < 58){
-      let max = 100 > this.product.stock? this.product.stock : 100;
-      var rs = old.slice(0,start) + String(evt.key) + old.slice(end,old.length);
-      // if(Number(rs)===Number(old))
-      //   return false;
-      if(Number(rs)===0){
+      if (Number(rs) === 0) {
         this.quantity = 1;
         return false;
       }
-      if(Number(rs) < max)
+    }
+    if (charCode == 48 && start === 0) {
+      return false;
+    }
+    //max quantity
+    if (charCode > 47 && charCode < 58) {
+      let max = 100 > this.product.stock ? this.product.stock : 100;
+      var rs = old.slice(0, start) + String(evt.key) + old.slice(end, old.length);
+      // if(Number(rs)===Number(old))
+      //   return false;
+      if (Number(rs) === 0) {
+        this.quantity = 1;
+        return false;
+      }
+      if (Number(rs) < max)
         return true;
       this.quantity = max;
       return false;
     }
 
-    if(charCode == 40)
+    if (charCode == 40)
       this.minus();
 
-    if(charCode == 38){
+    if (charCode == 38) {
       this.plus();
       return false;
     }
 
-    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57) 
-    && (charCode < 37 || charCode > 40) && charCode != 231)
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)
+      && (charCode < 37 || charCode > 40) && charCode != 231)
       return false;
     return true;
   }
@@ -181,17 +179,17 @@ export class ProductsComponent implements OnInit {
       this.cartDetail.productId = this.id;
       this.cartDetail.userId = this.userId;
       this.cartDetail.quantity = this.quantity;
-      this.cartService.addItem(this.cartDetail).subscribe((data:response) => {
-        if(!data.isError){
-          this.cartService.getTotalQuantity(this.userId).subscribe((rs:response) => {
-            if(!rs.isError){
+      this.cartService.addItem(this.cartDetail).subscribe((data: response) => {
+        if (!data.isError) {
+          this.cartService.getTotalQuantity(this.userId).subscribe((rs: response) => {
+            if (!rs.isError) {
               this.dataService.updateNumberProduct(rs.module);
             }
           });
           console.log('success');
           //thong bao thanh cong
         }
-        else{
+        else {
           console.log('error');
           //thong bao loi
         }

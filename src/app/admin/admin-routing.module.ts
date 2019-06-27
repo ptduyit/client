@@ -10,9 +10,9 @@ import { NewProductComponent } from './products/new-product/new-product.componen
 import { ListProductComponent } from './products/list-product/list-product.component';
 import { NewOrderComponent } from './orders-import/new-order/new-order.component';
 import { ListOrdersImportComponent } from './orders-import/list-orders-import/list-orders-import.component';
-import { AuthGuard } from '../auth/auth.guard';
+import { AuthGuard } from '../guard/auth.guard';
 import { PageNotFoundComponent } from '../shared/page-not-found/page-not-found.component';
-
+import { SlideshowComponent } from './slideshow/slideshow.component';
 const routes: Routes = [
   {
     path: '',
@@ -26,6 +26,7 @@ const routes: Routes = [
           { path: '', pathMatch: 'full', redirectTo: 'orders' },
           { path: 'users', component: UsersComponent },
           { path: 'orders', component: OrdersComponent },
+          { path: 'slide', component: SlideshowComponent},
           { path: 'statistics', component: StatisticsComponent },
           { 
             path: 'orders-import', component: OrdersImportComponent ,

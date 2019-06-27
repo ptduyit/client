@@ -13,7 +13,7 @@ import { SafeHtmlPipe } from './safe-html-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxUiLoaderModule } from  'ngx-ui-loader';
 
 @NgModule({
   imports: [
@@ -29,7 +29,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgxImageZoomModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    NgxUiLoaderModule
   ],
   declarations: [
     ProductsComponent,

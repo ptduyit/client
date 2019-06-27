@@ -1,18 +1,77 @@
+<div class="d-flex justify-content-between align-items-center py-3">
+    <div>
+        <span class="mr-3">Hiển thị</span>
+        <select class="custom-select" [(ngModel)]="size" (change)="selectCategory()">
+            <option value="10">10</option>
+            <option value="30">30</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+    <div style="width:30%">
+        <input type="text" class="form-control" placeholder="tìm id hoặc tên sản phẩm" [(ngModel)]="keyword" (keyup)="term$.next($event.target.value)">
+    </div>
+    <div>
+        <span class="mr-3">Thuộc danh mục</span>
+        <select class="custom-select" [(ngModel)]="categoryId" (change)="selectCategory()">
+            <option value="0">Tất cả danh mục</option>
+            <option *ngFor="let ctg of categorySelect" [value]="ctg.categoryId">
+                {{ctg.categoryName}}
+                <i *ngIf="ctg.isLast">*</i>
+            </option>
+        </select>
+    </div>
+    <button class="btn btn-success" routerLink="/admin/products/new-product">Thêm sản phẩm</button>
 
-
-<button class="btn btn-success" routerLink="/admin/products/new-product">Thêm sản phẩm</button>
-
-<ag-grid-angular 
-    style="width: 100%; height: 90%;" 
-    class="ag-theme-balham"
-    [rowData]="rowData" 
-    [enableSorting]="true"
-    [enableFilter]="true"
-    [enableColResize]="true"
-    [columnDefs]="columnDefs"
-    [pagination]="true"
-    [paginationAutoPageSize]="true"
-    [frameworkComponents]="frameworkComponents"
-    >
-</ag-grid-angular>
-
+</div>
+<div class="mb-3 text-right">
+    <p-radioButton (onFocus)="selectRadio()" class="radio-button" name="status" value="abc" label="Không lọc" [(ngModel)]="status">
+    </p-radioButton>
+    <p-radioButton (onFocus)="selectRadio()" class="radio-button" name="status" value="stock" label="Hết hàng" [(ngModel)]="status">
+    </p-radioButton>
+    <p-radioButton (onFocus)="selectRadio()" class="radio-button" name="status" value="discontinued" label="Ngưng bán" [(ngModel)]="status">
+    </p-radioButton>
+    <p-radioButton (onFocus)="selectRadio()" class="radio-button" name="status" value="index" label="Nổi bật" [(ngModel)]="status">
+    </p-radioButton>
+    <p-radioButton (onFocus)="selectRadio()" class="radio-button" name="status" value="price" label="Chưa định giá" [(ngModel)]="status">
+    </p-radioButton>
+</div>
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-info">
+                <th class="text-center">Mã SP</th>
+                <th style="width:35%">Tên sản phẩm</th>
+                <th class="text-right">Giá sản phẩm</th>
+                <th>Thuộc danh mục</th>
+                <th class="text-center">Hàng tồn</th>
+                <th class="text-center">Đang bán</th>
+                <th class="text-center">Nổi bật</th>
+                <th class="text-center">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products | paginate: { id: 'pagingproduct', itemsPerPage: paging.pageSize, currentPage: currentPage, totalItems: paging.totalItems}">
+                <td class="text-center">{{product.productId}}</td>
+                <td>{{product.productName}}</td>
+                <td class="text-right">{{product.unitPrice | number}}</td>
+                <td>{{product.categoryName}}</td>
+                <td class="text-center">{{product.stock}}</td>
+                <td class="text-center">
+                    <i (click)="changeStatus(product.productId,'discontinued')" class="pi control" [class.pi-check-circle]="!product.discontinued" [class.pi-times-circle]="product.discontinued"></i>
+                </td>
+                <td class="text-center">
+                    <i (click)="changeStatus(product.productId,'index')" class="pi control" [class.pi-check-circle]="product.displayIndex" [class.pi-times-circle]="!product.displayIndex"></i>
+                </td>
+                <td class="text-center">
+                    <i class="pi pi-pencil control" routerLink="/admin/products/edit/{{product.productId}}"></i>
+                    <i class="pi pi-external-link control" (click)="gotoLink(product.productId)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="p-3 text-right" *ngIf="paging.totalPages > 1">
+            <pagination-controls (pageChange)="changePage($event)" id="pagingproduct" previousLabel="" nextLabel="">
+            </pagination-controls>
+    </div>
+</div>

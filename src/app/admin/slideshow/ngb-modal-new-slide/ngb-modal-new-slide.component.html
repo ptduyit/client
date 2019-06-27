@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <h5 class="modal-title">Thêm thông tin slide</h5>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form name="form" (ngSubmit)="slideForm.form.valid && onSubmit()" #slideForm="ngForm" novalidate>
+    <div class="mb-3">
+      <span>Đường dẫn</span>
+      <input type="text" class="form-control" [(ngModel)]="link" name="url" #url="ngModel" [ngClass]="{ 'is-invalid': slideForm.submitted && url.invalid }" required maxlength="200">
+      <div *ngIf="slideForm.submitted && url.invalid" class="invalid-feedback">
+          <div *ngIf="url.errors.required">Không được để trống</div>
+          <div *ngIf="url.errors.maxlength">Tối đa 200 kí tự</div>
+      </div>
+    </div>
+    <div>
+      <p-fileUpload #fileUpload mode="basic" accept="image/*" [auto]="true" customUpload="true"
+        (uploadHandler)="myUploader($event,fileUpload)" chooseLabel="Chọn ảnh"></p-fileUpload>
+      <input type="text" [(ngModel)]="temp" class="form-control d-none" name="point" #point="ngModel" [ngClass]="{ 'is-invalid': slideForm.submitted && point.invalid }" required>
+      <div *ngIf="slideForm.submitted && point.invalid" class="invalid-feedback">
+          <div *ngIf="point.errors.required">Vui lòng chọn file</div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <img width="100%" [src]="sanitizer.bypassSecurityTrustUrl(image)" alt="">
+    </div>
+    <div class="text-right">
+        <button type="submit" class="btn btn-outline-primary">Thêm</button>
+    </div>
+  </form>
+</div>

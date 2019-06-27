@@ -1,7 +1,15 @@
- 
-  <div class="container">
-    <div class="row">
+<div class="container">
+  <div class="row">
+    <div class="">
       <app-category></app-category>
-      <!-- <app-product-showcase *ngFor="let product of productIndex" [productIndex]="product" class="col-md-3 col-sm-6 py-3"></app-product-showcase> -->
     </div>
+    <div class="col-9">
+      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+        <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+          <img routerLink="{{slide.link}}" src="{{server}}{{slide.image}}" alt="" width="100%">
+        </div>
+      </ngx-slick-carousel>
+    </div>
+    <!-- <app-product-showcase *ngFor="let product of productIndex" [productIndex]="product" class="col-md-3 col-sm-6 py-3"></app-product-showcase> -->
   </div>
+</div>

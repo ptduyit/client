@@ -13,7 +13,7 @@ import { CategoryOfMonth } from 'src/app/model/categoryofmonth';
 })
 export class StatisticsComponent implements OnInit {
 
-  months:number[]= [1,2,3,4,5,6,7,8,9,10];
+  months:number[]= [1,2,3,4,5,6,7,8,9,10,11,12];
 
 
   loaiTK='month';

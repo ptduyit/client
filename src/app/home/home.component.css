@@ -1,0 +1,9 @@
+.slide{
+    width: 800px;
+    height: 300px;
+    cursor: pointer;
+}
+.category{
+    position: relative;
+    z-index: 2;
+}

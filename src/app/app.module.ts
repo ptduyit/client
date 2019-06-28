@@ -73,7 +73,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     LayoutModule,
     SharedModule,
     NgxMaskModule.forRoot(),
-    ToastrModule.forRoot({positionClass: 'toast-bottom-right', closeButton: true}),
+    ToastrModule.forRoot({positionClass: 'toast-bottom-right', closeButton: true, timeOut: 8000}),
     SweetAlert2Module.forRoot(),
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     SocialLoginModule,

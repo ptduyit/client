@@ -21,5 +21,10 @@ export class UserService {
     let data = {passOld:passOld,passNew:passNew}
     return this.http.put(globals.server+'api/users/changepassword/'+userId,data);
   }
-  
+  getUser(page:number,keyword:string,role:string){
+    return this.http.get(globals.server+'api/users?page='+page+'&keyword='+keyword+'&role='+role);
+  }
+  updateRole(id:string,role:string){
+    return this.http.get(globals.server+'api/users/change-role/'+id+'/'+role);
+  }
 }

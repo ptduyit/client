@@ -63,3 +63,32 @@ body{
 .slick-prev:before, .slick-next:before{
     color: #5a5f5f !important;
 }
+.next-slide-slick{
+    right: 10px;
+}
+.prev-slide-slick{
+    left: 10px;
+    
+}
+.next-slide-slick, .prev-slide-slick{
+    position: absolute;
+    z-index: 1;
+    top: 45%;
+    width: 48px;
+    height: 40px;
+    padding: 12px 0 0;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    background: rgba(0,0,0,.3);
+    line-height: 0.2;
+    text-align: center;
+    font-size: 46px;
+    color: #fff;
+    font-family: -webkit-body;
+    cursor: pointer;
+}
+.toast-title{
+    font-weight: 500 !important;
+    font-size: 1.1rem;
+}

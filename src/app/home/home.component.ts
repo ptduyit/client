@@ -27,7 +27,9 @@ export class HomeComponent implements OnInit {
     "dots": true,
     "infinite": true,
     "autoplay": true,
-    "autoplaySpeed": 1500
+    "autoplaySpeed": 5000,
+    "prevArrow":"<div class='prev-slide-slick'>‹</div>",
+    "nextArrow":"<div class='next-slide-slick'>›</div>",
   };
   getSlide(){
     this.slideService.getSlide().subscribe(data => {

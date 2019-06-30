@@ -4,8 +4,8 @@
 
   </div>
   
-  <div class="main">
-      <div *ngFor="let address of addresses" class="p-3 border-bottom">
+  <div class="main ani-slide">
+      <div *ngFor="let address of addresses" class="p-3 border-bottom ">
         <div class="d-flex justify-content-between">
             <span class="d-block"><i class="pi pi-user" style="font-size: 1.3rem"></i> {{address.fullName}} <span *ngIf="address.isDefault" class="text-default">Mặc Định</span> </span>
           <div class="modify">

@@ -71,8 +71,10 @@
 }
 .cart-null > div{
 	text-align: center;
-	
-	
+}
+.unit-price{
+	color: #ff6004;
+	font-size: 1.08rem;
 }
 @media (min-width: 992px) { 
 	.info-product{
@@ -100,6 +102,8 @@
 		-webkit-line-clamp: 2;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		font-size: 1.1rem;
+		font-weight: 500;
 	}
 	.cart-footer{
 		position: sticky;

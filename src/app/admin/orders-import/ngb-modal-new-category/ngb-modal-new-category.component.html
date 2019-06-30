@@ -27,7 +27,7 @@
     <div class="form-group align-items-center row">
       <span for="category" class="control-label col-sm-4">Thuộc danh mục</span>
       <div class="col-sm-8">
-          <select class="form-control" formControlName="category" (change)="changeSelected($event)" [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+          <select class="form-control custom-select" formControlName="category" (change)="changeSelected($event)" [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
               <option value="0">Không thuộc danh mục nào</option>
               <option *ngFor="let ctg of categorySelect" [value]="ctg.categoryId">
                 {{ctg.categoryName}}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SlideService } from 'src/app/service/slide.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalNewSlideComponent } from './ngb-modal-new-slide/ngb-modal-new-slide.component';
+import * as globals from 'src/globals';
 
 @Component({
   selector: 'app-slideshow',
@@ -9,7 +10,7 @@ import { NgbModalNewSlideComponent } from './ngb-modal-new-slide/ngb-modal-new-s
   styleUrls: ['./slideshow.component.css']
 })
 export class SlideshowComponent implements OnInit {
-
+  server = globals.server;
   slides = [] as any;
   constructor(private slideService: SlideService, private modalService: NgbModal) { }
 

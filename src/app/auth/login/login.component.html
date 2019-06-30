@@ -1,13 +1,13 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<div class=".container-fluid  mylogin">
+<div class="mylogin">
   <div class=""> 
 	<div class="d-flex justify-content-center h-100 ">
 		<div class="card">
 			<div class="card-header">
 				<h3>Đăng nhập</h3>
 				<div class="d-flex justify-content-end social_icon">
-					<span><i class="fab fa-facebook-square" (click)="socialSignIn('facebook')"></i></span>
-					<span><i class="fab fa-google-plus" (click)="socialSignIn('google')"></i></span>
+					<span><i placement="top" ngbTooltip="Đăng nhập với facebook" class="fab fa-facebook-square" (click)="socialSignIn('facebook')"></i></span>
+					<span><i placement="top" ngbTooltip="Đăng nhập với google" class="fab fa-google-plus" (click)="socialSignIn('google')"></i></span>
 				</div>
 			</div>
 			<div class="card-body">
@@ -35,8 +35,8 @@
 					<div class="row align-items-center remember">
 						<input type="checkbox">Ghi nhớ
 					</div>
-					<div class="form-group">
-						<input type="submit" value="Đăng nhập" class="btn float-right login_btn">
+					<div class="text-right">
+						<input type="submit" value="Đăng nhập" class="btn login_btn">
 					</div>
 				</form>
 			</div>
@@ -45,7 +45,7 @@
 					Bạn đã có tài khoản?<a routerLink="/signup">Đăng Ký</a>
 				</div>
 				<div class="d-flex justify-content-center">
-					<a routerLink="#">Quên mật khẩu?</a>
+					<a routerLink=".">Quên mật khẩu?</a>
 				</div>
 			</div>
 		</div>

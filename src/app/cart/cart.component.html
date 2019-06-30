@@ -14,7 +14,8 @@
         </div>
       </div>
     </div>
-    <div class="" >
+    <div class="mt-3">
+      <span>GIỎ HÀNG ({{productNumber}} sản phẩm)</span>
       <div *ngFor="let product of carts" class="d-flex cart-item">
         <div>
           <div class="image-product mr-3" routerLink="/products/{{product.productId}}">
@@ -25,10 +26,10 @@
         <div class="info-product d-lg-flex">
           <div class="product-name col-lg-5">
             <a routerLink="/products/{{product.productId}}">
-              <span class="">{{product.productName}}</span>
+              <span>{{product.productName}}</span>
             </a>
           </div>
-          <div class="col-lg-3">{{product.unitPrice | number:'':'es'}} đ</div>
+          <div class="col-lg-3 unit-price">{{product.unitPrice | number:'':'es'}} đ</div>
           <div class="item-quantity col-lg-4">
             <div class="input-group">
               <button (click)="minus(product)" class="d-flex btn input-group-append minus-plus"><i
@@ -61,7 +62,7 @@
           <span class="d-block text-left" style="font-size: 0.8rem;"><i class="pi pi-map-marker"
               style="font-size: 1.3rem"></i>Địa chỉ nhận hàng</span>
           <div class="py-3">
-            <span style="font-weight: bold" class="mr-3">{{address.fullName}} {{address.phoneNumber}}</span>
+            <span style="font-weight: 500" class="mr-3">{{address.fullName}} {{address.phoneNumber}}</span>
             <span class="mr-3">{{address.street}}, {{address.location.ward}}, {{address.location.district}},
               {{address.location.province}}</span>
             <span class="mr-4 text-muted" *ngIf="address.isDefault">Mặc Định</span>

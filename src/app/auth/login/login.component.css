@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
-html,body{
+/* html,body{
     background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
     font-family: 'Numans', sans-serif;
-    }
+    } */
     
     .container{
     height: 100%;
@@ -20,10 +20,15 @@ html,body{
     background-color: rgba(0,0,0,0.5) !important;
     }
     
-    .social_icon span{
+    .social_icon span:first-child{
     font-size: 60px;
     margin-left: 10px;
-    color: #FFC312;
+    color: #3c5a99;
+    }
+    .social_icon span:last-child{
+        font-size: 60px;
+        margin-left: 10px;
+        color: #f3511e;
     }
     
     .social_icon span:hover{
@@ -88,7 +93,7 @@ html,body{
         background-size: cover;
         height: 100%;
         width: 100%;
-        background-image: url("http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg");
-        padding-top: 200px;
-        padding-bottom: 200px;
+        background-image: url("/assets/images/bg-image-login.jpg");
+        padding-top: 100px;
+        padding-bottom: 100px;
     }

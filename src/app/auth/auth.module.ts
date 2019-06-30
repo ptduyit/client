@@ -7,12 +7,14 @@ import { SignupComponent } from './signup/signup.component';
 import { CheckPasswordDirective } from './signup/check-password.directive';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { DirectionComponent } from './direction/direction.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
     AuthRoutingModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   declarations: [
     LoginComponent,

@@ -12,6 +12,7 @@ import { NgbModalDetailOrderComponent } from './ngb-modal-detail-order/ngb-modal
 import es from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { FormControl } from '@angular/forms';
+import * as globals from 'src/globals';
 
 @Component({
   selector: 'app-orders',
@@ -19,6 +20,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
+  server = globals.server;
   orders: Order[] = [];
   orderDetail: OrderDetail[];
   paging ={} as Paging;

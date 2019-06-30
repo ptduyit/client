@@ -1,6 +1,6 @@
   <h4>Hồ sơ của tôi</h4>
   <form [formGroup]="profileForm" (ngSubmit)="save()">
-    <div class="input-group form-group">
+    <div class="input-group form-group ani-slide">
       <span for="phoneNumber" class="col-sm-3">Số Điện Thoại</span>
       <div class="col-sm-9">
           <input type="text" class="form-control" mask="0000 000 000" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class="input-group form-group">
+    <div class="input-group form-group ani-slide">
       <span for="fullName" class="col-sm-3">Tên Người Dùng</span>
       <div class="col-sm-9">
           <input type="text" class="form-control" formControlName="fullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }">
@@ -20,14 +20,14 @@
         </div>
       </div>
     </div>
-    <div class="input-group form-group">
+    <div class="input-group form-group ani-slide">
       <span for="gender" class="col-sm-3">Giới Tính</span>
       <div class="col-sm-9 d-flex">
           <p-radioButton class="mr-3 d-inline-flex align-items-center" name="gender" [value]="true" label="Nam" formControlName="gender"></p-radioButton>
           <p-radioButton class="d-inline-flex align-items-center" name="gender" [value]="false" label="Nữ" formControlName="gender"></p-radioButton>
       </div>
     </div>
-    <div class="input-group form-group">
+    <div class="input-group form-group ani-slide">
       <span for="birthDate" class="col-sm-3">Ngày Sinh</span>
       <div class="col-sm-9">
           <input type="text" class="form-control" formControlName="birthDate" ngbDatepicker 

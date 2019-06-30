@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
-import { DataShareService } from 'src/app/service/datashare.service'
-import { NotificationsService } from 'angular2-notifications';
+import { DataShareService } from 'src/app/service/datashare.service';
 import { CartService } from 'src/app/service/cart.service';
-import { Cart } from 'src/app/model/cart';
 import { Title } from '@angular/platform-browser';
 import { response } from 'src/app/model/response';
 import { AuthService as  AuthExtendService} from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router
     ,private dataService: DataShareService, private socialAuthService: AuthExtendService,
-    private _service: NotificationsService, private cartService: CartService, private title: Title) {
+    private toastr: ToastrService, private cartService: CartService, private title: Title) {
       this.title.setTitle('Đăng nhập');
      }
 
@@ -47,17 +45,7 @@ export class LoginComponent implements OnInit {
 
           let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/';
 
-          this._service.success(
-            'Đăng nhập thành công','Vui lòng chờ',
-            {
-              position: ["bottom", "right"],
-              timeOut: 3000,
-              showProgressBar: true,
-              pauseOnHover: false,
-              clickToClose: true,
-              maxLength: 10
-            }
-          );
+          this.toastr.success('Đăng nhập thành công');
           this.router.navigateByUrl(redirect);
         }
         else{
@@ -65,18 +53,7 @@ export class LoginComponent implements OnInit {
         }
       },
         err => {
-          this._service.error(
-            'Đăng nhập thất bại','Vui lòng thử lại',
-            {
-              position: ["bottom", "right"],
-              timeOut: 5000,
-              showProgressBar: true,
-              pauseOnHover: false,
-              clickToClose: true,
-              maxLength: 10
-            }
-        );
-          this.isLoginError = true;
+          
         });
   }
   socialSignIn(socialPlatform : string) {
@@ -98,26 +75,10 @@ export class LoginComponent implements OnInit {
         else if(socialPlatform == "google"){
           token = userData.idToken;
         }
-        this._service.info('Chờ máy chủ xác thực','',
-          {
-            timeOut: 3000,
-            showProgressBar: true,
-            pauseOnHover: false,
-            clickToClose: true,
-            maxLength: 10
-          });
+        this.toastr.info("Đang xác thực...")
         this.authService.externalLogin(token,socialPlatform)
         .subscribe((data: response) =>  {
-          this._service.success('Đăng nhập thành công','',
-            {
-              position: ["bottom", "right"],
-              timeOut: 3000,
-              showProgressBar: true,
-              pauseOnHover: false,
-              clickToClose: true,
-              maxLength: 10
-            }
-          );
+          this.toastr.success("Đăng nhập thành công");
           this.dataService.updateStatus(data.module.fullName);
           localStorage.setItem('token', data.module.token);
           localStorage.setItem('userId', data.module.id);
@@ -132,14 +93,12 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         },
         err=>{
-          this._service.error('Đăng nhập thất bại','Vui lòng thử lại',
-          {
-            timeOut: 3000,
-            showProgressBar: true,
-            pauseOnHover: false,
-            clickToClose: true,
-            maxLength: 10
-          });
+          if(err.status === 0){
+            this.toastr.error("không thể kết nối máy chủ");
+          }
+          else{
+            this.toastr.error("Lỗi không xác định");
+          }
         });
       }
     );

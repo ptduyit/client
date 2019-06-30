@@ -11,7 +11,7 @@
 <div class="modal-body">
   <div class="process">
     <div class="status-name"><i class="pi pi-clone"></i> {{order.statusName}}</div>
-    <ng-container *ngIf="order.status !== 5 && order.status !== 6">
+    <ng-container *ngIf="order.status !== 5 && order.status !== 4">
       <div *ngIf="order.status !== 4">Vui lòng sắp theo thời gian giao hàng để giao hàng trước ngày
         <span class="date">{{order.shippedDate | date:'dd/MM/yyyy'}}</span></div>
       <div class="d-flex justify-content-between next-select">
@@ -80,10 +80,11 @@
       <div *ngFor="let product of order.orderDetails" [class.discontinued]="product.discontinued && order.status==1"
       class="d-flex justify-content-between align-items-center info-product">
       <div class="product-image d-flex align-items-center">
-        <div>
-          <img src="assets/images/placeholder.png" alt="">
+        <div (click)="gotoLink(product.productId)">
+          <img *ngIf="product.productImages" src="{{server}}{{product.productImages}}" alt="{{product.productName}}">
+          <img *ngIf="!product.productImages" src="assets/images/placeholder.png" alt="{{product.productName}}">
         </div>
-        <div>
+        <div (click)="gotoLink(product.productId)" style="cursor: pointer;">
           <span>{{product.productName}}</span>
         </div>
         

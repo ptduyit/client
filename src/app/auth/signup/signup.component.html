@@ -1,86 +1,98 @@
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-  crossorigin="anonymous">
-<div class=".container-fluid  mylogin">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+  integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<div class="mylogin">
   <div class="">
     <div class="d-flex justify-content-center h-100 ">
       <div class="card">
         <div class="card-header">
           <h3>Đăng ký</h3>
+          <div class="d-flex justify-content-end social_icon">
+            <span><i placement="top" ngbTooltip="Đăng ký với facebook" class="fab fa-facebook-square" (click)="socialSignIn('facebook')"></i></span>
+            <span><i placement="top" ngbTooltip="Đăng ký với google" class="fab fa-google-plus" (click)="socialSignIn('google')"></i></span>
+          </div>
         </div>
         <div class="card-body">
-          <form name="form" (ngSubmit)="!passGroup.errors?.passwordCheck && signupForm.form.valid && onSubmit(signupForm)" #signupForm="ngForm" novalidate>
-            
+          <form name="form"
+            (ngSubmit)="!passGroup.errors?.passwordCheck && signupForm.form.valid && onSubmit(signupForm)"
+            #signupForm="ngForm" novalidate>
+
             <div class="input-group form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-user-edit"></i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Họ và tên" ngModel #fullname="ngModel" name="fullname" [ngClass]="{ 'is-invalid': signupForm.submitted && fullname.invalid }" required>
+              <input type="text" class="form-control" placeholder="Họ và tên" ngModel #fullname="ngModel"
+                name="fullname" [ngClass]="{ 'is-invalid': signupForm.submitted && fullname.invalid }" required>
               <div *ngIf="signupForm.submitted && fullname.invalid" class="invalid-feedback">
-                  <div *ngIf="fullname.errors.required">Không được để trống</div>
+                <div *ngIf="fullname.errors.required">Không được để trống</div>
               </div>
             </div>
             <div class="input-group form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Email" ngModel name="email" #email="ngModel" [ngClass]="{ 'is-invalid': signupForm.submitted && email.invalid }" required email>
+              <input type="text" class="form-control" placeholder="Email" ngModel name="email" #email="ngModel"
+                [ngClass]="{ 'is-invalid': signupForm.submitted && email.invalid }" required email>
               <div *ngIf="signupForm.submitted && email.invalid" class="invalid-feedback">
-                  <div *ngIf="email.errors.required">Không được để trống</div>
-                  <div *ngIf="email.errors.email">Phải nhập đúng định dạng email</div>
+                <div *ngIf="email.errors.required">Không được để trống</div>
+                <div *ngIf="email.errors.email">Phải nhập đúng định dạng email</div>
               </div>
             </div>
             <div class="input-group form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Số điện thoại" ngModel name="phonenumber" #phonenumber="ngModel" [ngClass]="{ 'is-invalid': signupForm.submitted && phonenumber.invalid }" required minlength="10">
+              <input type="text" class="form-control" placeholder="Số điện thoại" ngModel name="phonenumber"
+                #phonenumber="ngModel" [ngClass]="{ 'is-invalid': signupForm.submitted && phonenumber.invalid }"
+                required minlength="10">
               <div *ngIf="signupForm.submitted && phonenumber.invalid" class="invalid-feedback">
-                  <div *ngIf="phonenumber.errors.required">Không được để trống</div>
-                  <div *ngIf="phonenumber.errors.minlength">Số điện thoại tối thiểu 10 số</div>
+                <div *ngIf="phonenumber.errors.required">Không được để trống</div>
+                <div *ngIf="phonenumber.errors.minlength">Số điện thoại tối thiểu 10 số</div>
               </div>
             </div>
             <div ngModelGroup="passGroup" appCheckPassword #passGroup="ngModelGroup">
-            <div class="input-group form-group">
+              <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
-                <input type="password" class="form-control" placeholder="Mật khẩu" ngModel name="password" #password="ngModel"
-                  [ngClass]="{ 'is-invalid': signupForm.submitted && password.invalid }" required minlength="6">
+                <input type="password" class="form-control" placeholder="Mật khẩu" ngModel name="password"
+                  #password="ngModel" [ngClass]="{ 'is-invalid': signupForm.submitted && password.invalid }" required
+                  minlength="6">
                 <div *ngIf="signupForm.submitted && password.invalid" class="invalid-feedback">
                   <div *ngIf="password.errors.required">Không được để trống</div>
                   <div *ngIf="password.errors.minlength">Mật khẩu tối thiểu 6 kí tự</div>
                 </div>
-            </div>
-            
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-key"></i></span>
               </div>
-              <input type="password" class="form-control" placeholder="Xác nhận mật khẩu" ngModel name="confirm" #confirm="ngModel"
-                [ngClass]="{ 'is-invalid': signupForm.submitted && (confirm.invalid || passGroup.errors?.passwordCheck)}" required >
-              <div *ngIf="signupForm.submitted && confirm.invalid" class="invalid-feedback">
-                <div *ngIf="confirm.errors.required">Không được để trống</div>
-              </div>
-              <div *ngIf="confirm.touched && passGroup.errors?.passwordCheck" class="invalid-feedback" style="display:block !important;">
-                Mật khẩu và mật khẩu xác nhận không giống nhau
+
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="password" class="form-control" placeholder="Xác nhận mật khẩu" ngModel name="confirm"
+                  #confirm="ngModel"
+                  [ngClass]="{ 'is-invalid': signupForm.submitted && (confirm.invalid || passGroup.errors?.passwordCheck)}"
+                  required>
+                <div *ngIf="signupForm.submitted && confirm.invalid" class="invalid-feedback">
+                  <div *ngIf="confirm.errors.required">Không được để trống</div>
+                </div>
+                <div *ngIf="confirm.touched && passGroup.errors?.passwordCheck" class="invalid-feedback"
+                  style="display:block !important;">
+                  Mật khẩu và mật khẩu xác nhận không giống nhau
+                </div>
               </div>
             </div>
-            </div>
-            <div class="form-group">
-              <input type="submit" value="Đăng ký" class="btn float-right login_btn">
+            <div class="text-right">
+              <input type="submit" value="Đăng ký" class="btn login_btn">
             </div>
           </form>
         </div>
         <div class="card-footer">
-            <div class="card-footer">
-              <div class="d-flex justify-content-center links">
-                Bạn đã có tài khoản?<a routerLink="/login">Đăng nhập</a>
-              </div>
-              <div class="d-flex justify-content-center">
-                <a routerLink="/home">Mua sắm ngay!</a>
-              </div>
-            </div>
+          <div class="d-flex justify-content-center links">
+            Bạn đã có tài khoản?<a routerLink="/login">Đăng nhập</a>
           </div>
+          <div class="d-flex justify-content-center">
+            <a routerLink="/">Mua sắm ngay!</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>

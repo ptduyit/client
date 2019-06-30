@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { ShowAddressUser } from 'src/app/model/address';
 import { AddressService } from 'src/app/service/address.service';
 import { Router, RoutesRecognized } from '@angular/router';
 import { response } from 'src/app/model/response';
 import { Title } from '@angular/platform-browser';
-
+import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
+import { slide } from 'src/app/animation/animation';
 @Component({
   selector: 'app-address',
   templateUrl: './address.component.html',
-  styleUrls: ['./address.component.css']
+  styleUrls: ['./address.component.css'],
+  animations: [
+    slide
+  ]
 })
 export class AddressComponent implements OnInit {
+  @HostBinding('@slideAnimation')
+  public animateSlide = true;
 
   addresses: ShowAddressUser[];
   userId = localStorage.getItem('userId');

@@ -10,6 +10,9 @@
     outline: 0;
     border-bottom: 1px solid rgb(4, 42, 255);
 }
+th{
+    font-weight: 500;
+}
 .table-responsive{
     max-height:490px;
     overflow-y: auto;

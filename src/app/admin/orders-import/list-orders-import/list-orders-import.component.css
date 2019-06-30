@@ -11,7 +11,3 @@ th{
 .control > i:first-child{
     color: rgb(0, 59, 253);
 }
-
-.form-control, .input-group{
-    width: auto !important;
-}

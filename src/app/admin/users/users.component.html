@@ -1,4 +1,4 @@
-<div class="align-items-center input-group w-50">
+<div class="align-items-center input-group w-50 py-3">
   <input type="text" class="form-control w-50" [(ngModel)]="keyword" placeholder="Tìm kiếm id hoặc tên" (keyup)="term$.next($event.target.value)">
   <select class="custom-select form-control input-group-prepend" [(ngModel)]="role" (change)="getUser(1)">
     <option value="all">Tất cả</option>
@@ -9,12 +9,12 @@
 </div>
 <table class="table table-bordered">
   <thead>
-    <tr>
+    <tr class="table-info">
       <th>Mã người dùng</th>
       <th>Tên người dùng</th>
       <th>Email</th>
       <th>Số điện thoại</th>
-      <th>Quyền</th>
+      <th class="text-center">Quyền</th>
     </tr>
   </thead>
   <tbody>

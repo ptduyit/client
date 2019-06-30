@@ -50,7 +50,7 @@
       <span class="col-7">{{summed | number}} đồng</span>
     </div>
     <div class="d-flex justify-content-around mt-lg-5">
-      <button class="btn btn-secondary">Trở về</button>
+      <button routerLink="/admin/orders-import" class="btn btn-secondary">Trở về</button>
       <button (click)="temp()" class="btn btn-primary">Lưu tạm</button>
       <button (click)="save()" class="btn btn-success">Hoàn thành</button>
     </div>
@@ -58,9 +58,8 @@
     </div>
     
   <div class="col-lg-8 order-lg-1 p-2">
-    <div class="bg-white p-3">
-    <div class="row my-3 align-items-center">
-      <div class="col-lg-4">Nhập hàng</div>
+    <div class="bg-white p-3" style="min-height: 50vh;">
+    <div class="row my-3 align-items-center justify-content-end">
       <div class="col-lg-8">
         <div class="search-box input-group">
           <input class="form-control" type="search" [formControl]="searchProductControl"
@@ -81,28 +80,26 @@
     </div>
     <div>
       <form [formGroup]="orderForm">
-        <table class="table table-responsive">
+        <table class="table table-bordered">
           <thead>
             <tr class="table-primary">
-              <th></th>
               <th>Mã</th>
               <th>Tên sản phẩm</th>
               <th style="width:100px" class="text-right">Số lượng</th>
               <th style="width:160px" class="text-right">Đơn giá</th>
-              <th class="text-right">Thành tiền</th>
+              <th class="text-right text-nowrap">Thành tiền</th>
               <th></th>
             </tr>
           </thead>
           <tbody formArrayName="product">
             <tr *ngFor="let order of orderForm.get('product')['controls']; let i=index" [formGroupName]="i">
-              <td>{{i+1}}</td>
               <td>{{order.get('productId').value}}</td>
               <td>{{order.get('productName').value}}</td>
               <td><input formControlName="quantity" type="text" class="number" mask="comma_separator.0"></td>
               <td><input formControlName="unitPrice" type="text" class="number" mask="comma_separator.0"></td>
               <td class="text-right">{{order.get('quantity').value * order.get('unitPrice').value | number}}</td>
               <td><button type="button" (click)="deleteProduct(i,order.get('productId').value)"
-                  class="d-flex btn btn-outline-danger"><i class="pi pi-times"></i></button></td>
+                  class="d-flex btn btn-outline-danger btn-sm"><i class="pi pi-times"></i></button></td>
             </tr>
           </tbody>
         </table>

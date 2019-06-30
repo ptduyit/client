@@ -36,7 +36,7 @@
           <div class="form-group align-items-center row">
               <label for="province" class="control-label col-sm-4">Tỉnh/ Thành phố</label>
               <div class="col-sm-8">
-                  <select type="text" class="form-control" (change)="changeSelected($event,'province')" formControlName="province" [ngClass]="{ 'is-invalid': submitted && f.province.errors }">
+                  <select type="text" class="form-control custom-select" (change)="changeSelected($event,'province')" formControlName="province" [ngClass]="{ 'is-invalid': submitted && f.province.errors }">
                     <option value="0" hidden disabled>Vui lòng chọn tỉnh/thành phố</option>
                     <option *ngFor="let province of provinces" [value]="province.provinceId">
                       {{province.name}}
@@ -50,7 +50,7 @@
           <div class="form-group align-items-center row">
               <label for="district" class="control-label col-sm-4">Quận/ Huyện</label>
               <div class="col-sm-8">
-                  <select type="text" class="form-control" (change)="changeSelected($event,'district')" formControlName="district" [ngClass]="{ 'is-invalid': submitted && f.district.errors }">
+                  <select type="text" class="form-control custom-select" (change)="changeSelected($event,'district')" formControlName="district" [ngClass]="{ 'is-invalid': submitted && f.district.errors }">
                     <option value="0" hidden disabled>Vui lòng chọn quận/huyện</option>
                     <option *ngFor="let district of districts" [value]="district.districtId">
                       {{district.name}}
@@ -64,7 +64,7 @@
           <div class="form-group align-items-center row">
               <label for="ward" class="control-label col-sm-4">Phường/ Xã</label>
               <div class="col-sm-8">
-                  <select type="text" class="form-control" (change)="changeSelected($event,'ward')" formControlName="ward" [ngClass]="{ 'is-invalid': submitted && f.ward.errors }">
+                  <select type="text" class="form-control custom-select" (change)="changeSelected($event,'ward')" formControlName="ward" [ngClass]="{ 'is-invalid': submitted && f.ward.errors }">
                     <option value="0" hidden disabled>Vui lòng chọn xã/phường</option>
                     <option *ngFor="let ward of wards" [value]="ward.wardId">
                       {{ward.name}}

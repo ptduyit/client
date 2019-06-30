@@ -25,10 +25,10 @@
 }
 .product-image img{
     position: absolute;
-	top: 0; left: 0; right:0;
+	top: 0; left: 0; right:0; bottom: 0;
 	margin: auto;
-	max-width: 80px;
-	max-height: 80px;
+	max-width: 100%;
+	max-height: 100%;
 }
 .product-image >div:last-child{
     width: 300px;
@@ -55,6 +55,9 @@
     padding: 1rem;
     background-color: #fff;
     margin-bottom: 1rem;
+}
+.size-display{
+    margin-right: 2rem;
 }
 .size-display > span:first-child{
     padding-right: 1rem;
@@ -85,7 +88,19 @@
 .search{
     display: flex;
     align-items: center;
+    flex-grow: 1;
 }
 .search input{
-    width: auto;
+    width: 60%;
+}
+.status{
+    padding: 0.5rem !important;
+    align-self: center;
+    border-radius: 20px;
+    background-color: rgb(255, 251, 0);   
+}
+.total-price{
+    color: #ff2828;
+    font-size: 1.1rem;
+    font-weight: 500;
 }

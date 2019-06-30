@@ -33,10 +33,10 @@ export class AuthService {
     var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
     let body = JSON.stringify({ accessToken });  
     return this.http
-      .post(globals.server+'api/ExternalLogin/'+platform, body, reqHeader)
-      .pipe(
-        catchError(this.handleError)
-      );
+      .post(globals.server+'api/ExternalLogin/'+platform, body, reqHeader);
+      // .pipe(
+      //   catchError(this.handleError)
+      // );
   }
   
   private handleError(error: HttpErrorResponse) {

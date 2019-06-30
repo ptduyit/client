@@ -5,7 +5,7 @@ import { OrderService } from 'src/app/service/order.service';
 import { response } from 'src/app/model/response';
 import es from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
-
+import * as globals from 'src/globals';
 @Component({
   selector: 'app-ngb-modal-detail-order',
   templateUrl: './ngb-modal-detail-order.component.html',
@@ -15,6 +15,7 @@ export class NgbModalDetailOrderComponent implements OnInit {
   @Input() order: Order;
   @Output() returnStatus: EventEmitter<any> = new EventEmitter();
   history ={} as any;
+  server = globals.server;
   constructor(public activeModal: NgbActiveModal,private orderService: OrderService) { }
 
   ngOnInit() {
@@ -38,5 +39,9 @@ export class NgbModalDetailOrderComponent implements OnInit {
   cancelShop(){
     this.returnStatus.emit(5);
   }
+  gotoLink(url:string){
+    let fullurl = window.location.origin +'/products/'+ url
+    window.open(fullurl,"_blank")
 
+  }
 }

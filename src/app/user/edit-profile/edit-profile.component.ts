@@ -1,17 +1,22 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, HostBinding } from '@angular/core';
 import { UserService } from 'src/app/service/user.service';
 import { UserInfo } from 'src/app/model/user-info';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { Title } from '@angular/platform-browser';
 import { response } from 'src/app/model/response';
+import { slide } from 'src/app/animation/animation';
 
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.css']
+  styleUrls: ['./edit-profile.component.css'],
+  animations: [ slide ]
 })
 export class EditProfileComponent implements OnInit {
+  @HostBinding('@slideAnimation')
+  public animateSlide = true;
+  
   userId: string;
   userInfo: UserInfo;
   profileForm: FormGroup;

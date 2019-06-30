@@ -1,7 +1,9 @@
-<button class="btn" (click)="openNewSlide()">Thêm mới</button>
-<table class="table">
+<div class="text-right py-3">
+  <button class="btn btn-info" (click)="openNewSlide()">Thêm mới</button>
+</div>
+<table class="table table-bordered">
   <thead>
-    <tr>
+    <tr class="table-danger">
       <th>STT</th>
       <th>Ảnh</th>
       <th>Đường dẫn</th>
@@ -11,9 +13,11 @@
   <tbody>
     <tr *ngFor="let slide of slides; let i=index">
       <td>{{i+1}}</td>
-      <td><img src="https://localhost:44354/{{slide.image}}" alt=""></td>
+      <td><img src="{{server}}{{slide.image}}" width="50%" alt=""></td>
       <td>{{slide.link}}</td>
-      <td (click)="delete(slide.slideId)">Xóa</td>
+      <td>
+        <button (click)="delete(slide.slideId)" class="btn btn-sm btn-danger">Xóa</button>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -24,7 +24,7 @@ export class ProductsComponent implements OnInit {
   mainImage = 'assets/images/placeholder.png';
   id: number;
   product = {} as any;
-  userId = localStorage.getItem('userId');
+  user = JSON.parse(localStorage.getItem('user'));
   cartDetail = {} as CartDetail;
   productNumber: number;
   quantity = 1;
@@ -175,13 +175,13 @@ export class ProductsComponent implements OnInit {
   //   }
   // }
   addcart() {
-    if (this.userId) {
+    if (this.user.id) {
       this.cartDetail.productId = this.id;
-      this.cartDetail.userId = this.userId;
+      this.cartDetail.userId = this.user.id;
       this.cartDetail.quantity = this.quantity;
       this.cartService.addItem(this.cartDetail).subscribe((data: response) => {
         if (!data.isError) {
-          this.cartService.getTotalQuantity(this.userId).subscribe((rs: response) => {
+          this.cartService.getTotalQuantity(this.user.id).subscribe((rs: response) => {
             if (!rs.isError) {
               this.dataService.updateNumberProduct(rs.module);
             }

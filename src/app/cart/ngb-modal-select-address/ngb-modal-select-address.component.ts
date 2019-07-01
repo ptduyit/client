@@ -12,12 +12,12 @@ import { Router } from '@angular/router';
 })
 export class NgbModalSelectAddressComponent implements OnInit {
   @Output() returnAddress: EventEmitter<ShowAddressUser> = new EventEmitter();
-  userId = localStorage.getItem('userId');
+  user = JSON.parse(localStorage.getItem('user'));
   addresses : ShowAddressUser[] = [];
   constructor(private addressService: AddressService, public activeModal: NgbActiveModal, private router: Router) { }
 
   ngOnInit() {
-    this.addressService.getAllAddress(this.userId).subscribe((data: response) => {
+    this.addressService.getAllAddress(this.user.id).subscribe((data: response) => {
       if(!data.isError){
         this.addresses = data.module;
       }

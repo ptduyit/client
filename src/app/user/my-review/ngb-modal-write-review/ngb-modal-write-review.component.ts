@@ -10,7 +10,7 @@ import { response } from 'src/app/model/response';
   styleUrls: ['./ngb-modal-write-review.component.css']
 })
 export class NgbModalWriteReviewComponent implements OnInit {
-  userId = localStorage.getItem('userId');
+  user = JSON.parse(localStorage.getItem('user'));
   @Input() productId: number;
   @Input() productName: string;
   @Input() image: string;
@@ -29,7 +29,7 @@ export class NgbModalWriteReviewComponent implements OnInit {
       rate: this.rate,
       content:this.content,
       evaluationId:this.evaluationId,
-      userId:this.userId
+      userId:this.user.id
     }
     this.evaluationService.postPutReview(review).subscribe((data:response)=>{
       if(!data.isError){

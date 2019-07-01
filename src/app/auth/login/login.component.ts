@@ -8,6 +8,7 @@ import { response } from 'src/app/model/response';
 import { AuthService as  AuthExtendService} from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { ToastrService } from 'ngx-toastr';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -31,9 +32,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(username, password)
       .subscribe((data: response) => {
         if(!data.isError){
+          var token = jwt_decode(data.module.token);
+          var user = JSON.stringify({
+            id: data.module.id,
+            name: data.module.fullName,
+            role: token['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+          });
+          localStorage.setItem('user',user);
           localStorage.setItem('token', data.module.token);
-          localStorage.setItem('userId', data.module.id);
-          localStorage.setItem('name',data.module.fullName);
           this.cartService.getTotalQuantity(data.module.id).subscribe((rs : response) =>{
             if(!rs.isError){
               this.dataService.updateNumberProduct(rs.module);
@@ -80,9 +86,16 @@ export class LoginComponent implements OnInit {
         .subscribe((data: response) =>  {
           this.toastr.success("Đăng nhập thành công");
           this.dataService.updateStatus(data.module.fullName);
+          var token = jwt_decode(data.module.token);
+          var user = JSON.stringify({
+            id: data.module.id,
+            name: data.module.fullName,
+            role: token['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+          });
+          localStorage.setItem('user',user);
           localStorage.setItem('token', data.module.token);
-          localStorage.setItem('userId', data.module.id);
-          localStorage.setItem('name',data.module.fullName);
+          // localStorage.setItem('userId', data.module.id);
+          // localStorage.setItem('name',data.module.fullName);
           this.cartService.getTotalQuantity(data.module.id).subscribe((rs : response) =>{
             if(!rs.isError){
               this.dataService.updateNumberProduct(rs.module);

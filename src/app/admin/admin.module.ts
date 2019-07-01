@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
-import { AgGridModule } from 'ag-grid-angular';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -42,8 +40,6 @@ import { NgbModalNewSlideComponent } from './slideshow/ngb-modal-new-slide/ngb-m
     FormsModule,
     ReactiveFormsModule,
     EditorModule,
-    OwlDateTimeModule, 
-    OwlNativeDateTimeModule,
     FileUploadModule,
     NgbModule,
     NgxMaskModule,

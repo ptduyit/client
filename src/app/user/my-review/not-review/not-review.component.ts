@@ -12,7 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./not-review.component.css']
 })
 export class NotReviewComponent implements OnInit {
-  userId = localStorage.getItem('userId');
+  user = JSON.parse(localStorage.getItem('user'));
   paging ={} as Paging;
   products: ProductNotReview[] =[];
   countHistory = 0;
@@ -23,13 +23,13 @@ export class NotReviewComponent implements OnInit {
     this.getNotReview();
   }
   getNotReview(){
-    this.evaluationService.getNoteReview(this.userId,this.currentPage).subscribe((data:response)=>{
+    this.evaluationService.getNoteReview(this.user.id,this.currentPage).subscribe((data:response)=>{
       if(!data.isError){
         this.paging = data.module.paging;
         this.products = data.module.products;
       }
     });
-    this.evaluationService.getReviewHistotry(this.userId,1).subscribe((data:response)=>{
+    this.evaluationService.getReviewHistotry(this.user.id,1).subscribe((data:response)=>{
       if(!data.isError){
         this.countHistory = data.module.paging.totalItems;
       }

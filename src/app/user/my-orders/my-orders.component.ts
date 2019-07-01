@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../service/order.service';
 import { Order } from '../../model/order';
-import { OrderDetail } from '../../model/order-detail';
 import { Title } from '@angular/platform-browser';
 import { Paging } from 'src/app/model/paging';
 import { FormControl } from '@angular/forms';
@@ -10,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 import { response } from 'src/app/model/response';
+import { ToastrService } from 'ngx-toastr';
+import * as globals from 'src/globals';
 
 @Component({
   selector: 'app-my-orders',
@@ -17,15 +18,15 @@ import { response } from 'src/app/model/response';
   styleUrls: ['./my-orders.component.css']
 })
 export class MyOrdersComponent implements OnInit {
-  userId = localStorage.getItem('userId');
+  user = JSON.parse(localStorage.getItem('user'));
   orders: Order[] = [];
   paging ={} as Paging;
   option:number;
   currentPage = 1;
   searchOrderControl = new FormControl();
   queryParamSubscription: Subscription;
-
-  constructor(private orderService: OrderService, private title: Title, private route: ActivatedRoute) {
+  server = globals.server;
+  constructor(private orderService: OrderService, private title: Title, private route: ActivatedRoute, private toastr: ToastrService) {
     this.title.setTitle('Đơn hàng của tôi');
    }
 
@@ -50,22 +51,32 @@ export class MyOrdersComponent implements OnInit {
     return option === this.option
   }
   getOrderUser(page:number){
-    this.orderService.getOrderByIdUser(this.userId,page,this.option).subscribe((data:response)=>{
+    this.orderService.getOrderByIdUser(this.user.id,page,this.option).subscribe((data:response)=>{
       if(!data.isError){
         this.orders = data.module.orders;
         this.paging = data.module.paging;
-        
+
       }
     })
   }
   cancelUser(order: Order){
-    this.orderService.cancelOrderUser(this.userId,order.orderId).subscribe((data:response)=>{
+    this.orderService.cancelOrderUser(this.user.id,order.orderId).subscribe((data:response)=>{
       if(!data.isError){
         this.getOrderUser(1);
+        this.toastr.success("","Hủy đơn hàng thành công");
       }
       else{
         this.getOrderUser(1);
-        console.log(data.message)
+        switch(data.status){
+          case 400: this.toastr.error("","Lỗi dữ liệu đầu vào");
+          break;
+          case 409: this.toastr.error("","Hủy thất bại, dữ liệu đã thay đổi");
+          break;
+          case 403: this.toastr.error("","Bạn không quyền hủy đơn hàng này");
+          break;
+          case 404: this.toastr.error("","Không tìm thấy đơn hàng");
+          break;
+        }
         
       }
     })

@@ -19,7 +19,7 @@ export class ProductShowcaseComponent implements OnInit {
   @Input() productIndex: ProductIndex;
   
   cartDetail: CartDetail = {} as any;
-  userId = localStorage.getItem('userId');
+  user = JSON.parse(localStorage.getItem('user'));
   productNumber: number;
   constructor(private cartService: CartService, private router: Router,
      private _service: NotificationsService, private dataService: DataShareService) {

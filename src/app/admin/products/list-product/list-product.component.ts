@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from "@angular/router";
-import { AutoWidthCalculator } from 'ag-grid-community';
 import { Title } from '@angular/platform-browser';
 import { ProductService } from 'src/app/service/product.service';
 import { Product } from 'src/app/model/product';

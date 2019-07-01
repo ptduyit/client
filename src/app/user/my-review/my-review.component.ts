@@ -12,7 +12,7 @@ import { EvaluationService } from 'src/app/service/evaluation.service';
 })
 export class MyReviewComponent implements OnInit {
 
-  userId = localStorage.getItem('userId');
+  user = JSON.parse(localStorage.getItem('user'));
   paging ={} as Paging;
   option:number;
   currentPage = 1;

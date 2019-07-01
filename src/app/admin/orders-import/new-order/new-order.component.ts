@@ -30,7 +30,7 @@ export class NewOrderComponent implements OnInit {
   private searchSupplierTerms = new Subject<string>();
   products$ : Observable<ProductSearch[]>;
   suppliers$: Observable<SearchSupplier[]>;
-  userId = localStorage.getItem('userId');
+  user = JSON.parse(localStorage.getItem('user'));
   orderId = 0;
   constructor(private modalService: NgbModal, private fb: FormBuilder, private ref: ChangeDetectorRef,
      private productService: ProductService, private avRouter: ActivatedRoute, private router: Router,
@@ -123,7 +123,7 @@ export class NewOrderComponent implements OnInit {
     }
     else {
       let supplierId = this.orderForm.get('supplierId').value;
-      this.orderimportService.createOrder(this.userId,supplierId,id).subscribe((rs:response) => {
+      this.orderimportService.createOrder(this.user.id,supplierId,id).subscribe((rs:response) => {
         this.router.navigate(['admin/orders-import/edit/'+ rs.module])
       })
     }
@@ -193,7 +193,7 @@ export class NewOrderComponent implements OnInit {
         quantity: rs.quantity,
         supplierId: supplierId,
         unitPrice: rs.unitPrice,
-        userId: this.userId
+        userId: this.user.id
       }
       if(this.orderId > 0){
         this.productService.addQuickProductOrderImport(data).subscribe((e:response) => {//orderId,productId

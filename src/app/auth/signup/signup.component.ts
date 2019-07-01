@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService as  AuthExtendService} from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { CartService } from 'src/app/service/cart.service';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-signup',
@@ -29,8 +30,13 @@ export class SignupComponent implements OnInit {
         if (!data.isError) {
           this.dataService.updateStatus(data.module.fullName);
           localStorage.setItem('token', data.module.token);
-          localStorage.setItem('userId', data.module.id);
-          localStorage.setItem('name', data.module.fullName);
+          var token = jwt_decode(data.module.token);
+          var user = JSON.stringify({
+            id: data.module.id,
+            name: data.module.fullName,
+            role: token['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+          });
+          localStorage.setItem('user',user);
           this.router.navigate(['/']);
           this.toastr.success("Đăng ký thành công");
         }else console.log(data.message);
@@ -66,8 +72,13 @@ export class SignupComponent implements OnInit {
           this.toastr.success("Đăng nhập thành công");
           this.dataService.updateStatus(data.module.fullName);
           localStorage.setItem('token', data.module.token);
-          localStorage.setItem('userId', data.module.id);
-          localStorage.setItem('name',data.module.fullName);
+          var token = jwt_decode(data.module.token);
+          var user = JSON.stringify({
+            id: data.module.id,
+            name: data.module.fullName,
+            role: token['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+          });
+          localStorage.setItem('user',user);
           this.cartService.getTotalQuantity(data.module.id).subscribe((rs : response) =>{
             if(!rs.isError){
               this.dataService.updateNumberProduct(rs.module);

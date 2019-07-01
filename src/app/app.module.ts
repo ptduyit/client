@@ -24,7 +24,6 @@ import { ProductsModule } from './products/products.module';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { NgbModalSelectAddressComponent } from './cart/ngb-modal-select-address/ngb-modal-select-address.component';
-import { NgbModalNewAddressComponent } from './cart/ngb-modal-new-address/ngb-modal-new-address.component';
 import { CategoryComponent } from './home/category/category.component';
 
 let config = new AuthServiceConfig([
@@ -57,7 +56,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     CartComponent,   
     SearchComponent,
     NgbModalSelectAddressComponent,
-    NgbModalNewAddressComponent,
     CategoryComponent
   ],
   imports: [
@@ -80,8 +78,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     SlickCarouselModule
   ],
   entryComponents:[
-    NgbModalSelectAddressComponent,
-    NgbModalNewAddressComponent
+    NgbModalSelectAddressComponent
   ],
   providers: [
     {

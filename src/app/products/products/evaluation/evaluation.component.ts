@@ -12,7 +12,7 @@ import { response } from 'src/app/model/response';
 })
 export class EvaluationComponent implements OnInit {
   @Input() productId: number;
-  userId = localStorage.getItem('userId');
+  user = JSON.parse(localStorage.getItem('user'));
   data:Evaluations = <any>{} ;
   p:number=1;
   size: number = 3;
@@ -42,7 +42,7 @@ export class EvaluationComponent implements OnInit {
       return;
     }
     let content = this.evaluationForm.get(String(evaluation.evaluationId)).value;
-    this.evaluationService.postComment(this.userId,evaluation.evaluationId,content).subscribe((data:response) => {
+    this.evaluationService.postComment(this.user.id,evaluation.evaluationId,content).subscribe((data:response) => {
       let index = this.data.evaluations.findIndex(x => x.evaluationId === evaluation.evaluationId);
       this.data.evaluations[index].newcomments.push(data.module);
       this.evaluationForm.get(String(evaluation.evaluationId)).setValue('');

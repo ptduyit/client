@@ -24,8 +24,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userInfo: UserInfo;
   currentUrl: string;
   token = localStorage.getItem('token');
-  userId = localStorage.getItem('userId');
-  fullName = localStorage.getItem('name');
+  user = JSON.parse(localStorage.getItem('user'));
+  // user = JSON.parse(localStorage.getItem('user'));
+  // fullName = localStorage.getItem('name');
   constructor(private router: Router, private dataShareService: DataShareService,
     private userService: UserService, private _service: NotificationsService, private cartService: CartService) {
       
@@ -52,8 +53,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
    
   getQuantityCart(){
-    if(this.userId != null){
-      this.cartService.getTotalQuantity(this.userId).subscribe((rs : response) =>{
+    if(this.user != null){
+      this.cartService.getTotalQuantity(this.user.id).subscribe((rs : response) =>{
         if(!rs.isError){
           this.productNumber = rs.module;
         }
@@ -72,13 +73,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('name');
+    localStorage.removeItem('user');
+    //localStorage.removeItem('name');
     this.dataShareService.updateStatus(null);
     this.dataShareService.updateNumberProduct(0);
     this.token = null;
-    this.userId = null;
-    this.fullName = null;
+    this.user = null;
+    //this.fullName = null;
     this._service.info('Đã đăng xuất','',
         {
           timeOut: 3000,

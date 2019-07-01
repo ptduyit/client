@@ -23,7 +23,8 @@
       class="d-flex justify-content-between align-items-center info-product">
       <div class="product-image d-flex align-items-center">
         <div routerLink="/products/{{product.productId}}">
-          <img src="assets/images/placeholder.png" alt="">
+          <img *ngIf="product.productImages" src="{{server}}{{product.productImages}}" alt="{{product.productName}}">
+          <img *ngIf="!product.productImages" src="assets/images/placeholder.png" alt="{{product.productName}}">
         </div>
         <div>
           <span routerLink="/products/{{product.productId}}">{{product.productName}}</span>

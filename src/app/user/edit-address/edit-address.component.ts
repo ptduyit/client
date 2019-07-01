@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 import { AddressService } from 'src/app/service/address.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { AddressUser } from 'src/app/model/address';
-import { NotificationsService } from 'angular2-notifications';
+import { ToastrService } from 'ngx-toastr';
 import { response } from 'src/app/model/response';
 import { Title } from '@angular/platform-browser';
 
@@ -22,10 +22,10 @@ export class EditAddressComponent implements OnInit {
   flag: string = "Thêm Địa Chỉ Mới";
   addressForm: FormGroup;
   submitted = false;
-  userId = localStorage.getItem('userId');
+  user = JSON.parse(localStorage.getItem('user'));
   prevRoute = localStorage.getItem('prevRoute');
   constructor(private router: Router, private addressService: AddressService, private fb: FormBuilder,
-    private avRouter: ActivatedRoute, private _service: NotificationsService, private title: Title) {
+    private avRouter: ActivatedRoute, private toastr: ToastrService, private title: Title) {
       this.title.setTitle('Thêm mới địa chỉ');
      }
 
@@ -42,13 +42,13 @@ export class EditAddressComponent implements OnInit {
       ward: ['', [Validators.required, AddressValidator]],
       street: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
       isDefault: false,
-      userId: this.userId,
+      userId: this.user.id,
       wardId: null
     });
     if (this.id > 0) {
       this.edit = true;
       this.flag="Chỉnh Sửa Địa Chỉ";
-      this.title.setTitle('Chỉnh sửa địa chỉ');
+      this.title.setTitle(this.flag);
       this.addressService.getOneAddress(this.id)
         .subscribe((data: response) => 
           {
@@ -105,31 +105,26 @@ export class EditAddressComponent implements OnInit {
     }
     if(!this.edit){
       this.addressService.addAddress(this.addressForm.value)
-      .subscribe(data => {
-        //this.router.navigate(['user/address'])
-        this.router.navigate([this.prevRoute]);
-        this._service.info('Thêm thành công','',
-        {
-          timeOut: 3000,
-          showProgressBar: true,
-          pauseOnHover: false,
-          clickToClose: true,
-          maxLength: 10
-        });
+      .subscribe((data:response) => {
+        if(!data.isError){
+          this.router.navigate([this.prevRoute]);
+          this.toastr.success("","Thêm địa chỉ thành công")
+        }
+        else{
+          this.toastr.error("","Lỗi khi thêm địa chỉ");
+        }
       });
     }
     else if(this.edit){
       this.addressService.updateAddress(this.addressForm.value)
-      .subscribe(data => {
-        this.router.navigate(['user/address'])
-        this._service.info('Sửa thành công','',
-        {
-          timeOut: 3000,
-          showProgressBar: true,
-          pauseOnHover: false,
-          clickToClose: true,
-          maxLength: 10
-        });
+      .subscribe((data:response) => {
+        if(!data.isError){
+          this.router.navigate(['user/address']);
+          this.toastr.success("","Đã chỉnh sửa địa chỉ");
+        }
+        else{
+          this.toastr.error("","Lỗi khi sửa địa chỉ");
+        }        
       });
     }
   }

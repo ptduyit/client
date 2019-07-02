@@ -5,6 +5,7 @@ import { EvaluationService } from 'src/app/service/evaluation.service';
 import { response } from 'src/app/model/response';
 import { NgbModalWriteReviewComponent } from '../ngb-modal-write-review/ngb-modal-write-review.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as globals from 'src/globals';
 
 @Component({
   selector: 'app-not-review',
@@ -17,6 +18,7 @@ export class NotReviewComponent implements OnInit {
   products: ProductNotReview[] =[];
   countHistory = 0;
   currentPage = 1;
+  server = globals.server;
   constructor(private evaluationService: EvaluationService, private modalService: NgbModal) { }
 
   ngOnInit() {

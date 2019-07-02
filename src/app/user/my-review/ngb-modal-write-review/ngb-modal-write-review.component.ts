@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ProductReviewHistory } from 'src/app/model/evaluation';
 import { EvaluationService } from 'src/app/service/evaluation.service';
 import { response } from 'src/app/model/response';
+import * as globals from 'src/globals';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ngb-modal-write-review',
@@ -18,8 +19,8 @@ export class NgbModalWriteReviewComponent implements OnInit {
   @Input() content: string;
   @Input() evaluationId: number;
   @Output() returnStatus: EventEmitter<any> = new EventEmitter();
-
-  constructor(public activeModal: NgbActiveModal, private evaluationService: EvaluationService) { }
+  server = globals.server;
+  constructor(public activeModal: NgbActiveModal, private evaluationService: EvaluationService, private toastr: ToastrService) { }
 
   ngOnInit() {
   }
@@ -33,8 +34,19 @@ export class NgbModalWriteReviewComponent implements OnInit {
     }
     this.evaluationService.postPutReview(review).subscribe((data:response)=>{
       if(!data.isError){
+        if(this.productId > 0){
+          this.toastr.success(this.productName,"Chỉnh sửa thành công");
+        }
+        else{
+          this.toastr.success(this.productName,"Đã đánh giá sản phẩm");
+        }
+        
         this.returnStatus.emit('success');
+      }else{
+        this.toastr.error("","Có lỗi khi đánh giá sản phẩm");
       }
+    }, err => {
+      this.toastr.error("","Lỗi không xác định");
     })
   }
 

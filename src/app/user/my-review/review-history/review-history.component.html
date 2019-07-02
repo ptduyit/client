@@ -4,17 +4,18 @@
   <li>Lịch sử đánh giá({{paging.totalItems}})</li>
 </ul>
 <div class="list-product">
-  <div class="d-flex" *ngFor="let product of products | paginate: { id: 'pagingproduct', itemsPerPage: paging.pageSize, currentPage: currentPage, totalItems: paging.totalItems}" >
-    <div class="col-md-10 p-0 " >
+  <div class="d-flex"
+    *ngFor="let product of products | paginate: { id: 'pagingproduct', itemsPerPage: paging.pageSize, currentPage: currentPage, totalItems: paging.totalItems}">
+    <div class="col-md-10 p-0 ">
       <div class="info-product">
         <div class="mb-2">Nhận xét và đánh giá về sản phẩm</div>
         <div class="product-image d-flex">
           <div>
-            <div routerLink="/products/{{product.productId}}">
-            <img src="assets/images/placeholder.png" alt="">
+            <img routerLink="/products/{{product.productId}}" *ngIf="product.image" src="{{server}}{{product.image}}"
+              alt="{{product.productName}}">
+            <img routerLink="/products/{{product.productId}}" *ngIf="!product.image" src="assets/images/placeholder.png"
+              alt="{{product.productName}}">
           </div>
-          </div>
-          
           <div class="flex-grow-1">
             <span routerLink="/products/{{product.productId}}">{{product.productName}}</span>
             <div>
@@ -29,15 +30,15 @@
             </div>
           </div>
         </div>
-  
+
       </div>
     </div>
     <div class="col-md-2 mt-3">
       <button (click)="openEditReview(product)" class="btn btn-outline-primary">Chỉnh sửa</button>
     </div>
   </div>
-  </div>
-  <div class="p-3 text-right" *ngIf="paging.totalPages > 1">
-    <pagination-controls (pageChange)="changePage($event)" id="pagingproduct" previousLabel="" nextLabel="">
-    </pagination-controls>
-  </div>
+</div>
+<div class="p-3 text-right" *ngIf="paging.totalPages > 1">
+  <pagination-controls (pageChange)="changePage($event)" id="pagingproduct" previousLabel="" nextLabel="">
+  </pagination-controls>
+</div>

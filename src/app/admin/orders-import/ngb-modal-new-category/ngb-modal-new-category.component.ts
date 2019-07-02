@@ -4,6 +4,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from 'src/app/service/category.service';
 import { debounce, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { response } from 'src/app/model/response';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-ngb-modal-new-category',
   templateUrl: './ngb-modal-new-category.component.html',
@@ -14,7 +16,7 @@ export class NgbModalNewCategoryComponent implements OnInit {
   categoryForm: FormGroup;
   submitted = false;
   categorySelect: any = [];
-  constructor(public activeModal: NgbActiveModal, private fb: FormBuilder,
+  constructor(public activeModal: NgbActiveModal, private fb: FormBuilder, private toastr: ToastrService,
      private categoryService: CategoryService) { }
 
   ngOnInit() {
@@ -50,9 +52,12 @@ export class NgbModalNewCategoryComponent implements OnInit {
     }
     this.categoryService.addCategory(this.categoryForm.value).subscribe((rs:response) =>{
       if(!rs.isError){
+        this.toastr.success("","Đã thêm danh mục mới");
         this.returnCategory.emit(rs.module);
-      this.activeModal.close();
-      }else console.log(rs.message);
+        this.activeModal.close();
+      }else {
+        this.toastr.error("","Có lỗi khi thêm danh mục");
+      }
       
     })
   }

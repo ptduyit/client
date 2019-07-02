@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { AddressService } from 'src/app/service/address.service';
 import { SupplierService } from 'src/app/service/supplier.service';
-import { SearchSupplier } from 'src/app/model/supplier';
+import { ToastrService } from 'ngx-toastr';
 import { response } from 'src/app/model/response';
 @Component({
   selector: 'app-ngb-modal-new-supplier',
@@ -18,7 +18,7 @@ export class NgbModalNewSupplierComponent implements OnInit {
   provinces: any = [];
   districts: any = [];
   wards: any = [];
-  constructor(public activeModal: NgbActiveModal, private fb: FormBuilder,
+  constructor(public activeModal: NgbActiveModal, private fb: FormBuilder, private toastr: ToastrService,
     private addressService: AddressService, private supplierService: SupplierService) { }
 
   ngOnInit() {
@@ -71,8 +71,14 @@ export class NgbModalNewSupplierComponent implements OnInit {
       return;
     }
     this.supplierService.createSupplier(this.supplierForm.value).subscribe((rs: response) => {
-      this.returnSupplier.emit(rs.module);
-      this.activeModal.close();
+      if(!rs.isError){
+        this.toastr.success("","Đã thêm nhà cung cấp mới");
+        this.returnSupplier.emit(rs.module);
+        this.activeModal.close();
+      }
+      else{
+        this.toastr.error("","Lỗi khi thêm nhà cung cấp");
+      }
     })
   }
 }

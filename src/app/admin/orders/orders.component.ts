@@ -13,6 +13,7 @@ import es from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import * as globals from 'src/globals';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-orders',
@@ -32,7 +33,7 @@ export class OrdersComponent implements OnInit {
   searchOrderControl = new FormControl();
   queryParamSubscription: Subscription
   constructor(private orderService: OrderService, private title: Title, private route: ActivatedRoute,
-    private router: Router,private modalService: NgbModal) {
+    private router: Router,private modalService: NgbModal, private toastr: ToastrService) {
     this.title.setTitle('Quản lý đơn đặt hàng');
    }
 
@@ -104,10 +105,10 @@ export class OrdersComponent implements OnInit {
     this.router.navigate(['/admin/orders'],{ queryParams: { sort: this.sort}, queryParamsHandling: 'merge' })
   }
   processOrderStatus(order: Order){
-    console.log(order);
     this.orderService.updateStatusOrder(order.orderId,order.status+1).subscribe((data:response)=>{
       if(!data.isError){
         this.getOrder(1,0);
+        this.toastr.success("","Đã cập nhật trạng thái đơn hàng #"+order.orderId);
       }
     })
   }
@@ -115,12 +116,14 @@ export class OrdersComponent implements OnInit {
     this.orderService.updateStatusOrder(order.orderId,5).subscribe((data:response)=>{
       if(!data.isError){
         this.getOrder(1,0);
+        this.toastr.success("","Đã từ chối đơn hàng #"+order.orderId);
       }
     })
   }
   cancelUser(order: Order){
     this.orderService.updateStatusOrder(order.orderId,6).subscribe((data:response)=>{
       if(!data.isError){
+        this.toastr.success("","Người dùng từ chối đơn hàng #"+order.orderId);
         this.getOrder(1,0);
       }
     })
@@ -132,6 +135,16 @@ export class OrdersComponent implements OnInit {
       this.orderService.updateStatusOrder(order.orderId,data).subscribe((rs: response)=>{
         if(!data.isError){
           this.getOrder(1,0);
+          switch(data){
+            case 5: this.toastr.success("","Đã từ chối đơn hàng #"+order.orderId);
+            break;
+            case 6: this.toastr.success("","Người dùng từ chối đơn hàng #"+order.orderId);
+            break;
+            case 2:
+              case 3:
+                case 4: this.toastr.success("","Đã cập nhật trạng thái đơn hàng #"+order.orderId);
+                break;
+          }
         }
       });
       modal.close();

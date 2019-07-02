@@ -1,5 +1,4 @@
 .product-image > div{
-    cursor: pointer;
 	width: 80px;
 	height: 80px;
     position: relative;
@@ -9,8 +8,8 @@
     position: absolute;
 	top: 0; left: 0; right:0;
 	margin: auto;
-	max-width: 80px;
-	max-height: 80px;
+	max-width: 100%;
+	max-height: 100%;
 }
 .product-name{
     /* autoprefixer: off */
@@ -20,7 +19,6 @@
 	-webkit-line-clamp: 2;
 	overflow: hidden;
     text-overflow: ellipsis;
-    cursor: pointer;
 }
 .info-product{
     padding: 0 0.5rem;

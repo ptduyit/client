@@ -1,14 +1,16 @@
 <div class="d-flex align-items-center justify-content-between py-3">
     <div class="input-group w-50">
-        <input type="text" placeholder="Tìm tên hoặc mã" class="form-control w-50" [(ngModel)]="keyword" (keyup)="term$.next($event.target.value)">
-        <select class="form-control custom-select input-group-prepend" [(ngModel)]="type" (change)="selectOrder()">
+        <input type="text" placeholder="Tìm tên hoặc mã" class="form-control w-50" [(ngModel)]="keyword"
+            (keyup)="term$.next($event.target.value)">
+        <select class="form-control custom-select input-group-prepend" [(ngModel)]="type" (change)="searchOrder(1)">
             <option value="order">Mã phiếu nhập</option>
             <option value="user">Người lập phiếu</option>
             <option value="supplier">Nhà cung cấp</option>
         </select>
     </div>
     <div>
-        <p-checkbox [(ngModel)]="temporary" label="Phiếu nhập tạm" binary="true" (onChange)="selectOrder()"></p-checkbox>
+        <p-checkbox [(ngModel)]="temporary" label="Phiếu nhập tạm" binary="true" (onChange)="searchOrder(1)">
+        </p-checkbox>
     </div>
     <button type="button" class="btn btn-success" routerLink="/admin/orders-import/new-order">
         <i class="pi pi-plus"></i>Nhập hàng</button>
@@ -25,7 +27,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let order of orders | paginate: { id: 'pagingorder', itemsPerPage: paging.pageSize, currentPage: currentPage, totalItems: paging.totalItems}">
+        <tr
+            *ngFor="let order of orders | paginate: { id: 'pagingorder', itemsPerPage: paging.pageSize, currentPage: paging.pageNumber, totalItems: paging.totalItems}">
             <td class="text-center">{{order.orderId}}</td>
             <td class="text-center">{{order.orderDate | date:'dd-MM-yyyy HH:mm'}}</td>
             <td>{{order.companyName}}</td>
@@ -34,12 +37,16 @@
             <td class="text-center" *ngIf="!order.complete">Phiếu tạm</td>
             <td class="control text-center">
                 <i class="pi pi-pencil" routerLink="/admin/orders-import/edit/{{order.orderId}}"></i>
-                <i *ngIf="!order.complete" class="pi pi-trash"></i>
+                <i [swal]="delete" *ngIf="!order.complete" class="pi pi-trash"></i>
             </td>
+            <swal #delete title="Bạn muốn xóa hóa đơn này?" text="" type="question" [showCancelButton]="true"
+                [focusCancel]="true" [options]="{confirmButtonText: 'Xác nhận',cancelButtonText:'Hủy bỏ'}"
+                (confirm)="deleteOrder(order.orderId)">
+            </swal>
         </tr>
     </tbody>
 </table>
 <div class="p-3 text-right" *ngIf="paging.totalPages > 1">
-        <pagination-controls (pageChange)="changePage($event)" id="pagingorder" previousLabel="" nextLabel="">
-        </pagination-controls>
+    <pagination-controls (pageChange)="changePage($event)" id="pagingorder" previousLabel="" nextLabel="">
+    </pagination-controls>
 </div>

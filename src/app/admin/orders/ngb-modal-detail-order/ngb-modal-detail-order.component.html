@@ -6,38 +6,37 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-
 </div>
 <div class="modal-body">
   <div class="process">
     <div class="status-name"><i class="pi pi-clone"></i> {{order.statusName}}</div>
-    <ng-container *ngIf="order.status !== 5 && order.status !== 4">
-      <div *ngIf="order.status !== 4">Vui lòng sắp theo thời gian giao hàng để giao hàng trước ngày
+    <ng-container *ngIf="order.status == 1 || order.status == 2 || order.status == 3">
+      <div>Vui lòng đóng gói sản phẩm để giao hàng trước ngày
         <span class="date">{{order.shippedDate | date:'dd/MM/yyyy'}}</span></div>
       <div class="d-flex justify-content-between next-select">
         <div><i class="pi pi-angle-double-right"></i> Tiếp theo bạn có thể</div>
         <ul class="nav justify-content-end menu-button">
           <li [swal]="deny" *ngIf="order.status == 3">Không nhận hàng</li>
-          <li (click)="processOrderStatus()"
-            *ngIf="order.status == 1 || order.status == 2 || order.status == 3">
+          <li (click)="processOrderStatus()">
             <span *ngIf="order.status == 1">Xác Nhận Giao Hàng</span>
             <span *ngIf="order.status == 2">Đã Lấy Hàng</span>
             <span *ngIf="order.status == 3">Đã Giao Hàng</span>
           </li>
-          <li [swal]="cancel"
-            *ngIf="order.status == 1 || order.status == 2 || order.status == 3">Từ chối</li>
-            <swal #deny title="Xác nhận khách hàng không nhận?" text="" type="question"
-              [showCancelButton]="true" [focusCancel]="true" [options]="{confirmButtonText: 'Xác nhận',cancelButtonText:'Hủy bỏ'}" (confirm)="cancelUser()">
-            </swal>
-            <swal #cancel title="Bạn từ chối giao đơn hàng này?" text="" type="question"
-              [showCancelButton]="true" [focusCancel]="true" [options]="{confirmButtonText: 'Xác nhận',cancelButtonText:'Hủy bỏ'}" (confirm)="cancelShop()">
-            </swal>
+          <li [swal]="cancel">Từ chối</li>
+          <swal #deny title="Xác nhận khách hàng không nhận?" text="" type="question" [showCancelButton]="true"
+            [focusCancel]="true" [options]="{confirmButtonText: 'Xác nhận',cancelButtonText:'Hủy bỏ'}"
+            (confirm)="cancelUser()">
+          </swal>
+          <swal #cancel title="Bạn từ chối giao đơn hàng này?" text="" type="question" [showCancelButton]="true"
+            [focusCancel]="true" [options]="{confirmButtonText: 'Xác nhận',cancelButtonText:'Hủy bỏ'}"
+            (confirm)="cancelShop()">
+          </swal>
         </ul>
       </div>
     </ng-container>
   </div>
   <div class="history">
-    <div class="title"><i class="pi pi-chart-bar"></i> Lịch sử mua hàng của người mua</div>
+    <div class="title"><i class="pi pi-chart-bar mr-2"></i>Lịch sử mua hàng của người mua</div>
     <div>
       <p>Với những người có tỷ lệ giao hàng thành công thấp, hãy liên hệ xác nhận đơn hàng với họ trước khi gửi hàng</p>
       <div class="d-flex justify-content-around">
@@ -49,9 +48,7 @@
             <span>Đơn giao thành công</span>
             <span><span>{{history.totalOrder}}</span>tổng đơn giao</span>
           </div>
-
         </div>
-
         <div class="d-flex align-items-center">
           <div class="circle">
             <span>{{history.rate}}/5</span>
@@ -62,22 +59,19 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
-
   <div class="info-order">
-    <div class="title"><i class="pi pi-info-circle"></i>Thông tin người nhận</div>
+    <div class="title"><i class="pi pi-info-circle mr-2"></i>Thông tin người nhận</div>
     <div>
       <span class="mr-3">{{order.fullName}}</span>
       <span>{{order.phoneNumber}}</span>
     </div>
-
     <span>{{order.street}}, {{order.wards}}, {{order.districts}}, {{order.provinces}}</span>
   </div>
   <div class="detail-product">
-    <div class="title"><i class="pi pi-list"></i> Chi tiết sản phẩm</div>
-      <div *ngFor="let product of order.orderDetails" [class.discontinued]="product.discontinued && order.status==1"
+    <div class="title"><i class="pi pi-list mr-2"></i>Chi tiết sản phẩm</div>
+    <div *ngFor="let product of order.orderDetails" [class.discontinued]="product.discontinued && order.status==1"
       class="d-flex justify-content-between align-items-center info-product">
       <div class="product-image d-flex align-items-center">
         <div (click)="gotoLink(product.productId)">
@@ -87,7 +81,6 @@
         <div (click)="gotoLink(product.productId)" style="cursor: pointer;">
           <span>{{product.productName}}</span>
         </div>
-        
       </div>
       <span>Mã Sp: #{{product.productId}}</span>
       <span>

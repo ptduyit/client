@@ -8,6 +8,7 @@ import { CategoryService } from 'src/app/service/category.service';
 import * as globals from 'src/globals';
 import { Title } from '@angular/platform-browser';
 import { response } from 'src/app/model/response';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-product',
@@ -23,7 +24,8 @@ export class NewProductComponent implements OnInit {
   uploadedFiles: File[] = [];
   imageDelete = [];
   constructor(private router: Router, private proService: ProductService, private fb: FormBuilder,
-    private avRouter: ActivatedRoute, private categoryService: CategoryService, private title: Title) {
+    private avRouter: ActivatedRoute, private categoryService: CategoryService, private title: Title,
+    private toastr: ToastrService) {
       this.title.setTitle('Thêm sản phẩm mới');
     }
 
@@ -88,7 +90,6 @@ export class NewProductComponent implements OnInit {
   onRemove(event) {
     const index = this.uploadedFiles.indexOf(event.file);
     this.uploadedFiles.splice(index, 1);
-    console.log(this.uploadedFiles);
   }
   preDelete(){
     this.imageDelete = [];
@@ -122,14 +123,16 @@ export class NewProductComponent implements OnInit {
     });
     formData.append('product',JSON.stringify(this.productForm.value));
     formData.append('imageDelete',JSON.stringify(this.imageDelete));
-    console.log(formData.getAll('files'));
+
     this.proService.updateProduct(this.id,formData).subscribe((data:response) => {
-      if(!data.isError)
-        console.log('OK');
+      if(!data.isError){
+        this.back();
+        this.toastr.success("","Cập nhật thành công");
+      }
         else console.log(data.message);
-      });
+    });
   }
-  cancel() {
+  back() {
     this.router.navigate(['admin/products/list-product']);
   }
 

@@ -14,6 +14,7 @@ import { SupplierService } from 'src/app/service/supplier.service';
 import { OrderImport } from 'src/app/model/order-import';
 import { Title } from '@angular/platform-browser';
 import { response } from 'src/app/model/response';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-order',
@@ -35,7 +36,7 @@ export class NewOrderComponent implements OnInit {
   constructor(private modalService: NgbModal, private fb: FormBuilder, private ref: ChangeDetectorRef,
      private productService: ProductService, private avRouter: ActivatedRoute, private router: Router,
      private orderimportService: OrderImportService, private supplierService: SupplierService,
-     private title: Title) {
+     private title: Title, private toastr: ToastrService) {
        this.title.setTitle('Thêm đơn hàng nhập');
       }
 
@@ -94,21 +95,33 @@ export class NewOrderComponent implements OnInit {
   temp(){
     if(this.orderId > 0){
       this.orderimportService.tempOrder(this.orderId,this.orderForm.value).subscribe((rs:response) => {
-        console.log("đã lưu");
+        if(!rs.isError){
+          this.toastr.success("","Đã lưu tạm hóa đơn");
+          this.router.navigate(['admin/orders-import']);
+        }
+        else {
+          this.toastr.error("","Lỗi không thể lưu dữ liệu");
+        }
       })
     }
     else{
-      console.log('ko có gì để lưu');
+      this.toastr.error("","Không có gì để lưu");
     }
   }
   save(){
     if(this.orderId > 0){
       this.orderimportService.saveOrder(this.orderId,this.orderForm.value).subscribe((rs:response) => {
-        console.log("đã lưu");
+        if(!rs.isError){
+          this.toastr.success("","Đã hoàn thành hóa đơn");
+          this.router.navigate(['admin/orders-import']);
+        }
+        else {
+          this.toastr.error("","Lỗi không thể lưu dữ liệu");
+        }
       })
     }
     else{
-      console.log('ko có gì để lưu');
+      this.toastr.error("","Không có gì để lưu");
     }
   }
   addProduct(id: number, name: string){
@@ -119,7 +132,7 @@ export class NewOrderComponent implements OnInit {
           this.addRow(id,name);
         });
       }
-      else console.log('trùng rồi');
+      else this.toastr.error("","Sản phẩm đã được chọn trước đó");
     }
     else {
       let supplierId = this.orderForm.get('supplierId').value;
@@ -204,12 +217,15 @@ export class NewOrderComponent implements OnInit {
             productName: rs.productName,
             quantity: rs.quantity
           }));
+          this.toastr.success("","Đã thêm nhanh sản phẩm");
           modalRef.close();
         })
       }
       else{
         this.productService.addQuickProductOrderImport(data).subscribe((e:response) => {
           this.router.navigate(['admin/orders-import/edit/'+ e.module.orderId]);
+          this.toastr.success("","Đã thêm nhanh sản phẩm");
+          this.toastr.success("","Đã tạo hóa đơn tạm");
           modalRef.close();
         });
       }

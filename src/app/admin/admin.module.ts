@@ -32,6 +32,7 @@ import { MaterialModule } from '../material-module';
 import { NgbModalDetailOrderComponent } from './orders/ngb-modal-detail-order/ngb-modal-detail-order.component';
 import { SlideshowComponent } from './slideshow/slideshow.component';
 import { NgbModalNewSlideComponent } from './slideshow/ngb-modal-new-slide/ngb-modal-new-slide.component';
+import { NgbModalDetailOrderImportComponent } from './orders-import/ngb-modal-detail-order-import/ngb-modal-detail-order-import.component';
 
 @NgModule({
   imports: [
@@ -69,13 +70,15 @@ import { NgbModalNewSlideComponent } from './slideshow/ngb-modal-new-slide/ngb-m
     NgbModalDetailOrderComponent,
     SlideshowComponent,
     NgbModalNewSlideComponent,
+    NgbModalDetailOrderImportComponent,
   ],
   entryComponents: [
     NgbModalNewProductComponent,
     NgbModalNewCategoryComponent,
     NgbModalNewSupplierComponent,
     NgbModalDetailOrderComponent,
-    NgbModalNewSlideComponent
+    NgbModalNewSlideComponent,
+    NgbModalDetailOrderImportComponent
   ]
 })
 export class AdminModule { }

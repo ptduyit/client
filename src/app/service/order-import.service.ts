@@ -31,4 +31,7 @@ export class OrderImportService {
   searchOrderImport(type:string,keyword:string,temporary:boolean,page:number){
     return this.http.get(globals.server+'api/admin/order-import?type='+type+'&keyword='+keyword+'&temporary='+temporary+'&page='+page);
   }
+  deleteOrder(id:number){
+    return this.http.delete(globals.server+'api/admin/order-import/'+id);
+  }
 }

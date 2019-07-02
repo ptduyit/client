@@ -5,6 +5,7 @@ import { ProductReviewHistory, ProductNotReview } from 'src/app/model/evaluation
 import { response } from 'src/app/model/response';
 import { NgbModalWriteReviewComponent } from '../ngb-modal-write-review/ngb-modal-write-review.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as globals from 'src/globals';
 
 @Component({
   selector: 'app-review-history',
@@ -17,6 +18,7 @@ export class ReviewHistoryComponent implements OnInit {
   products: ProductReviewHistory[] =[];
   countNotReview = 0;
   currentPage = 1;
+  server = globals.server;
   constructor(private evaluationService: EvaluationService, private modalService: NgbModal) { }
 
   ngOnInit() {

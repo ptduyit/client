@@ -9,14 +9,14 @@
     <div class="info-product">
       <div class="mb-2">Đã mua ngày {{product.orderDate | date:'dd tg MM yyyy'}}</div>
       <div class="product-image d-flex">
-        <div routerLink="/products/{{product.productId}}">
-          <img src="assets/images/placeholder.png" alt="">
+        <div>
+          <img routerLink="/products/{{product.productId}}" *ngIf="product.image" src="{{server}}{{product.image}}" alt="{{product.productName}}">
+          <img routerLink="/products/{{product.productId}}" *ngIf="!product.image" src="assets/images/placeholder.png" alt="{{product.productName}}">
         </div>
         <div>
           <span routerLink="/products/{{product.productId}}">{{product.productName}}</span>
         </div>
       </div>
-
     </div>
   </div>
   <div class="col-md-4 align-items-center d-flex">

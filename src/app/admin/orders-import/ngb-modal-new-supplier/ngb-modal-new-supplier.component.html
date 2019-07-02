@@ -18,7 +18,7 @@
       <div class="form-group align-items-center row">
           <span for="phone" class="control-label col-sm-4">Số điện thoại</span>
           <div class="col-sm-8">
-              <input type="text" class="form-control" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+              <input type="text" class="form-control" mask="0000 000 000" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
               <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
                   <div *ngIf="f.phone.errors.required">Không được để trống</div>
               </div>

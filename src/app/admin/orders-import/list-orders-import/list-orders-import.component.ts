@@ -6,6 +6,7 @@ import { response } from 'src/app/model/response';
 import { Subject, EMPTY, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Paging } from 'src/app/model/paging';
+import { ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-orders-import',
@@ -16,12 +17,11 @@ export class ListOrdersImportComponent implements OnInit,OnDestroy {
   type = "order";
   keyword = "";
   temporary= false;
-  currentPage = 1;
   paging ={} as Paging;
   orders: OrderImportManage[] = [];
   term$ = new Subject<string>();
   private searchSubscription: Subscription;
-  constructor(private title: Title, private orderService: OrderImportService) {
+  constructor(private title: Title, private orderService: OrderImportService, private toastr: ToastrService) {
     this.title.setTitle('Quản lý đơn nhập hàng');
    }
 
@@ -43,16 +43,16 @@ export class ListOrdersImportComponent implements OnInit,OnDestroy {
       }
     })
   }
-  selectOrder(){
-    this.currentPage = 1;
-    this.searchOrder(1);
-  }
-  searchDelay(){
-    this.term$.next(this.keyword)
-  }
   changePage(page:number){
-    this.currentPage = page;
     this.searchOrder(page);
+  }
+  deleteOrder(id:number){
+    this.orderService.deleteOrder(id).subscribe((data:response)=>{
+      if(!data.isError){
+        this.toastr.success("","Xóa đơn hàng thành công");
+        this.searchOrder(this.paging.pageNumber);
+      }
+    })
   }
   ngOnDestroy() {
     if (this.searchSubscription) {

@@ -50,9 +50,9 @@ export class NgbModalNewProductComponent implements OnInit {
     modalRef.componentInstance.returnCategory.subscribe(rs => {
       this.categoryService.getCategorySelectProduct().subscribe((data:response) => {
         if(!data.isError){
-          this.categorySelect = data;
-          this.productForm.get('categoryId').setValue(rs.id);
-          this.productForm.get('category').setValue(rs.id);
+          this.categorySelect = data.module;
+          this.productForm.get('categoryId').setValue(rs);
+          this.productForm.get('category').setValue(rs);
         }else
         console.log(data.message);
       });

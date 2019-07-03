@@ -4,7 +4,7 @@
   <li routerLink="/user/my-review/review-history">Lịch sử đánh giá({{countHistory}})</li>
 </ul>
 <div class="list-product">
-<div class="d-flex" *ngFor="let product of products | paginate: { id: 'pagingproduct', itemsPerPage: paging.pageSize, currentPage: currentPage, totalItems: paging.totalItems}" >
+<div class="d-flex" *ngFor="let product of products | paginate: { id: 'pagingproduct', itemsPerPage: paging.pageSize, currentPage: paging.pageNumber, totalItems: paging.totalItems}" >
   <div class="col-md-8 p-0 " >
     <div class="info-product">
       <div class="mb-2">Đã mua ngày {{product.orderDate | date:'dd tg MM yyyy'}}</div>

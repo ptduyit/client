@@ -27,7 +27,6 @@ export class OrdersComponent implements OnInit {
   paging ={} as Paging;
   countOrder = {} as any;
   option:number;
-  currentPage = 1;
   size = 10;
   sort = "datedesc";
   searchOrderControl = new FormControl();
@@ -93,7 +92,6 @@ export class OrdersComponent implements OnInit {
     })
   }
   changePage(page:number){
-    this.currentPage = page;
     this.getOrder(page,0);
   }
   changeSize(event){

@@ -36,8 +36,9 @@
             <td class="text-center" *ngIf="order.complete">Đã nhập hàng</td>
             <td class="text-center" *ngIf="!order.complete">Phiếu tạm</td>
             <td class="control text-center">
-                <i class="pi pi-pencil" routerLink="/admin/orders-import/edit/{{order.orderId}}"></i>
+                <i class="pi pi-pencil" *ngIf="!order.complete" routerLink="/admin/orders-import/edit/{{order.orderId}}"></i>
                 <i [swal]="delete" *ngIf="!order.complete" class="pi pi-trash"></i>
+                <i class="pi pi-info-circle" *ngIf="order.complete" (click)="openDetail(order.orderId)"></i>
             </td>
             <swal #delete title="Bạn muốn xóa hóa đơn này?" text="" type="question" [showCancelButton]="true"
                 [focusCancel]="true" [options]="{confirmButtonText: 'Xác nhận',cancelButtonText:'Hủy bỏ'}"

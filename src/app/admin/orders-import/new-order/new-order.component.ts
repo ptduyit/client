@@ -47,7 +47,7 @@ export class NewOrderComponent implements OnInit {
     
     this.orderForm = this.fb.group({
       orderId: '',
-      supplierId: '',
+      supplierId: null,
       userId: '',
       companyName: '',
       product: this.fb.array([])
@@ -55,9 +55,21 @@ export class NewOrderComponent implements OnInit {
 
     if(this.orderId > 0){
       this.orderimportService.getOrderById(this.orderId).subscribe( (data:response) => {
-        this.orderForm.patchValue(data.module);
-        this.orders = data.module;
-        this.setProduct(data.module.orderDetails);
+        if(!data.isError){
+          if(data.module.totalPrice > 0){
+            this.toastr.info("","Hóa đơn này không thể chỉnh sửa");
+            this.router.navigate(['admin/orders-import']);
+          }
+          else{
+            this.orderForm.patchValue(data.module);
+          this.orders = data.module;
+          this.setProduct(data.module.orderDetails);
+          }
+        }
+        else{
+          this.toastr.error("","Có lỗi khi tải dữ liệu");
+          this.router.navigate(['admin/orders-import']);
+        }
       });
     }
 
@@ -108,17 +120,36 @@ export class NewOrderComponent implements OnInit {
       this.toastr.error("","Không có gì để lưu");
     }
   }
+  isErrorInput():boolean{
+    let isError = false;
+    if(this.orderForm.get('supplierId').value === null){
+      isError = true;
+      this.toastr.error("","Vui lòng chọn nhà cung cấp");
+    }
+
+    const ctrl = <FormArray>this.orderForm.controls['product'];
+    for(let x of ctrl.controls){
+      if(x.get('quantity').value === "" || x.get('quantity').value === 0 || x.get('unitPrice').value === 0 || x.get('unitPrice').value === ""){
+        isError = true;
+        this.toastr.error("","Vui lòng ghi đầy đủ giá và số lượng từng sản phẩm");
+        break;
+      }
+    }
+    return isError;
+  }
   save(){
     if(this.orderId > 0){
-      this.orderimportService.saveOrder(this.orderId,this.orderForm.value).subscribe((rs:response) => {
-        if(!rs.isError){
-          this.toastr.success("","Đã hoàn thành hóa đơn");
-          this.router.navigate(['admin/orders-import']);
-        }
-        else {
-          this.toastr.error("","Lỗi không thể lưu dữ liệu");
-        }
-      })
+      if(!this.isErrorInput()){
+        this.orderimportService.saveOrder(this.orderId,this.orderForm.value).subscribe((rs:response) => {
+          if(!rs.isError){
+            this.toastr.success("","Đã hoàn thành hóa đơn");
+            this.router.navigate(['admin/orders-import']);
+          }
+          else {
+            this.toastr.error("","Lỗi không thể lưu dữ liệu");
+          }
+        });
+      }
     }
     else{
       this.toastr.error("","Không có gì để lưu");

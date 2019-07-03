@@ -14,7 +14,6 @@ export class EvaluationComponent implements OnInit {
   @Input() productId: number;
   user = JSON.parse(localStorage.getItem('user'));
   data:Evaluations = <any>{} ;
-  p:number=1;
   size: number = 3;
   evaluationForm: FormGroup;
   comments : Comments[] = [];
@@ -28,7 +27,6 @@ export class EvaluationComponent implements OnInit {
   getEvaluation(page: number){
     this.evaluationService.getEvaluation(this.productId,page,this.size).subscribe((data:response) => {
       this.data = data.module;
-      this.p = page;
       this.data.evaluations.forEach(element => {
         this.evaluationForm.addControl(String(element.evaluationId), new FormControl('',[Validators.required, Validators.maxLength(1500)]));
         element.newcomments = [] as any;

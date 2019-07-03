@@ -2,109 +2,111 @@
   <div class="col-lg-4 order-lg-2 side-bar p-2">
     <div class="bg-white p-3">
       <div *ngIf="orders?.orderDate" class="date w-100 px-3 mt-3 text-right">
-      {{orders?.orderDate | date:'dd/MM/yyyy HH:mm'}}
-    </div>
-    <div class="input-group my-3">
-      <input type="search" [formControl]="searchSupplierControl" class="form-control" placeholder="Tìm nhà cung cấp">
-      <ng-container *ngIf="suppliers$ | async; let Items">
-        <ul *ngIf="Items.length > 0" class="wrap-suggestion">
-          <li *ngFor="let supplier of Items">
-            <a (click)="setSupplier(supplier.supplierId,supplier.companyName)">
-              <span class="item-name">{{supplier.companyName}}</span>
-            </a>
-          </li>
-        </ul>
-      </ng-container>
-      <button (click)="openSupplier()" class="input-group-prepend btn btn-outline-success">
-        <i class="pi pi-plus"></i>
-      </button>
-    </div>
-    <div class="row mb-3">
-      <span class="col-5">Mã phiếu nhập</span>
-      <span class="col-7 text-muted">
-        <ng-container *ngIf="orders?.orderId">{{orders.orderId}}</ng-container>
-        <ng-container *ngIf="!orders?.orderId">Mã phiếu tự động</ng-container>
-      </span>
-    </div>
-    <div class="row mb-3">
-      <span class="col-5">Trạng thái</span>
-      <span class="col-7">
-        <ng-container *ngIf="orders?.totalPrice === 0">Phiếu tạm</ng-container>
-        <ng-container *ngIf="orders?.totalPrice > 0">Hoàn thành</ng-container>
-        <ng-container *ngIf="!orders?.orderId">Chưa khởi tạo</ng-container>
-      </span>
-    </div>
-    <div class="row mb-3">
-      <span class="col-5">Nhà cung cấp</span>
-      <span class="col-7">
-        <ng-container *ngIf="orders?.companyName">{{orders?.companyName}}</ng-container>
-        <ng-container *ngIf="!orders?.companyName">Vui lòng chọn</ng-container>
-      </span>
-    </div>
-    <div class="row mb-3" *ngIf="orders?.fullName">
-      <span class="col-5">Người tạo</span>
-      <span class="col-7">{{orders?.fullName}}</span>
-    </div>
-    <div class="row mb-3">
-      <span class="col-5">Tổng tiền</span>
-      <span class="col-7">{{summed | number}} đồng</span>
-    </div>
-    <div class="d-flex justify-content-around mt-lg-5">
-      <button routerLink="/admin/orders-import" class="btn btn-secondary">Trở về</button>
-      <button (click)="temp()" class="btn btn-primary">Lưu tạm</button>
-      <button (click)="save()" class="btn btn-success">Hoàn thành</button>
-    </div>
-  </div>
-    </div>
-    
-  <div class="col-lg-8 order-lg-1 p-2">
-    <div class="bg-white p-3" style="min-height: 50vh;">
-    <div class="row my-3 align-items-center justify-content-end">
-      <div class="col-lg-8">
-        <div class="search-box input-group">
-          <input class="form-control" type="search" [formControl]="searchProductControl"
-            placeholder="Tìm sản phẩm theo mã hoặc theo tên">
-          <ng-container *ngIf="products$ | async; let proItems">
-            <ul *ngIf="proItems.length > 0" class="wrap-suggestion">
-              <li *ngFor="let product of proItems">
-                <a (click)="addProduct(product.productId,product.productName)">
-                  <span class="item-name">{{product.productName}}</span>
-                </a>
-              </li>
-            </ul>
-          </ng-container>
-          <button type="button" (click)="openProduct()" class="btn btn-outline-success input-group-prepend"><i
-              class="pi pi-plus"></i></button>
-        </div>
+        {{orders?.orderDate | date:'dd/MM/yyyy HH:mm'}}
+      </div>
+      <div class="input-group my-3">
+        <input type="search" [formControl]="searchSupplierControl" class="form-control" placeholder="Tìm nhà cung cấp">
+        <ng-container *ngIf="suppliers$ | async; let Items">
+          <ul *ngIf="Items.length > 0" class="wrap-suggestion">
+            <li *ngFor="let supplier of Items">
+              <a (click)="setSupplier(supplier.supplierId,supplier.companyName)">
+                <span class="item-name">{{supplier.companyName}}</span>
+              </a>
+            </li>
+          </ul>
+        </ng-container>
+        <button (click)="openSupplier()" class="input-group-prepend btn btn-outline-success">
+          <i class="pi pi-plus"></i>
+        </button>
+      </div>
+      <div class="row mb-3">
+        <span class="col-5">Mã phiếu nhập</span>
+        <span class="col-7 text-muted">
+          <ng-container *ngIf="orders?.orderId">{{orders.orderId}}</ng-container>
+          <ng-container *ngIf="!orders?.orderId">Mã phiếu tự động</ng-container>
+        </span>
+      </div>
+      <div class="row mb-3">
+        <span class="col-5">Trạng thái</span>
+        <span class="col-7">
+          <ng-container *ngIf="orders?.totalPrice === 0">Phiếu tạm</ng-container>
+          <ng-container *ngIf="orders?.totalPrice > 0">Hoàn thành</ng-container>
+          <ng-container *ngIf="!orders?.orderId">Chưa khởi tạo</ng-container>
+        </span>
+      </div>
+      <div class="row mb-3">
+        <span class="col-5">Nhà cung cấp</span>
+        <span class="col-7">
+          <ng-container *ngIf="orders?.companyName">{{orders?.companyName}}</ng-container>
+          <ng-container *ngIf="!orders?.companyName">Vui lòng chọn</ng-container>
+        </span>
+      </div>
+      <div class="row mb-3" *ngIf="orders?.fullName">
+        <span class="col-5">Người tạo</span>
+        <span class="col-7">{{orders?.fullName}}</span>
+      </div>
+      <div class="row mb-3">
+        <span class="col-5">Tổng tiền</span>
+        <span class="col-7">{{summed | number}} đồng</span>
+      </div>
+      <div class="d-flex justify-content-around mt-lg-5">
+        <button routerLink="/admin/orders-import" class="btn btn-secondary">Trở về</button>
+        <button (click)="temp()" class="btn btn-primary">Lưu tạm</button>
+        <button [swal]="confirm" class="btn btn-success">Hoàn thành</button>
       </div>
     </div>
-    <div>
-      <form [formGroup]="orderForm">
-        <table class="table table-bordered">
-          <thead>
-            <tr class="table-primary">
-              <th>Mã</th>
-              <th>Tên sản phẩm</th>
-              <th style="width:100px" class="text-right">Số lượng</th>
-              <th style="width:160px" class="text-right">Đơn giá</th>
-              <th class="text-right text-nowrap">Thành tiền</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody formArrayName="product">
-            <tr *ngFor="let order of orderForm.get('product')['controls']; let i=index" [formGroupName]="i">
-              <td>{{order.get('productId').value}}</td>
-              <td>{{order.get('productName').value}}</td>
-              <td><input formControlName="quantity" type="text" class="number" mask="comma_separator.0"></td>
-              <td><input formControlName="unitPrice" type="text" class="number" mask="comma_separator.0"></td>
-              <td class="text-right">{{order.get('quantity').value * order.get('unitPrice').value | number}}</td>
-              <td><button type="button" (click)="deleteProduct(i,order.get('productId').value)"
-                  class="d-flex btn btn-outline-danger btn-sm"><i class="pi pi-times"></i></button></td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+  </div>
+  <swal #confirm title="Hóa đơn đã nhập hàng không thể chỉnh sửa?" text="" type="question" [showCancelButton]="true" [focusCancel]="true"
+    [options]="{confirmButtonText: 'Xác nhận',cancelButtonText:'Hủy bỏ'}" (confirm)="save()">
+  </swal>
+  <div class="col-lg-8 order-lg-1 p-2">
+    <div class="bg-white p-3" style="min-height: 50vh;">
+      <div class="row my-3 align-items-center justify-content-end">
+        <div class="col-lg-8">
+          <div class="search-box input-group">
+            <input class="form-control" type="search" [formControl]="searchProductControl"
+              placeholder="Tìm sản phẩm theo mã hoặc theo tên">
+            <ng-container *ngIf="products$ | async; let proItems">
+              <ul *ngIf="proItems.length > 0" class="wrap-suggestion">
+                <li *ngFor="let product of proItems">
+                  <a (click)="addProduct(product.productId,product.productName)">
+                    <span class="item-name">{{product.productName}}</span>
+                  </a>
+                </li>
+              </ul>
+            </ng-container>
+            <button type="button" (click)="openProduct()" class="btn btn-outline-success input-group-prepend"><i
+                class="pi pi-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <form [formGroup]="orderForm">
+          <table class="table table-bordered">
+            <thead>
+              <tr class="table-primary">
+                <th>Mã</th>
+                <th>Tên sản phẩm</th>
+                <th style="width:100px" class="text-right">Số lượng</th>
+                <th style="width:160px" class="text-right">Đơn giá</th>
+                <th class="text-right text-nowrap">Thành tiền</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody formArrayName="product">
+              <tr *ngFor="let order of orderForm.get('product')['controls']; let i=index" [formGroupName]="i">
+                <td>{{order.get('productId').value}}</td>
+                <td>{{order.get('productName').value}}</td>
+                <td><input formControlName="quantity" type="text" class="number" mask="comma_separator.0"></td>
+                <td><input formControlName="unitPrice" type="text" class="number" mask="comma_separator.0"></td>
+                <td class="text-right">{{order.get('quantity').value * order.get('unitPrice').value | number}}</td>
+                <td><button type="button" (click)="deleteProduct(i,order.get('productId').value)"
+                    class="d-flex btn btn-outline-danger btn-sm"><i class="pi pi-times"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 </div>

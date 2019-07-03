@@ -22,10 +22,10 @@ export class ReviewHistoryComponent implements OnInit {
   constructor(private evaluationService: EvaluationService, private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.getReviewHistotry();
+    this.getReviewHistotry(1);
   }
-  getReviewHistotry(){
-    this.evaluationService.getReviewHistotry(this.user.id,this.currentPage).subscribe((data:response)=>{
+  getReviewHistotry(page:number){
+    this.evaluationService.getReviewHistotry(this.user.id,page).subscribe((data:response)=>{
       if(!data.isError){
         this.paging = data.module.paging;
         this.products = data.module.products;
@@ -39,7 +39,7 @@ export class ReviewHistoryComponent implements OnInit {
   }
   changePage(page:number){
     this.currentPage = page;
-    this.getReviewHistotry();
+    this.getReviewHistotry(page);
   }
   openEditReview(product: ProductReviewHistory){
     const modal = this.modalService.open(NgbModalWriteReviewComponent);
@@ -51,7 +51,7 @@ export class ReviewHistoryComponent implements OnInit {
     modal.componentInstance.content = product.content;
     modal.componentInstance.returnStatus.subscribe(data =>{
       if(data == 'success'){
-        this.getReviewHistotry();
+        this.getReviewHistotry(this.currentPage);
         modal.close();
       }
      

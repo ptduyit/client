@@ -53,4 +53,7 @@ export class ProductService {
   updateStatus(id:number,status:string){
     return this.http.get(globals.server+'api/admin/change-status/'+id+'/'+status);
   }
+  getProductShowIndex(){
+    return this.http.get(globals.server+'api/products/products-show');
+  }
 }

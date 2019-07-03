@@ -7,3 +7,12 @@
     position: relative;
     z-index: 2;
 }
+.product{
+    background-color: #fff;
+    cursor: pointer;
+    position: relative;
+}
+.product:hover{
+    box-shadow: 0 0 20px rgba(0,0,0,.1);
+    z-index: 1;
+}

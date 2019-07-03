@@ -20,9 +20,13 @@ export class NgbModalWriteReviewComponent implements OnInit {
   @Input() evaluationId: number;
   @Output() returnStatus: EventEmitter<any> = new EventEmitter();
   server = globals.server;
+  flag = false;
   constructor(public activeModal: NgbActiveModal, private evaluationService: EvaluationService, private toastr: ToastrService) { }
 
   ngOnInit() {
+    if(this.rate){
+      this.flag = true;
+    }
   }
   onSubmit(){
     var review = {
@@ -34,7 +38,7 @@ export class NgbModalWriteReviewComponent implements OnInit {
     }
     this.evaluationService.postPutReview(review).subscribe((data:response)=>{
       if(!data.isError){
-        if(this.productId > 0){
+        if(this.flag){
           this.toastr.success(this.productName,"Chỉnh sửa thành công");
         }
         else{

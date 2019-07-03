@@ -22,7 +22,6 @@ export class MyOrdersComponent implements OnInit {
   orders: Order[] = [];
   paging ={} as Paging;
   option:number;
-  currentPage = 1;
   searchOrderControl = new FormControl();
   queryParamSubscription: Subscription;
   server = globals.server;
@@ -82,7 +81,6 @@ export class MyOrdersComponent implements OnInit {
     })
   }
   changePage(page:number){
-    this.currentPage = page;
     this.getOrderUser(page);
   }
 

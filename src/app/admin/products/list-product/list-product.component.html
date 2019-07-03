@@ -25,15 +25,15 @@
 
 </div>
 <div class="mb-3 text-right">
-    <p-radioButton (onFocus)="selectRadio()" class="radio-button" name="status" value="abc" label="Không lọc" [(ngModel)]="status">
+    <p-radioButton (onClick)="selectRadio()" class="radio-button" name="status" value="abc" label="Không lọc" [(ngModel)]="status">
     </p-radioButton>
-    <p-radioButton (onFocus)="selectRadio()" class="radio-button" name="status" value="stock" label="Hết hàng" [(ngModel)]="status">
+    <p-radioButton (onClick)="selectRadio()" class="radio-button" name="status" value="stock" label="Hết hàng" [(ngModel)]="status">
     </p-radioButton>
-    <p-radioButton (onFocus)="selectRadio()" class="radio-button" name="status" value="discontinued" label="Ngưng bán" [(ngModel)]="status">
+    <p-radioButton (onClick)="selectRadio()" class="radio-button" name="status" value="discontinued" label="Ngưng bán" [(ngModel)]="status">
     </p-radioButton>
-    <p-radioButton (onFocus)="selectRadio()" class="radio-button" name="status" value="index" label="Nổi bật" [(ngModel)]="status">
+    <p-radioButton (onClick)="selectRadio()" class="radio-button" name="status" value="index" label="Nổi bật" [(ngModel)]="status">
     </p-radioButton>
-    <p-radioButton (onFocus)="selectRadio()" class="radio-button" name="status" value="price" label="Chưa định giá" [(ngModel)]="status">
+    <p-radioButton (onClick)="selectRadio()" class="radio-button" name="status" value="price" label="Chưa định giá" [(ngModel)]="status">
     </p-radioButton>
 </div>
 <div>
@@ -51,7 +51,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let product of products | paginate: { id: 'pagingproduct', itemsPerPage: paging.pageSize, currentPage: currentPage, totalItems: paging.totalItems}">
+            <tr *ngFor="let product of products | paginate: { id: 'pagingproduct', itemsPerPage: paging.pageSize, currentPage: paging.pageNumber, totalItems: paging.totalItems}">
                 <td class="text-center">{{product.productId}}</td>
                 <td>{{product.productName}}</td>
                 <td class="text-right">{{product.unitPrice | number}}</td>

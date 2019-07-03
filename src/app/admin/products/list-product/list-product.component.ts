@@ -20,7 +20,6 @@ export class ListProductComponent implements OnInit, OnDestroy {
   categoryId = 0;
   paging = {} as Paging;
   status = "abc";
-  currentPage = 1;
   size = 10;
   keyword = "";
   term$ = new Subject<string>();
@@ -63,15 +62,12 @@ export class ListProductComponent implements OnInit, OnDestroy {
     this.term$.next(this.keyword)
   }
   changePage(page:number){
-    this.currentPage = page;
     this.getProduct(page);
   }
   selectRadio(){
-    this.currentPage = 1;
     this.getProduct(1);
   }
   selectCategory(){
-    this.currentPage = 1;
     this.getProduct(1);
   }
   changeStatus(id:number, status: string){

@@ -31,7 +31,7 @@
   </div>
 </div>
 <div class="order-info"
-  *ngFor="let order of orders | paginate: { id: 'pagingorder', itemsPerPage: paging.pageSize, currentPage: currentPage, totalItems: paging.totalItems}">
+  *ngFor="let order of orders | paginate: { id: 'pagingorder', itemsPerPage: paging.pageSize, currentPage: paging.pageNumber, totalItems: paging.totalItems}">
   <ul class="nav header-order justify-content-between info-order">
     <li>#{{order.orderId}}</li>
     <li>{{order.orderDate | date:'HH:mm dd-MM-yyyy'}}</li>

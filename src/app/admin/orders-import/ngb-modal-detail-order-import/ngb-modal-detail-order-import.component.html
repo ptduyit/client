@@ -1,3 +1,46 @@
-<p>
-  ngb-modal-detail-order-import works!
-</p>
+<div class="modal-header">
+  <h4 class="modal-title">Chi tiết đơn hàng #{{order.orderId}}</h4>
+  <div class="d-flex">
+    <h4 class="price-order">{{order.totalPrice | number:'':'es'}}đ</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="info-order">
+    <div class="title"><i class="pi pi-info-circle mr-2"></i>Thông tin đơn hàng</div>
+    <div class="d-flex mt-2">
+      <div class="col-3">Ngày tạo</div>
+      <div class="col-9">{{order.orderDate | date:'HH:mm dd-MM-yyy'}}</div>
+    </div>
+    <div class="d-flex mt-2">
+      <div class="col-3">Nhà cung cấp</div>
+      <div class="col-9">{{order.companyName}}</div>
+    </div>
+    <div class="d-flex mt-2">
+      <div class="col-3">Người tạo hóa đơn</div>
+      <div class="col-9">{{order.fullName}}</div>
+    </div>
+  </div>
+  <div class="detail-product">
+    <div class="title"><i class="pi pi-list mr-2"></i>Chi tiết sản phẩm</div>
+    <div *ngFor="let product of order.orderDetails" class="d-flex justify-content-between align-items-center info-product">
+      <div class="product-image d-flex align-items-center">
+        <div (click)="gotoLink(product.productId)">
+          <img *ngIf="product.productImages" src="{{server}}{{product.productImages}}" alt="{{product.productName}}">
+          <img *ngIf="!product.productImages" src="assets/images/placeholder.png" alt="{{product.productName}}">
+        </div>
+        <div (click)="gotoLink(product.productId)" style="cursor: pointer;">
+          <span>{{product.productName}}</span>
+        </div>
+      </div>
+      <span>
+        đơn giá: {{product.unitPrice | number:'':'es'}}đ
+      </span>
+      <span>
+        số lượng: {{product.quantity}} cái
+      </span>
+    </div>
+  </div>
+</div>

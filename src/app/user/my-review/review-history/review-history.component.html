@@ -5,7 +5,7 @@
 </ul>
 <div class="list-product">
   <div class="d-flex"
-    *ngFor="let product of products | paginate: { id: 'pagingproduct', itemsPerPage: paging.pageSize, currentPage: currentPage, totalItems: paging.totalItems}">
+    *ngFor="let product of products | paginate: { id: 'pagingproduct', itemsPerPage: paging.pageSize, currentPage: paging.pageNumber, totalItems: paging.totalItems}">
     <div class="col-md-10 p-0 ">
       <div class="info-product">
         <div class="mb-2">Nhận xét và đánh giá về sản phẩm</div>

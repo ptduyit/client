@@ -7,6 +7,8 @@ import { Subject, EMPTY, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Paging } from 'src/app/model/paging';
 import { ToastrService} from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalDetailOrderImportComponent } from '../ngb-modal-detail-order-import/ngb-modal-detail-order-import.component';
 
 @Component({
   selector: 'app-list-orders-import',
@@ -21,7 +23,8 @@ export class ListOrdersImportComponent implements OnInit,OnDestroy {
   orders: OrderImportManage[] = [];
   term$ = new Subject<string>();
   private searchSubscription: Subscription;
-  constructor(private title: Title, private orderService: OrderImportService, private toastr: ToastrService) {
+  constructor(private title: Title, private orderService: OrderImportService, private toastr: ToastrService,
+    private modalService: NgbModal, private orderimportService: OrderImportService) {
     this.title.setTitle('Quản lý đơn nhập hàng');
    }
 
@@ -53,6 +56,15 @@ export class ListOrdersImportComponent implements OnInit,OnDestroy {
         this.searchOrder(this.paging.pageNumber);
       }
     })
+  }
+  openDetail(orderId:number){
+    this.orderimportService.getOrderById(orderId).subscribe((data:response) => {
+      if(!data.isError){
+        const modal = this.modalService.open(NgbModalDetailOrderImportComponent,{ size: 'lg' });
+        modal.componentInstance.order = data.module;
+      }
+    });
+    
   }
   ngOnDestroy() {
     if (this.searchSubscription) {

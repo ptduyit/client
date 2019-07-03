@@ -31,7 +31,7 @@
 <div class="py-3 border-bottom">Nhận xét về sản phẩm</div>
 <form [formGroup]="evaluationForm" class="" *ngIf="data?.evaluations">
   <div class="p-3 border-bottom"
-    *ngFor="let evaluation of data.evaluations | paginate: { id: 'pagingevaluation', itemsPerPage: data.paging.pageSize, currentPage: p, totalItems: data.paging.totalItems }">
+    *ngFor="let evaluation of data.evaluations | paginate: { id: 'pagingevaluation', itemsPerPage: data.paging.pageSize, currentPage: data.paging.pageNumber, totalItems: data.paging.totalItems }">
 
     <div class="d-flex justify-content-between">
       <ngb-rating [rate]="evaluation.rate" [max]="5" [readonly]="true">

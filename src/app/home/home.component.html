@@ -10,6 +10,10 @@
         </div>
       </ngx-slick-carousel>
     </div>
-    <!-- <app-product-showcase *ngFor="let product of productIndex" [productIndex]="product" class="col-md-3 col-sm-6 py-3"></app-product-showcase> -->
+  </div>
+  <h3>Sản phẩm nổi bật</h3>
+  <div class="row my-3">
+    <app-product-showcase *ngFor="let product of productIndex" [productIndex]="product"
+      class="col-md-2 col-sm-4 product" routerLink="/products/{{product.productId}}"></app-product-showcase>
   </div>
 </div>

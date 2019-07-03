@@ -1,6 +1,9 @@
 .modal-header, .modal-body,.modal-footer{
     background-color: #f4f4f4;
 }
+.modal-body{
+    border-radius: 0.3rem;
+}
 .price-order{
     margin-right: 1rem;
     color: #fa5a29;

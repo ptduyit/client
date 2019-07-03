@@ -22,10 +22,10 @@ export class NotReviewComponent implements OnInit {
   constructor(private evaluationService: EvaluationService, private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.getNotReview();
+    this.getNotReview(1);
   }
-  getNotReview(){
-    this.evaluationService.getNoteReview(this.user.id,this.currentPage).subscribe((data:response)=>{
+  getNotReview(page: number){
+    this.evaluationService.getNoteReview(this.user.id,page).subscribe((data:response)=>{
       if(!data.isError){
         this.paging = data.module.paging;
         this.products = data.module.products;
@@ -39,7 +39,7 @@ export class NotReviewComponent implements OnInit {
   }
   changePage(page:number){
     this.currentPage = page;
-    this.getNotReview();
+    this.getNotReview(page);
   }
   openEditReview(product: ProductNotReview){
     const modal = this.modalService.open(NgbModalWriteReviewComponent);
@@ -49,7 +49,7 @@ export class NotReviewComponent implements OnInit {
     modal.componentInstance.image = product.image
     modal.componentInstance.returnStatus.subscribe(data =>{
       if(data == 'success'){
-        this.getNotReview();
+        this.getNotReview(this.currentPage);
         modal.close();
       } 
     })

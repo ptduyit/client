@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -67,7 +66,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ReactiveFormsModule,
     SocialLoginModule,
     BrowserAnimationsModule,
-    SimpleNotificationsModule.forRoot(),
     LayoutModule,
     SharedModule,
     NgxMaskModule.forRoot(),

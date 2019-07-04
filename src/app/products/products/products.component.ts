@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { ProductService } from 'src/app/service/product.service';
 import { CartService } from 'src/app/service/cart.service';
 import { CartDetail } from 'src/app/model/cart-detail';
-import { NotificationsService } from 'angular2-notifications';
 import { DataShareService } from 'src/app/service/datashare.service';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
@@ -12,6 +11,7 @@ import { response } from 'src/app/model/response';
 import * as globals from 'src/globals';
 import { Title } from '@angular/platform-browser';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-products',
@@ -30,7 +30,7 @@ export class ProductsComponent implements OnInit {
   quantity = 1;
   hubConnection: signalR.HubConnection;
   constructor(private productService: ProductService, private avRouter: ActivatedRoute,
-    private cartService: CartService, private router: Router, private _service: NotificationsService,
+    private cartService: CartService, private router: Router, private toastr: ToastrService,
     private dataService: DataShareService, private title: Title, private ngxService: NgxUiLoaderService) { }
 
   // ngx-image-zoom
@@ -196,14 +196,7 @@ export class ProductsComponent implements OnInit {
       });
     } else {
       this.router.navigate(['login']);
-      this._service.info('Bạn phải đăng nhập trước khi mua hàng', '',
-        {
-          timeOut: 3000,
-          showProgressBar: true,
-          pauseOnHover: false,
-          clickToClose: true,
-          maxLength: 10
-        });
+      this.toastr.info("","Vui lòng đăng nhập");
     }
 
   }

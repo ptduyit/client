@@ -4,8 +4,8 @@
             <span>Giới Thiệu</span>
             <span class="mx-4">Hỗ Trợ</span>
             <div class="login d-flex" *ngIf="!user && !isUserLoggedIn">
-                <span routerLink="/login">Đăng Nhập</span>
-                <span routerLink="/signup">Đăng Ký</span>
+                <span (click)="login()">Đăng Nhập</span>
+                <span (click)="signup()">Đăng Ký</span>
             </div>
             <div class="account" *ngIf="user || isUserLoggedIn">
                 <span>{{user.name}}</span>

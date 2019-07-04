@@ -14,7 +14,8 @@ export class DirectionComponent implements OnInit {
   constructor(public router: Router) { }
 
   ngOnInit() {
-    if (this.router.url === '/login') {
+    let url = this.router.url;
+    if ( url.includes('/login')) {
       this.currentComponent = LoginComponent;
     } else {
       this.currentComponent = SignupComponent;

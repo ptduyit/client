@@ -3,7 +3,6 @@ import { ProductIndex } from 'src/app/model/product-index';
 import { CartService } from 'src/app/service/cart.service';
 import { CartDetail } from 'src/app/model/cart-detail';
 import { Router } from '@angular/router';
-import { NotificationsService } from 'angular2-notifications';
 import { Cart } from 'src/app/model/cart';
 import { DataShareService } from 'src/app/service/datashare.service';
 import * as globals from 'src/globals';
@@ -21,9 +20,7 @@ export class ProductShowcaseComponent implements OnInit {
   cartDetail: CartDetail = {} as any;
   user = JSON.parse(localStorage.getItem('user'));
   productNumber: number;
-  constructor(private cartService: CartService, private router: Router,
-     private _service: NotificationsService, private dataService: DataShareService) {
-
+  constructor() {
   }
 
   ngOnInit() {

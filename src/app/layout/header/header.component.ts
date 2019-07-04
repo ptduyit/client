@@ -3,11 +3,10 @@ import { DataShareService } from '../../service/datashare.service'
 import { Router, NavigationEnd, Event } from '@angular/router';
 import { UserInfo } from '../../model/user-info';
 import { UserService } from '../../service/user.service';
-import { NotificationsService } from 'angular2-notifications';
-import { Cart } from '../../model/cart';
 import { CartService } from '../../service/cart.service';
 import { response } from 'src/app/model/response';
 import { Subscription } from 'rxjs';
+import { ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-header',
@@ -25,10 +24,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentUrl: string;
   token = localStorage.getItem('token');
   user = JSON.parse(localStorage.getItem('user'));
-  // user = JSON.parse(localStorage.getItem('user'));
-  // fullName = localStorage.getItem('name');
+
   constructor(private router: Router, private dataShareService: DataShareService,
-    private userService: UserService, private _service: NotificationsService, private cartService: CartService) {
+    private userService: UserService, private toastr: ToastrService, private cartService: CartService) {
       
       this.routerUrlSubscription = this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd ) {
@@ -62,32 +60,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
           console.log(rs.message);
       });
     }
-    // if(this.userId != null){
-    //   this.userService.getUserInfo(this.userId).subscribe(data => this.userInfo = data);
-    //   this.cartService.getCart(this.userId).subscribe((data : Cart[]) =>{
-    //     this.productNumber = data.reduce( function( runningValue: number, cart: Cart){
-    //       return runningValue + cart.quantity;
-    //     },0);
-    //   });
-    // }
+
+  }
+  login(){
+    this.router.navigate(['login']);
+  }
+  signup(){
+    this.router.navigate(['signup']);
   }
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    //localStorage.removeItem('name');
     this.dataShareService.updateStatus(null);
     this.dataShareService.updateNumberProduct(0);
     this.token = null;
     this.user = null;
-    //this.fullName = null;
-    this._service.info('Đã đăng xuất','',
-        {
-          timeOut: 3000,
-          showProgressBar: false,
-          pauseOnHover: false,
-          clickToClose: true,
-          maxLength: 10
-        });
+    this.toastr.info("","Đã đăng xuất");
+    this.router.navigate([this.router.url]);
   }
 
 

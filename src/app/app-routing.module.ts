@@ -19,7 +19,8 @@ const routes: Routes = [
       {
         path: 'cart',
         component: CartComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        runGuardsAndResolvers: 'always'
       }
     ]
   }
@@ -29,7 +30,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes,{preloadingStrategy : CustomPreloadingStrategy }),
+    RouterModule.forRoot(routes,{preloadingStrategy : CustomPreloadingStrategy, onSameUrlNavigation: 'reload' }),
   ],
   exports: [RouterModule]
 })

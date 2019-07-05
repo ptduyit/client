@@ -13,7 +13,7 @@
     }
     
     .card{
-    height: 370px;
+    height: auto;
     margin-top: auto;
     margin-bottom: auto;
     width: 400px;
@@ -86,14 +86,17 @@
     color: white;
     }
     
-    .links a{
+    .links span{
     margin-left: 4px;
+    color: #007ad9;
+    cursor: pointer;
+    }
+    .links span:hover{
+    text-decoration: underline;   
     }
     .mylogin{
         background-size: cover;
-        height: 100%;
-        width: 100%;
         background-image: url("/assets/images/bg-image-login.jpg");
-        padding-top: 100px;
+        padding-top: 70px;
         padding-bottom: 100px;
     }

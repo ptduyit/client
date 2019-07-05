@@ -8,7 +8,8 @@
                 <span (click)="signup()">Đăng Ký</span>
             </div>
             <div class="account" *ngIf="user || isUserLoggedIn">
-                <span>{{user.name}}</span>
+                <span *ngIf="user && !isUserLoggedIn">{{user.name}}</span>
+                <span *ngIf="isUserLoggedIn">{{isUserLoggedIn}}</span>
                 <div class="option-user">
                     <span routerLink="/user/edit-profile">Quản lý tài khoản</span>
                     <span routerLink="/user/my-orders">Đơn hàng của tôi</span>

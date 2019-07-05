@@ -13,7 +13,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.checkLogin();
+      let url: string = state.url;
+    return this.checkLogin(url);
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
@@ -22,26 +23,11 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
   canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
     let url = `/${route.path}`;
-
-    return this.checkLogin();
+    return this.checkLogin(url);
   }
-  checkLogin(): boolean {
+  checkLogin(url:string): boolean {
     if (localStorage.getItem('user')) { return true; }
-
-    // Store the attempted URL for redirecting
-    //this.authService.redirectUrl = url;
-
-    // Create a dummy session id
-    //let sessionId = 123456789;
-
-    // Set our navigation extras object
-    // that contains our global query params and fragment
-    // let navigationExtras: NavigationExtras = {
-    //   queryParams: { 'session_id': sessionId },
-    //   fragment: 'anchor'
-    // };
-
-    // Navigate to the login page with extras
+    this.authService.redirectUrl = url;
     this.router.navigate(['/login']);
     return false;
   }

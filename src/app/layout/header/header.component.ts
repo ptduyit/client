@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, } from '@angular/core';
 import { DataShareService } from '../../service/datashare.service'
-import { Router, NavigationEnd, Event } from '@angular/router';
+import { Router, NavigationEnd, Event, ActivatedRoute } from '@angular/router';
 import { UserInfo } from '../../model/user-info';
 import { UserService } from '../../service/user.service';
 import { CartService } from '../../service/cart.service';
@@ -18,14 +18,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   routerUrlSubscription: Subscription;
   loginSubscription: Subscription;
   numCartSubscription: Subscription;
+  queryParamSubscription: Subscription;
   isUserLoggedIn : string;
   productNumber: number = 0;
   userInfo: UserInfo;
   currentUrl: string;
   token = localStorage.getItem('token');
   user = JSON.parse(localStorage.getItem('user'));
-
-  constructor(private router: Router, private dataShareService: DataShareService,
+  redirect = null;
+  constructor(private router: Router, private dataShareService: DataShareService, private route: ActivatedRoute,
     private userService: UserService, private toastr: ToastrService, private cartService: CartService) {
       
       this.routerUrlSubscription = this.router.events.subscribe((event: Event) => {
@@ -36,6 +37,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.queryParamSubscription = this.route.queryParamMap.subscribe(params => {
+      this.redirect = params.get('redirect');
+    });
     this.loginSubscription = this.dataShareService.cast.subscribe(value => {
       this.isUserLoggedIn = value;
     });
@@ -48,6 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.numCartSubscription.unsubscribe();
     this.loginSubscription.unsubscribe();
     this.routerUrlSubscription.unsubscribe();
+    this.queryParamSubscription.unsubscribe();
   }
    
   getQuantityCart(){
@@ -63,10 +68,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
   login(){
-    this.router.navigate(['login']);
+    let url = this.router.url;
+    if(this.redirect){
+      this.router.navigate(['login'], { queryParams: {'redirect': this.redirect}});
+    }else{
+      if(url === '/' || url === '/signup' || url === '/login'){
+        this.router.navigate(['login']);
+      }
+      else{
+        this.router.navigate(['login'], { queryParams: {'redirect': url}});
+      }
+    }
   }
   signup(){
-    this.router.navigate(['signup']);
+    let url = this.router.url;
+    if(this.redirect){
+      this.router.navigate(['signup'], { queryParams: {'redirect': this.redirect}});
+    }else{
+      if(url === '/' || url === '/login' || url === '/signup'){
+        this.router.navigate(['signup']);
+      }
+      else{
+        this.router.navigate(['signup'], { queryParams: {'redirect': url}});
+      }
+    }
   }
   logout() {
     localStorage.removeItem('token');
@@ -76,9 +101,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.token = null;
     this.user = null;
     this.toastr.info("","Đã đăng xuất");
-    this.router.navigate([this.router.url]);
+    this.router.navigateByUrl(this.currentUrl);
   }
-
-
-
 }

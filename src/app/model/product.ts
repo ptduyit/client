@@ -18,6 +18,12 @@ export interface ProductSearch{
     id: number;
     name: string;
 }
+export interface ProductQuickSearch{
+    productId: number;
+    productName: string;
+    unitPrice: number;
+    image: string;
+}
 export interface QuickAddProduct{
     orderId: number;
     userId: string;

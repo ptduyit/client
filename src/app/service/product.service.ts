@@ -56,4 +56,7 @@ export class ProductService {
   getProductShowIndex(){
     return this.http.get(globals.server+'api/products/products-show');
   }
+  quickSearch(keyword:string){
+    return this.http.get(globals.server+'api/products/quick-search?keyword='+keyword);
+  }
 }

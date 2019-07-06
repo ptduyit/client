@@ -10,11 +10,11 @@ import { LoadedRouterConfig } from '@angular/router/src/config';
 })
 export class AppComponent implements OnInit {
   constructor(public router: Router){
-    this.router.events.pipe(filter(e => e instanceof RoutesRecognized),pairwise())
-      .subscribe((event: any[]) => {
+    // this.router.events.pipe(filter(e => e instanceof RoutesRecognized),pairwise())
+    //   .subscribe((event: any[]) => {
  
-        localStorage.setItem('prevRoute', event[0].urlAfterRedirects);
-      });
+    //     localStorage.setItem('prevRoute', event[0].urlAfterRedirects);
+    //   });
   }
   ngOnInit(){
   }

@@ -29,7 +29,20 @@
                 <span>BeeShop</span>
             </div>
             <div class="search flex-grow-1 input-group">
-                <input type="text" class="form-control" placeholder="Tìm sản phẩm">
+                <input type="search" class="form-control" placeholder="Tìm sản phẩm" [formControl]="searchProductControl">
+                <ng-container *ngIf="products.length > 0">
+                    <ul class="wrap-suggestion">
+                      <li *ngFor="let product of products" routerLink="/products/{{product.productId}}">
+                          <div class="img-product">
+                                <img *ngIf="product.image" src="{{server}}{{product.image}}" alt="{{product.productName}}">
+                                <img *ngIf="!product.image" src="assets/images/placeholder.png" alt="{{product.productName}}">
+                          </div>
+                        
+                        <span class="item-name">{{product.productName}}</span>
+                        <span class="price">{{product.unitPrice | number:'':'es'}}₫</span>
+                      </li>
+                    </ul>
+                  </ng-container>
                 <button class="btn input-group-append align-items-center"><i class="pi pi-search" style="font-size: 1.5rem"></i>Tìm kiếm</button>
             </div>
             <div class="cart">

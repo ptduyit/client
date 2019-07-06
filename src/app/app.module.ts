@@ -40,13 +40,15 @@ export function provideConfig() {
   return config;
 }
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
-  "blur": 4,
-  "fgsColor": "#1cfbff",
-  "fgsSize": 70,
-  "fgsType": "three-strings",
-  "pbColor": "red",
-  "pbThickness": 3,
-  "threshold":1
+  blur: 4,
+  fgsColor: "#1cfbff",
+  fgsSize: 70,
+  fgsType: "three-strings",
+  pbColor: "red",
+  pbThickness: 3,
+  threshold: 300,
+  bgsColor: "#5f1eef",
+  bgsType: "ball-spin-clockwise"
 };
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     SweetAlert2Module.forRoot(),
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     SocialLoginModule,
-    SlickCarouselModule
+    SlickCarouselModule,
+    NgxUiLoaderRouterModule.forRoot({ showForeground: false }),
+    NgxUiLoaderHttpModule
   ],
   entryComponents:[
     NgbModalSelectAddressComponent

@@ -39,6 +39,10 @@ const routes: Routes = [
         data: {preload:true, delay:false}
       },
       {
+        path: '404',
+        component: PageNotFoundComponent
+      },
+      {
         path: '**',
         component: PageNotFoundComponent
       }

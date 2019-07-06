@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { ProductService } from 'src/app/service/product.service';
 import { CartService } from 'src/app/service/cart.service';
 import { CartDetail } from 'src/app/model/cart-detail';
@@ -12,6 +12,7 @@ import * as globals from 'src/globals';
 import { Title } from '@angular/platform-browser';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -29,7 +30,7 @@ export class ProductsComponent implements OnInit {
   productNumber: number;
   quantity = 1;
   hubConnection: signalR.HubConnection;
-  constructor(private productService: ProductService, private avRouter: ActivatedRoute,
+  constructor(private productService: ProductService, private route: ActivatedRoute,
     private cartService: CartService, private router: Router, private toastr: ToastrService,
     private dataService: DataShareService, private title: Title, private ngxService: NgxUiLoaderService) { }
 
@@ -38,22 +39,35 @@ export class ProductsComponent implements OnInit {
   //     let ratio = (this.imageThumbnail.nativeElement.naturalWidth / this.imageThumbnail.nativeElement.naturalHeight);
   //     this.thumbHeight = this.thumbWidth / ratio;
   ngOnInit() {
-    this.ngxService.start();
+    //this.ngxService.start();
     registerLocaleData(es);
-    if (this.avRouter.snapshot.params["id"]) {
-      this.id = this.avRouter.snapshot.params["id"];
-      this.productService.getProductInformation(this.id).subscribe((data: response) => {
-        if (!data.isError) {
-          this.ngxService.stop();
-          this.title.setTitle(data.module.productName);
-          this.product = data.module;
-          if (data.module.productImages.length > 0) {
-            this.mainImage = globals.server + data.module.productImages[0].url;
-          }
-        }
+    this.route.data.subscribe( data => {
+      this.product = data.productResolve.module;
+      this.id = this.product.productId;
+      this.title.setTitle(this.product.productName);
+      if (this.product.productImages.length > 0) {
+        this.mainImage = globals.server + this.product.productImages[0].url;
+      }
+      else{
+        this.mainImage = 'assets/images/placeholder.png';
+      }
 
-      });
-    }
+      console.log(this.product);
+    })
+    // if (this.route.snapshot.params["id"]) {
+    //   this.id = this.route.snapshot.params["id"];
+    //   this.productService.getProductInformation(this.id).subscribe((data: response) => {
+    //     if (!data.isError) {
+    //       this.ngxService.stop();
+    //       this.title.setTitle(data.module.productName);
+    //       this.product = data.module;
+    //       if (data.module.productImages.length > 0) {
+    //         this.mainImage = globals.server + data.module.productImages[0].url;
+    //       }
+    //     }
+
+    //   });
+    // }
     this.hubConnection = new signalR.HubConnectionBuilder().withUrl(globals.server + 'echo').build();
     this.hubConnection
       .start()

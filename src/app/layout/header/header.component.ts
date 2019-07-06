@@ -7,6 +7,13 @@ import { CartService } from '../../service/cart.service';
 import { response } from 'src/app/model/response';
 import { Subscription } from 'rxjs';
 import { ToastrService} from 'ngx-toastr';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { ProductService } from 'src/app/service/product.service';
+import { ProductQuickSearch } from 'src/app/model/product';
+import * as globals from 'src/globals';
+import es from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -26,8 +33,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   token = localStorage.getItem('token');
   user = JSON.parse(localStorage.getItem('user'));
   redirect = null;
+  searchProductControl = new FormControl();
+  products : ProductQuickSearch[] = [];
+  server = globals.server;
   constructor(private router: Router, private dataShareService: DataShareService, private route: ActivatedRoute,
-    private userService: UserService, private toastr: ToastrService, private cartService: CartService) {
+    private productService: ProductService, private toastr: ToastrService, private cartService: CartService) {
       
       this.routerUrlSubscription = this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd ) {
@@ -37,6 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    registerLocaleData( es );
     this.queryParamSubscription = this.route.queryParamMap.subscribe(params => {
       this.redirect = params.get('redirect');
     });
@@ -47,6 +58,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.productNumber = value;
     });
     this.getQuantityCart();
+    this.quickSearch();
   }
   ngOnDestroy(): void {
     this.numCartSubscription.unsubscribe();
@@ -54,7 +66,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.routerUrlSubscription.unsubscribe();
     this.queryParamSubscription.unsubscribe();
   }
-   
+  quickSearch(){
+    this.searchProductControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(keyword => {
+        return this.productService.quickSearch(keyword);
+      })
+    ).subscribe((data: response)=>{
+      if(!data.isError){
+        this.products = data.module;
+        console.log(this.products);
+      }
+      else
+        console.log(data.message);
+    })
+  }
   getQuantityCart(){
     if(this.user != null){
       this.cartService.getTotalQuantity(this.user.id).subscribe((rs : response) =>{

@@ -5,6 +5,8 @@ import { CategoryComponent } from './category/category.component';
 import { CategoryResolverService } from './category-resolver.service';
 import { MainLayoutComponent } from '../layout/main-layout/main-layout.component';
 import { ProductResolverService } from './product-resolver.service';
+import { SearchComponent } from './search/search.component';
+import { SearchResolverService } from './search-resolver.service';
 
 const routes: Routes = [
   {
@@ -22,6 +24,11 @@ const routes: Routes = [
         resolve: {
           dataResolve: CategoryResolverService
         }
+      },
+      {
+        path: 'search',
+        component: SearchComponent,
+        resolve: { searchResolve: SearchResolverService}
       }
     ]
   }
@@ -33,7 +40,8 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [
     CategoryResolverService,
-    ProductResolverService
+    ProductResolverService,
+    SearchResolverService
   ]
 })
 export class ProductsRoutingModule { }

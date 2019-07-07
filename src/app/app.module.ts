@@ -17,7 +17,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { CartComponent } from './cart/cart.component';
-import { SearchComponent } from './search/search.component';
 
 import { ProductsModule } from './products/products.module';
 import { LayoutModule } from './layout/layout.module';
@@ -55,7 +54,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     AppComponent,
     HomeComponent,
     CartComponent,   
-    SearchComponent,
     NgbModalSelectAddressComponent,
     CategoryComponent
   ],

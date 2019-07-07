@@ -59,4 +59,7 @@ export class ProductService {
   quickSearch(keyword:string){
     return this.http.get(globals.server+'api/products/quick-search?keyword='+keyword);
   }
+  productSearch(keyword:string, page:number, sort:string){
+    return this.http.get(globals.server+'api/products/search?keyword='+keyword+'&page='+page+'&sort='+sort);
+  }
 }

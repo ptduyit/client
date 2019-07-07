@@ -51,8 +51,6 @@ export class ProductsComponent implements OnInit {
       else{
         this.mainImage = 'assets/images/placeholder.png';
       }
-
-      console.log(this.product);
     })
     // if (this.route.snapshot.params["id"]) {
     //   this.id = this.route.snapshot.params["id"];

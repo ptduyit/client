@@ -28,10 +28,10 @@
                 </div>
                 <span>BeeShop</span>
             </div>
-            <div class="search flex-grow-1 input-group">
-                <input type="search" class="form-control" placeholder="Tìm sản phẩm" [formControl]="searchProductControl">
-                <ng-container *ngIf="products.length > 0">
-                    <ul class="wrap-suggestion">
+            <div class="search flex-grow-1 input-group" (clickOutside)="isHide = true">
+                <input #txtInput type="search" class="form-control" placeholder="Tìm sản phẩm" (keydown.enter)="[txtInput.blur(), gotoSearch()]" (focus)="isHide = false" [formControl]="searchProductControl">
+                <ng-container *ngIf="products.length > 0 && !isHide">
+                    <ul class="wrap-suggestion" (click)="isHide = true">
                       <li *ngFor="let product of products" routerLink="/products/{{product.productId}}">
                           <div class="img-product">
                                 <img *ngIf="product.image" src="{{server}}{{product.image}}" alt="{{product.productName}}">
@@ -43,7 +43,7 @@
                       </li>
                     </ul>
                   </ng-container>
-                <button class="btn input-group-append align-items-center"><i class="pi pi-search" style="font-size: 1.5rem"></i>Tìm kiếm</button>
+                <button (click)="[gotoSearch(), txtInput.blur()]" class="btn input-group-append align-items-center"><i class="pi pi-search" style="font-size: 1.5rem"></i>Tìm kiếm</button>
             </div>
             <div class="cart">
                 <i class="pi pi-shopping-cart" routerLink="/cart">

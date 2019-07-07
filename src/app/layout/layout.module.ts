@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { HeaderDashboardComponent } from './header-dashboard/header-dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
     LayoutRoutingModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ClickOutsideModule
   ],
   exports: [
     MainLayoutComponent,

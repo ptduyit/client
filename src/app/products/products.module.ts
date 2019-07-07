@@ -14,6 +14,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { NgxUiLoaderModule } from  'ngx-ui-loader';
     ProductsComponent,
     CategoryComponent,
     EvaluationComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    SearchComponent
   ]
 })
 export class ProductsModule{ }

@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchProductControl = new FormControl();
   products : ProductQuickSearch[] = [];
   server = globals.server;
+  isHide = true;
   constructor(private router: Router, private dataShareService: DataShareService, private route: ActivatedRoute,
     private productService: ProductService, private toastr: ToastrService, private cartService: CartService) {
       
@@ -50,6 +51,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     registerLocaleData( es );
     this.queryParamSubscription = this.route.queryParamMap.subscribe(params => {
       this.redirect = params.get('redirect');
+      let text = params.get('q');
+      this.searchProductControl.setValue(text);
     });
     this.loginSubscription = this.dataShareService.cast.subscribe(value => {
       this.isUserLoggedIn = value;
@@ -76,11 +79,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ).subscribe((data: response)=>{
       if(!data.isError){
         this.products = data.module;
-        console.log(this.products);
       }
       else
         console.log(data.message);
     })
+  }
+  gotoSearch(){
+    let text = this.searchProductControl.value;
+    if(text !== ''){
+      this.router.navigate(['search'], { queryParams : { q: text }});
+      this.isHide = true;
+    }
   }
   getQuantityCart(){
     if(this.user != null){

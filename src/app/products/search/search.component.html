@@ -1,0 +1,40 @@
+<section class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><span routerLink="/">Trang chủ</span></li>
+          <li class="breadcrumb-item active">{{keyword}}</li>
+      </ol>
+    </nav>
+    <!-- <div class="row mx-0">
+      <div class="col-3 px-2">
+        
+      </div> -->
+      <div class="">
+          <div class="sort d-flex align-items-center">
+              <span>Sắp xếp theo</span>
+              <ul class="sort-list nav">
+                <li class="nav-item">
+                  <span routerLink="/search" [queryParams]="{ sort: 'newest'}" queryParamsHandling="merge" [class.activeSort]="isLinkActive('newest')">Mới Nhất</span>
+                </li>
+                <li class="nav-item">
+                  <span routerLink="/search" [queryParams]="{ sort: 'discount'}" queryParamsHandling="merge" [class.activeSort]="isLinkActive('discount')">Giảm Giá Nhiều</span>
+                </li>
+                <li class="nav-item">
+                  <span routerLink="/search" [queryParams]="{ sort: 'priceasc'}" queryParamsHandling="merge" [class.activeSort]="isLinkActive('priceasc')">Giá Thấp Đến Cao</span>
+                </li>
+                <li class="nav-item">
+                  <span routerLink="/search" [queryParams]="{ sort: 'pricedesc'}" queryParamsHandling="merge" [class.activeSort]="isLinkActive('pricedesc')">Giá Cao Đến Thấp</span>
+                </li>
+              </ul>
+            </div>
+        <div class="row mx-0 my-3">
+          <app-product-showcase 
+            *ngFor="let product of products | paginate: { id: 'pagingproduct', itemsPerPage: paging.pageSize, currentPage: paging.pageNumber, totalItems: paging.totalItems }"
+            [productIndex]="product" class="col-md-3 col-sm-6 product" routerLink="/products/{{product.productId}}"></app-product-showcase>
+        </div>
+        <div class="p-3 text-right" *ngIf="paging.totalPages > 1">
+        <pagination-controls (pageChange)="getProduct($event)"
+          id="pagingproduct" previousLabel="" nextLabel=""></pagination-controls>
+        </div>
+      </div>
+  </section>

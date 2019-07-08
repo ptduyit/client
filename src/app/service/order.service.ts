@@ -29,8 +29,6 @@ export class OrderService {
   cancelOrderUser(userId: string, orderId: number){
     return this.http.get(globals.server+'api/orders/cancel/'+userId+'/'+orderId);
   }
-  getOrdersByStatus(status: number){
-    return this.http.get<Order[]>(globals.server+'api/orders/GetConfirmOrders/'+status)
-  }
+
 }
 

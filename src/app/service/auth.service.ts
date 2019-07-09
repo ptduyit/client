@@ -15,25 +15,25 @@ export class AuthService {
   
   login(userName: string, password: string) {
     var data = {username: userName, password: password };
-    var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
-    return this.http.post(globals.server+'api/Login', data, reqHeader);
+    //var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
+    return this.http.post(globals.server+'api/Login', data);
     // .pipe(
     //   catchError(this.handleError)
     // );
   }
   signup(fullname: string, email: string, password: string, phonenumber: string){
     var data = {fullName: fullname, email: email, password: password, phoneNumber: phonenumber};
-    var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
-    return this.http.post(globals.server+'api/Users', data, reqHeader);
+    //var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
+    return this.http.post(globals.server+'api/Users', data);
     // .pipe(
     //   catchError(this.handleError)
     // );
   }
   externalLogin(accessToken:string, platform: string) {
-    var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
+    //var reqHeader = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
     let body = JSON.stringify({ accessToken });  
     return this.http
-      .post(globals.server+'api/ExternalLogin/'+platform, body, reqHeader);
+      .post(globals.server+'api/ExternalLogin/'+platform, body);
       // .pipe(
       //   catchError(this.handleError)
       // );

@@ -16,4 +16,13 @@
     <app-product-showcase *ngFor="let product of productIndex" [productIndex]="product"
       class="col-md-2 col-sm-4 product" routerLink="/products/{{product.productId}}"></app-product-showcase>
   </div>
+  <h3>Gợi ý cho bạn</h3>
+  <div class="row my-3">
+    <app-product-showcase *ngFor="let product of productRecommended" [productIndex]="product"
+      class="col-md-2 col-sm-4 product" routerLink="/products/{{product.productId}}"></app-product-showcase>
+  </div>
+  <div class="text-center" *ngIf="currentpage < paging.totalPages">
+    <button (click)="loadMore()"  class="btn btn-outline-primary">Tải Thêm</button>
+  </div>
+  
 </div>

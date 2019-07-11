@@ -10,7 +10,6 @@ import * as signalR from "@aspnet/signalr";
 import { response } from 'src/app/model/response';
 import * as globals from 'src/globals';
 import { Title } from '@angular/platform-browser';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
@@ -32,7 +31,7 @@ export class ProductsComponent implements OnInit {
   hubConnection: signalR.HubConnection;
   constructor(private productService: ProductService, private route: ActivatedRoute,
     private cartService: CartService, private router: Router, private toastr: ToastrService,
-    private dataService: DataShareService, private title: Title, private ngxService: NgxUiLoaderService) { }
+    private dataService: DataShareService, private title: Title) { }
 
   // ngx-image-zoom
   // this.thumbWidth = this.imageThumbnail.nativeElement.width;
@@ -43,6 +42,7 @@ export class ProductsComponent implements OnInit {
     registerLocaleData(es);
     this.route.data.subscribe( data => {
       this.product = data.productResolve.module;
+      this.product.summary = this.toList(this.product.summary);
       this.id = this.product.productId;
       this.title.setTitle(this.product.productName);
       if (this.product.productImages.length > 0) {
@@ -85,7 +85,14 @@ export class ProductsComponent implements OnInit {
 
     "infinite": false
   };
-
+  toList(text:string): string{
+    var item = text.split('\n');
+    var output = '';
+    for(var i=0; i < item.length;i++){
+      output = output + '<li>'+item[i]+'</li>';
+    }
+    return output;
+  }
   changeimage(e) {
     if (this.mainImage !== e.target.currentSrc) {
       this.mainImage = e.target.currentSrc;
@@ -166,28 +173,32 @@ export class ProductsComponent implements OnInit {
       return false;
     return true;
   }
-  // buynow() {
-  //   if (this.userId) {
-  //     this.cartDetail.productId = this.product.productId;
-  //     this.cartDetail.userId = this.userId;
-  //     this.cartDetail.quantity = 1;
-  //     this.cartService.createCartDetail(this.cartDetail).subscribe(data => {
-  //       this.router.navigate(['cart']);
-  //     })
-  //   } else {
-  //     this.router.navigate(['login']);
-  //     this._service.info('Bạn phải đăng nhập trước khi mua hàng', '',
-  //       {
-  //         timeOut: 3000,
-  //         showProgressBar: true,
-  //         pauseOnHover: false,
-  //         clickToClose: true,
-  //         maxLength: 10
-  //       });
-  //   }
-  // }
+  buynow() {
+    if (this.user) {
+      this.cartDetail.productId = this.id;
+      this.cartDetail.userId = this.user.id;
+      this.cartDetail.quantity = this.quantity;
+      this.cartService.addItem(this.cartDetail).subscribe((data: response) => {
+        if (!data.isError) {
+          this.cartService.getTotalQuantity(this.user.id).subscribe((rs: response) => {
+            if (!rs.isError) {
+              this.dataService.updateNumberProduct(rs.module);
+            }
+          });
+          console.log('success');
+          this.router.navigate(['cart']);
+        }
+        else {
+          console.log('error');
+        }
+      });
+    } else {
+      this.router.navigate(['login']);
+      this.toastr.info("","Vui lòng đăng nhập");
+    }
+  }
   addcart() {
-    if (this.user.id) {
+    if (this.user) {
       this.cartDetail.productId = this.id;
       this.cartDetail.userId = this.user.id;
       this.cartDetail.quantity = this.quantity;

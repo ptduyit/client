@@ -23,13 +23,13 @@
     color: #6b6868;
   }
 .filled {
-    color: #e2730bea;
+    color: #ffc120;
 }
 .half {
     position: absolute;
     display: inline-block;
     overflow: hidden;
-    color: #e2730bea;
+    color: #ffc120;
 }
 .hisprice{
     text-decoration: line-through;

@@ -14,9 +14,9 @@ export class JwtInterceptor implements HttpInterceptor {
     private toastr: ToastrService) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');
-    request = request.clone({
-      setHeaders: { 'Content-Type': 'application/json' }
-    });
+    // request = request.clone({
+    //   setHeaders: { 'Content-Type': 'application/json' }
+    // });
     if (token) {
       request = request.clone({
         setHeaders: { Authorization: `Bearer ${token}` }

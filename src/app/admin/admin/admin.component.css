@@ -20,7 +20,61 @@
 }
 .home{
     padding: 16px 25px;
+    text-align: center;
+    
 }
 .menu-header{
     background: linear-gradient(120deg, #00e4d0, #5983e8);
 }
+.menu-header > div:first-child{
+    padding-right: 50px;
+}
+.account > span{
+    cursor: pointer;
+  }
+  .account{
+    position: relative;
+  }
+  .account:hover .option-user{
+    display: block;
+  }
+  .option-user{
+    display: none;
+    cursor: pointer;
+    z-index: 2;
+    background-color: #fff;
+    color: #000;
+    position: absolute;
+    top: 30px;
+    left: calc(50% + 10px);
+    transform: translateX(-50%);
+    width: auto;
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 6px 12px 0px;
+    padding: 0.8rem 0;
+  }
+  .option-user::before{
+    margin-left: -9px;
+    bottom: 100%;
+    left: 50%;
+    content: " ";
+    position: absolute;
+    border: 9px solid;
+    border-color: transparent transparent rgb(255, 255, 255);  
+  }
+  .option-user::after{
+    content: " ";
+    height: 11px;
+    width: 200px;
+    top: -10px;
+    position: absolute;
+    display: inline-block;
+    background: transparent;
+  }
+  .option-user span{
+    display: block;
+    padding: 0.8rem 1rem;
+    min-width: 200px;
+  }
+  .option-user span:hover{
+    background-color: rgb(211, 211, 211);
+  }

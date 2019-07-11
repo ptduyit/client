@@ -45,7 +45,15 @@
       <div class="home">Trang Chủ</div>
     </div>
   <div class="col-10 menu-header">
-    <span>{{user.name}}</span>
+    <div class="d-flex justify-content-end align-items-center h-100">
+        <div class="account" *ngIf="user">
+            <span>{{user.name}}</span>
+            <div class="option-user">
+                <span routerLink="/user/edit-profile">Quản lý tài khoản</span>
+                <span (click)="logout()">Đăng xuất</span>
+            </div>
+        </div> 
+    </div>
   </div>
 </div>
 <div class="row mx-0">

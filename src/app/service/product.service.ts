@@ -11,23 +11,7 @@ import * as globals from 'src/globals';
 
 export class ProductService {
   constructor(private http: HttpClient) { }
-  getProducts(){
-    return this.http.get<Product[]>(globals.server+'api/Products/GetAllProducts');
-  }
-  
-  getStockProduct(id: number){
-    return this.http.get(globals.server+'api/Products/GetStockProduct/'+id);
-  }
-  getProductIndex(){
-    return this.http.get<Product[]>(globals.server+'api/Products/GetIndexProducts');
-  }
-  deleteProduct(id : number){
-    return this.http.delete<Product[]>(globals.server+'api/Products/DeleteProducts/'+ id);
-  }
-  createProduct(product: Product){
-    return this.http.post<Product>(globals.server+'api/Products/PostProducts', product);
-  }
-  
+   
   quicksearchProduct(keyword: string): Observable<ProductSearch[]>
   {
     if(!keyword.trim()){
@@ -43,6 +27,9 @@ export class ProductService {
   }
   updateProduct(id: number,formData: FormData){
     return this.http.put(globals.server+'api/admin/products/'+id,formData);
+  }
+  createProduct(formData: FormData){
+    return this.http.post(globals.server+'api/admin/products/add',formData);
   }
   getProductInformation(id: number){
     return this.http.get(globals.server+'api/products/' + id);
@@ -61,5 +48,8 @@ export class ProductService {
   }
   productSearch(keyword:string, page:number, sort:string){
     return this.http.get(globals.server+'api/products/search?keyword='+keyword+'&page='+page+'&sort='+sort);
+  }
+  productRecommended(page:number){
+    return this.http.get(globals.server+'api/products/recommended?page='+page);
   }
 }

@@ -13,7 +13,6 @@ import { SafeHtmlPipe } from './safe-html-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
-import { NgxUiLoaderModule } from  'ngx-ui-loader';
 import { SearchComponent } from './search/search.component';
 
 @NgModule({
@@ -29,8 +28,7 @@ import { SearchComponent } from './search/search.component';
     SlickCarouselModule,
     NgxImageZoomModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule,
-    NgxUiLoaderModule
+    ReactiveFormsModule
   ],
   declarations: [
     ProductsComponent,

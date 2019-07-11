@@ -16,6 +16,8 @@ export class NgbModalNewCategoryComponent implements OnInit {
   categoryForm: FormGroup;
   submitted = false;
   categorySelect: any = [];
+  isDup = 0;
+  
   constructor(public activeModal: NgbActiveModal, private fb: FormBuilder, private toastr: ToastrService,
      private categoryService: CategoryService) { }
 
@@ -38,16 +40,27 @@ export class NgbModalNewCategoryComponent implements OnInit {
     ).subscribe(res => {
       if(res !== ''){
         this.categoryService.checkUrl(res).subscribe((rs:response) => {
-          console.log(rs.status);
+          if(rs.status === 204){
+            this.isDup = 1;
+          }
+          else if(rs.status === 406){
+            this.isDup = 2;
+          }
         })
       }
+      else{
+        this.isDup = 0;
+      }
     });
+    this.categoryForm.get('categoryName').valueChanges.subscribe(rs => {
+      this.categoryForm.get('url').setValue(rs);
+    })
     this.categoryForm.get('category').setValue(0);
   }
   get f() { return this.categoryForm.controls; }
   save(){
     this.submitted = true;
-    if (this.categoryForm.invalid) {
+    if (this.categoryForm.invalid || this.isDup === 2) {
       return;
     }
     this.categoryService.addCategory(this.categoryForm.value).subscribe((rs:response) =>{

@@ -76,7 +76,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     SocialLoginModule,
     SlickCarouselModule,
     NgxUiLoaderRouterModule.forRoot({ showForeground: false }),
-    NgxUiLoaderHttpModule
+    NgxUiLoaderHttpModule.forRoot({showForeground : false})
   ],
   entryComponents:[
     NgbModalSelectAddressComponent

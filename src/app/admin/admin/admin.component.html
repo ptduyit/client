@@ -42,12 +42,17 @@
 </div> -->
 <div class="header row mx-0 sticky-top">
     <div class="col-2 bg-white">
-      <div class="home">Trang Chủ</div>
+        <div class="logo" routerLink="/">
+          <div>
+              <img src="assets/images/bee.png" width="100%" alt="logo">
+          </div>
+          <span>BeeShop</span>
+      </div>
     </div>
   <div class="col-10 menu-header">
     <div class="d-flex justify-content-end align-items-center h-100">
         <div class="account" *ngIf="user">
-            <span>{{user.name}}</span>
+            <span class="text-white">{{user.name}} ({{user.role}})</span>
             <div class="option-user">
                 <span routerLink="/user/edit-profile">Quản lý tài khoản</span>
                 <span (click)="logout()">Đăng xuất</span>

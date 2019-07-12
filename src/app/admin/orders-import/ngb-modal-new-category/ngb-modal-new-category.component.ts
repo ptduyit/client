@@ -53,14 +53,15 @@ export class NgbModalNewCategoryComponent implements OnInit {
       }
     });
     this.categoryForm.get('categoryName').valueChanges.subscribe(rs => {
-      this.categoryForm.get('url').setValue(rs);
+      let text = this.removeAccents(rs);
+      this.categoryForm.get('url').setValue(text);
     })
     this.categoryForm.get('category').setValue(0);
   }
   get f() { return this.categoryForm.controls; }
   save(){
     this.submitted = true;
-    if (this.categoryForm.invalid || this.isDup === 2) {
+    if (this.categoryForm.invalid || this.isDup !== 1) {
       return;
     }
     this.categoryService.addCategory(this.categoryForm.value).subscribe((rs:response) =>{
@@ -80,5 +81,8 @@ export class NgbModalNewCategoryComponent implements OnInit {
       this.categoryForm.get('parentId').setValue(id);
     else
     this.categoryForm.get('parentId').setValue(null);
+  }
+  removeAccents(str:string) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().replace(/ +/g, '-');
   }
 }

@@ -18,11 +18,6 @@
     font-size: 1.25rem;
     text-align: center;
 }
-.home{
-    padding: 16px 25px;
-    text-align: center;
-    
-}
 .menu-header{
     background: linear-gradient(120deg, #00e4d0, #5983e8);
 }
@@ -77,4 +72,24 @@
   }
   .option-user span:hover{
     background-color: rgb(211, 211, 211);
+  }
+  .logo > div{
+    width: 35px;
+  }
+  .logo{
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    padding: 9px 0;
+  }
+  .logo:hover > span{
+    color: rgb(159, 247, 18);
+  }
+  .logo > span{
+    color: #ecf93d;
+    font-size: 25px;
+    padding-left: 5px;
+    padding-right: 20px;
+    font-family: 'Lobster', cursive;
+    
   }

@@ -5,6 +5,8 @@ import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces
 import { StatisticService } from 'src/app/service/statistic.service';
 import { StatisticOfMonth } from 'src/app/model/statisticmonth';
 import { CategoryOfMonth } from 'src/app/model/categoryofmonth';
+import { registerLocaleData } from '@angular/common';
+import es from '@angular/common/locales/es';
 
 @Component({ 
   selector: 'app-statistics',
@@ -59,7 +61,7 @@ export class StatisticsComponent implements OnInit {
     this.getYears();
   }
   ngOnInit() {
-  
+    registerLocaleData( es );
     this.getStatisticOfYearColumn(2019);
     this.getExportsOfYear(2019);
     this.getDataForPipe();

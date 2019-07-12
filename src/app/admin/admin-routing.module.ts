@@ -10,19 +10,19 @@ import { NewProductComponent } from './products/new-product/new-product.componen
 import { ListProductComponent } from './products/list-product/list-product.component';
 import { NewOrderComponent } from './orders-import/new-order/new-order.component';
 import { ListOrdersImportComponent } from './orders-import/list-orders-import/list-orders-import.component';
-import { AuthGuard } from '../guard/auth.guard';
 import { PageNotFoundComponent } from '../shared/page-not-found/page-not-found.component';
 import { SlideshowComponent } from './slideshow/slideshow.component';
+import { AdminGuard } from '../guard/admin.guard';
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
     runGuardsAndResolvers: 'always',
     children: [
       {
         path: '',
-        canActivateChild: [AuthGuard],
+        canActivateChild: [AdminGuard],
         children: [
           { path: '', pathMatch: 'full', redirectTo: 'orders' },
           { path: 'users', component: UsersComponent },

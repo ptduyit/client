@@ -3,12 +3,13 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot,
   Router, CanActivateChild, NavigationExtras, CanLoad, Route } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../service/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
-  constructor(private authService: AuthService, private router: Router) {}
+export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -26,8 +27,15 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     return this.checkLogin(url);
   }
   checkLogin(url:string): boolean {
-    let user = JSON.parse(localStorage.getItem('user'));
-    if (user) { return true; }
+      let user = JSON.parse(localStorage.getItem('user'));
+    if (user && (user.role ==='admin' || user.role === 'employee')){
+         return true; 
+    }
+    else if(user){
+        this.toastr.error("","Bạn không có quyền truy cập");
+        this.router.navigate(['/']);
+        return false;
+    }
     this.authService.redirectUrl = url;
     this.router.navigate(['/login']);
     return false;

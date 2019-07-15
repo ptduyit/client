@@ -1,8 +1,8 @@
 <header>
     <div class="link-bar">
         <div class="container d-flex justify-content-end">
-            <span>Giới Thiệu</span>
-            <span class="mx-4">Hỗ Trợ</span>
+            <span style="cursor: pointer">Giới Thiệu</span>
+            <span class="mx-4" style="cursor: pointer">Hỗ Trợ</span>
             <div class="login d-flex" *ngIf="!user && !isUserLoggedIn">
                 <span (click)="login()">Đăng Nhập</span>
                 <span (click)="signup()">Đăng Ký</span>

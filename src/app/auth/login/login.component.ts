@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         }
         else {
-          console.log(data.message);
+          this.toastr.error('', 'Tài khoản hoặc mật khẩu không tồn tại');
         }
       },
         err => {

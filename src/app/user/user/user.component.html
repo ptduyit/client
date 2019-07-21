@@ -6,7 +6,8 @@
       <ul class="nav flex-column menu">
         <div class="name">Xin chào <span>{{user.name}}</span></div>
         <li routerLink="/user/edit-profile" routerLinkActive="active-link"><i class="pi pi-user"></i> <span class="">Thông tin cá nhân</span></li>
-        <li routerLink="/user/address" routerLinkActive="active-link"><i class="pi pi-map-marker"></i> <span class="">Sổ địa chỉ</span></li>
+        <li routerLink="/user/address" routerLinkActive="active-link" [ngClass]="{'active-link': editActive.isActive}"><i class="pi pi-map-marker"></i> <span class="">Sổ địa chỉ</span></li>
+        <li routerLink="/user/edit-address" routerLinkActive #editActive="routerLinkActive" class="d-none"></li>
         <li routerLink="/user/change-password" routerLinkActive="active-link"><i class="pi pi-key"></i> <span class="">Đổi mật khẩu</span></li>
         <li routerLink="/user/my-orders" routerLinkActive="active-link"><i class="pi pi-list"></i> <span class="">Đơn hàng của tôi</span></li>
         <li routerLink="/user/my-review" routerLinkActive="active-link"><i class="pi pi-star-o"></i> <span class="">Nhận xét sản phẩm</span></li>

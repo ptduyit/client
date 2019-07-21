@@ -50,7 +50,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.authService.signup(signup.value.fullname, signup.value.email, signup.value.passGroup.password, signup.value.phonenumber)
       .subscribe((data: response) => {
         if (!data.isError) {
-          this.dataService.updateStatus(data.module.fullName);
           var token = jwt_decode(data.module.token);
           var user = JSON.stringify({
             id: data.module.id,
@@ -59,6 +58,7 @@ export class SignupComponent implements OnInit, OnDestroy {
           });
           localStorage.setItem('user',user);
           localStorage.setItem('token', data.module.token);
+          this.dataService.updateStatus(data.module.fullName);
           this.toastr.success("","Đăng ký thành công");
           if(this.authService.redirectUrl){
             this.router.navigateByUrl(this.authService.redirectUrl);
@@ -97,8 +97,6 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.toastr.info("","Đang xác thực...")
         this.authService.externalLogin(token,socialPlatform)
         .subscribe((data: response) =>  {
-          this.toastr.success("","Đăng nhập thành công");
-          this.dataService.updateStatus(data.module.fullName);
           localStorage.setItem('token', data.module.token);
           var token = jwt_decode(data.module.token);
           var user = JSON.stringify({
@@ -107,6 +105,8 @@ export class SignupComponent implements OnInit, OnDestroy {
             role: token['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
           });
           localStorage.setItem('user',user);
+          this.toastr.success("","Đăng nhập thành công");
+          this.dataService.updateStatus(data.module.fullName);
           this.cartService.getTotalQuantity(data.module.id).subscribe((rs : response) =>{
             if(!rs.isError){
               this.dataService.updateNumberProduct(rs.module);

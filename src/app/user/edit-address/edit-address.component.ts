@@ -107,7 +107,12 @@ export class EditAddressComponent implements OnInit {
       this.addressService.addAddress(this.addressForm.value)
       .subscribe((data:response) => {
         if(!data.isError){
-          this.router.navigate([this.prevRoute]);
+          if(this.prevRoute === '/cart'){
+            this.router.navigate(['cart']);
+          }
+          else{
+            this.router.navigate(['user/address']);
+          }
           this.toastr.success("","Thêm địa chỉ thành công")
         }
         else{

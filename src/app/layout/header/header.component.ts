@@ -56,6 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.loginSubscription = this.dataShareService.cast.subscribe(value => {
       this.isUserLoggedIn = value;
+      this.user = JSON.parse(localStorage.getItem('user'));
     });
     this.numCartSubscription = this.dataShareService.num.subscribe(value => {
       this.productNumber = value;

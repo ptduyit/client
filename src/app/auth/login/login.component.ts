@@ -105,8 +105,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.externalLogin(token, socialPlatform)
           .subscribe((data: response) => {
             if (!data.isError) {
-              this.toastr.success("", "Đăng nhập thành công");
-              this.dataService.updateStatus(data.module.fullName);
               var token = jwt_decode(data.module.token);
               var user = JSON.stringify({
                 id: data.module.id,
@@ -115,6 +113,8 @@ export class LoginComponent implements OnInit, OnDestroy {
               });
               localStorage.setItem('user', user);
               localStorage.setItem('token', data.module.token);
+              this.dataService.updateStatus(data.module.fullName);
+              this.toastr.success("", "Đăng nhập thành công");
               this.cartService.getTotalQuantity(data.module.id).subscribe((rs: response) => {
                 if (!rs.isError) {
                   this.dataService.updateNumberProduct(rs.module);

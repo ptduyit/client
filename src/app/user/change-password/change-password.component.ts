@@ -47,6 +47,8 @@ export class ChangePasswordComponent implements OnInit {
     this.userService.changePassword(this.user.id,pold,pnew).subscribe((data: response) => {
       if(!data.isError){
         this.toastr.success("","Đổi mật khẩu thành công");
+        this.passForm.reset();
+        this.submitted = false;
       }else{
         switch(data.status){
           case 400: this.toastr.error("","Sai dữ liệu đầu vào");

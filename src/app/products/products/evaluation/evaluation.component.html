@@ -43,9 +43,9 @@
       </ngb-rating>
       <span>{{evaluation.date | date:'HH:mm dd/MM/yyyy'}}</span>
     </div>
-    <strong class="">{{evaluation.fullName}}</strong>
+    <span style="font-weight: 500;" class="">{{evaluation.fullName}}</span>
     <p class="mb-1">{{evaluation.content}}</p>
-    <button class="btn btn-link p-0" (click)="(evaluation.show = !evaluation.show) && empty(evaluation)">Trả
+    <button class="btn btn-link p-0" *ngIf="user" (click)="(evaluation.show = !evaluation.show) && empty(evaluation)">Trả
       lời</button>
     <div *ngIf="evaluation.show">
       <textarea class="w-100 form-control" [formControlName]="evaluation.evaluationId"></textarea>
@@ -62,13 +62,13 @@
     </div>
     <ng-container *ngIf="evaluation.showcomment">
       <div *ngFor="let comment of evaluation.comments" class="mt-2">
-        <strong class="mr-2 d-block">{{comment.fullName}}</strong>
+        <span style="font-weight: 500;" class="mr-2 d-block">{{comment.fullName}}</span>
         <span class="text-break">{{comment.content}}</span>
       </div>
     </ng-container>
     <ng-container *ngIf="evaluation.newcomments.length > 0">
       <div class="mt-2" *ngFor="let newcomment of evaluation.newcomments">
-        <strong class="mr-2 d-block">{{newcomment.fullName}}</strong>
+        <span style="font-weight: 500;" class="mr-2 d-block">{{newcomment.fullName}}</span>
         <span class="text-break">{{newcomment.content}}</span>
       </div>
     </ng-container>

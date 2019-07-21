@@ -11,7 +11,7 @@
                 <span *ngIf="user && !isUserLoggedIn">{{user.name}}</span>
                 <span *ngIf="isUserLoggedIn">{{isUserLoggedIn}}</span>
                 <div class="option-user">
-                    <span *ngIf="user.role === 'admin' || user.role === 'employee'" routerLink="/admin">Trang quản lý admin</span>
+                    <span *ngIf="user && (user.role === 'admin' || user.role === 'employee')" routerLink="/admin">Trang quản lý admin</span>
                     <span routerLink="/user/edit-profile">Quản lý tài khoản</span>
                     <span routerLink="/user/my-orders">Đơn hàng của tôi</span>
                     <span routerLink="/user/my-review">Nhận xét của tôi</span>

@@ -30,7 +30,7 @@
                 <div formArrayName="productImages">
                     <ng-container *ngFor="let image of productForm.get('productImages')['controls']; let i=index">
                         <div [formGroupName]="i" class="d-inline-block position-relative">
-                            <img style="width: 100px" src="{{image.value.url}}" alt="">
+                            <img style="width: 100px; height: 100px;" src="{{image.value.url}}" alt="">
                             <span class="del-image" (click)="deleteImage(i,image)"><i class="pi pi-times"></i></span>
                         </div>
                     </ng-container>
